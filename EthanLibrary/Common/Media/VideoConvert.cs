@@ -32,19 +32,22 @@ namespace EthanLibrary.Common
         public VideoConvert()
         { }
 
-        string[] strArrMencoder = new string[] { "wmv", "rmvb", "rm" };
-        string[] strArrFfmpeg = new string[] { "asf", "avi", "mpg", "3gp", "mov" };
+        private string[] strArrMencoder = new string[] { "wmv", "rmvb", "rm" };
+        private string[] strArrFfmpeg = new string[] { "asf", "avi", "mpg", "3gp", "mov" };
 
         #region 配置
+
         public static string ffmpegtool = ConfigurationManager.AppSettings["ffmpeg"];
         public static string mencodertool = ConfigurationManager.AppSettings["mencoder"];
         public static string savefile = ConfigurationManager.AppSettings["savefile"] + "/";
         public static string sizeOfImg = ConfigurationManager.AppSettings["CatchFlvImgSize"];
         public static string widthOfFile = ConfigurationManager.AppSettings["widthSize"];
         public static string heightOfFile = ConfigurationManager.AppSettings["heightSize"];
-        #endregion
+
+        #endregion 配置
 
         #region 获取文件的名字
+
         /// <summary>
         /// 获取文件的名字
         /// </summary>
@@ -54,9 +57,11 @@ namespace EthanLibrary.Common
             string Name = fileName.Substring(i);
             return Name;
         }
-        #endregion
+
+        #endregion 获取文件的名字
 
         #region 获取文件扩展名
+
         /// <summary>
         /// 获取文件扩展名
         /// </summary>
@@ -66,9 +71,11 @@ namespace EthanLibrary.Common
             string Name = fileName.Substring(i);
             return Name;
         }
-        #endregion
+
+        #endregion 获取文件扩展名
 
         #region 获取文件类型
+
         /// <summary>
         /// 获取文件类型
         /// </summary>
@@ -94,9 +101,11 @@ namespace EthanLibrary.Common
             }
             return m_strReturn;
         }
-        #endregion
+
+        #endregion 获取文件类型
 
         #region 视频格式转为Flv
+
         /// <summary>
         /// 视频格式转为Flv
         /// </summary>
@@ -110,7 +119,7 @@ namespace EthanLibrary.Common
             }
             vFileName = HttpContext.Current.Server.MapPath(vFileName);
             ExportName = HttpContext.Current.Server.MapPath(ExportName);
-            string Command = " -i \"" + vFileName + "\" -y -ab 32 -ar 22050 -b 800000 -s  480*360 \"" + ExportName + "\""; //Flv格式     
+            string Command = " -i \"" + vFileName + "\" -y -ab 32 -ar 22050 -b 800000 -s  480*360 \"" + ExportName + "\""; //Flv格式
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = ffmpegtool;
             p.StartInfo.Arguments = Command;
@@ -127,9 +136,11 @@ namespace EthanLibrary.Common
             p.Dispose();
             return true;
         }
-        #endregion
+
+        #endregion 视频格式转为Flv
 
         #region 生成Flv视频的缩略图
+
         /// <summary>
         /// 生成Flv视频的缩略图
         /// </summary>
@@ -172,9 +183,11 @@ namespace EthanLibrary.Common
                 return "";
             }
         }
-        #endregion
+
+        #endregion 生成Flv视频的缩略图
 
         #region 运行FFMpeg的视频解码(绝对路径)
+
         /// <summary>
         /// 转换文件并保存在指定文件夹下
         /// </summary>
@@ -228,9 +241,11 @@ namespace EthanLibrary.Common
             }
             return "";
         }
-        #endregion
+
+        #endregion 运行FFMpeg的视频解码(绝对路径)
 
         #region 运行FFMpeg的视频解码(相对路径)
+
         /// <summary>
         /// 转换文件并保存在指定文件夹下
         /// </summary>
@@ -266,17 +281,19 @@ namespace EthanLibrary.Common
                 return "";
             }
 
-            ///注意:图片截取成功后,数据由内存缓存写到磁盘需要时间较长,大概在3,4秒甚至更长;   
-            ///这儿需要延时后再检测,我服务器延时8秒,即如果超过8秒图片仍不存在,认为截图失败;    
+            ///注意:图片截取成功后,数据由内存缓存写到磁盘需要时间较长,大概在3,4秒甚至更长;
+            ///这儿需要延时后再检测,我服务器延时8秒,即如果超过8秒图片仍不存在,认为截图失败;
             if (System.IO.File.Exists(flv_img))
             {
                 return flv_img;
             }
             return "";
         }
-        #endregion
+
+        #endregion 运行FFMpeg的视频解码(相对路径)
 
         #region 运行mencoder的视频解码器转换(绝对路径)
+
         /// <summary>
         /// 运行mencoder的视频解码器转换
         /// </summary>
@@ -303,6 +320,7 @@ namespace EthanLibrary.Common
             }
             return "";
         }
-        #endregion
+
+        #endregion 运行mencoder的视频解码器转换(绝对路径)
     }
 }

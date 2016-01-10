@@ -2,16 +2,17 @@
 using System.Windows.Forms;
 using SendKeysProxy = System.Windows.Forms.SendKeys;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
-    /// Provides properties for accessing the current state of the keyboard, 
+    /// Provides properties for accessing the current state of the keyboard,
     /// such as what keys are currently pressed, and provides a method to send keystrokes to the active window.
     /// </summary>
     [HostProtection(SecurityAction.LinkDemand, Resources = HostProtectionResource.ExternalProcessMgmt)]
     public class KeyboardHelper
     {
         #region Properties
+
         /// <summary>Gets a Boolean indicating if the ALT key is down.</summary>
         /// <returns>A Boolean value: True if the ALT key is down; otherwise False.</returns>
         public static bool AltKeyDown
@@ -30,7 +31,7 @@ namespace Core.Systems
             get
             {
                 return false;
-               // return ((UnsafeNativeMethods.GetKeyState(20) & 1) > 0);
+                // return ((UnsafeNativeMethods.GetKeyState(20) & 1) > 0);
             }
         }
 
@@ -81,10 +82,10 @@ namespace Core.Systems
             }
         }
 
-
-        #endregion
+        #endregion Properties
 
         #region Methods
+
         /// <summary>Sends one or more keystrokes to the active window, as if typed on the keyboard.</summary>
         /// <param name="keys">A String that defines the keys to send.</param>
         public static void SendKeys(string keys)
@@ -109,6 +110,6 @@ namespace Core.Systems
             }
         }
 
-        #endregion
+        #endregion Methods
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Commons
@@ -101,6 +100,7 @@ namespace Commons
         }
 
         #region MD5签名验证
+
         /// <summary>
         /// 对给定文件路径的文件加上标签
         /// </summary>
@@ -183,8 +183,9 @@ namespace Commons
 
             result = result.Replace("-", "");
             return result;
-        } 
-        #endregion
+        }
+
+        #endregion MD5签名验证
 
         private void Test()
         {
@@ -196,7 +197,6 @@ namespace Commons
 
             o = RemoveMD5Profix(o);
             Console.WriteLine(o);
-
         }
     }
 }

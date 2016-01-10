@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 
-namespace Core.Drawing
+namespace EthanLibrary.Drawing
 {
     #region Public Structs
-
 
     public struct MyColor
     {
@@ -543,11 +541,12 @@ namespace Core.Drawing
         }
     }
 
-    #endregion
+    #endregion Public Structs
 
     internal class ColorHelper
     {
         #region CheckColorHelper
+
         public static double CheckColor(double number)
         {
             return GetBetween(number, 0, 1);
@@ -579,7 +578,8 @@ namespace Core.Drawing
 
             return ret_val;
         }
-        #endregion
+
+        #endregion CheckColorHelper
     }
 
     /// <summary>

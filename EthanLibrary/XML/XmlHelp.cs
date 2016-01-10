@@ -1,32 +1,36 @@
-﻿using System.IO;
+﻿using System.Data;
+using System.IO;
 using System.Web;
 using System.Xml;
-using System.Data;
 
-
-namespace Core.XML
+namespace EthanLibrary.XML
 {
     /// <summary>
     /// Xml的操作公共类
-    /// </summary>    
+    /// </summary>
     public class XmlHelp
     {
         #region 字段定义
+
         /// <summary>
         /// XML文件的物理路径
         /// </summary>
         private string _filePath = string.Empty;
+
         /// <summary>
         /// Xml文档
         /// </summary>
         private XmlDocument _xml;
+
         /// <summary>
         /// XML的根节点
         /// </summary>
         private XmlElement _element;
-        #endregion
+
+        #endregion 字段定义
 
         #region 构造方法
+
         /// <summary>
         /// 实例化XmlHelper对象
         /// </summary>
@@ -36,15 +40,16 @@ namespace Core.XML
             //获取XML文件的绝对路径
             _filePath = HttpContext.Current.Server.MapPath(xmlFilePath);
         }
-        #endregion
+
+        #endregion 构造方法
 
         #region 创建XML的根节点
+
         /// <summary>
         /// 创建XML的根节点
         /// </summary>
         private void CreateXMLElement()
         {
-
             //创建一个XML对象
             _xml = new XmlDocument();
 
@@ -57,12 +62,14 @@ namespace Core.XML
             //为XML的根节点赋值
             _element = _xml.DocumentElement;
         }
-        #endregion
+
+        #endregion 创建XML的根节点
 
         #region 获取指定XPath表达式的节点对象
+
         /// <summary>
         /// 获取指定XPath表达式的节点对象
-        /// </summary>        
+        /// </summary>
         /// <param name="xPath">XPath表达式,
         /// 范例1: @"Skill/First/SkillItem", 等效于 @"//Skill/First/SkillItem"
         /// 范例2: @"Table[USERNAME='a']" , []表示筛选,USERNAME是Table下的一个子节点.
@@ -76,9 +83,11 @@ namespace Core.XML
             //返回XPath节点
             return _element.SelectSingleNode(xPath);
         }
-        #endregion
+
+        #endregion 获取指定XPath表达式的节点对象
 
         #region 获取指定XPath表达式节点的值
+
         /// <summary>
         /// 获取指定XPath表达式节点的值
         /// </summary>
@@ -95,9 +104,11 @@ namespace Core.XML
             //返回XPath节点的值
             return _element.SelectSingleNode(xPath).InnerText;
         }
-        #endregion
+
+        #endregion 获取指定XPath表达式节点的值
 
         #region 获取指定XPath表达式节点的属性值
+
         /// <summary>
         /// 获取指定XPath表达式节点的属性值
         /// </summary>
@@ -115,13 +126,15 @@ namespace Core.XML
             //返回XPath节点的属性值
             return _element.SelectSingleNode(xPath).Attributes[attributeName].Value;
         }
-        #endregion
+
+        #endregion 获取指定XPath表达式节点的属性值
 
         #region 新增节点
+
         /// <summary>
         /// 1. 功能：新增节点。
         /// 2. 使用条件：将任意节点插入到当前Xml文件中。
-        /// </summary>        
+        /// </summary>
         /// <param name="xmlNode">要插入的Xml节点</param>
         public void AppendNode(XmlNode xmlNode)
         {
@@ -138,7 +151,7 @@ namespace Core.XML
         /// <summary>
         /// 1. 功能：新增节点。
         /// 2. 使用条件：将DataSet中的第一条记录插入Xml文件中。
-        /// </summary>        
+        /// </summary>
         /// <param name="ds">DataSet的实例，该DataSet中应该只有一条记录</param>
         public void AppendNode(DataSet ds)
         {
@@ -151,12 +164,14 @@ namespace Core.XML
             //将节点插入到根节点下
             AppendNode(node);
         }
-        #endregion
+
+        #endregion 新增节点
 
         #region 删除节点
+
         /// <summary>
         /// 删除指定XPath表达式的节点
-        /// </summary>        
+        /// </summary>
         /// <param name="xPath">XPath表达式,
         /// 范例1: @"Skill/First/SkillItem", 等效于 @"//Skill/First/SkillItem"
         /// 范例2: @"Table[USERNAME='a']" , []表示筛选,USERNAME是Table下的一个子节点.
@@ -173,12 +188,14 @@ namespace Core.XML
             //删除节点
             _element.RemoveChild(node);
         }
-        #endregion //删除节点
+
+        #endregion 删除节点
 
         #region 保存XML文件
+
         /// <summary>
         /// 保存XML文件
-        /// </summary>        
+        /// </summary>
         public void Save()
         {
             //创建XML的根节点
@@ -187,15 +204,17 @@ namespace Core.XML
             //保存XML文件
             _xml.Save(this._filePath);
         }
-        #endregion //保存XML文件
+
+        #endregion 保存XML文件
 
         #region 静态方法
 
         #region 创建根节点对象
+
         /// <summary>
         /// 创建根节点对象
         /// </summary>
-        /// <param name="xmlFilePath">Xml文件的相对路径</param>        
+        /// <param name="xmlFilePath">Xml文件的相对路径</param>
         private static XmlElement CreateRootElement(string xmlFilePath)
         {
             //定义变量，表示XML文件的绝对路径
@@ -212,9 +231,11 @@ namespace Core.XML
             //返回根节点
             return xmlDocument.DocumentElement;
         }
-        #endregion
+
+        #endregion 创建根节点对象
 
         #region 获取指定XPath表达式节点的值
+
         /// <summary>
         /// 获取指定XPath表达式节点的值
         /// </summary>
@@ -232,9 +253,11 @@ namespace Core.XML
             //返回XPath节点的值
             return rootElement.SelectSingleNode(xPath).InnerText;
         }
-        #endregion
+
+        #endregion 获取指定XPath表达式节点的值
 
         #region 获取指定XPath表达式节点的属性值
+
         /// <summary>
         /// 获取指定XPath表达式节点的属性值
         /// </summary>
@@ -253,9 +276,10 @@ namespace Core.XML
             //返回XPath节点的属性值
             return rootElement.SelectSingleNode(xPath).Attributes[attributeName].Value;
         }
-        #endregion
 
-        #endregion
+        #endregion 获取指定XPath表达式节点的属性值
+
+        #endregion 静态方法
 
         public static void SetValue(string xmlFilePath, string xPath, string newtext)
         {

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Globalization;
 
 namespace EthanLibrary.Common
@@ -56,7 +54,6 @@ namespace EthanLibrary.Common
 
             return string.Concat(GetLunisolarYear(lyear), "年", isleap ? "闰" : string.Empty, GetLunisolarMonth(lmonth), "月", GetLunisolarDay(lday));
         }
-
 
         /// <summary>
         /// 返回农历日期
@@ -117,7 +114,7 @@ namespace EthanLibrary.Common
         /// 十二生肖
         /// </summary>
         private static string[] shengxiao = { "鼠", "牛", "虎", "免", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
-        
+
         /// <summary>
         /// 返回农历天干地支年
         /// </summary>
@@ -135,8 +132,8 @@ namespace EthanLibrary.Common
 
             throw new ArgumentOutOfRangeException("无效的年份!");
         }
-        
-        #endregion
+
+        #endregion 农历年
 
         #region 农历月
 
@@ -144,7 +141,7 @@ namespace EthanLibrary.Common
         /// 农历月
         /// </summary>
         private static string[] months = { "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二(腊)" };
-        
+
         /// <summary>
         /// 返回农历月
         /// </summary>
@@ -160,7 +157,7 @@ namespace EthanLibrary.Common
             throw new ArgumentOutOfRangeException("无效的月份!");
         }
 
-        #endregion
+        #endregion 农历月
 
         #region 农历日
 
@@ -196,6 +193,6 @@ namespace EthanLibrary.Common
             throw new ArgumentOutOfRangeException("无效的日!");
         }
 
-        #endregion
+        #endregion 农历日
     }
 }

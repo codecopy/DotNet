@@ -3,7 +3,7 @@
 namespace EmailHelp
 {
     /// <summary>
-    /// This class represents an item returned from the 
+    /// This class represents an item returned from the
     /// Pop3 LIST command.
     /// </summary>
     public class Pop3ListItem

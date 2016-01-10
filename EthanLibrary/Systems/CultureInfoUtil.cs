@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Threading;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     public class CultureInfoUtil
     {

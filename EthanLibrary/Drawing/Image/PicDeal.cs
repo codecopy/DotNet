@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Drawing.Imaging;
 using System.Collections;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
-namespace Core.Drawing
+namespace EthanLibrary.Drawing
 {
     /// <summary>
     /// 枚举,生成缩略图模式
@@ -15,14 +15,17 @@ namespace Core.Drawing
         /// HW
         /// </summary>
         HW,
+
         /// <summary>
         /// W
         /// </summary>
         W,
+
         /// <summary>
         /// H
         /// </summary>
         H,
+
         /// <summary>
         /// Cut
         /// </summary>
@@ -36,7 +39,9 @@ namespace Core.Drawing
     {
         private static Hashtable htmimes = new Hashtable();
         internal static readonly string AllowExt = ".jpe|.jpeg|.jpg|.png|.tif|.tiff|.bmp";
+
         #region 生成缩略图
+
         /// <summary>
         /// 生成缩略图
         /// </summary>
@@ -60,15 +65,18 @@ namespace Core.Drawing
 
             switch (mode)
             {
-                case ThumbnailMod.HW://指定高宽缩放（可能变形）                
+                case ThumbnailMod.HW://指定高宽缩放（可能变形）
                     break;
-                case ThumbnailMod.W://指定宽，高按比例                    
+
+                case ThumbnailMod.W://指定宽，高按比例
                     toheight = originalImage.Height * width / originalImage.Width;
                     break;
+
                 case ThumbnailMod.H://指定高，宽按比例
                     towidth = originalImage.Width * height / originalImage.Height;
                     break;
-                case ThumbnailMod.Cut://指定高宽裁减（不变形）                
+
+                case ThumbnailMod.Cut://指定高宽裁减（不变形）
                     if ((double)originalImage.Width / (double)originalImage.Height > (double)towidth / (double)toheight)
                     {
                         oh = originalImage.Height;
@@ -84,6 +92,7 @@ namespace Core.Drawing
                         y = (originalImage.Height - oh) / 2;
                     }
                     break;
+
                 default:
                     break;
             }
@@ -126,9 +135,11 @@ namespace Core.Drawing
             }
             return isok;
         }
-        #endregion
+
+        #endregion 生成缩略图
 
         #region 在图片上生成图片水印
+
         ///// <summary>
         ///// 在图片上生成图片水印
         ///// </summary>
@@ -158,7 +169,8 @@ namespace Core.Drawing
             catch
             { }
         }
-        #endregion
+
+        #endregion 在图片上生成图片水印
 
         /// <summary>
         /// 公共方法
@@ -174,8 +186,8 @@ namespace Core.Drawing
             htmimes[".bmp"] = "image/bmp";
         }
 
-
         #region 返回新图片尺寸
+
         /// <summary>
         /// 返回新图片尺寸
         /// </summary>
@@ -198,7 +210,7 @@ namespace Core.Drawing
             if (originalWidth > MAX_WIDTH || originalHeight > MAX_HEIGHT)
             {
                 decimal factor;
-                // determine the largest factor 
+                // determine the largest factor
                 if (originalWidth / originalHeight > ASPECT_RATIO)
                 {
                     factor = originalWidth / MAX_WIDTH;
@@ -219,8 +231,8 @@ namespace Core.Drawing
             }
 
             return new Size(newWidth, newHeight);
-
         }
-        #endregion
+
+        #endregion 返回新图片尺寸
     }
 }

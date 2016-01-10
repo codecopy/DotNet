@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace EmailHelp
 {
     /// <summary>
-    /// This class adds a few internet mail headers not already exposed by the 
+    /// This class adds a few internet mail headers not already exposed by the
     /// System.Net.MailMessage.  It also provides support to encapsulate the
     /// nested mail attachments in the Children collection.
     /// </summary>
@@ -35,10 +35,10 @@ namespace EmailHelp
             internal set { _messageNumber = value; }
         }
 
-
         private static readonly char[] AddressDelimiters = new char[] { ',', ';' };
 
         private List<MailMessageEx> _children;
+
         /// <summary>
         /// Gets the children MailMessage attachments.
         /// </summary>
@@ -230,18 +230,23 @@ namespace EmailHelp
                     case MailHeaders.Bcc:
                         MailMessageEx.PopulateAddressList(value, message.Bcc);
                         break;
+
                     case MailHeaders.Cc:
                         MailMessageEx.PopulateAddressList(value, message.CC);
                         break;
+
                     case MailHeaders.From:
                         message.From = MailMessageEx.CreateMailAddress(value);
                         break;
+
                     case MailHeaders.ReplyTo:
                         message.ReplyTo = MailMessageEx.CreateMailAddress(value);
                         break;
+
                     case MailHeaders.Subject:
                         message.Subject = value;
                         break;
+
                     case MailHeaders.To:
                         MailMessageEx.PopulateAddressList(value, message.To);
                         break;
@@ -295,7 +300,6 @@ namespace EmailHelp
             {
                 yield return CreateMailAddress(match.Value);
             }
-
 
             /*
             string[] addresses = addressList.Split(AddressDelimiters);

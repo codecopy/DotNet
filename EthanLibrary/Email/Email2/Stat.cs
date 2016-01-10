@@ -1,10 +1,9 @@
 ﻿using System;
 
-
 namespace EmailHelp
 {
     /// <summary>
-    /// This class represents the results from the execution 
+    /// This class represents the results from the execution
     /// of a pop3 STAT command.
     /// </summary>
     public sealed class Stat

@@ -1,65 +1,71 @@
 using System;
-using System.Text;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
+using System.Net.Cache;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-using System.IO.Compression;
-using System.Net.Cache;
+using System.Text;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
-    /// <summary>    
-    /// 上传数据参数    
-    /// </summary>    
+    /// <summary>
+    /// 上传数据参数
+    /// </summary>
     public class UploadEventArgs : EventArgs
     {
-        int bytesSent;
-        int totalBytes;
-        /// <summary>    
-        /// 已发送的字节数    
-        /// </summary>    
+        private int bytesSent;
+        private int totalBytes;
+
+        /// <summary>
+        /// 已发送的字节数
+        /// </summary>
         public int BytesSent
         {
             get { return bytesSent; }
             set { bytesSent = value; }
         }
-        /// <summary>    
-        /// 总字节数    
-        /// </summary>    
+
+        /// <summary>
+        /// 总字节数
+        /// </summary>
         public int TotalBytes
         {
             get { return totalBytes; }
             set { totalBytes = value; }
         }
     }
-    /// <summary>    
-    /// 下载数据参数    
-    /// </summary>    
+
+    /// <summary>
+    /// 下载数据参数
+    /// </summary>
     public class DownloadEventArgs : EventArgs
     {
-        int bytesReceived;
-        int totalBytes;
-        byte[] receivedData;
-        /// <summary>    
-        /// 已接收的字节数    
-        /// </summary>    
+        private int bytesReceived;
+        private int totalBytes;
+        private byte[] receivedData;
+
+        /// <summary>
+        /// 已接收的字节数
+        /// </summary>
         public int BytesReceived
         {
             get { return bytesReceived; }
             set { bytesReceived = value; }
         }
-        /// <summary>    
-        /// 总字节数    
-        /// </summary>    
+
+        /// <summary>
+        /// 总字节数
+        /// </summary>
         public int TotalBytes
         {
             get { return totalBytes; }
             set { totalBytes = value; }
         }
-        /// <summary>    
-        /// 当前缓冲区接收的数据    
-        /// </summary>    
+
+        /// <summary>
+        /// 当前缓冲区接收的数据
+        /// </summary>
         public byte[] ReceivedData
         {
             get { return receivedData; }
@@ -69,97 +75,110 @@ namespace Core.Net
 
     public class WebClient
     {
-        Encoding encoding = Encoding.Default;
-        string respHtml = "";
-        WebProxy proxy;
-        static CookieContainer cc;
-        WebHeaderCollection requestHeaders;
-        WebHeaderCollection responseHeaders;
-        int bufferSize = 15240;
+        private Encoding encoding = Encoding.Default;
+        private string respHtml = "";
+        private WebProxy proxy;
+        private static CookieContainer cc;
+        private WebHeaderCollection requestHeaders;
+        private WebHeaderCollection responseHeaders;
+        private int bufferSize = 15240;
+
         public event EventHandler<UploadEventArgs> UploadProgressChanged;
+
         public event EventHandler<DownloadEventArgs> DownloadProgressChanged;
+
         static WebClient()
         {
             LoadCookiesFromDisk();
         }
-        /// <summary>    
-        /// 创建WebClient的实例    
-        /// </summary>    
+
+        /// <summary>
+        /// 创建WebClient的实例
+        /// </summary>
         public WebClient()
         {
             requestHeaders = new WebHeaderCollection();
             responseHeaders = new WebHeaderCollection();
         }
-        /// <summary>    
-        /// 设置发送和接收的数据缓冲大小    
-        /// </summary>    
+
+        /// <summary>
+        /// 设置发送和接收的数据缓冲大小
+        /// </summary>
         public int BufferSize
         {
             get { return bufferSize; }
             set { bufferSize = value; }
         }
-        /// <summary>    
-        /// 获取响应头集合    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取响应头集合
+        /// </summary>
         public WebHeaderCollection ResponseHeaders
         {
             get { return responseHeaders; }
         }
-        /// <summary>    
-        /// 获取请求头集合    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取请求头集合
+        /// </summary>
         public WebHeaderCollection RequestHeaders
         {
             get { return requestHeaders; }
         }
-        /// <summary>    
-        /// 获取或设置代理    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取或设置代理
+        /// </summary>
         public WebProxy Proxy
         {
             get { return proxy; }
             set { proxy = value; }
         }
-        /// <summary>    
-        /// 获取或设置请求与响应的文本编码方式    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取或设置请求与响应的文本编码方式
+        /// </summary>
         public Encoding Encoding
         {
             get { return encoding; }
             set { encoding = value; }
         }
-        /// <summary>    
-        /// 获取或设置响应的html代码    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取或设置响应的html代码
+        /// </summary>
         public string RespHtml
         {
             get { return respHtml; }
             set { respHtml = value; }
         }
-        /// <summary>    
-        /// 获取或设置与请求关联的Cookie容器    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取或设置与请求关联的Cookie容器
+        /// </summary>
         public CookieContainer CookieContainer
         {
             get { return cc; }
             set { cc = value; }
         }
-        /// <summary>    
-        ///  获取网页源代码    
-        /// </summary>    
-        /// <param name="url">网址</param>    
-        /// <returns></returns>    
+
+        /// <summary>
+        ///  获取网页源代码
+        /// </summary>
+        /// <param name="url">网址</param>
+        /// <returns></returns>
         public string GetHtml(string url)
         {
             HttpWebRequest request = CreateRequest(url, "GET");
             respHtml = encoding.GetString(GetData(request));
             return respHtml;
         }
-        /// <summary>    
-        /// 下载文件    
-        /// </summary>    
-        /// <param name="url">文件URL地址</param>    
-        /// <param name="filename">文件保存完整路径</param>    
+
+        /// <summary>
+        /// 下载文件
+        /// </summary>
+        /// <param name="url">文件URL地址</param>
+        /// <param name="filename">文件保存完整路径</param>
         public void DownloadFile(string url, string filename)
         {
             FileStream fs = null;
@@ -175,33 +194,36 @@ namespace Core.Net
                 if (fs != null) fs.Close();
             }
         }
-        /// <summary>    
-        /// 从指定URL下载数据    
-        /// </summary>    
-        /// <param name="url">网址</param>    
-        /// <returns></returns>    
+
+        /// <summary>
+        /// 从指定URL下载数据
+        /// </summary>
+        /// <param name="url">网址</param>
+        /// <returns></returns>
         public byte[] GetData(string url)
         {
             HttpWebRequest request = CreateRequest(url, "GET");
             return GetData(request);
         }
-        /// <summary>    
-        /// 向指定URL发送文本数据    
-        /// </summary>    
-        /// <param name="url">网址</param>    
-        /// <param name="postData">urlencode编码的文本数据</param>    
-        /// <returns></returns>    
+
+        /// <summary>
+        /// 向指定URL发送文本数据
+        /// </summary>
+        /// <param name="url">网址</param>
+        /// <param name="postData">urlencode编码的文本数据</param>
+        /// <returns></returns>
         public string Post(string url, string postData)
         {
             byte[] data = encoding.GetBytes(postData);
             return Post(url, data);
         }
-        /// <summary>    
-        /// 向指定URL发送字节数据    
-        /// </summary>    
-        /// <param name="url">网址</param>    
-        /// <param name="postData">发送的字节数组</param>    
-        /// <returns></returns>    
+
+        /// <summary>
+        /// 向指定URL发送字节数据
+        /// </summary>
+        /// <param name="url">网址</param>
+        /// <param name="postData">发送的字节数组</param>
+        /// <returns></returns>
         public string Post(string url, byte[] postData)
         {
             HttpWebRequest request = CreateRequest(url, "POST");
@@ -212,12 +234,13 @@ namespace Core.Net
             respHtml = encoding.GetString(GetData(request));
             return respHtml;
         }
-        /// <summary>    
-        /// 向指定网址发送mulitpart编码的数据    
-        /// </summary>    
-        /// <param name="url">网址</param>    
-        /// <param name="mulitpartForm">mulitpart form data</param>    
-        /// <returns></returns>    
+
+        /// <summary>
+        /// 向指定网址发送mulitpart编码的数据
+        /// </summary>
+        /// <param name="url">网址</param>
+        /// <param name="mulitpartForm">mulitpart form data</param>
+        /// <returns></returns>
         public string Post(string url, MultipartForm mulitpartForm)
         {
             HttpWebRequest request = CreateRequest(url, "POST");
@@ -228,12 +251,12 @@ namespace Core.Net
             respHtml = encoding.GetString(GetData(request));
             return respHtml;
         }
-        
-        /// <summary>    
-        /// 读取请求返回的数据    
-        /// </summary>    
-        /// <param name="request">请求对象</param>    
-        /// <returns></returns>    
+
+        /// <summary>
+        /// 读取请求返回的数据
+        /// </summary>
+        /// <param name="request">请求对象</param>
+        /// <returns></returns>
         private byte[] GetData(HttpWebRequest request)
         {
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -260,7 +283,7 @@ namespace Core.Net
                 }
             }
             stream.Close();
-            //解压    
+            //解压
             if (ResponseHeaders[HttpResponseHeader.ContentEncoding] != null)
             {
                 MemoryStream msTemp = new MemoryStream();
@@ -275,6 +298,7 @@ namespace Core.Net
                             msTemp.Write(buf, 0, count);
                         }
                         return msTemp.ToArray();
+
                     case "deflate":
                         DeflateStream deflate = new DeflateStream(ms, CompressionMode.Decompress);
                         while ((count = deflate.Read(buf, 0, buf.Length)) > 0)
@@ -282,17 +306,19 @@ namespace Core.Net
                             msTemp.Write(buf, 0, count);
                         }
                         return msTemp.ToArray();
+
                     default:
                         break;
                 }
             }
             return ms.ToArray();
         }
-        /// <summary>    
-        /// 发送请求数据    
-        /// </summary>    
-        /// <param name="request">请求对象</param>    
-        /// <param name="postData">请求发送的字节数组</param>    
+
+        /// <summary>
+        /// 发送请求数据
+        /// </summary>
+        /// <param name="request">请求对象</param>
+        /// <param name="postData">请求发送的字节数组</param>
         private void PostData(HttpWebRequest request, byte[] postData)
         {
             int offset = 0;
@@ -314,11 +340,12 @@ namespace Core.Net
             }
             stream.Close();
         }
-        /// <summary>    
-        /// 创建HTTP请求    
-        /// </summary>    
-        /// <param name="url">URL地址</param>    
-        /// <returns></returns>    
+
+        /// <summary>
+        /// 创建HTTP请求
+        /// </summary>
+        /// <param name="url">URL地址</param>
+        /// <returns></returns>
         private HttpWebRequest CreateRequest(string url, string method)
         {
             Uri uri = new Uri(url);
@@ -326,7 +353,7 @@ namespace Core.Net
             if (uri.Scheme == "https")
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(this.CheckValidationResult);
 
-            // Set a default policy level for the "http:" and "https" schemes.    
+            // Set a default policy level for the "http:" and "https" schemes.
             HttpRequestCachePolicy policy = new HttpRequestCachePolicy(HttpRequestCacheLevel.Revalidate);
             HttpWebRequest.DefaultCachePolicy = policy;
 
@@ -334,7 +361,7 @@ namespace Core.Net
             request.AllowAutoRedirect = false;
             request.AllowWriteStreamBuffering = false;
             request.Method = method;
-            if (proxy != null) 
+            if (proxy != null)
                 request.Proxy = proxy;
             request.CookieContainer = cc;
             foreach (string key in requestHeaders.Keys)
@@ -344,13 +371,15 @@ namespace Core.Net
             requestHeaders.Clear();
             return request;
         }
+
         private bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             return true;
         }
-        /// <summary>    
-        /// 将Cookie保存到磁盘    
-        /// </summary>    
+
+        /// <summary>
+        /// 将Cookie保存到磁盘
+        /// </summary>
         private static void SaveCookiesToDisk()
         {
             string cookieFile = System.Environment.GetFolderPath(Environment.SpecialFolder.Cookies) + "\\webclient.cookie";
@@ -366,9 +395,10 @@ namespace Core.Net
                 if (fs != null) fs.Close();
             }
         }
-        /// <summary>    
-        /// 从磁盘加载Cookie    
-        /// </summary>    
+
+        /// <summary>
+        /// 从磁盘加载Cookie
+        /// </summary>
         private static void LoadCookiesFromDisk()
         {
             cc = new CookieContainer();
@@ -389,18 +419,19 @@ namespace Core.Net
         }
     }
 
-    /// <summary>    
-    /// 对文件和文本数据进行Multipart形式的编码    
-    /// </summary>    
+    /// <summary>
+    /// 对文件和文本数据进行Multipart形式的编码
+    /// </summary>
     public class MultipartForm
     {
         private Encoding encoding;
         private MemoryStream ms;
         private string boundary;
         private byte[] formData;
-        /// <summary>    
-        /// 获取编码后的字节数组    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取编码后的字节数组
+        /// </summary>
         public byte[] FormData
         {
             get
@@ -414,35 +445,39 @@ namespace Core.Net
                 return formData;
             }
         }
-        /// <summary>    
-        /// 获取此编码内容的类型    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取此编码内容的类型
+        /// </summary>
         public string ContentType
         {
             get { return string.Format("multipart/form-data; boundary={0}", this.boundary); }
         }
-        /// <summary>    
-        /// 获取或设置对字符串采用的编码类型    
-        /// </summary>    
+
+        /// <summary>
+        /// 获取或设置对字符串采用的编码类型
+        /// </summary>
         public Encoding StringEncoding
         {
             set { encoding = value; }
             get { return encoding; }
         }
-        /// <summary>    
-        /// 实例化    
-        /// </summary>    
+
+        /// <summary>
+        /// 实例化
+        /// </summary>
         public MultipartForm()
         {
             boundary = string.Format("--{0}--", Guid.NewGuid());
             ms = new MemoryStream();
             encoding = Encoding.Default;
         }
-        /// <summary>    
-        /// 添加一个文件    
-        /// </summary>    
-        /// <param name="name">文件域名称</param>    
-        /// <param name="filename">文件的完整路径</param>    
+
+        /// <summary>
+        /// 添加一个文件
+        /// </summary>
+        /// <param name="name">文件域名称</param>
+        /// <param name="filename">文件的完整路径</param>
         public void AddFlie(string name, string filename)
         {
             if (!File.Exists(filename))
@@ -465,13 +500,14 @@ namespace Core.Net
                 if (fs != null) fs.Close();
             }
         }
-        /// <summary>    
-        /// 添加一个文件    
-        /// </summary>    
-        /// <param name="name">文件域名称</param>    
-        /// <param name="filename">文件名</param>    
-        /// <param name="fileData">文件二进制数据</param>    
-        /// <param name="dataLength">二进制数据大小</param>    
+
+        /// <summary>
+        /// 添加一个文件
+        /// </summary>
+        /// <param name="name">文件域名称</param>
+        /// <param name="filename">文件名</param>
+        /// <param name="fileData">文件二进制数据</param>
+        /// <param name="dataLength">二进制数据大小</param>
         public void AddFlie(string name, string filename, byte[] fileData, int dataLength)
         {
             if (dataLength <= 0 || dataLength > fileData.Length)
@@ -489,11 +525,12 @@ namespace Core.Net
             byte[] crlf = encoding.GetBytes("\r\n");
             ms.Write(crlf, 0, crlf.Length);
         }
-        /// <summary>    
-        /// 添加字符串    
-        /// </summary>    
-        /// <param name="name">文本域名称</param>    
-        /// <param name="value">文本值</param>    
+
+        /// <summary>
+        /// 添加字符串
+        /// </summary>
+        /// <param name="name">文本域名称</param>
+        /// <param name="value">文本值</param>
         public void AddString(string name, string value)
         {
             StringBuilder sb = new StringBuilder();
@@ -504,11 +541,12 @@ namespace Core.Net
             byte[] buf = encoding.GetBytes(sb.ToString());
             ms.Write(buf, 0, buf.Length);
         }
-        /// <summary>    
-        /// 从注册表获取文件类型    
-        /// </summary>    
-        /// <param name="filename">包含扩展名的文件名</param>    
-        /// <returns>如：application/stream</returns>    
+
+        /// <summary>
+        /// 从注册表获取文件类型
+        /// </summary>
+        /// <param name="filename">包含扩展名的文件名</param>
+        /// <returns>如：application/stream</returns>
         private string GetContentType(string filename)
         {
             Microsoft.Win32.RegistryKey fileExtKey = null; ;

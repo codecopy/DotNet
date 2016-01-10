@@ -8,26 +8,27 @@ using Generics = System.Collections.Generic;
 
 namespace EthanLibrary.Collections
 {
-    
     [Serializable()]
     [XmlRoot("dictionary")]
-    public class Dictionary<TKey, TValue> : 
-        System.Collections.Generic.Dictionary<TKey, TValue>, ICloneable, 
+    public class Dictionary<TKey, TValue> :
+        System.Collections.Generic.Dictionary<TKey, TValue>, ICloneable,
         ICloneable<Dictionary<TKey, TValue>>, IXmlSerializable
     {
-
         #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the 
-        /// <see cref="Dictionary{TKey, TValue}"></see> class that 
-        /// is empty, has the default initial capacity, and uses the 
+        /// Initializes a new instance of the
+        /// <see cref="Dictionary{TKey, TValue}"></see> class that
+        /// is empty, has the default initial capacity, and uses the
         /// default equality comparer for the key type.
         /// </summary>
-     
-        public Dictionary() : base() { } // Dictionary
+
+        public Dictionary() : base()
+        {
+        } // Dictionary
 
         /// <summary>
-        /// Initializes a new instance of the 
+        /// Initializes a new instance of the
         /// <see cref="Dictionary{TKey, TValue}"></see> class that contains elements copied from the specified <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"></see> and uses the default equality comparer for the key type.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
@@ -35,19 +36,19 @@ namespace EthanLibrary.Collections
         /// <exception cref="System.ArgumentNullException">dictionarytable is null.</exception>
         public Dictionary(Generics.IDictionary<TKey, TValue> dictionary) : base(dictionary) { } // Dictionary
 
-        /// <summary>Initializes a new instance of the 
+        /// <summary>Initializes a new instance of the
         /// <see cref="Dictionary{TKey, TValue}"></see> class that is empty, has the default initial capacity, and uses the specified <see cref="System.Collections.Generic.IEqualityComparer{TKey}"></see>.</summary>
         /// <param name="comparer">The <see cref="System.Collections.Generic.IEqualityComparer{TKey}"></see> implementation to use when comparing values, or null to use the default <see cref="System.Collections.Generic.EqualityComparer{TKey}"></see> for the type of the key.</param>
         public Dictionary(Generics.IEqualityComparer<TKey> comparer) : base(comparer) { } // Dictionary
 
-        /// <summary>Initializes a new instance of the 
+        /// <summary>Initializes a new instance of the
         /// <see cref="Dictionary{TKey, TValue}"></see> class that is empty, has the specified initial capacity, and uses the default equality comparer for the key type.</summary>
         /// <param name="capacity">The initial number of elements that the <see cref="Dictionary{TKey, TValue}"></see> can contain.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">capacity is less than 0.</exception>
         public Dictionary(int capacity) : base(capacity) { } // Dictionary
 
         /// <summary>
-        /// Initializes a new instance of the 
+        /// Initializes a new instance of the
         /// <see cref="Dictionary{TKey, TValue}"></see> class that contains elements copied from the specified <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"></see> and uses the specified <see cref="System.Collections.Generic.IEqualityComparer{TKey}"></see>.
         /// </summary>
         /// <param name="dictionary">The dictionary.</param>
@@ -62,31 +63,17 @@ namespace EthanLibrary.Collections
         /// <exception cref="System.ArgumentOutOfRangeException">capacity is less than 0.</exception>
         public Dictionary(int capacity, Generics.IEqualityComparer<TKey> comparer) : base(capacity, comparer) { }
 
-
         /// <summary>Initializes a new instance of the <see cref="Dictionary{TKey, TValue}"></see> class with serialized data.</summary>
         /// <param name="context">A <see cref="System.Runtime.Serialization.StreamingContext"></see> structure containing the source and destination of the serialized stream associated with the <see cref="Dictionary{TKey, TValue}"></see>.</param>
         /// <param name="info">A <see cref="System.Runtime.Serialization.SerializationInfo"></see> object containing the information required to serialize the <see cref="Dictionary{TKey, TValue}"></see>.</param>
         protected Dictionary(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
-        #endregion
+        #endregion Constructors
 
-        #region Destructor
 
-        #endregion
-
-        #region Fields
-
-        #endregion
-
-        #region Events
-
-        #endregion
-
-        #region Operators
-
-        #endregion
 
         #region Properties
+
         /// <summary>
         /// Determines whether the specified key contains key.
         /// </summary>
@@ -116,7 +103,6 @@ namespace EthanLibrary.Collections
             return new SyncDictionary<TKey, TValue>(dictionary);
         }
 
-
         /// <summary>Implements the <see cref="System.Runtime.Serialization.ISerializable"></see> interface and returns the data needed to serialize the <see cref="Dictionary{TKey, TValue}"></see> instance.</summary>
         /// <param name="context">A <see cref="System.Runtime.Serialization.StreamingContext"></see> structure that contains the source and destination of the serialized stream associated with the <see cref="Dictionary{TKey, TValue}"></see> instance.</param>
         /// <param name="info">A <see cref="System.Runtime.Serialization.SerializationInfo"></see> object that contains the information required to serialize the <see cref="Dictionary{TKey, TValue}"></see> instance.</param>
@@ -126,8 +112,6 @@ namespace EthanLibrary.Collections
         {
             base.GetObjectData(info, context);
         }
-
-
 
         /// <summary>
         /// Gets a value indicating whether access to the <see cref="System.Collections.ICollection"></see> is synchronized (thread safe).
@@ -142,11 +126,9 @@ namespace EthanLibrary.Collections
             } // get
         }
 
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
 
         /// <summary>
         /// Copies the elements of the ICollection to an array of type KeyValuePair,
@@ -161,9 +143,9 @@ namespace EthanLibrary.Collections
             // Calling CopyTo on a Dictionary
             // Copies all KeyValuePair objects in Dictionary object to objs[]
             ((Generics.IDictionary<TKey, TValue>)this).CopyTo(array, index);
-
         } // CopyTo
-        #endregion
+
+        #endregion Methods
 
         #region ICloneable Members
 
@@ -178,7 +160,7 @@ namespace EthanLibrary.Collections
             return Clone();
         }
 
-        #endregion
+        #endregion ICloneable Members
 
         #region ICloneable<Dictionary<TKey,TValue>> Members
 
@@ -193,7 +175,7 @@ namespace EthanLibrary.Collections
             return new Dictionary<TKey, TValue>(this);
         }
 
-        #endregion
+        #endregion ICloneable<Dictionary<TKey,TValue>> Members
 
         #region IXmlSerializable Members
 
@@ -218,26 +200,17 @@ namespace EthanLibrary.Collections
 
             XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
 
-
-
             bool wasEmpty = reader.IsEmptyElement;
 
             reader.Read();
-
-
 
             if (wasEmpty)
 
                 return;
 
-
-
             while (reader.NodeType != XmlNodeType.EndElement)
             {
-
                 reader.ReadStartElement("item");
-
-
 
                 reader.ReadStartElement("key");
 
@@ -245,24 +218,17 @@ namespace EthanLibrary.Collections
 
                 reader.ReadEndElement();
 
-
-
                 reader.ReadStartElement("value");
 
                 TValue value = (TValue)valueSerializer.Deserialize(reader);
 
                 reader.ReadEndElement();
 
-
-
                 Add(key, value);
-
-
 
                 reader.ReadEndElement();
 
                 reader.MoveToContent();
-
             }
 
             reader.ReadEndElement();
@@ -278,22 +244,15 @@ namespace EthanLibrary.Collections
 
             XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
 
-
-
             foreach (TKey key in Keys)
             {
-
                 writer.WriteStartElement("item");
-
-
 
                 writer.WriteStartElement("key");
 
                 keySerializer.Serialize(writer, key);
 
                 writer.WriteEndElement();
-
-
 
                 writer.WriteStartElement("value");
 
@@ -303,13 +262,10 @@ namespace EthanLibrary.Collections
 
                 writer.WriteEndElement();
 
-
-
                 writer.WriteEndElement();
-
             }
         }
 
-        #endregion
+        #endregion IXmlSerializable Members
     }
 }

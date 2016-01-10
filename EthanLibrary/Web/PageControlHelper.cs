@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-
+using System.Web.UI.WebControls;
 
 namespace EthanLibrary.Web
 {
@@ -99,13 +98,7 @@ namespace EthanLibrary.Web
                     }
                 }
 
-                #endregion
-
-                #region 时间控件禁用时不显示图片
-
-
-
-                #endregion
+                #endregion 多行文本框不能禁用，应设为只读，不然滚动条不能使用
             }
 
             //HtmlControl
@@ -173,7 +166,7 @@ namespace EthanLibrary.Web
             return false;
         }
 
-        #endregion
+        #endregion 控件状态设置
 
         #region 页面处理其它辅助方法
 
@@ -262,12 +255,10 @@ namespace EthanLibrary.Web
             // NDGridViewScriptFirst(page.Form.Controls, page);
 
             //ScriptManager.RegisterStartupScript(page, page.GetType(), System.Guid.NewGuid().ToString(), script, true);
-
         }
 
         //private void NDGridViewScriptFirst(ControlCollection ctls, Page page)
         //{
-
         //    foreach (Control ctl in ctls)
         //    {
         //        if (ctl is NDGridView)
@@ -303,9 +294,10 @@ namespace EthanLibrary.Web
             return Convert.ToInt32(version);
         }
 
-        #endregion
+        #endregion 页面处理其它辅助方法
 
         #region 验证是否为整数
+
         /// <summary>
         /// 验证是否为正整数
         /// </summary>
@@ -313,15 +305,9 @@ namespace EthanLibrary.Web
         /// <returns></returns>
         public static bool IsInt(string str)
         {
-            
             return System.Text.RegularExpressions.Regex.IsMatch(str, @"^[0-9]*$");
         }
-          
-     
-        #endregion
 
-       
-
-        
+        #endregion 验证是否为整数
     }
 }

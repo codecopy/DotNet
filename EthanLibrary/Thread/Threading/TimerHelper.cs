@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace WHC.OrderWater.Commons
@@ -34,7 +32,6 @@ namespace WHC.OrderWater.Commons
             timerState = TimerState.Stopped;
             timer = new System.Threading.Timer(new TimerCallback(Tick), null, Timeout.Infinite, timerInterval);
         }
-
 
         /// <summary>
         /// Creates a timer with a specified interval, and starts after the specified delay.

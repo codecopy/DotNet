@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EthanLibrary.Web.CacheManage
+﻿namespace EthanLibrary.Web.CacheManage
 {
     /// <summary>
     /// 缓存管理器

@@ -1,16 +1,17 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Reflection;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Collections;
-using System.Reflection;
 
 namespace EthanLibrary.Web
 {
     public class GridViewHelper
     {
         #region 私有方法
+
         /// <summary>
         /// 截取内容长度
         /// </summary>
@@ -114,9 +115,11 @@ namespace EthanLibrary.Web
                 }
             }
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 公有方法
+
         /// <summary>
         /// 从GridView的数据生成DataTable
         /// </summary>
@@ -257,6 +260,7 @@ namespace EthanLibrary.Web
             }
             return result;
         }
-        #endregion
+
+        #endregion 公有方法
     }
 }

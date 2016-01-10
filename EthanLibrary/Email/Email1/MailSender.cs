@@ -1,11 +1,11 @@
 using System;
-using System.Text;
-using System.Xml;
 using System.Configuration;
-using System.Web;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
+using System.Web;
+using System.Xml;
 
 namespace EmailHelp
 {
@@ -40,8 +40,6 @@ namespace EmailHelp
                     SmtpConfig.Create().SmtpSetting.Password);
             }
             smtpClient.Send(message);
-
-
         }
 
         public static void Send(string recipient, string subject, string body)
@@ -54,17 +52,15 @@ namespace EmailHelp
             Send(SmtpConfig.Create().SmtpSetting.Server, Sender, Recipient, Subject, Body, true, Encoding.UTF8, true, null);
         }
 
-        static readonly string smtpServer = System.Configuration.ConfigurationManager.AppSettings["SmtpServer"];
-        static readonly string userName = System.Configuration.ConfigurationManager.AppSettings["UserName"];
-        static readonly string pwd = System.Configuration.ConfigurationManager.AppSettings["Pwd"];
-        static readonly int smtpPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["SmtpPort"]);
-        static readonly string authorName = System.Configuration.ConfigurationManager.AppSettings["AuthorName"];
-        static readonly string to = System.Configuration.ConfigurationManager.AppSettings["To"];
-
+        private static readonly string smtpServer = System.Configuration.ConfigurationManager.AppSettings["SmtpServer"];
+        private static readonly string userName = System.Configuration.ConfigurationManager.AppSettings["UserName"];
+        private static readonly string pwd = System.Configuration.ConfigurationManager.AppSettings["Pwd"];
+        private static readonly int smtpPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["SmtpPort"]);
+        private static readonly string authorName = System.Configuration.ConfigurationManager.AppSettings["AuthorName"];
+        private static readonly string to = System.Configuration.ConfigurationManager.AppSettings["To"];
 
         public void Send(string subject, string body)
         {
-
             //List<string> toList = StringPlus.GetSubStringList(StringPlus.ToDBC(to), ',');
             //OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(smtpServer, userName, pwd, smtpPort);
             //foreach (string s in toList)
@@ -95,6 +91,7 @@ namespace EmailHelp
             get { return _server; }
             set { _server = value; }
         }
+
         private bool _authentication;
 
         public bool Authentication
@@ -102,6 +99,7 @@ namespace EmailHelp
             get { return _authentication; }
             set { _authentication = value; }
         }
+
         private string _user;
 
         public string User
@@ -109,6 +107,7 @@ namespace EmailHelp
             get { return _user; }
             set { _user = value; }
         }
+
         private string _sender;
 
         public string Sender
@@ -116,6 +115,7 @@ namespace EmailHelp
             get { return _sender; }
             set { _sender = value; }
         }
+
         private string _password;
 
         public string Password
@@ -128,6 +128,7 @@ namespace EmailHelp
     public class SmtpConfig
     {
         private static SmtpConfig _smtpConfig;
+
         private string ConfigFile
         {
             get
@@ -147,6 +148,7 @@ namespace EmailHelp
                 return configPath;
             }
         }
+
         public SmtpSetting SmtpSetting
         {
             get
@@ -163,10 +165,11 @@ namespace EmailHelp
                 return smtpSetting;
             }
         }
+
         private SmtpConfig()
         {
-
         }
+
         public static SmtpConfig Create()
         {
             if (_smtpConfig == null)

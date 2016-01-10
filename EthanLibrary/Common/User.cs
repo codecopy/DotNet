@@ -1,15 +1,13 @@
 /**********************************************
  * 类作用：   用户实用类
  * 建立人：   abaal
- * 建立时间： 2008-09-03 
+ * 建立时间： 2008-09-03
  * Copyright (C) 2007-2008 abaal
  * All rights reserved
  * http://blog.csdn.net/abaal888
  ***********************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
 using System.Web.Security;
 
@@ -35,7 +33,7 @@ namespace Svnhost.Common
                 username, // 票据持有者
                 DateTime.Now, //分配票据的时间
                 dt, // 失效时间
-                isPersistent, // 需要用户的 cookie 
+                isPersistent, // 需要用户的 cookie
                 roles, // 用户数据，这里其实就是用户的角色
               FormsAuthentication.FormsCookiePath);//cookie有效路径
 
@@ -43,7 +41,7 @@ namespace Svnhost.Common
             string hash = FormsAuthentication.Encrypt(ticket);
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hash); //加密之后的cookie
 
-            //将cookie的失效时间设置为和票据tikets的失效时间一致 
+            //将cookie的失效时间设置为和票据tikets的失效时间一致
             HttpCookie u_cookie = new HttpCookie("username", username);
             if (ticket.IsPersistent)
             {

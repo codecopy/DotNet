@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace EthanLibrary.Common
 {
@@ -245,8 +243,8 @@ namespace EthanLibrary.Common
             return code;
         }
 
-
         #region MyRegion
+
         //public string getPicnum(List<UnCodeInfo> unCodeList)
         //{
         //    GrayByPixels(); //灰度处理
@@ -283,8 +281,8 @@ namespace EthanLibrary.Common
         //    }
 
         //    return result;
-        //} 
-        #endregion
+        //}
 
+        #endregion MyRegion
     }
 }

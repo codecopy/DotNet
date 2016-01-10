@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Web.Caching;
-using System.Web;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.Caching;
 
 namespace EthanLibrary.Web
 {
@@ -37,7 +37,9 @@ namespace EthanLibrary.Web
 
                 //onRemove是委托执行的函数，具体方法看下面的onRemove(...)
                 CacheItemRemovedCallback callBack = new CacheItemRemovedCallback(onRemove);
+
                 #region 失效时间设置
+
                 if (durationMin == 0)
                 {
                     ts = new TimeSpan(0, 3, 0);//如果不进行设置则为三分钟
@@ -46,7 +48,9 @@ namespace EthanLibrary.Web
                 {
                     ts = new TimeSpan(0, durationMin, 0);
                 }
-                #endregion
+
+                #endregion 失效时间设置
+
                 #region System.Web.Caching.Cache 对象中存储的项的相对优先级
 
                 CacheItemPriority cachePriority;
@@ -55,26 +59,34 @@ namespace EthanLibrary.Web
                     case 6:
                         cachePriority = CacheItemPriority.Low;
                         break;
+
                     case 5:
                         cachePriority = CacheItemPriority.BelowNormal;
                         break;
+
                     case 4:
                         cachePriority = CacheItemPriority.Normal;
                         break;
+
                     case 3:
                         cachePriority = CacheItemPriority.AboveNormal;
                         break;
+
                     case 2:
                         cachePriority = CacheItemPriority.High;
                         break;
+
                     case 1:
                         cachePriority = CacheItemPriority.NotRemovable;
                         break;
+
                     default:
                         cachePriority = CacheItemPriority.Default;
                         break;
                 }
-                #endregion
+
+                #endregion System.Web.Caching.Cache 对象中存储的项的相对优先级
+
                 HttpContext.Current.Cache.Insert(strKey, valueObj, null, DateTime.Now.Add(ts), System.Web.Caching.Cache.NoSlidingExpiration, cachePriority, callBack);
                 return true;
             }
@@ -101,7 +113,6 @@ namespace EthanLibrary.Web
         /// <returns>缓存对象，objec类型</returns>
         public static object GetCache(string strKey)
         {//取出值
-
             if (HttpContext.Current.Cache[strKey] != null)
             {
                 object obj = HttpContext.Current.Cache[strKey];
@@ -166,6 +177,7 @@ namespace EthanLibrary.Web
         }
 
         public static CacheItemRemovedReason reason;
+
         /// <summary>
         /// 此方法在值失效之前调用，可以用于在失效之前更新数据库，或从数据库重新获取数据
         /// </summary>
@@ -177,6 +189,4 @@ namespace EthanLibrary.Web
             reason = r;
         }
     }
-
-
 }

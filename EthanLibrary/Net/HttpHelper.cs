@@ -1,15 +1,13 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
+﻿using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.IO.Compression;
-using System.Security.Cryptography.X509Certificates;
+using System.Net;
 using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Text.RegularExpressions;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
     /// <summary>
     /// Http连接操作帮助类
@@ -17,14 +15,19 @@ namespace Core.Net
     public class HttpHelper
     {
         #region 预定义方法或者变更
+
         //默认的编码
         private Encoding encoding = Encoding.Default;
+
         //Post数据编码
         private Encoding postencoding = Encoding.Default;
+
         //HttpWebRequest对象用来发起请求
         private HttpWebRequest request = null;
+
         //获取影响流的数据对象
         private HttpWebResponse response = null;
+
         /// <summary>
         /// 根据相传入的数据，得到相应页面数据
         /// </summary>
@@ -51,6 +54,7 @@ namespace Core.Net
             try
             {
                 #region 得到请求的response
+
                 using (response = (HttpWebResponse)request.GetResponse())
                 {
                     result.StatusCode = response.StatusCode;
@@ -103,7 +107,8 @@ namespace Core.Net
                         result.Html = "本次请求并未返回任何数据";
                     }
                 }
-                #endregion
+
+                #endregion 得到请求的response
             }
             catch (WebException ex)
             {
@@ -123,6 +128,7 @@ namespace Core.Net
             if (item.IsToLower) result.Html = result.Html.ToLower();
             return result;
         }
+
         /// <summary>
         /// 4.0以下.net版本取数据使用
         /// </summary>
@@ -140,6 +146,7 @@ namespace Core.Net
             }
             return _stream;
         }
+
         /// <summary>
         /// 为请求准备参数
         /// </summary>
@@ -181,6 +188,7 @@ namespace Core.Net
             //设置最大连接
             if (item.Connectionlimit > 0) request.ServicePoint.ConnectionLimit = item.Connectionlimit;
         }
+
         /// <summary>
         /// 设置证书
         /// </summary>
@@ -204,6 +212,7 @@ namespace Core.Net
                 SetCerList(item);
             }
         }
+
         /// <summary>
         /// 设置多个证书
         /// </summary>
@@ -218,6 +227,7 @@ namespace Core.Net
                 }
             }
         }
+
         /// <summary>
         /// 设置Cookie
         /// </summary>
@@ -234,6 +244,7 @@ namespace Core.Net
                 request.CookieContainer.Add(item.CookieCollection);
             }
         }
+
         /// <summary>
         /// 设置Post数据
         /// </summary>
@@ -271,6 +282,7 @@ namespace Core.Net
                 }
             }
         }
+
         /// <summary>
         /// 设置代理
         /// </summary>
@@ -301,6 +313,7 @@ namespace Core.Net
                 request.Credentials = CredentialCache.DefaultNetworkCredentials;
             }
         }
+
         /// <summary>
         /// 回调验证证书问题
         /// </summary>
@@ -310,14 +323,17 @@ namespace Core.Net
         /// <param name="errors">SslPolicyErrors</param>
         /// <returns>bool</returns>
         public bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors) { return true; }
-        #endregion
+
+        #endregion 预定义方法或者变更
     }
+
     /// <summary>
     /// Http请求参考类
     /// </summary>
     public class HttpItem
     {
-        string _URL = string.Empty;
+        private string _URL = string.Empty;
+
         /// <summary>
         /// 请求URL必须填写
         /// </summary>
@@ -326,7 +342,9 @@ namespace Core.Net
             get { return _URL; }
             set { _URL = value; }
         }
-        string _Method = "GET";
+
+        private string _Method = "GET";
+
         /// <summary>
         /// 请求方式默认为GET方式,当为POST方式时必须设置Postdata的值
         /// </summary>
@@ -335,7 +353,9 @@ namespace Core.Net
             get { return _Method; }
             set { _Method = value; }
         }
-        int _Timeout = 100000;
+
+        private int _Timeout = 100000;
+
         /// <summary>
         /// 默认请求超时时间
         /// </summary>
@@ -344,7 +364,9 @@ namespace Core.Net
             get { return _Timeout; }
             set { _Timeout = value; }
         }
-        int _ReadWriteTimeout = 30000;
+
+        private int _ReadWriteTimeout = 30000;
+
         /// <summary>
         /// 默认写入Post数据超时间
         /// </summary>
@@ -353,7 +375,9 @@ namespace Core.Net
             get { return _ReadWriteTimeout; }
             set { _ReadWriteTimeout = value; }
         }
-        Boolean _KeepAlive = true;
+
+        private Boolean _KeepAlive = true;
+
         /// <summary>
         ///  获取或设置一个值，该值指示是否与 Internet 资源建立持久性连接默认为true。
         /// </summary>
@@ -362,7 +386,9 @@ namespace Core.Net
             get { return _KeepAlive; }
             set { _KeepAlive = value; }
         }
-        string _Accept = "text/html, application/xhtml+xml, */*";
+
+        private string _Accept = "text/html, application/xhtml+xml, */*";
+
         /// <summary>
         /// 请求标头值 默认为text/html, application/xhtml+xml, */*
         /// </summary>
@@ -371,7 +397,9 @@ namespace Core.Net
             get { return _Accept; }
             set { _Accept = value; }
         }
-        string _ContentType = "text/html";
+
+        private string _ContentType = "text/html";
+
         /// <summary>
         /// 请求返回类型默认 text/html
         /// </summary>
@@ -380,7 +408,9 @@ namespace Core.Net
             get { return _ContentType; }
             set { _ContentType = value; }
         }
-        string _UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
+
+        private string _UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
+
         /// <summary>
         /// 客户端访问信息默认Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
         /// </summary>
@@ -389,7 +419,9 @@ namespace Core.Net
             get { return _UserAgent; }
             set { _UserAgent = value; }
         }
-        Encoding _Encoding = null;
+
+        private Encoding _Encoding = null;
+
         /// <summary>
         /// 返回数据编码默认为NUll,可以自动识别,一般为utf-8,gbk,gb2312
         /// </summary>
@@ -398,7 +430,9 @@ namespace Core.Net
             get { return _Encoding; }
             set { _Encoding = value; }
         }
+
         private PostDataType _PostDataType = PostDataType.String;
+
         /// <summary>
         /// Post的数据类型
         /// </summary>
@@ -407,7 +441,9 @@ namespace Core.Net
             get { return _PostDataType; }
             set { _PostDataType = value; }
         }
-        string _Postdata = string.Empty;
+
+        private string _Postdata = string.Empty;
+
         /// <summary>
         /// Post请求时要发送的字符串Post数据
         /// </summary>
@@ -416,7 +452,9 @@ namespace Core.Net
             get { return _Postdata; }
             set { _Postdata = value; }
         }
+
         private byte[] _PostdataByte = null;
+
         /// <summary>
         /// Post请求时要发送的Byte类型的Post数据
         /// </summary>
@@ -425,7 +463,9 @@ namespace Core.Net
             get { return _PostdataByte; }
             set { _PostdataByte = value; }
         }
-        CookieCollection cookiecollection = null;
+
+        private CookieCollection cookiecollection = null;
+
         /// <summary>
         /// Cookie对象集合
         /// </summary>
@@ -434,7 +474,9 @@ namespace Core.Net
             get { return cookiecollection; }
             set { cookiecollection = value; }
         }
-        string _Cookie = string.Empty;
+
+        private string _Cookie = string.Empty;
+
         /// <summary>
         /// 请求时的Cookie
         /// </summary>
@@ -443,7 +485,9 @@ namespace Core.Net
             get { return _Cookie; }
             set { _Cookie = value; }
         }
-        string _Referer = string.Empty;
+
+        private string _Referer = string.Empty;
+
         /// <summary>
         /// 来源地址，上次访问地址
         /// </summary>
@@ -452,7 +496,9 @@ namespace Core.Net
             get { return _Referer; }
             set { _Referer = value; }
         }
-        string _CerPath = string.Empty;
+
+        private string _CerPath = string.Empty;
+
         /// <summary>
         /// 证书绝对路径
         /// </summary>
@@ -461,7 +507,9 @@ namespace Core.Net
             get { return _CerPath; }
             set { _CerPath = value; }
         }
+
         private Boolean isToLower = false;
+
         /// <summary>
         /// 是否设置为全文小写，默认为不转化
         /// </summary>
@@ -470,7 +518,9 @@ namespace Core.Net
             get { return isToLower; }
             set { isToLower = value; }
         }
+
         private Boolean allowautoredirect = false;
+
         /// <summary>
         /// 支持跳转页面，查询结果将是跳转后的页面，默认是不跳转
         /// </summary>
@@ -479,7 +529,9 @@ namespace Core.Net
             get { return allowautoredirect; }
             set { allowautoredirect = value; }
         }
+
         private int connectionlimit = 1024;
+
         /// <summary>
         /// 最大连接数
         /// </summary>
@@ -488,7 +540,9 @@ namespace Core.Net
             get { return connectionlimit; }
             set { connectionlimit = value; }
         }
+
         private string proxyusername = string.Empty;
+
         /// <summary>
         /// 代理Proxy 服务器用户名
         /// </summary>
@@ -497,7 +551,9 @@ namespace Core.Net
             get { return proxyusername; }
             set { proxyusername = value; }
         }
+
         private string proxypwd = string.Empty;
+
         /// <summary>
         /// 代理 服务器密码
         /// </summary>
@@ -506,7 +562,9 @@ namespace Core.Net
             get { return proxypwd; }
             set { proxypwd = value; }
         }
+
         private string proxyip = string.Empty;
+
         /// <summary>
         /// 代理 服务IP
         /// </summary>
@@ -515,7 +573,9 @@ namespace Core.Net
             get { return proxyip; }
             set { proxyip = value; }
         }
+
         private ResultType resulttype = ResultType.String;
+
         /// <summary>
         /// 设置返回类型String和Byte
         /// </summary>
@@ -524,7 +584,9 @@ namespace Core.Net
             get { return resulttype; }
             set { resulttype = value; }
         }
+
         private WebHeaderCollection header = new WebHeaderCollection();
+
         /// <summary>
         /// header对象
         /// </summary>
@@ -544,7 +606,9 @@ namespace Core.Net
             get { return _ProtocolVersion; }
             set { _ProtocolVersion = value; }
         }
+
         private Boolean _expect100continue = true;
+
         /// <summary>
         ///  获取或设置一个 System.Boolean 值，该值确定是否使用 100-Continue 行为。如果 POST 请求需要 100-Continue 响应，则为 true；否则为 false。默认值为 true。
         /// </summary>
@@ -553,7 +617,9 @@ namespace Core.Net
             get { return _expect100continue; }
             set { _expect100continue = value; }
         }
+
         private X509CertificateCollection _ClentCertificates;
+
         /// <summary>
         /// 设置509证书集合
         /// </summary>
@@ -562,7 +628,9 @@ namespace Core.Net
             get { return _ClentCertificates; }
             set { _ClentCertificates = value; }
         }
+
         private Encoding _PostEncoding;
+
         /// <summary>
         /// 设置或获取Post参数编码,默认的为Default编码
         /// </summary>
@@ -572,12 +640,14 @@ namespace Core.Net
             set { _PostEncoding = value; }
         }
     }
+
     /// <summary>
     /// Http返回参数类
     /// </summary>
     public class HttpResult
     {
         private string _Cookie;
+
         /// <summary>
         /// Http请求返回的Cookie
         /// </summary>
@@ -588,6 +658,7 @@ namespace Core.Net
         }
 
         private CookieCollection _CookieCollection;
+
         /// <summary>
         /// Cookie对象集合
         /// </summary>
@@ -596,7 +667,9 @@ namespace Core.Net
             get { return _CookieCollection; }
             set { _CookieCollection = value; }
         }
+
         private string _Html;
+
         /// <summary>
         /// 返回的String类型数据 只有ResultType.String时才返回数据，其它情况为空
         /// </summary>
@@ -605,7 +678,9 @@ namespace Core.Net
             get { return _Html; }
             set { _Html = value; }
         }
+
         private byte[] _ResultByte;
+
         /// <summary>
         /// 返回的Byte数组 只有ResultType.Byte时才返回数据，其它情况为空
         /// </summary>
@@ -616,6 +691,7 @@ namespace Core.Net
         }
 
         private WebHeaderCollection _Header;
+
         /// <summary>
         /// header对象
         /// </summary>
@@ -626,6 +702,7 @@ namespace Core.Net
         }
 
         private string _StatusDescription;
+
         /// <summary>
         /// 返回状态说明
         /// </summary>
@@ -634,7 +711,9 @@ namespace Core.Net
             get { return _StatusDescription; }
             set { _StatusDescription = value; }
         }
+
         private HttpStatusCode _StatusCode;
+
         /// <summary>
         /// 返回状态码,默认为OK
         /// </summary>
@@ -644,6 +723,7 @@ namespace Core.Net
             set { _StatusCode = value; }
         }
     }
+
     /// <summary>
     /// 返回类型
     /// </summary>
@@ -653,11 +733,13 @@ namespace Core.Net
         /// 表示只返回字符串 只有Html有数据
         /// </summary>
         String,
+
         /// <summary>
         /// 表示返回字符串和字节流 ResultByte和Html都有数据返回
         /// </summary>
         Byte
     }
+
     /// <summary>
     /// Post的数据格式默认为string
     /// </summary>
@@ -667,10 +749,12 @@ namespace Core.Net
         /// 字符串类型，这时编码Encoding可不设置
         /// </summary>
         String,
+
         /// <summary>
         /// Byte类型，需要设置PostdataByte参数的值编码Encoding可设置为空
         /// </summary>
         Byte,
+
         /// <summary>
         /// 传文件，Postdata必须设置为文件的绝对路径，必须设置Encoding的值
         /// </summary>

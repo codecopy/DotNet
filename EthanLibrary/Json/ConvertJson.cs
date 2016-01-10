@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Reflection;
+using System.Text;
 
-namespace Core.Json
+namespace EthanLibrary.Json
 {
     //JSON转换类
     public class ConvertJson
     {
         #region 私有方法
+
         /// <summary>
         /// 过滤特殊字符
         /// </summary>
@@ -71,9 +71,11 @@ namespace Core.Json
             }
             return str;
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region List转换成Json
+
         /// <summary>
         /// List转换成Json
         /// </summary>
@@ -84,7 +86,7 @@ namespace Core.Json
         }
 
         /// <summary>
-        /// List转换成Json 
+        /// List转换成Json
         /// </summary>
         public static string ListToJson<T>(IList<T> list, string jsonName)
         {
@@ -118,14 +120,16 @@ namespace Core.Json
             Json.Append("]}");
             return Json.ToString();
         }
-        #endregion
+
+        #endregion List转换成Json
 
         #region 对象转换为Json
-        /// <summary> 
-        /// 对象转换为Json 
-        /// </summary> 
-        /// <param name="jsonObject">对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// 对象转换为Json
+        /// </summary>
+        /// <param name="jsonObject">对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(object jsonObject)
         {
             string jsonString = "{";
@@ -155,14 +159,16 @@ namespace Core.Json
             jsonString.Remove(jsonString.Length - 1, jsonString.Length);
             return jsonString + "}";
         }
-        #endregion
+
+        #endregion 对象转换为Json
 
         #region 对象集合转换Json
-        /// <summary> 
-        /// 对象集合转换Json 
-        /// </summary> 
-        /// <param name="array">集合对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// 对象集合转换Json
+        /// </summary>
+        /// <param name="array">集合对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(IEnumerable array)
         {
             string jsonString = "[";
@@ -173,14 +179,16 @@ namespace Core.Json
             jsonString.Remove(jsonString.Length - 1, jsonString.Length);
             return jsonString + "]";
         }
-        #endregion
+
+        #endregion 对象集合转换Json
 
         #region 普通集合转换Json
-        /// <summary> 
-        /// 普通集合转换Json 
-        /// </summary> 
-        /// <param name="array">集合对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// 普通集合转换Json
+        /// </summary>
+        /// <param name="array">集合对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToArrayString(IEnumerable array)
         {
             string jsonString = "[";
@@ -191,14 +199,16 @@ namespace Core.Json
             jsonString.Remove(jsonString.Length - 1, jsonString.Length);
             return jsonString + "]";
         }
-        #endregion
 
-        #region  DataSet转换为Json
-        /// <summary> 
-        /// DataSet转换为Json 
-        /// </summary> 
-        /// <param name="dataSet">DataSet对象</param> 
-        /// <returns>Json字符串</returns> 
+        #endregion 普通集合转换Json
+
+        #region DataSet转换为Json
+
+        /// <summary>
+        /// DataSet转换为Json
+        /// </summary>
+        /// <param name="dataSet">DataSet对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(DataSet dataSet)
         {
             string jsonString = "{";
@@ -209,14 +219,16 @@ namespace Core.Json
             jsonString = jsonString.TrimEnd(',');
             return jsonString + "}";
         }
-        #endregion
+
+        #endregion DataSet转换为Json
 
         #region Datatable转换为Json
-        /// <summary> 
-        /// Datatable转换为Json 
-        /// </summary> 
-        /// <param name="table">Datatable对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// Datatable转换为Json
+        /// </summary>
+        /// <param name="table">Datatable对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(DataTable dt)
         {
             StringBuilder jsonString = new StringBuilder();
@@ -249,7 +261,7 @@ namespace Core.Json
         }
 
         /// <summary>
-        /// DataTable转换为Json 
+        /// DataTable转换为Json
         /// </summary>
         public static string ToJson(DataTable dt, string jsonName)
         {
@@ -280,14 +292,16 @@ namespace Core.Json
             Json.Append("]}");
             return Json.ToString();
         }
-        #endregion
+
+        #endregion Datatable转换为Json
 
         #region DataReader转换为Json
-        /// <summary> 
-        /// DataReader转换为Json 
-        /// </summary> 
-        /// <param name="dataReader">DataReader对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// DataReader转换为Json
+        /// </summary>
+        /// <param name="dataReader">DataReader对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(DbDataReader dataReader)
         {
             StringBuilder jsonString = new StringBuilder();
@@ -318,6 +332,7 @@ namespace Core.Json
             jsonString.Append("]");
             return jsonString.ToString();
         }
-        #endregion
+
+        #endregion DataReader转换为Json
     }
 }

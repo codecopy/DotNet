@@ -1,7 +1,7 @@
-﻿using System.Web.UI.WebControls;
-using System.Web.UI;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace EthanLibrary.Web
 {
@@ -11,6 +11,7 @@ namespace EthanLibrary.Web
     public class BindDataControl
     {
         #region 绑定服务器数据控件 简单绑定DataList
+
         /// <summary>
         /// 简单绑定DataList
         /// </summary>
@@ -22,9 +23,11 @@ namespace EthanLibrary.Web
             ((DataList)ctrl).DataSource = mydv;
             ((DataList)ctrl).DataBind();
         }
-        #endregion
+
+        #endregion 绑定服务器数据控件 简单绑定DataList
 
         #region 绑定服务器数据控件 SqlDataReader简单绑定DataList
+
         /// <summary>
         /// SqlDataReader简单绑定DataList
         /// </summary>
@@ -36,9 +39,11 @@ namespace EthanLibrary.Web
             ((DataList)ctrl).DataSource = mydv;
             ((DataList)ctrl).DataBind();
         }
-        #endregion
+
+        #endregion 绑定服务器数据控件 SqlDataReader简单绑定DataList
 
         #region 绑定服务器数据控件 简单绑定 GridView
+
         /// <summary>
         /// 简单绑定GridView
         /// </summary>
@@ -50,7 +55,8 @@ namespace EthanLibrary.Web
             ((GridView)ctrl).DataSource = mydv;
             ((GridView)ctrl).DataBind();
         }
-        #endregion
+
+        #endregion 绑定服务器数据控件 简单绑定 GridView
 
         /// <summary>
         /// 绑定服务器控件 简单绑定Repeater

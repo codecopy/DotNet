@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Web;
 using System.Web.Caching;
-using System.Collections.ObjectModel;
 
 namespace EthanLibrary.Web.CacheManage
 {
@@ -13,14 +12,17 @@ namespace EthanLibrary.Web.CacheManage
     public class WebCache : ICache
     {
         private static readonly object lockObj = new object();
+
         /// <summary>
         /// 当前的缓存是否可用
         /// </summary>
         private bool enable = false;
+
         /// <summary>
         /// 默认实例
         /// </summary>
         private static WebCache instance = null;
+
         /// <summary>
         /// 返回默认WebCache缓存实例
         /// </summary>
@@ -39,6 +41,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return instance;
         }
+
         /// <summary>
         /// 构造方法
         /// </summary>
@@ -46,6 +49,7 @@ namespace EthanLibrary.Web.CacheManage
         {
             this.enable = enable;
         }
+
         /// <summary>
         /// 获取一个值,指示当前的缓存是否可用
         /// </summary>
@@ -56,6 +60,7 @@ namespace EthanLibrary.Web.CacheManage
                 return this.enable;
             }
         }
+
         /// <summary>
         /// 获取缓存的类型
         /// </summary>
@@ -66,6 +71,7 @@ namespace EthanLibrary.Web.CacheManage
                 return CacheType.Web;
             }
         }
+
         /// <summary>
         /// 检查缓存中是否存在指定的键
         /// </summary>
@@ -79,6 +85,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return false;
         }
+
         /// <summary>
         /// 检查系统中是否存在指定的缓存
         /// </summary>
@@ -94,6 +101,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return false;
         }
+
         /// <summary>
         /// 从缓存中获取指定键的值
         /// </summary>
@@ -107,6 +115,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return default(T);
         }
+
         /// <summary>
         /// 获取缓存中键值的数量
         /// </summary>
@@ -121,6 +130,7 @@ namespace EthanLibrary.Web.CacheManage
                 return 0;
             }
         }
+
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -134,6 +144,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return;
         }
+
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -148,6 +159,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return;
         }
+
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -162,6 +174,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return;
         }
+
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -176,6 +189,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return;
         }
+
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -191,6 +205,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return;
         }
+
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -206,6 +221,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return;
         }
+
         /// <summary>
         /// 尝试返回指定的缓存
         /// </summary>
@@ -224,6 +240,7 @@ namespace EthanLibrary.Web.CacheManage
             value = default(T);
             return false;
         }
+
         /// <summary>
         /// 移除键中某关键字的缓存并返回相应的值
         /// </summary>
@@ -240,6 +257,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return;
         }
+
         /// <summary>
         /// 移除键中带某关键字的缓存
         /// </summary>
@@ -261,6 +279,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return result;
         }
+
         /// <summary>
         /// 移除键中以某关键字开头的缓存
         /// </summary>
@@ -282,6 +301,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return result;
         }
+
         /// <summary>
         /// 移除键中以某关键字结尾的缓存
         /// </summary>
@@ -303,6 +323,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return result;
         }
+
         /// <summary>
         /// 移除键中所有的缓存
         /// </summary>
@@ -321,7 +342,9 @@ namespace EthanLibrary.Web.CacheManage
             }
             return result;
         }
+
         private List<string> keys = new List<string>();
+
         /// <summary>
         /// 缓存中所有的键列表
         /// </summary>
@@ -344,6 +367,7 @@ namespace EthanLibrary.Web.CacheManage
                 return new ReadOnlyCollection<string>(keys);
             }
         }
+
         /// <summary>
         /// 对缓存优先级做一个默认的转换
         /// </summary>
@@ -379,4 +403,3 @@ namespace EthanLibrary.Web.CacheManage
         }
     }
 }
-

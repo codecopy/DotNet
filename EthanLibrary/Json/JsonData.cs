@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Json
+﻿namespace EthanLibrary.Json
 {
     public class JsonData
     {

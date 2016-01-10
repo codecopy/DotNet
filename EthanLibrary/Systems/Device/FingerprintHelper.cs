@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.Systems
+﻿namespace EthanLibrary.Systems
 {
     /// <summary>
     /// 提供用户硬件唯一信息的辅助类
@@ -22,16 +18,15 @@ namespace Core.Systems
         //Return a hardware identifier
         private static string identifier(string wmiClass, string wmiProperty, string wmiMustBeTrue)
         {
-            string result="";
+            string result = "";
             System.Management.ManagementClass mc = new System.Management.ManagementClass(wmiClass);
             System.Management.ManagementObjectCollection moc = mc.GetInstances();
             foreach (System.Management.ManagementObject mo in moc)
             {
-                if (mo[wmiMustBeTrue].ToString()=="True")
+                if (mo[wmiMustBeTrue].ToString() == "True")
                 {
-
                     //Only get the first one
-                    if (result=="")
+                    if (result == "")
                     {
                         try
                         {
@@ -42,7 +37,6 @@ namespace Core.Systems
                         {
                         }
                     }
-
                 }
             }
             return result;
@@ -51,14 +45,13 @@ namespace Core.Systems
         //Return a hardware identifier
         private static string identifier(string wmiClass, string wmiProperty)
         {
-            string result="";
+            string result = "";
             System.Management.ManagementClass mc = new System.Management.ManagementClass(wmiClass);
             System.Management.ManagementObjectCollection moc = mc.GetInstances();
             foreach (System.Management.ManagementObject mo in moc)
             {
-
                 //Only get the first one
-                if (result=="")
+                if (result == "")
                 {
                     try
                     {
@@ -69,7 +62,6 @@ namespace Core.Systems
                     {
                     }
                 }
-
             }
             return result;
         }
@@ -79,22 +71,21 @@ namespace Core.Systems
             //Uses first CPU identifier available in order of preference
             //Don't get all identifiers, as very time consuming
             string retVal = identifier("Win32_Processor", "UniqueId");
-            if (retVal=="") //If no UniqueID, use ProcessorID
+            if (retVal == "") //If no UniqueID, use ProcessorID
             {
                 retVal = identifier("Win32_Processor", "ProcessorId");
 
-                if (retVal=="") //If no ProcessorId, use Name
+                if (retVal == "") //If no ProcessorId, use Name
                 {
                     retVal = identifier("Win32_Processor", "Name");
 
-
-                    if (retVal=="") //If no Name, use Manufacturer
+                    if (retVal == "") //If no Name, use Manufacturer
                     {
                         retVal = identifier("Win32_Processor", "Manufacturer");
                     }
 
                     //Add clock speed for extra security
-                    retVal +=identifier("Win32_Processor", "MaxClockSpeed");
+                    retVal += identifier("Win32_Processor", "MaxClockSpeed");
                 }
             }
 
@@ -152,7 +143,7 @@ namespace Core.Systems
             foreach (char n in text)
             {
                 y++;
-                x += (n*y);
+                x += (n * y);
             }
             retVal = x.ToString() + "00000000";
 

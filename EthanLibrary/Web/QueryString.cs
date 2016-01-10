@@ -1,5 +1,5 @@
-﻿using System.Web;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using System.Web;
 
 namespace EthanLibrary.Web
 {
@@ -9,6 +9,7 @@ namespace EthanLibrary.Web
     public class QueryString
     {
         #region 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
+
         /// <summary>
         /// 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
         /// </summary>
@@ -18,7 +19,9 @@ namespace EthanLibrary.Web
         {
             return Request.QueryString[name] == null ? "" : Request.QueryString[name];
         }
-        #endregion
+
+        #endregion 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
+
         /// <summary>
         /// 等于  Request.Form  如果为null 返回 空“” ，否则返回 Request.Form[name]
         /// </summary>
@@ -28,7 +31,9 @@ namespace EthanLibrary.Web
         {
             return Request.Form[name] == null ? "" : Request.Form[name].ToString();
         }
+
         #region 获取url中的id
+
         /// <summary>
         /// 获取url中的id
         /// </summary>
@@ -38,8 +43,11 @@ namespace EthanLibrary.Web
         {
             return StrToId(Q(name));
         }
-        #endregion
+
+        #endregion 获取url中的id
+
         #region 获取正确的Id，如果不是正整数，返回0
+
         /// <summary>
         /// 获取正确的Id，如果不是正整数，返回0
         /// </summary>
@@ -52,8 +60,11 @@ namespace EthanLibrary.Web
             else
                 return 0;
         }
-        #endregion
+
+        #endregion 获取正确的Id，如果不是正整数，返回0
+
         #region 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
+
         /// <summary>
         /// 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
         /// </summary>
@@ -63,8 +74,11 @@ namespace EthanLibrary.Web
         {
             return QuickValidate("^[1-9]*[0-9]*$", _value);
         }
-        #endregion
+
+        #endregion 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
+
         #region 快速验证一个字符串是否符合指定的正则表达式。
+
         /// <summary>
         /// 快速验证一个字符串是否符合指定的正则表达式。
         /// </summary>
@@ -81,24 +95,26 @@ namespace EthanLibrary.Web
             }
             return myRegex.IsMatch(_value);
         }
-        #endregion
+
+        #endregion 快速验证一个字符串是否符合指定的正则表达式。
 
         #region 类内部调用
-    
+
         public static HttpContext Current
         {
             get { return HttpContext.Current; }
         }
-      
+
         public static HttpRequest Request
         {
             get { return Current.Request; }
         }
-      
+
         public static HttpResponse Response
         {
             get { return Current.Response; }
         }
-        #endregion
+
+        #endregion 类内部调用
     }
 }

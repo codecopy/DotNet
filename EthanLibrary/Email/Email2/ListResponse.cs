@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace EmailHelp
 {
     /// <summary>
-    /// This class represents the response message 
-    /// returned from both a single line and multi line 
+    /// This class represents the response message
+    /// returned from both a single line and multi line
     /// Pop3 LIST Command.
     /// </summary>
     internal sealed class ListResponse : Pop3Response

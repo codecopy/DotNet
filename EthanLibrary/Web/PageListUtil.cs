@@ -1,13 +1,10 @@
-
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace EthanLibrary.Web
 {
     /// <summary>
     /// 类名:PageListUtil
-    /// 功能描述:分页代码	
+    /// 功能描述:分页代码
     /// 使用方法:
     // public string GetPageListString()
     //    {
@@ -27,11 +24,11 @@ namespace EthanLibrary.Web
 
         private int PageCount
         {
-            get 
+            get
             {
                 if (Counts % pageSize == 0)
                 {
-                   return Counts / pageSize;
+                    return Counts / pageSize;
                 }
                 else
                 {
@@ -86,7 +83,6 @@ namespace EthanLibrary.Web
             return GetPageNumbers(_pageIndex, PageCount, url, extendPage, pagetag);
         }
 
-
         /// <summary>
         /// 获得页码显示链接
         /// </summary>
@@ -112,7 +108,6 @@ namespace EthanLibrary.Web
         public static string GetPageNumbers(int curPage, int countPage, string url, int extendPage, string pagetag)
         {
             return GetPageNumbers(curPage, countPage, url, extendPage, pagetag, null);
-
         }
 
         /// <summary>
@@ -129,7 +124,6 @@ namespace EthanLibrary.Web
         {
             return GetPageNumbers(curPage, countPage, url, extendPage, pagetag, anchor, null);
         }
-
 
         /// <summary>
         /// 获得页码显示链接
@@ -213,7 +207,6 @@ namespace EthanLibrary.Web
             s.Append(t1);
             for (int i = startPage; i <= endPage; i++)
             {
-
                 if (i == curPage)
                 {
                     s.Append("<a class=\"" + classname + "\" href=\"");

@@ -1,8 +1,8 @@
-﻿using System.Web;
+﻿using System;
 using System.Text;
-using System.Web.UI.WebControls;
+using System.Web;
 using System.Web.UI;
-using System;
+using System.Web.UI.WebControls;
 
 namespace EthanLibrary.Web
 {
@@ -23,8 +23,11 @@ namespace EthanLibrary.Web
         {
             return s.Replace("\r", "\\r").Replace("\n", "\\n").Replace("'", "\\'").Replace("\"", "\\\"");
         }
+
         #region 页面弹出消息框
+
         #region 输出自定义脚本信息
+
         /// <summary>
         /// 输出自定义脚本信息
         /// </summary>
@@ -33,11 +36,12 @@ namespace EthanLibrary.Web
         public static void ResponseScript(System.Web.UI.Page page, string script)
         {
             page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>" + script + "</script>");
-
         }
-        #endregion
+
+        #endregion 输出自定义脚本信息
 
         #region 弹出信息
+
         /// <summary>
         /// 弹出信息
         /// </summary>
@@ -46,9 +50,11 @@ namespace EthanLibrary.Web
             string js = "<script language=javascript>alert('{0}');</script>";
             HttpContext.Current.Response.Write(string.Format(js, message));
         }
-        #endregion
+
+        #endregion 弹出信息
 
         #region 弹出信息,并跳转指定页面
+
         /// <summary>
         /// 弹出信息,并跳转指定页面。
         /// </summary>
@@ -58,9 +64,10 @@ namespace EthanLibrary.Web
             HttpContext.Current.Response.Write(string.Format(js, message, toURL));
             HttpContext.Current.Response.End();
         }
-        #endregion
 
-        #region  弹出信息,并返回历史页面
+        #endregion 弹出信息,并跳转指定页面
+
+        #region 弹出信息,并返回历史页面
 
         /// <summary>
         /// 弹出信息,并返回历史页面
@@ -71,9 +78,11 @@ namespace EthanLibrary.Web
             HttpContext.Current.Response.Write(string.Format(js, message, value));
             HttpContext.Current.Response.End();
         }
-        #endregion
+
+        #endregion 弹出信息,并返回历史页面
 
         #region 显示消息提示对话框，并进行页面跳转
+
         /// <summary>
         /// 显示消息提示对话框，并进行页面跳转
         /// </summary>
@@ -89,9 +98,7 @@ namespace EthanLibrary.Web
             Builder.Append("</script>");
             //page.RegisterStartupScript("message", Builder.ToString());
             page.ClientScript.RegisterStartupScript(page.GetType(), "message", Builder.ToString());
-
         }
-
 
         public static void ShowAndRedirect(System.Web.UI.Page page, string msg, string url, bool top)
         {
@@ -109,11 +116,9 @@ namespace EthanLibrary.Web
             Builder.Append("</script>");
             // page.RegisterStartupScript("message", Builder.ToString());
             page.ClientScript.RegisterStartupScript(page.GetType(), "message", Builder.ToString());
-
         }
 
-        #endregion
-
+        #endregion 显示消息提示对话框，并进行页面跳转
 
         #endregion 页面弹出消息框
 
@@ -155,24 +160,24 @@ namespace EthanLibrary.Web
             control.Attributes[eventName] = string.Format("return showConfirm('{0}',{1},{2},'{3}','{4}');", title, width, height, message, control.ClientID);
         }
 
-        #endregion
+        #endregion 控件点击 消息确认提示框
 
         #region 回到历史页面
+
         /// <summary>
         /// 回到历史页面
         /// </summary>
         /// <param name="value">-1/1</param>
         public static void GoHistory(int value)
         {
-
             string js = @"<Script language='JavaScript'> history.go({0});  </Script>";
             HttpContext.Current.Response.Write(string.Format(js, value));
-
         }
 
-        #endregion
+        #endregion 回到历史页面
 
         #region 关闭当前窗口
+
         /// <summary>
         /// 关闭当前窗口
         /// </summary>
@@ -180,11 +185,13 @@ namespace EthanLibrary.Web
         {
             string js = @"<Script language='JavaScript'>parent.opener=null;window.close();</Script>";
             HttpContext.Current.Response.Write(js);
-            HttpContext.Current.Response.End();  
+            HttpContext.Current.Response.End();
         }
-        #endregion
+
+        #endregion 关闭当前窗口
 
         #region 刷新父窗口
+
         /// <summary>
         /// 刷新父窗口
         /// </summary>
@@ -202,6 +209,7 @@ namespace EthanLibrary.Web
             string js = "<script language=javascript>window.top.location.replace('{0}')</script>";
             HttpContext.Current.Response.Write(string.Format(js, ToUrl));
         }
+
         /// <summary>
         /// 弹出信息 并指定到父窗口
         /// </summary>
@@ -210,9 +218,11 @@ namespace EthanLibrary.Web
             string js = "<script language=javascript>alert('{0}');window.top.location.replace('{1}')</script>";
             HttpContext.Current.Response.Write(string.Format(js, message, toURL));
         }
-        #endregion
+
+        #endregion 刷新父窗口
 
         #region 刷新打开窗口
+
         /// <summary>
         /// 刷新打开窗口
         /// </summary>
@@ -221,9 +231,11 @@ namespace EthanLibrary.Web
             string js = @"<Script language='JavaScript'>opener.location.reload(); </Script>";
             HttpContext.Current.Response.Write(js);
         }
-        #endregion
+
+        #endregion 刷新打开窗口
 
         #region 转向Url指定的页面
+
         /// <summary>
         /// 转向Url指定的页面
         /// </summary>
@@ -234,9 +246,11 @@ namespace EthanLibrary.Web
             js = string.Format(js, url);
             HttpContext.Current.Response.Write(js);
         }
-        #endregion
+
+        #endregion 转向Url指定的页面
 
         #region 打开指定大小位置的模式对话框
+
         /// <summary>
         /// 打开指定大小位置的模式对话框
         /// </summary>
@@ -253,11 +267,12 @@ namespace EthanLibrary.Web
                 + ";dialogTop:" + top.ToString() + "px"
                 + ";center:yes;help=no;resizable:no;status:no;scroll=yes";
             ShowModalDialogWindow(webFormUrl, features);
-          
         }
-        #endregion
+
+        #endregion 打开指定大小位置的模式对话框
 
         #region 打开模式对话框
+
         /// <summary>
         /// 打开模式对话框
         /// </summary>
@@ -277,13 +292,15 @@ namespace EthanLibrary.Web
         /// <returns></returns>
         public static string ShowModalDialogJavascript(string webFormUrl, string features)
         {
-            string js = @"<script language=javascript>							
+            string js = @"<script language=javascript>
 							showModalDialog('" + webFormUrl + "','','" + features + "');</script>";
-            return js; 
+            return js;
         }
-        #endregion
+
+        #endregion 打开模式对话框
 
         #region 打开指定大小的新窗体
+
         /// <summary>
         /// 打开指定大小的新窗体
         /// </summary>
@@ -297,7 +314,8 @@ namespace EthanLibrary.Web
             string js = @"<Script language='JavaScript'>window.open('" + url + @"','','height=" + heigth + ",width=" + width + ",top=" + top + ",left=" + left + ",location=no,menubar=no,resizable=yes,scrollbars=yes,status=yes,titlebar=no,toolbar=no,directories=no');</Script>";
             HttpContext.Current.Response.Write(js);
         }
-        #endregion
+
+        #endregion 打开指定大小的新窗体
 
         #region 页面跳转（跳出框架）
 
@@ -311,8 +329,9 @@ namespace EthanLibrary.Web
             js = string.Format(js, url);
             HttpContext.Current.Response.Write(js);
         }
-        #endregion
-    
+
+        #endregion 页面跳转（跳出框架）
+
         #region 显示模态窗口
 
         /// <summary>
@@ -386,7 +405,6 @@ namespace EthanLibrary.Web
             // NDGridViewScriptFirst(page.Form.Controls, page);
 
             page.ClientScript.RegisterStartupScript(page.GetType(), System.Guid.NewGuid().ToString(), script, true);
-
         }
 
         /// <summary>
@@ -397,7 +415,8 @@ namespace EthanLibrary.Web
         {
             return (Page)HttpContext.Current.Handler;
         }
-        #endregion
+
+        #endregion 显示模态窗口
 
         /// <summary>
         /// 打开窗口
@@ -405,7 +424,6 @@ namespace EthanLibrary.Web
         /// <param name="url"></param>
         public static void OpenWebForm(string url)
         {
-
             string js = @"<Script language='JavaScript'>
 			//window.open('" + url + @"');
 			window.open('" + url + @"','','height=0,width=0,top=0,left=0,location=no,menubar=no,resizable=yes,scrollbars=yes,status=yes,titlebar=no,toolbar=no,directories=no');
@@ -413,6 +431,7 @@ namespace EthanLibrary.Web
 
             HttpContext.Current.Response.Write(js);
         }
+
         public static void OpenWebForm(string url, string name, string future)
         {
             string js = @"<Script language='JavaScript'>
@@ -420,9 +439,9 @@ namespace EthanLibrary.Web
                   </Script>";
             HttpContext.Current.Response.Write(js);
         }
+
         public static void OpenWebForm(string url, string formName)
         {
-
             string js = @"<Script language='JavaScript'>
 			//window.open('" + url + @"','" + formName + @"');
 			window.open('" + url + @"','" + formName + @"','height=0,width=0,top=0,left=0,location=no,menubar=no,resizable=yes,scrollbars=yes,status=yes,titlebar=no,toolbar=no,directories=no');
@@ -430,7 +449,6 @@ namespace EthanLibrary.Web
 
             HttpContext.Current.Response.Write(js);
         }
-
 
         /// </summary>
         /// <param name="url">WEB窗口</param>
@@ -476,15 +494,13 @@ namespace EthanLibrary.Web
 			var the_cookie = '" + strName + "=" + strValue + @"'
 			var dateexpire = 'Tuesday, 01-Dec-2020 12:00:00 GMT';
 			//document.cookie = the_cookie;//写入Cookie<BR>} <BR>
-			document.cookie = the_cookie + '; expires='+dateexpire;			
+			document.cookie = the_cookie + '; expires='+dateexpire;
 			</script>";
             HttpContext.Current.Response.Write(js);
         }
 
-
-
-        /// <summary>		
-        /// 功能描述:替换父窗口	
+        /// <summary>
+        /// 功能描述:替换父窗口
         /// </summary>
         /// <param name="parentWindowUrl">父窗口</param>
         /// <param name="caption">窗口提示</param>
@@ -505,11 +521,10 @@ namespace EthanLibrary.Web
             HttpContext.Current.Response.Write(js);
         }
 
-
-        /// <summary>		
-        /// 功能描述:替换当前窗体的打开窗口	
+        /// <summary>
+        /// 功能描述:替换当前窗体的打开窗口
         /// </summary>
-        /// <param name="openerWindowUrl">当前窗体的打开窗口</param>		
+        /// <param name="openerWindowUrl">当前窗体的打开窗口</param>
         public static void ReplaceOpenerWindow(string openerWindowUrl)
         {
             string js = @"<Script language='JavaScript'>
@@ -517,10 +532,10 @@ namespace EthanLibrary.Web
             HttpContext.Current.Response.Write(js);
         }
 
-        /// <summary>		
-        /// 功能描述:替换当前窗体的打开窗口的父窗口	
+        /// <summary>
+        /// 功能描述:替换当前窗体的打开窗口的父窗口
         /// </summary>
-        /// <param name="openerWindowUrl">当前窗体的打开窗口的父窗口</param>		
+        /// <param name="openerWindowUrl">当前窗体的打开窗口的父窗口</param>
         public static void ReplaceOpenerParentFrame(string frameName, string frameWindowUrl)
         {
             string js = @"<Script language='JavaScript'>
@@ -529,16 +544,15 @@ namespace EthanLibrary.Web
         }
 
         /// <summary>
-        /// 功能描述:替换当前窗体的打开窗口的父窗口	
+        /// 功能描述:替换当前窗体的打开窗口的父窗口
         /// </summary>
-        /// <param name="openerWindowUrl">当前窗体的打开窗口的父窗口</param>		
+        /// <param name="openerWindowUrl">当前窗体的打开窗口的父窗口</param>
         public static void ReplaceOpenerParentWindow(string openerParentWindowUrl)
         {
             string js = @"<Script language='JavaScript'>
                     window.opener.parent.location.replace('" + openerParentWindowUrl + "');</Script>";
             HttpContext.Current.Response.Write(js);
         }
-
 
         /// <summary>
         /// 向客户端发送函数KendoPostBack(eventTarget, eventArgument)
@@ -547,12 +561,11 @@ namespace EthanLibrary.Web
         /// <param name="page">System.Web.UI.Page 一般为this</param>
         public static void JscriptSender(System.Web.UI.ClientScriptManager clientScript)
         {
-
             clientScript.RegisterHiddenField("__EVENTTARGET", "");
             clientScript.RegisterHiddenField("__EVENTARGUMENT", "");
-            string s = @"		
+            string s = @"
 <script language=Javascript>
-      function KendoPostBack(eventTarget, eventArgument) 
+      function KendoPostBack(eventTarget, eventArgument)
       {
 				var theform = document.forms[0];
 				theform.__EVENTTARGET.value = eventTarget;
@@ -563,9 +576,5 @@ namespace EthanLibrary.Web
 
             clientScript.RegisterStartupScript(typeof(String), "sds", s);
         }
-
-
-
-
     }
 }

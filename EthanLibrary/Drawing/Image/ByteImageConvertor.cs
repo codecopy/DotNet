@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace Core.Drawing
+namespace EthanLibrary.Drawing
 {
     /// <summary>
     /// This class provides the utility method to the convertion between byte array and image.

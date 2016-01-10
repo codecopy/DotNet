@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Collections.Specialized;
 
 namespace EthanLibrary.Common
 {
@@ -10,18 +10,21 @@ namespace EthanLibrary.Common
     /// </summary>
     public class URLHelper
     {
-        static System.Text.Encoding encoding = System.Text.Encoding.UTF8;
+        private static System.Text.Encoding encoding = System.Text.Encoding.UTF8;
 
         #region URL的64位编码
+
         public static string Base64Encrypt(string sourthUrl)
         {
             string eurl = HttpUtility.UrlEncode(sourthUrl);
             eurl = Convert.ToBase64String(encoding.GetBytes(eurl));
             return eurl;
         }
-        #endregion
+
+        #endregion URL的64位编码
 
         #region URL的64位解码
+
         public static string Base64Decrypt(string eStr)
         {
             if (!IsBase64(eStr))
@@ -33,6 +36,7 @@ namespace EthanLibrary.Common
             sourthUrl = HttpUtility.UrlDecode(sourthUrl);
             return sourthUrl;
         }
+
         /// <summary>
         /// 是否是Base64字符串
         /// </summary>
@@ -50,9 +54,11 @@ namespace EthanLibrary.Common
             }
             return true;
         }
-        #endregion
+
+        #endregion URL的64位解码
 
         #region URL编码
+
         /// <summary>
         /// 返回 URL 字符串的编码结果
         /// </summary>
@@ -73,7 +79,8 @@ namespace EthanLibrary.Common
             return System.Web.HttpUtility.UrlDecode(str);
         }
 
-        #endregion
+        #endregion URL编码
+
         /// <summary>
         /// 添加URL参数
         /// </summary>
@@ -91,6 +98,7 @@ namespace EthanLibrary.Common
                 return String.Concat(url, "&" + paramName + "=" + eval);
             }
         }
+
         /// <summary>
         /// 更新URL参数
         /// </summary>
@@ -111,6 +119,7 @@ namespace EthanLibrary.Common
         }
 
         #region 分析URL所属的域
+
         public static void GetDomain(string fromUrl, out string domain, out string subDomain)
         {
             domain = "";
@@ -134,7 +143,6 @@ namespace EthanLibrary.Common
                     if (u.IsFile)
                     {
                         subDomain = domain = "客户端本地文件路径";
-
                     }
                     else
                     {
@@ -201,7 +209,7 @@ namespace EthanLibrary.Common
                 return;
             string ps = url.Substring(questionMarkIndex + 1);
 
-            // 开始分析参数对    
+            // 开始分析参数对
             Regex re = new Regex(@"(^|&)?(\w+)=([^&]+)(&|$)?", RegexOptions.Compiled);
             MatchCollection mc = re.Matches(ps);
 
@@ -211,15 +219,16 @@ namespace EthanLibrary.Common
             }
         }
 
-        #endregion
+        #endregion 分析URL所属的域
 
         #region 自动识别文本中的URL
-        /// <summary> 
-        /// 自动识别文本中的URL 
-        /// 可以识别 www.，http://， ftp://， xx@xx.xx， mms:// 
-        /// </summary> 
-        /// <param name="input">输入数据</param> 
-        /// <returns>自动识别URL后的数据</returns> 
+
+        /// <summary>
+        /// 自动识别文本中的URL
+        /// 可以识别 www.，http://， ftp://， xx@xx.xx， mms://
+        /// </summary>
+        /// <param name="input">输入数据</param>
+        /// <returns>自动识别URL后的数据</returns>
         public static string autoConvertToURL(object input)
         {
             string str = input.ToString();
@@ -254,6 +263,7 @@ namespace EthanLibrary.Common
 
             return str;
         }
-        #endregion
+
+        #endregion 自动识别文本中的URL
     }
 }

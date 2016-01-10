@@ -3,10 +3,10 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Core.Drawing
+namespace EthanLibrary.Drawing
 {
-    class ImageHelper
-    {     
+    internal class ImageHelper
+    {
         /// <summary>
         /// 改变原图片的格式，使其成为后缀名为strFormat的图片
         /// path是图片的地址
@@ -151,6 +151,7 @@ namespace Core.Drawing
                 img.Dispose();
             }
         }
+
         /// <summary>
         /// 得到路径包含文件名但不包含后缀名的部分
         /// </summary>
@@ -167,6 +168,7 @@ namespace Core.Drawing
             }
             return null;
         }
+
         /// <summary>
         /// 得到文件路径的后缀名
         /// </summary>
@@ -183,6 +185,7 @@ namespace Core.Drawing
             }
             return null;
         }
+
         /// <summary>
         /// 判断是否是否是一个图片文件
         /// </summary>

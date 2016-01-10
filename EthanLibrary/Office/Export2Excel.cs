@@ -1,26 +1,23 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Data;
-using System.IO;
-using Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Core;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.Diagnostics;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
-namespace Core.Office
-{ 
+namespace EthanLibrary.Office
+{
     /// <summary>
     /// 利用VBA对象，导出DataView到一个Excel文档中的Excel辅助类
     /// </summary>
     public class Export2Excel
     {
         #region InstanceFields
+
         //Instance Fields
         public delegate void ProgressHandler(object sender, ProgressEventArgs e);
+
         public event ProgressHandler OnProgressHandler;
 
         private List<DataView> dvList;
@@ -33,19 +30,21 @@ namespace Core.Office
         private string[,] myTemplateValues;
         private int position;
 
-        #endregion
-        
+        #endregion InstanceFields
+
         #region Constructor
+
         //Constructs a new export2Excel object. The user must
         //call the createExcelDocument method once a valid export2Excel
         //object has been instantiated
         public Export2Excel()
         {
-
         }
-        #endregion
+
+        #endregion Constructor
 
         #region EXCEL : ExportToExcel
+
         /// <summary>
         /// Exports a DataView to Excel
         /// </summary>
@@ -57,7 +56,6 @@ namespace Core.Office
             List<DataView> dvList = new List<DataView>() { dv };
             ExportToExcel(dvList, path, sheetName);
         }
-
 
         //Exports a DataView to Excel. The following steps are carried out
         //in order to export the DataView to Excel
@@ -72,7 +70,7 @@ namespace Core.Office
         //@param dv : DataView to use
         //@param path : The path to save/open the EXCEL file to/from
         //@param sheetName : The target sheet within the EXCEL file
-        public void ExportToExcel(List<DataView> dvList,string path, string sheetName)
+        public void ExportToExcel(List<DataView> dvList, string path, string sheetName)
         {
             try
             {
@@ -82,16 +80,16 @@ namespace Core.Office
                 #region NEW EXCEL DOCUMENT : Create Excel Objects
 
                 //create new EXCEL application
-               // EXL = new Microsoft.Office.Interop.Excel.ApplicationClass();
+                // EXL = new Microsoft.Office.Interop.Excel.ApplicationClass();
                 //index to hold location of the requested sheetName in the workbook sheets
                 //collection
                 int indexOfsheetName;
 
                 #region FILE EXISTS
+
                 //Does the file exist for the given path
                 if (File.Exists(path))
                 {
-
                     //Yes file exists, so open the file
                     workbook = EXL.Workbooks.Open(path,
                         0, false, 5, "", "", false, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "",
@@ -137,9 +135,11 @@ namespace Core.Office
                         sh.Name = sheetName;
                     }
                 }
-                #endregion
+
+                #endregion FILE EXISTS
 
                 #region FILE DOESNT EXIST
+
                 //No the file DOES NOT exist, so create a new file
                 else
                 {
@@ -152,7 +152,8 @@ namespace Core.Office
                     //Change its name to that requested
                     worksheet.Name = sheetName;
                 }
-                #endregion
+
+                #endregion FILE DOESNT EXIST
 
                 #region get correct worksheet index for requested sheetName
 
@@ -169,8 +170,6 @@ namespace Core.Office
                     //get the current worksheet at index (i)
                     worksheet = (Worksheet)sheets.get_Item(i);
 
-
-
                     //is the current worksheet the sheetName that was requested
                     if (worksheet.Name.ToString().Equals(sheetName))
                     {
@@ -182,22 +181,24 @@ namespace Core.Office
                 //set the worksheet that the DataView should write to, to the known index of the
                 //requested sheet
                 worksheet = (Worksheet)sheets.get_Item(indexOfsheetName);
-                #endregion
 
-                #endregion
+                #endregion get correct worksheet index for requested sheetName
+
+                #endregion NEW EXCEL DOCUMENT : Create Excel Objects
 
                 // Set styles 1st
                 SetUpStyles();
                 //Fill EXCEL worksheet with DataView values
                 FillWorksheet_WithDataView();
-                
+
                 ////Add the autoshapes to EXCEL
                 //AddAutoShapesToExcel();
-                
+
                 //Select all used cells within current worksheet
                 SelectAllUsedCells();
 
                 #region Finish and Release
+
                 try
                 {
                     NAR(sheets);
@@ -225,17 +226,20 @@ namespace Core.Office
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error " + ex.Message);
-                } 
-                #endregion
+                }
+
+                #endregion Finish and Release
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error " + ex.Message);
             }
         }
-        #endregion
-        
+
+        #endregion EXCEL : ExportToExcel
+
         #region EXCEL : UseTemplate
+
         //Exports a DataView to Excel. The following steps are carried out
         //in order to export the DataView to Excel
         //Create Excel Objects And Open Template File
@@ -250,7 +254,7 @@ namespace Core.Office
             {
                 this.myTemplateValues = myTemplateValues;
                 //create new EXCEL application
-               ////  EXL = new Microsoft.Office.Interop.Excel.ApplicationClass();
+                ////  EXL = new Microsoft.Office.Interop.Excel.ApplicationClass();
                 //Yes file exists, so open the file
                 //workbook = EXL.Workbooks.Open(templatePath,
                 //    0, false, 5, "", "", false, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "",
@@ -267,6 +271,7 @@ namespace Core.Office
                 //SelectAllUsedCells();
 
                 #region Finish and Release
+
                 try
                 {
                     NAR(sheets);
@@ -284,24 +289,26 @@ namespace Core.Office
                     // Show that processing is finished
                     ProgressEventArgs pe = new ProgressEventArgs(100);
                     OnProgressChange(pe);
-                    
-                    //MessageBox.Show("Finished adding test values to Template", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    //MessageBox.Show("Finished adding test values to Template", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (COMException)
                 {
                     Console.WriteLine("User closed Excel manually, so we don't have to do that");
-                } 
-                #endregion
+                }
+
+                #endregion Finish and Release
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error " + ex.Message);
             }
         }
-        #endregion
+
+        #endregion EXCEL : UseTemplate
 
         #region STEP 1 : Create Column & Row Workbook Cell Rendering Styles
+
         //Creates 2 Custom styles for the workbook These styles are
         //  styleColumnHeadings
         //  styleRows
@@ -312,7 +319,6 @@ namespace Core.Office
         //be used to render the current cell.
         private void SetUpStyles()
         {
-
             // Style styleColumnHeadings
             try
             {
@@ -332,7 +338,6 @@ namespace Core.Office
             // Style styleRows
             try
             {
-
                 styleRows = workbook.Styles["styleRows"];
             }
             // Style doesn't exist yet.
@@ -346,9 +351,11 @@ namespace Core.Office
                 styleRows.Interior.Pattern = Microsoft.Office.Interop.Excel.XlPattern.xlPatternSolid;
             }
         }
-        #endregion
+
+        #endregion STEP 1 : Create Column & Row Workbook Cell Rendering Styles
 
         #region STEP 2 : Fill Worksheet With DataView
+
         //Fills an Excel worksheet with the values contained in the DataView
         //parameter
         private void FillWorksheet_WithDataView()
@@ -390,17 +397,19 @@ namespace Core.Office
                     ProgressEventArgs pe = new ProgressEventArgs(position);
                     OnProgressChange(pe);
 
-                   col = 1;
-                   row++;
-                   rowIndex++;
+                    col = 1;
+                    row++;
+                    rowIndex++;
                 }
 
                 row = row + 2;//第二个开始空两行
             }
         }
-        #endregion
+
+        #endregion STEP 2 : Fill Worksheet With DataView
 
         #region STEP 3 : Fill Individual Cell and Render Using Predefined Style
+
         //Formats the current cell based on the Style setting parameter name
         //provided here
         //@param worksheet : The worksheet
@@ -419,9 +428,11 @@ namespace Core.Office
             rng.Borders.LineStyle = XlLineStyle.xlContinuous;
             rng.Borders.ColorIndex = Microsoft.Office.Interop.Excel.XlColorIndex.xlColorIndexAutomatic;
         }
-        #endregion
+
+        #endregion STEP 3 : Fill Individual Cell and Render Using Predefined Style
 
         #region STEP 4 : Add Auto Shapes To Excel Worksheet
+
         //Add some WordArt objecs to the Excel worksheet
         private void AddAutoShapesToExcel()
         {
@@ -444,12 +455,12 @@ namespace Core.Office
 
                     //Manipulate the object settings
                     myShapes[i].Rotation = 45F;
-                    myShapes[i].Fill.Visible = Microsoft.Office.Core.MsoTriState.msoFalse;
+                    myShapes[i].Fill.Visible = Microsoft.Office.EthanLibrary.MsoTriState.msoFalse;
                     myShapes[i].Fill.Transparency = 0F;
                     myShapes[i].Line.Weight = 1.75F;
                     myShapes[i].Line.DashStyle = MsoLineDashStyle.msoLineSolid;
                     myShapes[i].Line.Transparency = 0F;
-                    myShapes[i].Line.Visible = Microsoft.Office.Core.MsoTriState.msoTrue;
+                    myShapes[i].Line.Visible = Microsoft.Office.EthanLibrary.MsoTriState.msoTrue;
                     myShapes[i].Line.ForeColor.RGB = (0 << 16) | (0 << 8) | 0;
                     myShapes[i].Line.BackColor.RGB = (255 << 16) | (255 << 8) | 255;
                 }
@@ -457,58 +468,60 @@ namespace Core.Office
             catch (Exception ex)
             {
             }
-
         }
-        #endregion
+
+        #endregion STEP 4 : Add Auto Shapes To Excel Worksheet
 
         #region STEP 5 : Select All Used Cells
+
         //Selects all used cells for the Excel worksheet
         private void SelectAllUsedCells()
         {
-
             Microsoft.Office.Interop.Excel.Range myAllRange = worksheet.Cells;
             myAllRange.Select();
             myAllRange.CurrentRegion.Select();
-
         }
-        #endregion
+
+        #endregion STEP 5 : Select All Used Cells
 
         #region STEP 6 : Fill Template With Test Values
+
         //Fills the Excel Template File Selected With A 2D Test Array parameter
         private void FillTemplate_WithTestValues()
         {
-			//Initilaise the correct Start Row/Column to match the Template
-			int StartRow = 3;
-			int StartCol = 2;
+            //Initilaise the correct Start Row/Column to match the Template
+            int StartRow = 3;
+            int StartCol = 2;
 
-			position=0;
+            position = 0;
 
-			// Display the array elements within the Output window, make sure its correct before
-			for (int i=0; i <= myTemplateValues.GetUpperBound(0); i++) 
-			{
-				//loop through array and put into EXCEL template
-				for (int j = 0 ; j <= myTemplateValues.GetUpperBound(1) ; j++)
-				{
-					//update position in progress bar
-					position = (100 / myTemplateValues.Length) * i;
+            // Display the array elements within the Output window, make sure its correct before
+            for (int i = 0; i <= myTemplateValues.GetUpperBound(0); i++)
+            {
+                //loop through array and put into EXCEL template
+                for (int j = 0; j <= myTemplateValues.GetUpperBound(1); j++)
+                {
+                    //update position in progress bar
+                    position = (100 / myTemplateValues.Length) * i;
                     ProgressEventArgs pe = new ProgressEventArgs(position);
                     OnProgressChange(pe);
 
-					//put into EXCEL template
-					Range rng = (Range)worksheet.Cells[StartRow,StartCol++];
-					rng.Select();
-					rng.Value2 = myTemplateValues[i,j].ToString();
-					rng.Rows.EntireRow.AutoFit();
-				}
-				//New row, so column needs to be reset
-				StartCol=2;
-				StartRow++;
-			}
-		}
+                    //put into EXCEL template
+                    Range rng = (Range)worksheet.Cells[StartRow, StartCol++];
+                    rng.Select();
+                    rng.Value2 = myTemplateValues[i, j].ToString();
+                    rng.Rows.EntireRow.AutoFit();
+                }
+                //New row, so column needs to be reset
+                StartCol = 2;
+                StartRow++;
+            }
+        }
 
-        #endregion
+        #endregion STEP 6 : Fill Template With Test Values
 
         #region Kill EXCEL
+
         //As a safety check go through all processes and make
         //doubly sure excel is shutdown. Working with COM
         //have sometimes noticed that the EXL.Quit() call
@@ -550,19 +563,22 @@ namespace Core.Office
                 obj = null;
             }
         }
-        #endregion
+
+        #endregion Kill EXCEL
 
         #region Events
-        /// Raises the OnProgressChange event for the parent form. 
+
+        /// Raises the OnProgressChange event for the parent form.
         public virtual void OnProgressChange(ProgressEventArgs e)
         {
             if (OnProgressHandler != null)
             {
-                // Invokes the delegates. 
+                // Invokes the delegates.
                 OnProgressHandler(this, e);
             }
         }
-        #endregion
+
+        #endregion Events
     }
 
     /// <summary>
@@ -571,18 +587,22 @@ namespace Core.Office
     public class ProgressEventArgs : EventArgs
     {
         #region Instance Fields
+
         //Instance fields
         private int prgValue = 0;
-        #endregion
+
+        #endregion Instance Fields
 
         #region Public Constructor
+
         /// Constructs a new ProgressEventArgs object using the parameters provided
         /// @param prgValue : new progress value
         public ProgressEventArgs(int prgValue)
         {
             this.prgValue = prgValue;
         }
-        #endregion
+
+        #endregion Public Constructor
 
         #region Public Methods/Properties
 
@@ -591,6 +611,7 @@ namespace Core.Office
         {
             get { return prgValue; }
         }
-        #endregion
+
+        #endregion Public Methods/Properties
     }
 }

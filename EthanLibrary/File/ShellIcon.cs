@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
-namespace Core.IO
+namespace EthanLibrary.IO
 {
     /// <summary>
     /// 获取系统文件类信息
@@ -17,14 +15,15 @@ namespace Core.IO
             public IntPtr hIcon;
             public IntPtr iIcon;
             public uint dwAttributes;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
             public string szDisplayName;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
             public string szTypeName;
         };
 
-
-        class Win32
+        private class Win32
         {
             public const uint SHGFI_ICON = 0x000000100;// get icon
             public const uint SHGFI_DISPLAYNAME = 0x000000200;// get display name
@@ -64,7 +63,6 @@ namespace Core.IO
             [DllImport("User32.dll")]
             public static extern int DestroyIcon(System.IntPtr hIcon);
         }
-
 
         public ShellIcon()
         {

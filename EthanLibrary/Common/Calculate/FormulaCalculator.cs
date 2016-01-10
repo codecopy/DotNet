@@ -40,6 +40,7 @@ namespace EthanLibrary.Common
         }
 
         #region 运算符与支持的函数
+
         private static object[][] Level = new object[][]
             {
                 new object[]{",",0},
@@ -83,9 +84,10 @@ namespace EthanLibrary.Common
                 new object[]{"OR(",MAX_LEVEL},
     };
 
-        #endregion
+        #endregion 运算符与支持的函数
 
         #region 解析表达式
+
         /// <summary>
         /// 运算符
         /// </summary>
@@ -207,7 +209,7 @@ namespace EthanLibrary.Common
             }
         }
 
-        /// <summary>计算函数(括号运算符被当作函数计算,所有的函数必须已右括号结尾)</summary>        
+        /// <summary>计算函数(括号运算符被当作函数计算,所有的函数必须已右括号结尾)</summary>
         private decimal[] CalculateFunction()
         {
             //查找对应的右括号
@@ -238,7 +240,7 @@ namespace EthanLibrary.Common
         /// <summary>
         /// 获取第一个未封闭的右括号在字符串中的位置
         /// </summary>
-        /// <param name="expression">传入的字符串</param>        
+        /// <param name="expression">传入的字符串</param>
         private int GetIndex(string expression)
         {
             int count = 0;
@@ -256,6 +258,7 @@ namespace EthanLibrary.Common
             }
             return -1;
         }
+
         /// <summary>计算四则表达式</summary>
         private decimal[] CalculateTwoParms()
         {
@@ -304,9 +307,11 @@ namespace EthanLibrary.Common
 
             return result;
         }
-        #endregion
+
+        #endregion 解析表达式
 
         #region 运算
+
         private decimal[] Calc(string opt, string expression)
         {
             FormulaCalculator calc = new FormulaCalculator(expression, _data);
@@ -319,6 +324,7 @@ namespace EthanLibrary.Common
                 case "(":
                     r = v;
                     break;
+
                 case "ROUND(":
                     if (values.Length > 2)
                         throw new Exception("Round函数需要一个或两个参数!");
@@ -327,11 +333,13 @@ namespace EthanLibrary.Common
                     else
                         r = decimal.Round(values[0], (int)values[1]);
                     break;
+
                 case "TRUNC(":
                     if (values.Length > 1)
                         throw new Exception("Trunc函数只需要一个参数!");
                     r = decimal.Truncate(v);
                     break;
+
                 case "MAX(":
                     if (values.Length < 2)
                         throw new Exception("Max函数至少需要两个参数!");
@@ -340,6 +348,7 @@ namespace EthanLibrary.Common
                         if (values[i] > r)
                             r = values[i];
                     break;
+
                 case "MIN(":
                     if (values.Length < 2)
                         throw new Exception("Min函数至少需要两个参数!");
@@ -348,20 +357,24 @@ namespace EthanLibrary.Common
                         if (values[i] < r)
                             r = values[i];
                     break;
+
                 case "ABS":
                     if (values.Length > 1)
                         throw new Exception("Abs函数只需要一个参数!");
                     r = Math.Abs(v);
                     break;
+
                 case "SUM(":
                     foreach (decimal d in values)
                         r += d;
                     break;
+
                 case "AVERAGE(":
                     foreach (decimal d in values)
                         r += d;
                     r /= values.Length;
                     break;
+
                 case "IF(":
                     if (values.Length != 3)
                         throw new Exception("IF函数需要三个参数!");
@@ -370,6 +383,7 @@ namespace EthanLibrary.Common
                     else
                         r = values[2];
                     break;
+
                 case "NOT(":
                     if (values.Length != 1)
                         throw new Exception("NOT函数需要一个参数!");
@@ -378,6 +392,7 @@ namespace EthanLibrary.Common
                     else
                         r = 1;
                     break;
+
                 case "OR(":
                     if (values.Length < 1)
                         throw new Exception("OR函数至少需要两个参数!");
@@ -385,6 +400,7 @@ namespace EthanLibrary.Common
                         if (GetBoolean(d))
                             return new decimal[1] { 1 };
                     break;
+
                 case "AND(":
                     if (values.Length < 1)
                         throw new Exception("AND函数至少需要两个参数!");
@@ -393,31 +409,37 @@ namespace EthanLibrary.Common
                             return new decimal[1] { decimal.Zero };
                     r = 1;
                     break;
+
                 case "SQRT(":
                     if (values.Length != 1)
                         throw new Exception("SQRT函数需要一个参数!");
                     r = (decimal)Math.Sqrt((double)v);
                     break;
+
                 case "SIN(":
                     if (values.Length != 1)
                         throw new Exception("Sin函数需要一个参数!");
                     r = (decimal)Math.Sin((double)v);
                     break;
+
                 case "COS(":
                     if (values.Length != 1)
                         throw new Exception("Cos函数需要一个参数!");
                     r = (decimal)Math.Cos((double)v);
                     break;
+
                 case "TAN(":
                     if (values.Length != 1)
                         throw new Exception("Tan函数需要一个参数!");
                     r = (decimal)Math.Tan((double)v);
                     break;
+
                 case "EXP(":
                     if (values.Length != 1)
                         throw new Exception("Exp函数需要一个参数!");
                     r = (decimal)Math.Exp((double)v);
                     break;
+
                 case "LOG(":
                     if (values.Length > 2)
                         throw new Exception("Log函数需要一个或两个参数!");
@@ -426,6 +448,7 @@ namespace EthanLibrary.Common
                     else
                         r = (decimal)Math.Log((double)values[0], (double)values[1]);
                     break;
+
                 case "LOG10(":
                     if (values.Length != 1)
                         throw new Exception("Log10函数需要一个参数!");
@@ -486,53 +509,65 @@ namespace EthanLibrary.Common
                 case "NEG":
                     r = decimal.Negate(right);
                     break;
+
                 case "+":
                     r = left + right;
                     break;
+
                 case "-":
                     r = left - right;
                     break;
+
                 case "*":
                     r = left * right;
                     break;
+
                 case "/":
                     r = left / right;
                     break;
+
                 case "%":
                     r = decimal.Remainder(left, right);
                     break;
+
                 case "^":
                     r = (decimal)Math.Pow((double)left, (double)right);
                     break;
+
                 case ",":
                     return new decimal[2] { left, right };
+
                 case "=":
                     r = left == right ? 1 : 0;
                     break;
+
                 case "<>":
                     r = left != right ? 1 : 0;
                     break;
+
                 case "<":
                     r = left < right ? 1 : 0;
                     break;
+
                 case ">":
                     r = left > right ? 1 : 0;
                     break;
+
                 case ">=":
                     r = left >= right ? 1 : 0;
                     break;
+
                 case "<=":
                     r = left <= right ? 1 : 0;
                     break;
             }
             return new decimal[1] { r };
         }
-        #endregion
 
-
+        #endregion 运算
     }
 
-    //使用方法： 
+    //使用方法：
     //1、不含变量：
     //string expression = "1+32*9+Round(12*(1+9))";
     //decimal[] results = Calculator.CalculateExpression( expression,null);

@@ -1,4 +1,4 @@
-﻿namespace Core.Threads
+﻿namespace EthanLibrary.Threads
 {
     /// <summary>
     /// Execution Status of WorkItem object

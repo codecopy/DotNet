@@ -12,7 +12,8 @@ namespace EmailHelp
         /// </summary>
         /// <param name="stream">The stream.</param>
         public NoopCommand(Stream stream)
-            : base(stream, false, Pop3State.Transaction) { }
+            : base(stream, false, Pop3State.Transaction)
+        { }
 
         /// <summary>
         /// Creates the NOOP request message.

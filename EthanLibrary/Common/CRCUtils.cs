@@ -88,5 +88,4 @@ namespace EthanLibrary.Common
             return CRC32(AString, Encoding.UTF8);
         }
     }
-
 }

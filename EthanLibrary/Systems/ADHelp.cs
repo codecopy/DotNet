@@ -1,20 +1,24 @@
 ﻿using System;
-using System.Text;
 using System.DirectoryServices;
+using System.Text;
+
 //Download by http://www.codefans.net
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
-    sealed class ADHelper
+    internal sealed class ADHelper
     {
         #region 私有变量
+
         /// <summary>
         /// homeMTA
         /// </summary>
         private static string homeMTA = ""; //请填写自己的环境变量
+
         /// <summary>
         /// homeMDB
         /// </summary>
         private static string homeMDB = ""; //请填写自己的环境变量
+
         /// <summary>
         /// msExchHomeServerName
         /// </summary>
@@ -25,153 +29,180 @@ namespace Core.Systems
         ///</summary>
         //private static string DomainName = "td-tech.net";  //实际
         private static string DomainName = "contoso.com";    //测试用
+
         /// <summary>
         /// LDAP 地址
         /// </summary>
         private static string LDAPDomain = "DC=net,DC=TD-TECH";
+
         /// <summary>
         /// LDAP绑定路径
         /// </summary>
-           private static string ADPath = "LDAP://Contoso.com";     //测试用
-          
+        private static string ADPath = "LDAP://Contoso.com";     //测试用
+
         private static string sPrincpleNameTail = "@cinf.com";
+
         /// <summary>
         /// 登录帐号
         /// </summary>
         private static string ADUser = @"contoso\oa";
+
         /// <summary>
         /// 登录密码
         /// </summary>
         //private static string ADPassword = "3edc5tgB"; //实际
         private static string ADPassword = "1qaz2wsX";   //测试用
-          
 
-
-        #endregion
+        #endregion 私有变量
 
         #region 枚举常量
+
         /// <summary>
         /// 用户登录验证结果
         /// </summary>
         public enum LoginResult
         {
-            /// 
+            ///
             /// 正常登录
-            /// 
+            ///
             LOGIN_USER_OK = 0,
-            /// 
+
+            ///
             /// 用户不存在
-            /// 
+            ///
             LOGIN_USER_DOESNT_EXIST,
-            /// 
+
+            ///
             /// 用户帐号被禁用
-            /// 
+            ///
             LOGIN_USER_ACCOUNT_INACTIVE,
-            /// 
+
+            ///
             /// 用户密码不正确
-            /// 
+            ///
             LOGIN_USER_PASSWORD_INCORRECT
         }
+
         /// <summary>
         /// 用户属性定义标志
         /// </summary>
         public enum ADS_USER_FLAG_ENUM
         {
-            /// 
+            ///
             /// 登录脚本标志。如果通过 ADSI LDAP 进行读或写操作时，
             /// 该标志失效。如果通过 ADSI WINNT，该标志为只读。
-            /// 
+            ///
             ADS_UF_SCRIPT = 0X0001,
-            /// 
-            /// 用户帐号禁用标志
-            /// 
-            ADS_UF_ACCOUNTDISABLE = 0X0002,
-            /// 
-            /// 主文件夹标志
-            /// 
-            ADS_UF_HOMEDIR_REQUIRED = 0X0008,
-            /// 
-            /// 过期标志
-            /// 
-            ADS_UF_LOCKOUT = 0X0010,
-            /// 
-            /// 用户密码不是必须的
-            /// 
-            ADS_UF_PASSWD_NOTREQD = 0X0020,
-            /// 
-            /// 密码不能更改标志
-            /// 
-            ADS_UF_PASSWD_CANT_CHANGE = 0X0040,
-            /// 
-            /// 使用可逆的加密保存密码
-            /// 
-            ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED = 0X0080,
-            /// 
-            /// 本地帐号标志
-            /// 
-            ADS_UF_TEMP_DUPLICATE_ACCOUNT = 0X0100,
-            /// 
-            /// 普通用户的默认帐号类型
-            /// 
-            ADS_UF_NORMAL_ACCOUNT = 0X0200,
-            /// 
-            /// 跨域的信任帐号标志
-            /// 
-            ADS_UF_INTERDOMAIN_TRUST_ACCOUNT = 0X0800,
-            /// 
-            /// 工作站信任帐号标志
-            /// 
-            ADS_UF_WORKSTATION_TRUST_ACCOUNT = 0x1000,
-            /// 
-            /// 服务器信任帐号标志
-            /// 
-            ADS_UF_SERVER_TRUST_ACCOUNT = 0X2000,
-            /// 
-            /// 密码永不过期标志
-            /// 
-            ADS_UF_DONT_EXPIRE_PASSWD = 0X10000,
-            /// 
-            /// MNS 帐号标志
-            /// 
-            ADS_UF_MNS_LOGON_ACCOUNT = 0X20000,
-            /// 
-            /// 交互式登录必须使用智能卡
-            /// 
-            ADS_UF_SMARTCARD_REQUIRED = 0X40000,
-            /// 
-            /// 当设置该标志时，服务帐号（用户或计算机帐号）将通过 Kerberos 委托信任
-            /// 
-            ADS_UF_TRUSTED_FOR_DELEGATION = 0X80000,
-            /// 
-            /// 当设置该标志时，即使服务帐号是通过 Kerberos 委托信任的，敏感帐号不能被委托
-            /// 
-            ADS_UF_NOT_DELEGATED = 0X100000,
-            /// 
-            /// 此帐号需要 DES 加密类型
-            /// 
-            ADS_UF_USE_DES_KEY_ONLY = 0X200000,
-            /// 
-            /// 不要进行 Kerberos 预身份验证
-            /// 
-            ADS_UF_DONT_REQUIRE_PREAUTH = 0X4000000,
-            /// 
-            /// 用户密码过期标志
-            /// 
-            ADS_UF_PASSWORD_EXPIRED = 0X800000,
-            /// 
-            /// 用户帐号可委托标志
-            /// 
-            ADS_UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION = 0X1000000
 
+            ///
+            /// 用户帐号禁用标志
+            ///
+            ADS_UF_ACCOUNTDISABLE = 0X0002,
+
+            ///
+            /// 主文件夹标志
+            ///
+            ADS_UF_HOMEDIR_REQUIRED = 0X0008,
+
+            ///
+            /// 过期标志
+            ///
+            ADS_UF_LOCKOUT = 0X0010,
+
+            ///
+            /// 用户密码不是必须的
+            ///
+            ADS_UF_PASSWD_NOTREQD = 0X0020,
+
+            ///
+            /// 密码不能更改标志
+            ///
+            ADS_UF_PASSWD_CANT_CHANGE = 0X0040,
+
+            ///
+            /// 使用可逆的加密保存密码
+            ///
+            ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED = 0X0080,
+
+            ///
+            /// 本地帐号标志
+            ///
+            ADS_UF_TEMP_DUPLICATE_ACCOUNT = 0X0100,
+
+            ///
+            /// 普通用户的默认帐号类型
+            ///
+            ADS_UF_NORMAL_ACCOUNT = 0X0200,
+
+            ///
+            /// 跨域的信任帐号标志
+            ///
+            ADS_UF_INTERDOMAIN_TRUST_ACCOUNT = 0X0800,
+
+            ///
+            /// 工作站信任帐号标志
+            ///
+            ADS_UF_WORKSTATION_TRUST_ACCOUNT = 0x1000,
+
+            ///
+            /// 服务器信任帐号标志
+            ///
+            ADS_UF_SERVER_TRUST_ACCOUNT = 0X2000,
+
+            ///
+            /// 密码永不过期标志
+            ///
+            ADS_UF_DONT_EXPIRE_PASSWD = 0X10000,
+
+            ///
+            /// MNS 帐号标志
+            ///
+            ADS_UF_MNS_LOGON_ACCOUNT = 0X20000,
+
+            ///
+            /// 交互式登录必须使用智能卡
+            ///
+            ADS_UF_SMARTCARD_REQUIRED = 0X40000,
+
+            ///
+            /// 当设置该标志时，服务帐号（用户或计算机帐号）将通过 Kerberos 委托信任
+            ///
+            ADS_UF_TRUSTED_FOR_DELEGATION = 0X80000,
+
+            ///
+            /// 当设置该标志时，即使服务帐号是通过 Kerberos 委托信任的，敏感帐号不能被委托
+            ///
+            ADS_UF_NOT_DELEGATED = 0X100000,
+
+            ///
+            /// 此帐号需要 DES 加密类型
+            ///
+            ADS_UF_USE_DES_KEY_ONLY = 0X200000,
+
+            ///
+            /// 不要进行 Kerberos 预身份验证
+            ///
+            ADS_UF_DONT_REQUIRE_PREAUTH = 0X4000000,
+
+            ///
+            /// 用户密码过期标志
+            ///
+            ADS_UF_PASSWORD_EXPIRED = 0X800000,
+
+            ///
+            /// 用户帐号可委托标志
+            ///
+            ADS_UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION = 0X1000000
         }
-        #endregion
+
+        #endregion 枚举常量
 
         #region 构造函数
+
         public ADHelper()
         {
             //
-            // System.Environment.UserName 
-
+            // System.Environment.UserName
         }
 
         /// <summary>
@@ -188,7 +219,8 @@ namespace Core.Systems
             ADUser = sADUser;
             ADPassword = sADUserPWD;
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region GetDirectoryObject
 
@@ -242,11 +274,9 @@ namespace Core.Systems
             return entry;
         }
 
-        #endregion
+        #endregion GetDirectoryObject
 
         #region GetDirectoryEntry
-
-
 
         /// <summary>
         /// 根据用户公共名称取得用户的 对象
@@ -272,8 +302,6 @@ namespace Core.Systems
             }
         }
 
-
-
         /// <summary>
         /// 根据用户公共名称和密码取得用户的 对象。
         /// </summary>
@@ -298,8 +326,6 @@ namespace Core.Systems
             }
         }
 
-
-
         /// <summary>
         /// 根据用户帐号称取得用户的 对象
         /// </summary>
@@ -317,7 +343,7 @@ namespace Core.Systems
                 de = new DirectoryEntry(result.Path, ADUser, ADPassword);
                 return de;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -369,14 +395,12 @@ namespace Core.Systems
             }
         }
 
-        #endregion
+        #endregion GetDirectoryEntry
 
         #region GetProperty
 
-
-
         /// <summary>
-        /// 获得指定 指定属性名对应的值 
+        /// 获得指定 指定属性名对应的值
         /// </summary>
         /// <param name="de">DirectoryEntry对象，如为用户则为用户的对象，部门则为部门的对象</param>
         /// <param name="propertyName">属性名称</param>
@@ -393,10 +417,10 @@ namespace Core.Systems
             }
         }
 
-        /// 
+        ///
         /// 获得指定搜索结果 中指定属性名对应的值
-        /// 
-        /// 
+        ///
+        ///
         /// 属性名称
         /// 属性值
         public static string GetProperty(SearchResult searchResult, string propertyName)
@@ -416,15 +440,15 @@ namespace Core.Systems
         /// </summary>
         /// <param name="de"></param>
         /// <returns></returns>
-        public static bool IsAccountLockOut(DirectoryEntry de )
+        public static bool IsAccountLockOut(DirectoryEntry de)
         {
             return Convert.ToBoolean(de.InvokeGet("IsAccountlocked"));
         }
 
-
-        #endregion
+        #endregion GetProperty
 
         #region SetProperty
+
         /// <summary>
         /// 设置指定 的属性值
         /// </summary>
@@ -446,7 +470,7 @@ namespace Core.Systems
             }
         }
 
-        #endregion
+        #endregion SetProperty
 
         #region 用户操作
 
@@ -511,7 +535,6 @@ namespace Core.Systems
             return user.Path;
         }
 
-
         ///// <summary>
         ///// 启用指定的域账号
         ///// </summary>
@@ -520,7 +543,6 @@ namespace Core.Systems
         //{
         //    EnableUser( GetDirectoryEntryByAccount(sAMacc));
         //}
-
 
         /// <summary>
         /// 启用指定的域账号
@@ -539,14 +561,12 @@ namespace Core.Systems
             }
         }
 
-
         /// <summary>
         /// 启用指定帐户
         /// </summary>
         /// <param name="de"></param>
         public static void EnableUser(DirectoryEntry de)
         {
-          
             de.Properties["userAccountControl"][0] =
                 ADHelper.ADS_USER_FLAG_ENUM.ADS_UF_NORMAL_ACCOUNT | ADHelper.ADS_USER_FLAG_ENUM.ADS_UF_DONT_EXPIRE_PASSWD;
             de.CommitChanges();
@@ -576,8 +596,7 @@ namespace Core.Systems
             de.Close();
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// 修改用户密码
         /// </summary>
         /// <param name="commonName">用户公共名称</param>
@@ -591,7 +610,7 @@ namespace Core.Systems
             oUser.Close();
         }
 
-        /// <summary> 
+        /// <summary>
         /// 修改Acc密码
         /// </summary>
         /// <param name="sAMacc">帐户名称</param>
@@ -619,10 +638,7 @@ namespace Core.Systems
             {
                 return false;
             }
-
         }
-
-
 
         /// <summary>
         /// 移动用户
@@ -637,8 +653,6 @@ namespace Core.Systems
             u.MoveTo(t);
             return u.Path;
         }
-
-
 
         /// <summary>
         /// 重名用户
@@ -666,7 +680,6 @@ namespace Core.Systems
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -698,10 +711,8 @@ namespace Core.Systems
             }
             catch (Exception)
             {
-
                 return false;
             }
-
         }
 
         public static bool SetUserPassword(string userName, string password)
@@ -716,7 +727,6 @@ namespace Core.Systems
             catch (Exception ex)
             {
                 return false;
-            
             }
         }
 
@@ -728,11 +738,10 @@ namespace Core.Systems
             {
                 DirectoryEntry userEntry = FindObject(adminName, adminPassword, "user", userName);
 
-                //userEntry.Properties["userAccountControl"].Value = 544;//0x200; 
+                //userEntry.Properties["userAccountControl"].Value = 544;//0x200;
                 //userEntry.CommitChanges();
 
-
-                userEntry.Properties["pwdLastSet"].Value =0; // To turn on, set this value to 0.
+                userEntry.Properties["pwdLastSet"].Value = 0; // To turn on, set this value to 0.
                 userEntry.CommitChanges();
 
                 userEntry.Invoke("SetPassword", new object[] { password });
@@ -743,9 +752,7 @@ namespace Core.Systems
             {
                 return false;
             }
-           
         }
-
 
         /// <summary>
         /// 删除AD账户，使用当前上下文的安全信息，一般用于Windows程序
@@ -764,7 +771,6 @@ namespace Core.Systems
             else
                 return false;
         }
-
 
         /// <summary>
         /// 删除AD账户，使用指定的用户名和密码来模拟，一般用于ASP.NET程序
@@ -787,7 +793,6 @@ namespace Core.Systems
                 Container.Dispose();
                 user.Dispose();
                 return true;
-
             }
             catch (Exception)
             {
@@ -795,39 +800,34 @@ namespace Core.Systems
                 user.Dispose();
                 return false;
             }
-
         }
-
 
         /// <summary>
         /// 设置用户为解除锁定状态
         /// </summary>
         /// <param name="accountName"></param>
         /// <returns></returns>
-        public static bool SetADAccountLocked( string accountName)
+        public static bool SetADAccountLocked(string accountName)
         {
             DirectoryEntry user = null;
             DirectoryEntry Container = null;
             try
             {
-
                 user = FindObject(ADUser, ADPassword, "user", accountName);
                 user.Properties["LockOutTime"].Value = 0; //unlock account
                 user.CommitChanges();                     //may not be needed but adding it anyways
                 user.InvokeSet("IsAccountLocked", false);
-                user.CommitChanges();    
+                user.CommitChanges();
                 user.Close();
                 return true;
             }
-            catch (DirectoryServicesCOMException　ex)
+            catch (DirectoryServicesCOMException ex)
             {
                 Container.Dispose();
                 user.Dispose();
                 return false;
             }
-
         }
-
 
         public static DirectoryEntry FindObject(string category, string name)
         {
@@ -875,11 +875,9 @@ namespace Core.Systems
             return userEntry;
         }
 
-        #endregion
+        #endregion 用户操作
 
         #region 组织单元操作
-
-
 
         /// <summary>
         /// 重命名OU
@@ -889,7 +887,6 @@ namespace Core.Systems
         /// <returns>是否成功</returns>
         public static bool RenameOU(string oldOUName, string newOUName)
         {
-
             try
             {
                 if (CheckOU(oldOUName))
@@ -912,7 +909,6 @@ namespace Core.Systems
                 //throw;
             }
         }
-
 
         /// <summary>
         /// 检查组织单位（OU）是否存在
@@ -1047,7 +1043,6 @@ namespace Core.Systems
             group.CommitChanges();
         }
 
-
         /// <summary>
         /// 彻底删除OU/也可以通过参数控制删除空OU,即安全删除
         /// </summary>
@@ -1107,12 +1102,11 @@ namespace Core.Systems
             }
         }
 
-
-        #endregion
+        #endregion 组织单元操作
 
         #region 登录相关
 
-        /// <summary> 
+        /// <summary>
         /// 判断用户与密码是否足够以满足身份验证进而登录
         /// </summary>
         /// <param name="commonName">用户公共名称</param>
@@ -1141,7 +1135,6 @@ namespace Core.Systems
                 return LoginResult.LOGIN_USER_DOESNT_EXIST;
             }
         }
-
 
         /// <summary>
         /// 判断用户帐号与密码是否足够以满足身份验证进而登录
@@ -1203,6 +1196,7 @@ namespace Core.Systems
             else
                 return true;
         }
+
         /// <summary>
         ///  判断帐户是否存在
         /// </summary>
@@ -1221,7 +1215,7 @@ namespace Core.Systems
                 return true;
         }
 
-        #endregion
+        #endregion 登录相关
 
         #region 与AD的DN解析有关工具函数
 
@@ -1235,14 +1229,12 @@ namespace Core.Systems
             {
                 DirectoryEntry ent = new DirectoryEntry(path, ADUser, ADPassword);
                 ent.DeleteTree();
-
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
-
 
         /// <summary>
         /// 获取所有用户所在的安全组
@@ -1283,6 +1275,7 @@ namespace Core.Systems
             sb.Append("CN=").Append(userName).Append(",").Append(SplitOrganizeNameToDN(organzieName));
             return sb.ToString();
         }
+
         /// <summary>
         /// 获得帐户Acc的Path
         /// </summary>
@@ -1319,6 +1312,7 @@ namespace Core.Systems
         {
             return LDAPDomain;
         }
+
         /// <summary>
         /// 获得OU的Path
         /// </summary>
@@ -1334,8 +1328,8 @@ namespace Core.Systems
 
         /// <summary>
         /// 分离组织名称为标准AD的DN名称,各个组织级别以"/"或"\"分开。如"总部/物业公司/小区"，并且当前域为
-        /// ExchangeTest.Com，则返回的AD的DN表示名为"OU=小区,OU=物业公司,OU=总 
-        /// 部,DC=ExchangeTest,DC=Com"。 
+        /// ExchangeTest.Com，则返回的AD的DN表示名为"OU=小区,OU=物业公司,OU=总
+        /// 部,DC=ExchangeTest,DC=Com"。
         /// </summary>
         /// <param name="organizeName">组织名称</param>
         /// <returns>返回一个级别</returns>
@@ -1364,8 +1358,7 @@ namespace Core.Systems
             sb.Append(GetDomainDN());
             return sb.ToString();
         }
-        #endregion
 
-        
+        #endregion 与AD的DN解析有关工具函数
     }
 }

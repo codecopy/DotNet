@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Core.XML
+namespace EthanLibrary.XML
 {
     /// <summary>
     /// This class provides some utility methods to convert the xml and object.

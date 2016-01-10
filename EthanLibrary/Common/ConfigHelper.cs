@@ -1,7 +1,7 @@
+using EthanLibrary.Web;
 using System;
 using System.Configuration;
 using System.Web;
-using EthanLibrary.Web;
 
 namespace EthanLibrary.Common
 {
@@ -25,6 +25,7 @@ namespace EthanLibrary.Common
                 return path;
             }
         }
+
         /// <summary>
         /// 得到AppSettings中的配置字符串信息
         /// </summary>
@@ -72,6 +73,7 @@ namespace EthanLibrary.Common
             }
             return result;
         }
+
         /// <summary>
         /// 得到AppSettings中的配置Decimal信息
         /// </summary>
@@ -95,6 +97,7 @@ namespace EthanLibrary.Common
 
             return result;
         }
+
         /// <summary>
         /// 得到AppSettings中的配置int信息
         /// </summary>
@@ -118,11 +121,5 @@ namespace EthanLibrary.Common
 
             return result;
         }
-
-
-
-
-
-
     }
 }

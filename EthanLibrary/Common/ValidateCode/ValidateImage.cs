@@ -1,20 +1,16 @@
 /**********************************************
  * 类作用：   验证码类
  * 建立人：   abaal
- * 建立时间： 2008-09-03 
+ * 建立时间： 2008-09-03
  * Copyright (C) 2007-2008 abaal
  * All rights reserved
  * http://blog.csdn.net/abaal888
  ***********************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Drawing.Text;
-using System.Security.Cryptography;
 
 namespace EthanLibrary.Common
 {
@@ -30,6 +26,7 @@ namespace EthanLibrary.Common
         {
             get { return this.text; }
         }
+
         /// <summary>
         /// 图片
         /// </summary>
@@ -37,6 +34,7 @@ namespace EthanLibrary.Common
         {
             get { return this.image; }
         }
+
         /// <summary>
         /// 宽度
         /// </summary>
@@ -44,6 +42,7 @@ namespace EthanLibrary.Common
         {
             get { return this.width; }
         }
+
         /// <summary>
         /// 高度
         /// </summary>
@@ -70,9 +69,7 @@ namespace EthanLibrary.Common
             GenerateImage();
             System.Web.HttpContext.Current.Response.ContentType = "image/pjpeg";
             Image.Save(System.Web.HttpContext.Current.Response.OutputStream, ImageFormat.Jpeg);
-
         }
-
 
         public static bool Validate(string input)
         {
@@ -95,12 +92,13 @@ namespace EthanLibrary.Common
             if (disposing)
                 this.image.Dispose();
         }
+
         private FontFamily[] fonts = {
-										 new FontFamily("Times New Roman"),
-										 new FontFamily("Georgia"),
-										 new FontFamily("Arial"),
-										 new FontFamily("Comic Sans MS")
-									 };
+                                         new FontFamily("Times New Roman"),
+                                         new FontFamily("Georgia"),
+                                         new FontFamily("Arial"),
+                                         new FontFamily("Comic Sans MS")
+                                     };
 
         public int Next(int max)
         {
@@ -166,7 +164,6 @@ namespace EthanLibrary.Common
                     }
                 }
             }
-
 
             //g.DrawRectangle(new Pen(Color.Silver), 0, 0, bitmap.Width - 1, bitmap.Height - 1);
 

@@ -1,15 +1,14 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ClipboardProxy = System.Windows.Forms.Clipboard;
-using System;
-using System.Runtime.InteropServices;
 
-
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>Provides methods for manipulating the Clipboard.</summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
@@ -53,7 +52,6 @@ namespace Core.Systems
             return ClipboardProxy.ContainsFileDropList();
         }
 
-
         /// <summary>Returns a Boolean indicating whether an image is stored on the Clipboard.</summary>
         /// <returns>True if an image is stored on the Clipboard; otherwise False.</returns>
         /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence" /></PermissionSet>
@@ -62,7 +60,6 @@ namespace Core.Systems
         {
             return ClipboardProxy.ContainsImage();
         }
-
 
         /// <summary>Determines if there is text on the Clipboard.</summary>
         /// <returns>True if the Clipboard contains text; otherwise False.</returns>
@@ -83,7 +80,6 @@ namespace Core.Systems
             return ClipboardProxy.ContainsText(format);
         }
 
-
         /// <summary>Retrieves an audio stream from the Clipboard.</summary>
         /// <returns><see cref="T:System.IO.Stream"></see></returns>
         /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence" /></PermissionSet>
@@ -94,7 +90,6 @@ namespace Core.Systems
             return ClipboardProxy.GetAudioStream();
         }
 
-
         /// <summary>Retrieves data in a custom format from the Clipboard.</summary>
         /// <returns>Object.</returns>
         /// <param name="format">String. Name of the data format. Required. </param>
@@ -104,7 +99,6 @@ namespace Core.Systems
         {
             return ClipboardProxy.GetData(format);
         }
-
 
         /// <summary>Retrieves data from the Clipboard as an <see cref="T:System.Windows.Forms.IDataObject"></see>.</summary>
         /// <returns><see cref="T:System.Windows.Forms.IDataObject"></see></returns>
@@ -117,7 +111,6 @@ namespace Core.Systems
             return ClipboardProxy.GetDataObject();
         }
 
-
         /// <summary>Retrieves a collection of strings representing file names from the Clipboard.</summary>
         /// <returns><see cref="T:System.Collections.Specialized.StringCollection"></see></returns>
         /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence" /></PermissionSet>
@@ -127,7 +120,6 @@ namespace Core.Systems
         {
             return ClipboardProxy.GetFileDropList();
         }
-
 
         /// <summary>Retrieves an image from the Clipboard.</summary>
         /// <returns><see cref="T:System.Drawing.Image"></see></returns>
@@ -139,7 +131,6 @@ namespace Core.Systems
         {
             return ClipboardProxy.GetImage();
         }
-
 
         /// <summary>Retrieves text from the Clipboard.</summary>
         /// <returns>String.</returns>
@@ -176,8 +167,6 @@ namespace Core.Systems
             ClipboardProxy.SetAudio(audioBytes);
         }
 
-
-
         /// <summary>Writes data in a custom format to the Clipboard.</summary>
         /// <param name="data">Object. Data object to be written to the Clipboard. Required. </param>
         /// <param name="format">String. Format of data. Required. </param>
@@ -196,7 +185,6 @@ namespace Core.Systems
         {
             ClipboardProxy.SetDataObject(data);
         }
-
 
         /// <summary>Writes a collection of strings representing file paths to the Clipboard.</summary>
         /// <param name="filePaths"><see cref="T:System.Collections.Specialized.StringCollection"></see>. List of file names. Required. </param>
@@ -222,7 +210,6 @@ namespace Core.Systems
             ClipboardProxy.SetText(text);
         }
 
-
         /// <summary>Writes text to the Clipboard.</summary>
         /// <param name="format"><see cref="T:System.Windows.Forms.TextDataFormat"></see>. Format to be used when writing text. Default is <see cref="F:System.Windows.Forms.TextDataFormat.UnicodeText"></see>. Required. </param>
         /// <param name="text">String. Text to be written. Required. </param>
@@ -232,10 +219,10 @@ namespace Core.Systems
             ClipboardProxy.SetText(text, format);
         }
 
-        #endregion
+        #endregion Methods
 
         [ThreadStatic]
-        static int SafeSetClipboardDataVersion;
+        private static int SafeSetClipboardDataVersion;
 
         /// <summary>
         /// 线程安全的设置内容

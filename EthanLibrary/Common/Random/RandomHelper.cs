@@ -8,8 +8,8 @@ namespace EthanLibrary.Common
     /// </summary>
     public class RandomHelper
     {
-
         #region 在指定的字符串随机出现
+
         /// <summary>
         /// 在指定的字符串随机出现
         /// </summary>
@@ -28,9 +28,10 @@ namespace EthanLibrary.Common
             return builder.ToString();
         }
 
-        #endregion
+        #endregion 在指定的字符串随机出现
 
         #region 返回不重复随机数数组
+
         /// <summary>
         /// 返回不重复随机数数组
         /// </summary>
@@ -65,14 +66,16 @@ namespace EthanLibrary.Common
             }
             return b;
         }
-        #endregion
+
+        #endregion 返回不重复随机数数组
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private static int rep = 0;
+
         /// <summary>
-        /// 随机生成不重复数字字符串 
+        /// 随机生成不重复数字字符串
         /// </summary>
         /// <param name="codeCount">随机数长度</param>
         /// <returns></returns>
@@ -89,7 +92,6 @@ namespace EthanLibrary.Common
             }
             return str;
         }
-
 
         /// <summary>
         /// 随机生成字符串（数字和字母混和）
@@ -118,6 +120,5 @@ namespace EthanLibrary.Common
             }
             return str;
         }
-
     }
 }

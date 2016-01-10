@@ -1,25 +1,25 @@
 //------------------------------------------------------------
-// All Rights Reserved , Copyright (C) 2010 , Jirisoft , Ltd. 
+// All Rights Reserved , Copyright (C) 2010 , Jirisoft , Ltd.
 //------------------------------------------------------------
 
 using System;
 using System.Collections;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// ResourceManagerWrapper
     /// 资源管理器
-    /// 
+    ///
     ///	修改纪录
     ///		2007.05.16 版本：1.0 JiRiGaLa	重新调整代码的规范化。
-    /// 
+    ///
     /// 版本：1.0
-    /// 
+    ///
     /// <author>
     ///		<name>JiRiGaLa</name>
     ///		<date>2007.05.16</date>
-    /// </author> 
+    /// </author>
     /// </summary>
     public class ResourceManagerWrapper
     {

@@ -1,8 +1,7 @@
-﻿using System;
+﻿using EthanLibrary.Web.CacheManage.Memcached;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Collections.ObjectModel;
-using EthanLibrary.Web.CacheManage.Memcached;
 
 namespace EthanLibrary.Web.CacheManage
 {
@@ -35,6 +34,7 @@ namespace EthanLibrary.Web.CacheManage
             }
             return defaultCache;
         }
+
         private MemcachedClient cache;
 
         /// <summary>
@@ -54,6 +54,7 @@ namespace EthanLibrary.Web.CacheManage
         }
 
         private bool enable = false;
+
         /// <summary>
         /// 获取或设置一个值,指示当前的缓存是否可用
         /// </summary>
@@ -103,7 +104,6 @@ namespace EthanLibrary.Web.CacheManage
             }
             return false;
         }
-
 
         /// <summary>
         /// 从缓存中获取指定键的值
@@ -226,8 +226,8 @@ namespace EthanLibrary.Web.CacheManage
         /// <param name="minutes">保存时间(分钟)</param>
         public void Add<T>(string key, T value, int minutes)
         {
-             Add(key, value, DateTime.Now.AddMinutes(minutes));
-             return;
+            Add(key, value, DateTime.Now.AddMinutes(minutes));
+            return;
         }
 
         /// <summary>
@@ -342,7 +342,7 @@ namespace EthanLibrary.Web.CacheManage
                 throw new NotImplementedException();
             }
         }
-        #endregion
+
+        #endregion ICache 成员
     }
 }
-

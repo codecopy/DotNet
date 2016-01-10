@@ -1,10 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Security.Cryptography;
-using System.IO;
-using System.Text.RegularExpressions;
+﻿using EthanLibrary.Common;
+using System;
 using System.Collections;
-using EthanLibrary.Common;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Common
 {
@@ -21,12 +21,14 @@ namespace Common
             ///默认密码
             key = "0123456789";
         }
+
         private string key; //默认密钥
 
         private byte[] sKey;
         private byte[] sIV;
 
         #region 加密字符串
+
         /// <summary>
         /// 加密字符串
         /// </summary>
@@ -38,6 +40,7 @@ namespace Common
             MySecurity ws = new MySecurity();
             return ws.EncryptString(inputStr, keyStr);
         }
+
         /// <summary>
         /// 加密字符串
         /// </summary>
@@ -74,9 +77,11 @@ namespace Common
             ms.Close();
             return ret.ToString();
         }
-        #endregion
+
+        #endregion 加密字符串
 
         #region 加密字符串 密钥为系统默认 0123456789
+
         /// <summary>
         /// 加密字符串 密钥为系统默认
         /// </summary>
@@ -87,16 +92,18 @@ namespace Common
             MySecurity ws = new MySecurity();
             return ws.EncryptString(inputStr, "");
         }
-        #endregion
+
+        #endregion 加密字符串 密钥为系统默认 0123456789
 
         #region 加密文件
+
         /// <summary>
         /// 加密文件
         /// </summary>
         /// <param name="filePath">输入文件路径</param>
         /// <param name="savePath">加密后输出文件路径</param>
         /// <param name="keyStr">密码，可以为“”</param>
-        /// <returns></returns>  
+        /// <returns></returns>
         public bool EncryptFile(string filePath, string savePath, string keyStr)
         {
             DESCryptoServiceProvider des = new DESCryptoServiceProvider();
@@ -131,9 +138,11 @@ namespace Common
             ms.Close();
             return true;
         }
-        #endregion
+
+        #endregion 加密文件
 
         #region 解密字符串
+
         /// <summary>
         /// 解密字符串
         /// </summary>
@@ -145,6 +154,7 @@ namespace Common
             MySecurity ws = new MySecurity();
             return ws.DecryptString(inputStr, keyStr);
         }
+
         /// <summary>
         ///  解密字符串 密钥为系统默认
         /// </summary>
@@ -155,6 +165,7 @@ namespace Common
             MySecurity ws = new MySecurity();
             return ws.DecryptString(inputStr, "");
         }
+
         /// <summary>
         /// 解密字符串
         /// </summary>
@@ -190,16 +201,18 @@ namespace Common
             StringBuilder ret = new StringBuilder();
             return System.Text.Encoding.Default.GetString(ms.ToArray());
         }
-        #endregion
+
+        #endregion 解密字符串
 
         #region 解密文件
+
         /// <summary>
         /// 解密文件
         /// </summary>
         /// <param name="filePath">输入文件路径</param>
         /// <param name="savePath">解密后输出文件路径</param>
         /// <param name="keyStr">密码，可以为“”</param>
-        /// <returns></returns>    
+        /// <returns></returns>
         public bool DecryptFile(string filePath, string savePath, string keyStr)
         {
             DESCryptoServiceProvider des = new DESCryptoServiceProvider();
@@ -234,12 +247,11 @@ namespace Common
             ms.Close();
             return true;
         }
-        #endregion
 
-
-        
+        #endregion 解密文件
 
         #region Base64加密
+
         /// <summary>
         /// Base64加密
         /// </summary>
@@ -256,9 +268,9 @@ namespace Common
             try
             {
                 char[] Base64Code = new char[]{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T',
-											'U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n',
-											'o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7',
-											'8','9','+','/','='};
+                                            'U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n',
+                                            'o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7',
+                                            '8','9','+','/','='};
                 byte empty = (byte)0;
                 ArrayList byteMessage = new ArrayList(Encoding.Default.GetBytes(text));
                 StringBuilder outmessage;
@@ -301,9 +313,11 @@ namespace Common
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion Base64加密
 
         #region Base64解密
+
         /// <summary>
         /// Base64解密
         /// </summary>
@@ -372,6 +386,7 @@ namespace Common
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion Base64解密
     }
 }

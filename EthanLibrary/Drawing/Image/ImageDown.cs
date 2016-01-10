@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace Core.Drawing
+namespace EthanLibrary.Drawing
 {
     /// <summary>
     /// 图片下载
@@ -14,6 +14,7 @@ namespace Core.Drawing
         { }
 
         #region 私有方法
+
         /// <summary>
         /// 获取图片标志
         /// </summary>
@@ -43,7 +44,8 @@ namespace Core.Drawing
             }
             return str;
         }
-        #endregion
+
+        #endregion 私有方法
 
         /// <summary>
         /// 下载图片到本地

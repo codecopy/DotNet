@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Collections;
-
-using System.Data.Common;
 using System.Data;
+using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
     /// 查询条件组合辅助类
@@ -34,7 +31,7 @@ namespace Core.DBUtility
         /// searchObj.AddCondition("Test", 1, SqlOperator.NotEqual);
         /// searchObj.AddCondition("Test2", "Test2Value", SqlOperator.Like);
         /// string conditionSql = searchObj.BuildConditionSql();
-        /// 
+        ///
         /// 用法二：AddCondition函数可以串起来添加多个条件
         /// SearchCondition searchObj = new SearchCondition();
         /// searchObj.AddCondition("Test", 1, SqlOperator.NotEqual).AddCondition("Test2", "Test2Value", SqlOperator.Like);
@@ -59,7 +56,7 @@ namespace Core.DBUtility
         /// searchObj.AddCondition("Test", 1, SqlOperator.NotEqual, false);
         /// searchObj.AddCondition("Test2", "Test2Value", SqlOperator.Like, true);
         /// string conditionSql = searchObj.BuildConditionSql();
-        /// 
+        ///
         /// 用法二：AddCondition函数可以串起来添加多个条件
         /// SearchCondition searchObj = new SearchCondition();
         /// searchObj.AddCondition("Test", 1, SqlOperator.NotEqual, false).AddCondition("Test2", "Test2Value", SqlOperator.Like, true);
@@ -92,10 +89,9 @@ namespace Core.DBUtility
         {
             this.conditionTable.Add(System.Guid.NewGuid()/*fielName*/, new SearchInfo(fielName, fieldValue, sqlOperator, excludeIfEmpty, groupName));
             return this;
-        } 
+        }
 
-        #endregion
-
+        #endregion 添加查询条件
 
         /// <summary>
         /// 根据对象构造相关的条件语句（不使用参数），如返回的语句是:
@@ -103,7 +99,7 @@ namespace Core.DBUtility
         /// Where (1=1)  AND Test4  <  'Value4' AND Test6  >=  'Value6' AND Test7  <=  'value7' AND Test  <>  '1' AND Test5  >  'Value5' AND Test2  Like  '%Value2%' AND Test3  =  'Value3'
         /// ]]>
         /// </summary>
-        /// <returns></returns> 
+        /// <returns></returns>
         public string BuildConditionSql(DatabaseType dbType)
         {
             string sql = " Where (1=1) ";
@@ -137,7 +133,7 @@ namespace Core.DBUtility
                     {
                         sb.AppendFormat(" AND {0} {1} '{2}'", searchInfo.FieldName,
                             this.ConvertSqlOperator(searchInfo.SqlOperator), string.Format("%{0}%", searchInfo.FieldValue));
-                    } 
+                    }
                     else if (searchInfo.SqlOperator == SqlOperator.LikeStartAt)
                     {
                         sb.AppendFormat(" AND {0} {1} '{2}'", searchInfo.FieldName,
@@ -153,6 +149,7 @@ namespace Core.DBUtility
                         if (dbType == DatabaseType.Oracle)
                         {
                             #region 特殊Oracle操作
+
                             if (IsDate(searchInfo.FieldValue.ToString()))
                             {
                                 sb.AppendFormat(" AND {0} {1} to_date('{2}','YYYY-MM-dd')", searchInfo.FieldName,
@@ -180,11 +177,13 @@ namespace Core.DBUtility
                                 sb.AppendFormat(" AND {0} {1} '{2}'", searchInfo.FieldName,
                                     this.ConvertSqlOperator(searchInfo.SqlOperator), searchInfo.FieldValue);
                             }
-                            #endregion
+
+                            #endregion 特殊Oracle操作
                         }
                         else if (dbType == DatabaseType.Access)
                         {
                             #region 特殊Access操作
+
                             if (searchInfo.SqlOperator == SqlOperator.Equal &&
                                 typeCode == TypeCode.String && string.IsNullOrEmpty(searchInfo.FieldValue.ToString()))
                             {
@@ -213,7 +212,8 @@ namespace Core.DBUtility
                                         this.ConvertSqlOperator(searchInfo.SqlOperator), searchInfo.FieldValue);
                                 }
                             }
-                            #endregion
+
+                            #endregion 特殊Access操作
                         }
                         else //if (dbType == DatabaseType.SqlServer)
                         {
@@ -251,8 +251,8 @@ namespace Core.DBUtility
                     TypeCode typeCode = Type.GetTypeCode(searchInfo.FieldValue.GetType());
 
                     //如果选择ExcludeIfEmpty为True,并且该字段为空值的话,跳过
-                    if (searchInfo.ExcludeIfEmpty && 
-                        (searchInfo.FieldValue == null || string.IsNullOrEmpty(searchInfo.FieldValue.ToString())) )
+                    if (searchInfo.ExcludeIfEmpty &&
+                        (searchInfo.FieldValue == null || string.IsNullOrEmpty(searchInfo.FieldValue.ToString())))
                     {
                         continue;
                     }
@@ -268,7 +268,7 @@ namespace Core.DBUtility
                         {
                             sb.AppendFormat(" OR {0} {1} '{2}'", searchInfo.FieldName,
                                 this.ConvertSqlOperator(searchInfo.SqlOperator), string.Format("%{0}%", searchInfo.FieldValue));
-                        }  
+                        }
                         else if (searchInfo.SqlOperator == SqlOperator.LikeStartAt)
                         {
                             sb.AppendFormat(" OR {0} {1} '{2}'", searchInfo.FieldName,
@@ -279,6 +279,7 @@ namespace Core.DBUtility
                             if (dbType == DatabaseType.Oracle)
                             {
                                 #region Oracle分组
+
                                 if (IsDate(searchInfo.FieldValue.ToString()))
                                 {
                                     sb.AppendFormat(" OR {0} {1} to_date('{2}','YYYY-MM-dd')", searchInfo.FieldName,
@@ -305,12 +306,14 @@ namespace Core.DBUtility
                                 {
                                     sb.AppendFormat(" OR {0} {1} '{2}'", searchInfo.FieldName,
                                         this.ConvertSqlOperator(searchInfo.SqlOperator), searchInfo.FieldValue);
-                                } 
-                                #endregion
+                                }
+
+                                #endregion Oracle分组
                             }
                             else if (dbType == DatabaseType.Access)
                             {
                                 #region Access分组
+
                                 if (typeCode == TypeCode.DateTime)
                                 {
                                     sb.AppendFormat(" OR {0} {1} #{2}#", searchInfo.FieldName,
@@ -329,12 +332,14 @@ namespace Core.DBUtility
                                 {
                                     sb.AppendFormat(" OR {0} {1} '{2}'", searchInfo.FieldName,
                                         this.ConvertSqlOperator(searchInfo.SqlOperator), searchInfo.FieldValue);
-                                } 
-                                #endregion
+                                }
+
+                                #endregion Access分组
                             }
                             else //if (dbType == DatabaseType.SqlServer)
                             {
                                 #region SqlServer分组
+
                                 if (searchInfo.SqlOperator == SqlOperator.Like)
                                 {
                                     sb.AppendFormat(" OR {0} {1} '{2}'", searchInfo.FieldName,
@@ -344,14 +349,15 @@ namespace Core.DBUtility
                                 {
                                     sb.AppendFormat(" OR {0} {1} '{2}'", searchInfo.FieldName,
                                         this.ConvertSqlOperator(searchInfo.SqlOperator), searchInfo.FieldValue);
-                                } 
-                                #endregion
+                                }
+
+                                #endregion SqlServer分组
                             }
                         }
                     }
                 }
 
-                if(!string.IsNullOrEmpty(sb.ToString()))
+                if (!string.IsNullOrEmpty(sb.ToString()))
                 {
                     tempSql = string.Format(tempSql, sb.ToString().Substring(3));//从第一个Or开始位置
                     sql += tempSql;
@@ -399,7 +405,7 @@ namespace Core.DBUtility
         /////      {
         /////         this.txtSql.Text += "\r\n" + dr["Comments"].ToString();
         /////      }
-        /////  } 
+        /////  }
         ///// </para>
         ///// 		</code>
         ///// 	</example>
@@ -460,7 +466,6 @@ namespace Core.DBUtility
         //    return dbCommand;
         //}
 
-
         #region 辅助函数
 
         /// <summary>
@@ -476,33 +481,43 @@ namespace Core.DBUtility
                 case SqlOperator.Equal:
                     stringOperator = " = ";
                     break;
+
                 case SqlOperator.LessThan:
                     stringOperator = " < ";
                     break;
+
                 case SqlOperator.LessThanOrEqual:
                     stringOperator = " <= ";
                     break;
+
                 case SqlOperator.Like:
                     stringOperator = " Like ";
                     break;
+
                 case SqlOperator.NotLike:
                     stringOperator = " NOT Like ";
                     break;
+
                 case SqlOperator.LikeStartAt:
                     stringOperator = " Like ";
                     break;
+
                 case SqlOperator.MoreThan:
                     stringOperator = " > ";
                     break;
+
                 case SqlOperator.MoreThanOrEqual:
                     stringOperator = " >= ";
                     break;
+
                 case SqlOperator.NotEqual:
                     stringOperator = " <> ";
                     break;
+
                 case SqlOperator.In:
                     stringOperator = " in ";
                     break;
+
                 default:
                     break;
             }
@@ -524,45 +539,59 @@ namespace Core.DBUtility
                 case "System.Int16":
                     type = DbType.Int16;
                     break;
+
                 case "System.UInt16":
                     type = DbType.UInt16;
                     break;
+
                 case "System.Single":
                     type = DbType.Single;
                     break;
+
                 case "System.UInt32":
                     type = DbType.UInt32;
                     break;
+
                 case "System.Int32":
                     type = DbType.Int32;
                     break;
+
                 case "System.UInt64":
                     type = DbType.UInt64;
                     break;
+
                 case "System.Int64":
                     type = DbType.Int64;
                     break;
+
                 case "System.String":
                     type = DbType.String;
                     break;
+
                 case "System.Double":
                     type = DbType.Double;
                     break;
+
                 case "System.Decimal":
                     type = DbType.Decimal;
                     break;
+
                 case "System.Byte":
                     type = DbType.Byte;
                     break;
+
                 case "System.Boolean":
                     type = DbType.Boolean;
                     break;
+
                 case "System.DateTime":
                     type = DbType.DateTime;
                     break;
+
                 case "System.Guid":
                     type = DbType.Guid;
                     break;
+
                 default:
                     break;
             }
@@ -589,6 +618,6 @@ namespace Core.DBUtility
             return Regex.IsMatch(strValue, @"^(19[0-9]{2}|[2-9][0-9]{3})-((0(1|3|5|7|8)|10|12)-(0[1-9]|1[0-9]|2[0-9]|3[0-1])|(0(4|6|9)|11)-(0[1-9]|1[0-9]|2[0-9]|30)|(02)-(0[1-9]|1[0-9]|2[0-9]))\x20(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){1}$");
         }
 
-        #endregion
+        #endregion 辅助函数
     }
 }

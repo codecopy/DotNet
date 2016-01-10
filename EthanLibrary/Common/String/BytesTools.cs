@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Text;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 
 namespace EthanLibrary.Common
 {
@@ -24,7 +23,7 @@ namespace EthanLibrary.Common
         public static byte[] ToSBC(byte[] srcbuff)
         {
             List<byte> tmpbuff = new List<byte>();
-            for (int i = 0; i < srcbuff.Length; )
+            for (int i = 0; i < srcbuff.Length;)
             {
                 if (srcbuff[i] == 0x20)
                 {
@@ -53,11 +52,11 @@ namespace EthanLibrary.Common
             }
             return tmpbuff.ToArray();
         }
-        #endregion
+
+        #endregion 半角转全角函数
 
         #region 从 byte[] 中截取子串
 
-       
         /// <summary>
         /// 从 byte[] 中截取子串
         /// </summary>
@@ -78,11 +77,11 @@ namespace EthanLibrary.Common
             }
             return retbuff;
         }
-        #endregion
 
-        #region  将 byte[] 顺序反转
+        #endregion 从 byte[] 中截取子串
 
-        
+        #region 将 byte[] 顺序反转
+
         /// <summary>
         /// 将 byte[] 顺序反转
         /// </summary>
@@ -99,10 +98,11 @@ namespace EthanLibrary.Common
             }
             return Newb;
         }
-        #endregion
 
-        #region  获取 ushort 的高低位反转 byte[]
-        
+        #endregion 将 byte[] 顺序反转
+
+        #region 获取 ushort 的高低位反转 byte[]
+
         /// <summary>
         /// 获取 ushort 的高低位反转 byte[]
         /// </summary>
@@ -112,7 +112,8 @@ namespace EthanLibrary.Common
         {
             return SwapBytes(BitConverter.GetBytes(u));
         }
-        #endregion
+
+        #endregion 获取 ushort 的高低位反转 byte[]
 
         #region 获取 int 的高低位反转 byte[]
 
@@ -125,11 +126,11 @@ namespace EthanLibrary.Common
         {
             return SwapBytes(BitConverter.GetBytes(i));
         }
-         #endregion
 
-        #region  转义特殊字符，即 '~'(0x7E)
+        #endregion 获取 int 的高低位反转 byte[]
 
-     
+        #region 转义特殊字符，即 '~'(0x7E)
+
         /// <summary>
         /// 转义特殊字符，即 '~'(0x7E)
         /// </summary>
@@ -159,11 +160,11 @@ namespace EthanLibrary.Common
             }
             return tmpBuff.ToArray();
         }
-        #endregion
 
-        #region  反转义特殊字符，即 '~'(0x7E) 0x7D0x5E->0x7E, 0x7D0x5D->0x7D
+        #endregion 转义特殊字符，即 '~'(0x7E)
 
-      
+        #region 反转义特殊字符，即 '~'(0x7E) 0x7D0x5E->0x7E, 0x7D0x5D->0x7D
+
         /// <summary>
         /// 反转义特殊字符，即 '~'(0x7E)
         /// 0x7D0x5E->0x7E, 0x7D0x5D->0x7D
@@ -173,7 +174,7 @@ namespace EthanLibrary.Common
         public static byte[] SpecCharReverse(byte[] srcbuff)
         {
             List<byte> tmpBuff = new List<byte>();
-            for (int i = 0; i < srcbuff.Length; )
+            for (int i = 0; i < srcbuff.Length;)
             {
                 if (srcbuff[i] == 0x7D)
                 {
@@ -199,10 +200,11 @@ namespace EthanLibrary.Common
             }
             return tmpBuff.ToArray();
         }
-        #endregion
 
-        #region  在 srcbuff 中查找 subbuff 第一次出现的位置
-        
+        #endregion 反转义特殊字符，即 '~'(0x7E) 0x7D0x5E->0x7E, 0x7D0x5D->0x7D
+
+        #region 在 srcbuff 中查找 subbuff 第一次出现的位置
+
         /// <summary>
         /// 在 srcbuff 中查找 subbuff 第一次出现的位置
         /// </summary>
@@ -213,11 +215,11 @@ namespace EthanLibrary.Common
         {
             return BufferLookup(srcbuff, subbuff, 0);
         }
-        #endregion
 
-        #region  在 srcbuff 中查找 subbuff 第一次出现的位置
+        #endregion 在 srcbuff 中查找 subbuff 第一次出现的位置
 
-       
+        #region 在 srcbuff 中查找 subbuff 第一次出现的位置
+
         /// <summary>
         /// 在 srcbuff 中查找 subbuff 第一次出现的位置
         /// </summary>
@@ -244,10 +246,11 @@ namespace EthanLibrary.Common
             }
             return -1;
         }
-        #endregion
 
-        #region  在 srcbuff 中查找 subchars 第一次出现的位置
-       
+        #endregion 在 srcbuff 中查找 subbuff 第一次出现的位置
+
+        #region 在 srcbuff 中查找 subchars 第一次出现的位置
+
         /// <summary>
         /// 在 srcbuff 中查找 subchars 第一次出现的位置
         /// </summary>
@@ -258,10 +261,11 @@ namespace EthanLibrary.Common
         {
             return BufferLookup(srcbuff, subchars, 0);
         }
-        #endregion
 
-        #region  在 srcbuff 中查找 subchars 第一次出现的位置
-        
+        #endregion 在 srcbuff 中查找 subchars 第一次出现的位置
+
+        #region 在 srcbuff 中查找 subchars 第一次出现的位置
+
         /// <summary>
         /// 在 srcbuff 中查找 subchars 第一次出现的位置
         /// </summary>
@@ -274,10 +278,11 @@ namespace EthanLibrary.Common
             byte[] subbuff = Encoding.ASCII.GetBytes(subchars);
             return BufferLookup(srcbuff, subbuff, start);
         }
-        #endregion
+
+        #endregion 在 srcbuff 中查找 subchars 第一次出现的位置
 
         #region 将二进制的数据转成Hex格式
-       
+
         /// <summary>
         /// 将二进制的数据转成Hex格式
         /// </summary>
@@ -294,10 +299,11 @@ namespace EthanLibrary.Common
             }
             return str;
         }
-        #endregion
 
-        #region  将日期时间格式的字符串转换到数据库使用的日期类型
-       
+        #endregion 将二进制的数据转成Hex格式
+
+        #region 将日期时间格式的字符串转换到数据库使用的日期类型
+
         /// <summary>
         /// 将日期时间格式的字符串转换到数据库使用的日期类型
         /// </summary>
@@ -315,10 +321,11 @@ namespace EthanLibrary.Common
             ret[6] = (Byte)(dateTime.Second + 1);
             return ret;
         }
-        #endregion
 
-        #region   将倒序的ushort字节还原为ushort
-       
+        #endregion 将日期时间格式的字符串转换到数据库使用的日期类型
+
+        #region 将倒序的ushort字节还原为ushort
+
         /// <summary>
         /// 将倒序的ushort字节还原为ushort
         /// </summary>
@@ -333,9 +340,10 @@ namespace EthanLibrary.Common
 
             return BitConverter.ToUInt16(BytesTools.SwapBytes(tmp), 0);
         }
-        #endregion
-   
-        #region    将倒序的uint字节还原为uint
+
+        #endregion 将倒序的ushort字节还原为ushort
+
+        #region 将倒序的uint字节还原为uint
 
         /// <summary>
         /// 将倒序的uint字节还原为uint
@@ -348,10 +356,10 @@ namespace EthanLibrary.Common
             byte[] tmp = BytesTools.SubBuffer(buffer, start, 4);
             return BitConverter.ToUInt32(BytesTools.SwapBytes(tmp), 0);
         }
-        #endregion
+
+        #endregion 将倒序的uint字节还原为uint
 
         #region 转换时间格式
-
 
         /// <summary>
         /// 转换时间格式
@@ -365,7 +373,7 @@ namespace EthanLibrary.Common
             string timestr = "";
             for (int i = 0; i < 7; i++)
             {
-                timestr+=timeBuff[i].ToString("X2");
+                timestr += timeBuff[i].ToString("X2");
             }
             timestr = timestr.Substring(0, 4) + "-" + timestr.Substring(4, 2) + "-" + timestr.Substring(6, 2) + " " + timestr.Substring(8, 2) + ":" + timestr.Substring(10, 2) + ":" + timestr.Substring(12, 2);
             try
@@ -377,10 +385,10 @@ namespace EthanLibrary.Common
                 return new DateTime(2000, 01, 01);
             }
         }
-        #endregion
-    
-        #region Hex进制转二进制
 
+        #endregion 转换时间格式
+
+        #region Hex进制转二进制
 
         /// <summary>
         /// Hex进制转二进制
@@ -402,8 +410,8 @@ namespace EthanLibrary.Common
             }
             return ls.ToArray();
         }
-        #endregion
 
+        #endregion Hex进制转二进制
 
         /// <summary>
         /// Determine if two byte arrays are equal.
@@ -483,8 +491,6 @@ namespace EthanLibrary.Common
             Buffer.BlockCopy(byte1, 0, copyBytes, 0, byte1.Length);
 
             return copyBytes;
-
-
         }
 
         /// <summary>
@@ -551,7 +557,6 @@ namespace EthanLibrary.Common
             {
                 throw new ArgumentOutOfRangeException("bytes", "The value must be greater than 0 bytes.");
             }
-
 
             StringBuilder sb = new StringBuilder(bytes.Length * 2);
             for (int i = 0; i < bytes.Length; i++)

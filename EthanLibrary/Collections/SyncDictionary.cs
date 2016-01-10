@@ -14,7 +14,7 @@ namespace EthanLibrary.Collections
     internal class SyncDictionary<TKey, TValue> : Dictionary<TKey, TValue>
     {
         /// <summary>
-        /// Gets the value associated with the specified key. 
+        /// Gets the value associated with the specified key.
         /// </summary>
         /// <param name="key">The key of the value to get.</param>
         /// <param name="value">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.</param>
@@ -29,8 +29,6 @@ namespace EthanLibrary.Collections
 
             return flag;
         }
-
-
 
         /// <summary>Gets or sets the value associated with the specified key.</summary>
         /// <returns>The value associated with the specified key. If the specified key is not found, a get operation throws a <see cref="System.Collections.Generic.KeyNotFoundException"></see>, and a set operation creates a new element with the specified key.</returns>
@@ -65,11 +63,8 @@ namespace EthanLibrary.Collections
                     collection = new KeyCollection(this.dictionary);
                 }
                 return collection;
-
             }
         }
-
-
 
         /// <summary>Gets a collection containing the values in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</summary>
         /// <returns>A <see cref="System.Collections.Generic.Dictionary{TKey, TValue}.ValueCollection"></see> containing the values in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</returns>
@@ -77,7 +72,6 @@ namespace EthanLibrary.Collections
         {
             get
             {
-
                 ValueCollection collection;
 
                 lock (this.dictionary)
@@ -85,7 +79,6 @@ namespace EthanLibrary.Collections
                     collection = new ValueCollection(this.dictionary);
                 }
                 return collection;
-
             }
         }
 
@@ -104,8 +97,6 @@ namespace EthanLibrary.Collections
             }
         }
 
-
-
         /// <summary>Gets the number of key/value pairs contained in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</summary>
         /// <returns>The number of key/value pairs contained in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</returns>
         public new virtual int Count
@@ -113,9 +104,9 @@ namespace EthanLibrary.Collections
             get
             {
                 return this.dictionary.Count;
-
             }
         }
+
         /// <summary>Removes the value with the specified key from the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</summary>
         /// <returns>true if the element is successfully found and removed; otherwise, false.  This method returns false if key is not found in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</returns>
         /// <param name="key">The key of the element to remove.</param>
@@ -126,7 +117,6 @@ namespace EthanLibrary.Collections
             {
                 return this.dictionary.Remove(key);
             }
-
         } // Remove
 
         /// <summary>Returns an enumerator that iterates through the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</summary>
@@ -144,7 +134,6 @@ namespace EthanLibrary.Collections
 
         private Dictionary<TKey, TValue> dictionary;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SyncDictionary{TKey, TValue}"/> class.
         /// </summary>
@@ -153,7 +142,6 @@ namespace EthanLibrary.Collections
         {
             this.dictionary = dictionary;
         }
-
 
         /// <summary>
         /// Adds the specified key and value to the dictionarytable.
@@ -226,7 +214,7 @@ namespace EthanLibrary.Collections
         }
 
         /// <summary>
-        /// Copies the elements of the ICollection to an array of type KeyValuePair, starting at the specified array index. 
+        /// Copies the elements of the ICollection to an array of type KeyValuePair, starting at the specified array index.
         /// </summary>
         /// <param name="array">The one-dimensional array of type KeyValuePair that is the destination of the KeyValuePair elements copied from the ICollection. The array must have zero-based indexing.</param>
         /// <param name="index">The zero-based index in array at which copying begins.</param>
@@ -236,9 +224,7 @@ namespace EthanLibrary.Collections
             {
                 this.dictionary.CopyTo(array, index);
             }
-
         } // CopyTo
-
 
         /// <summary>
         /// Implements the <see cref="System.Runtime.Serialization.ISerializable"></see> interface and raises the deserialization event when the deserialization is complete.
@@ -262,8 +248,6 @@ namespace EthanLibrary.Collections
             return this.dictionary.ContainsKey(key);
         } // ContainsKey
 
-
-
         /// <summary>
         /// Determines whether the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see> contains a specific value.
         /// </summary>
@@ -280,8 +264,7 @@ namespace EthanLibrary.Collections
             }
             return flag;
         } // ContainsValue
+    } // class SyncDictionary
 
-    } // class SyncDictionary 
-    #endregion
-
+    #endregion SyncDictionary
 }

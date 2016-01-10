@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
+using System.Windows.Forms;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// The global mouse hook. This can be used to globally capture mouse input.
@@ -104,36 +102,45 @@ namespace Core.Systems
                     case Hooks.WM_LBUTTONDOWN:
                         result = OnMouseDown(MouseButtons.Left);
                         break;
+
                     case Hooks.WM_LBUTTONUP:
                         result = OnMouseUp(MouseButtons.Left);
                         break;
+
                     case Hooks.WM_RBUTTONDOWN:
                         result = OnMouseDown(MouseButtons.Right);
                         break;
+
                     case Hooks.WM_RBUTTONUP:
                         result = OnMouseUp(MouseButtons.Right);
                         break;
+
                     case Hooks.WM_MBUTTONDOWN:
                         result = OnMouseDown(MouseButtons.Middle);
                         break;
+
                     case Hooks.WM_MBUTTONUP:
                         result = OnMouseUp(MouseButtons.Middle);
                         break;
+
                     case Hooks.WM_XBUTTONDOWN:
                         if (info.Data >> 16 == Hooks.XBUTTON1)
                             result = OnMouseDown(MouseButtons.XButton1);
                         else if (info.Data >> 16 == Hooks.XBUTTON2)
                             result = OnMouseDown(MouseButtons.XButton2);
                         break;
+
                     case Hooks.WM_XBUTTONUP:
                         if (info.Data >> 16 == Hooks.XBUTTON1)
                             result = OnMouseUp(MouseButtons.XButton1);
                         else if (info.Data >> 16 == Hooks.XBUTTON2)
                             result = OnMouseUp(MouseButtons.XButton2);
                         break;
+
                     case Hooks.WM_MOUSEMOVE:
                         result = OnMouseMove(new Point(info.Point.X, info.Point.Y));
                         break;
+
                     case Hooks.WM_MOUSEWHEEL:
                         result = OnMouseWheel((info.Data >> 16) & 0xffff);
                         break;
@@ -209,7 +216,7 @@ namespace Core.Systems
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        #endregion
+        #endregion Interop
 
         // The type of method used as a handler (Filter)
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
@@ -234,6 +241,7 @@ namespace Core.Systems
 
         //Mouse stuff
         internal const int WM_MOUSEMOVE = 0x200;
+
         internal const int WM_MOUSEWHEEL = 0x020A;
         internal const int WM_LBUTTONDOWN = 0x201;
         internal const int WM_RBUTTONDOWN = 0x204;

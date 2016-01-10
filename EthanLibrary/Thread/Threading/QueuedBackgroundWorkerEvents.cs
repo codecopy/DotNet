@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     #region Event Delegates
+
     /// <summary>
     /// Represents the method that will handle the RunWorkerCompleted event.
     /// </summary>
@@ -13,6 +12,7 @@ namespace Core.Threads
     /// <param name="e">A <see cref="QueuedWorkerCompletedEventArgs"/> that contains event data.</param>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public delegate void RunQueuedWorkerCompletedEventHandler(object sender, QueuedWorkerCompletedEventArgs e);
+
     /// <summary>
     /// Represents the method that will handle the DoWork event.
     /// </summary>
@@ -20,9 +20,11 @@ namespace Core.Threads
     /// <param name="e">An <see cref="QueuedWorkerDoWorkEventArgs"/> that contains event data.</param>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public delegate void QueuedWorkerDoWorkEventHandler(object sender, QueuedWorkerDoWorkEventArgs e);
-    #endregion
+
+    #endregion Event Delegates
 
     #region Event Arguments
+
     /// <summary>
     /// Represents the event arguments of the RunWorkerCompleted event.
     /// </summary>
@@ -32,6 +34,7 @@ namespace Core.Threads
         /// Gets a value that represents the result of an asynchronous operation.
         /// </summary>
         public object Result { get; private set; }
+
         /// <summary>
         /// Gets the priority of this item.
         /// </summary>
@@ -52,6 +55,7 @@ namespace Core.Threads
             Priority = priority;
         }
     }
+
     /// <summary>
     /// Represents the event arguments of the RunWorkerCompleted event.
     /// </summary>
@@ -73,5 +77,6 @@ namespace Core.Threads
             Priority = priority;
         }
     }
-    #endregion
+
+    #endregion Event Arguments
 }

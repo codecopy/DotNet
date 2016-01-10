@@ -1,8 +1,8 @@
-using System;
 using Microsoft.Win32;
+using System;
 using System.Windows.Forms;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// 注册表操作辅助类
@@ -10,6 +10,7 @@ namespace Core.Systems
     public sealed class RegistryHelper
     {
         #region 基础操作（读取和保存）
+
         private static string Software_Key = @"Software\DeepLand\OrderWater";
 
         /// <summary>
@@ -47,6 +48,7 @@ namespace Core.Systems
             }
             return strRet;
         }
+
         /// <summary>
         /// Saves the key and the value to registry.
         /// </summary>
@@ -89,8 +91,9 @@ namespace Core.Systems
             reg.SetValue(key, value);
 
             return bReturn;
-        } 
-        #endregion
+        }
+
+        #endregion 基础操作（读取和保存）
 
         #region 自动启动程序设置
 
@@ -125,6 +128,6 @@ namespace Core.Systems
             }
         }
 
-        #endregion
+        #endregion 自动启动程序设置
     }
 }

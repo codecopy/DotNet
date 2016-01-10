@@ -1,6 +1,4 @@
-﻿
-
-namespace EmailHelp
+﻿namespace EmailHelp
 {
     /// <summary>
     /// This class contains the Positive and Negative starting response strings

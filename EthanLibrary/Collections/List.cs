@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Security.Permissions;
 using System.Xml.Serialization;
-using Generics = System.Collections.Generic;
 
 namespace EthanLibrary.Collections
 {
     /// <summary>
-    /// Represents a strongly typed list of objects that 
-    /// can be accessed by index. Provides methods to search, sort, 
-    /// and manipulate lists. 
+    /// Represents a strongly typed list of objects that
+    /// can be accessed by index. Provides methods to search, sort,
+    /// and manipulate lists.
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     [Serializable()]
     [XmlRoot("list")]
     public class List<T> : System.Collections.Generic.List<T>, ICloneable, ICloneable<List<T>>
     {
-
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="List{T}"></see> class that is empty and has the default initial capacity.
         /// </summary>
@@ -37,11 +36,10 @@ namespace EthanLibrary.Collections
         /// <exception cref="System.ArgumentOutOfRangeException">capacity is less than 0. </exception>
         public List(int capacity) : base(capacity) { } // List
 
-        #endregion
-
-      
+        #endregion Constructors
 
         #region Properties
+
         /// <summary>
         /// Gets a value indicating whether access to the <see cref="System.Collections.ICollection"></see> is synchronized (thread safe).
         /// </summary>
@@ -91,9 +89,9 @@ namespace EthanLibrary.Collections
 
             return list;
         }
-        #endregion
 
-      
+        #endregion Properties
+
         #region ICloneable<T> Members
 
         /// <summary>
@@ -107,7 +105,7 @@ namespace EthanLibrary.Collections
             return new List<T>(this);
         }
 
-        #endregion
+        #endregion ICloneable<T> Members
 
         #region ICloneable Members
 
@@ -122,10 +120,6 @@ namespace EthanLibrary.Collections
             return this.Clone();
         }
 
-        #endregion
-
-
-
-
+        #endregion ICloneable Members
     }
 }

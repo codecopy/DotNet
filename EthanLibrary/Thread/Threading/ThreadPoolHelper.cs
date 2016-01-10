@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
     /// 线程池辅助操作类
@@ -19,7 +17,7 @@ namespace Core.Threads
         /// The WaitCallback delegate object in actual of our thread pool.
         /// </summary>
         /// <param name="state"></param>
-        static void Callback(object state)
+        private static void Callback(object state)
         {
             WaitCallbackHelper wcbh = (state as WaitCallbackHelper);
             wcbh.Callback();
@@ -88,9 +86,10 @@ namespace Core.Threads
         /// <summary>
         /// A callback container with a WaitHandle.
         /// </summary>
-        class WaitCallbackHelper
+        private class WaitCallbackHelper
         {
             private WaitCallbackNew callback;
+
             /// <summary>
             ///
             /// </summary>
@@ -107,6 +106,7 @@ namespace Core.Threads
             }
 
             private WaitHandle waitHandle;
+
             public WaitHandle WaitHandle
             {
                 get

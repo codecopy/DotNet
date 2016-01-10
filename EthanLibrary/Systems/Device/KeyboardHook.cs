@@ -1,9 +1,9 @@
-﻿﻿using System;
+﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// The global keyboard hook. This can be used to globally capture keyboard input.
@@ -20,14 +20,17 @@ namespace Core.Systems
         /// Check to see if either Control modifier is active.
         /// </summary>
         public static bool Control = false;
+
         /// <summary>
         /// Check to see if either Shift modifier is active.
         /// </summary>
         public static bool Shift = false;
+
         /// <summary>
         /// Check to see if either Alt modifier is active.
         /// </summary>
         public static bool Alt = false;
+
         /// <summary>
         /// Check to see if either Win modifier is active.
         /// </summary>
@@ -42,6 +45,7 @@ namespace Core.Systems
         /// Keys handled and their callbacks
         /// </summary>
         private static System.Collections.Generic.Dictionary<Keys, KeyPressed> handledKeysDown = new System.Collections.Generic.Dictionary<Keys, KeyPressed>();
+
         private static System.Collections.Generic.Dictionary<Keys, KeyPressed> handledKeysUp = new System.Collections.Generic.Dictionary<Keys, KeyPressed>();
 
         /// <summary>

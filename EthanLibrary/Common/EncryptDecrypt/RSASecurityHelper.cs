@@ -2,7 +2,6 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-
 namespace EthanLibrary.Common
 {
     /// <summary>

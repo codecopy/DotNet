@@ -8,40 +8,48 @@ namespace Common
     public static class WebSitePathHelper
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public enum SortType
         {
             /// <summary>
-            /// 
+            ///
             /// </summary>
             Photo = 1,
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             Article = 5,
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             Diary = 7,
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             Pic = 2,
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             Music = 6,
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             AddressList = 4,
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             Favorite = 3,
         }
+
         #region 根据给出的相对地址获取网站绝对地址
+
         /// <summary>
         /// 根据给出的相对地址获取网站绝对地址
         /// </summary>
@@ -72,9 +80,10 @@ namespace Common
             return thisPath + thisLocalPath;
         }
 
-        #endregion
+        #endregion 根据给出的相对地址获取网站绝对地址
 
         #region 获取网站绝对地址
+
         /// <summary>
         ///  获取网站绝对地址
         /// </summary>
@@ -94,9 +103,11 @@ namespace Common
             }
             return thisPath;
         }
-        #endregion
+
+        #endregion 获取网站绝对地址
 
         #region 根据相对路径或绝对路径获取绝对路径
+
         /// <summary>
         /// 根据相对路径或绝对路径获取绝对路径
         /// </summary>
@@ -113,7 +124,8 @@ namespace Common
                 return System.Web.HttpContext.Current.Server.MapPath(localPath);
             }
         }
-        #endregion
+
+        #endregion 根据相对路径或绝对路径获取绝对路径
 
         /// <summary>
         /// 来路地址

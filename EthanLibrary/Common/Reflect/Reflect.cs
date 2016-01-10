@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-
-using System.Text;
-using System.Collections;
+﻿using System.Collections;
 using System.Reflection;
 
 namespace EthanLibrary.Common
 {
-    public class Reflect<T> where T : class 
+    public class Reflect<T> where T : class
     {
         private static Hashtable m_objCache = null;
+
         public static Hashtable ObjCache
         {
             get
@@ -26,13 +23,14 @@ namespace EthanLibrary.Common
         {
             return Create(sName, sFilePath, true);
         }
+
         public static T Create(string sName, string sFilePath, bool bCache)
         {
             string CacheKey = sFilePath + "." + sName;
             T objType = null;
             if (bCache)
             {
-                objType = (T)ObjCache[CacheKey];    //从缓存读取 
+                objType = (T)ObjCache[CacheKey];    //从缓存读取
                 if (!ObjCache.ContainsKey(CacheKey))
                 {
                     Assembly assObj = CreateAssembly(sFilePath);
@@ -44,7 +42,7 @@ namespace EthanLibrary.Common
             }
             else
             {
-                objType = (T)CreateAssembly(sFilePath).CreateInstance(CacheKey); //反射创建 
+                objType = (T)CreateAssembly(sFilePath).CreateInstance(CacheKey); //反射创建
             }
 
             return objType;

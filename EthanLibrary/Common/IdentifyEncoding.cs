@@ -1,8 +1,4 @@
-﻿
-using System;
-
-
-namespace Commons
+﻿namespace Commons
 {
     #region Class IdentifyEncoding.....
 
@@ -17,8 +13,8 @@ namespace Commons
     /// <strong>IdentifyEncoding</strong> 用来检测 <see cref="Uri"/>,<see cref="System.IO.FileInfo"/>,<see cref="sbyte"/> 字节数组的编码．
     /// Create By lion  <br/>
     /// 2005-02-21 22:00  <br/>
-    /// Support .Net Framework v1.1.4322 <br/> 
-    /// WebSite：www.lionsky.net(lion-a AT sohu.com) <br/> 
+    /// Support .Net Framework v1.1.4322 <br/>
+    /// WebSite：www.lionsky.net(lion-a AT sohu.com) <br/>
     /// ]]>
     /// </remarks>
     public class IdentifyEncoding
@@ -28,6 +24,7 @@ namespace Commons
         // Frequency tables to hold the GB, Big5, and EUC-TW character
         // frequencies
         internal static int[][] GBFreq = new int[94][];
+
         internal static int[][] GBKFreq = new int[126][];
         internal static int[][] Big5Freq = new int[94][];
         internal static int[][] EUC_TWFreq = new int[94][];
@@ -35,7 +32,7 @@ namespace Commons
         internal static string[] nicename =
             new string[] { "GB2312", "GBK", "HZ", "Big5", "CNS 11643", "ISO 2022CN", "UTF-8", "Unicode", "ASCII", "OTHER" };
 
-        #endregion
+        #endregion Fields.....
 
         #region Methods.....
 
@@ -58,7 +55,7 @@ namespace Commons
         /// 以下示例演示了如何调用 <see cref="GetEncodingName"/> 方法：
         /// <code>
         ///  IdentifyEncoding ide = new IdentifyEncoding();
-        ///  Response.Write(ide.GetEncodingName(new Uri("http://10.87.0.31/index.html")));  
+        ///  Response.Write(ide.GetEncodingName(new Uri("http://10.87.0.31/index.html")));
         /// </code>
         /// </example>
         public virtual string GetEncodingName(System.Uri testurl)
@@ -92,7 +89,7 @@ namespace Commons
         /// 以下示例演示了如何调用 <see cref="GetEncodingName"/> 方法：
         /// <code>
         ///  IdentifyEncoding ide = new IdentifyEncoding();
-        ///  Response.Write(ide.GetEncodingName(new System.IO.FileInfo(@"C:\test.txt")));  
+        ///  Response.Write(ide.GetEncodingName(new System.IO.FileInfo(@"C:\test.txt")));
         /// </code>
         /// </example>
         public virtual string GetEncodingName(System.IO.FileInfo testfile)
@@ -120,7 +117,6 @@ namespace Commons
             return GetEncodingName(rawtext);
         }
 
-
         /// <summary>
         /// 从指定的 <see cref="sbyte"/> 字节数组中判断编码类型
         /// </summary>
@@ -130,7 +126,7 @@ namespace Commons
         /// 以下示例演示了如何调用 <see cref="GetEncodingName"/> 方法：
         /// <code>
         ///  IdentifyEncoding ide = new IdentifyEncoding();
-        ///  Response.Write(ide.GetEncodingName(IdentifyEncoding.ToSByteArray(System.Text.Encoding.GetEncoding("gb2312").GetBytes("vod.2sort.cn")))); 
+        ///  Response.Write(ide.GetEncodingName(IdentifyEncoding.ToSByteArray(System.Text.Encoding.GetEncoding("gb2312").GetBytes("vod.2sort.cn"))));
         /// </code>
         /// </example>
         public virtual string GetEncodingName(sbyte[] rawtext)
@@ -171,7 +167,7 @@ namespace Commons
             return nicename[encoding_guess];
         }
 
-        #endregion
+        #endregion GetEncodingName.....
 
         #region About Probability.....
 
@@ -225,11 +221,10 @@ namespace Commons
             rangeval = 50 * ((float)gbchars / (float)dbchars);
             freqval = 50 * ((float)gbfreq / (float)totalfreq);
 
-
             return (int)(rangeval + freqval);
         }
 
-        #endregion
+        #endregion GB2312Probability
 
         #region GBKProbability.....
 
@@ -303,7 +298,7 @@ namespace Commons
             return (int)(rangeval + freqval) - 1;
         }
 
-        #endregion
+        #endregion GBKProbability.....
 
         #region HZProbability.....
 
@@ -408,11 +403,10 @@ namespace Commons
             }
             freqval = 50 * ((float)hzfreq / (float)totalfreq);
 
-
             return (int)(rangeval + freqval);
         }
 
-        #endregion
+        #endregion HZProbability.....
 
         #region BIG5Probability.....
 
@@ -470,11 +464,10 @@ namespace Commons
             rangeval = 50 * ((float)bfchars / (float)dbchars);
             freqval = 50 * ((float)bffreq / (float)totalfreq);
 
-
             return (int)(rangeval + freqval);
         }
 
-        #endregion
+        #endregion BIG5Probability.....
 
         #region ENCTWProbability.....
 
@@ -533,15 +526,13 @@ namespace Commons
                 }
             }
 
-
             rangeval = 50 * ((float)cnschars / (float)dbchars);
             freqval = 50 * ((float)cnsfreq / (float)totalfreq);
-
 
             return (int)(rangeval + freqval);
         }
 
-        #endregion
+        #endregion ENCTWProbability.....
 
         #region ISO2022CNProbability.....
 
@@ -633,7 +624,7 @@ namespace Commons
             return (int)(rangeval + freqval);
         }
 
-        #endregion
+        #endregion ISO2022CNProbability.....
 
         #region UTF8Probability.....
 
@@ -695,7 +686,7 @@ namespace Commons
             }
         }
 
-        #endregion
+        #endregion UTF8Probability.....
 
         #region UnicodeProbability.....
 
@@ -718,7 +709,7 @@ namespace Commons
             return 0;
         }
 
-        #endregion
+        #endregion UnicodeProbability.....
 
         #region ASCIIProbability.....
 
@@ -750,9 +741,9 @@ namespace Commons
             return score;
         }
 
-        #endregion
+        #endregion ASCIIProbability.....
 
-        #endregion
+        #endregion About Probability.....
 
         #region Initialize_Frequencies.....
 
@@ -1172,7 +1163,7 @@ namespace Commons
                 GBFreq[45][19] = 201;
                 GBFreq[18][53] = 200;
 
-                #endregion
+                #endregion GBFreq[20][35] = 599;
             }
 
             if (GBKFreq[0] == null)
@@ -1486,7 +1477,7 @@ namespace Commons
                 GBKFreq[80][144] = 300;
                 GBKFreq[85][113] = 299;
 
-                #endregion
+                #endregion GBKFreq[52][132] = 600;
             }
 
             if (Big5Freq[0] == null)
@@ -1898,7 +1889,7 @@ namespace Commons
                 Big5Freq[4][19] = 202;
                 Big5Freq[9][152] = 201;
 
-                #endregion
+                #endregion Big5Freq[9][89] = 600;
             }
 
             if (EUC_TWFreq[0] == null)
@@ -2309,11 +2300,11 @@ namespace Commons
                 EUC_TWFreq[36][82] = 202;
                 EUC_TWFreq[46][59] = 201;
 
-                #endregion
+                #endregion EUC_TWFreq[48][49] = 599;
             }
         }
 
-        #endregion
+        #endregion Initialize_Frequencies.....
 
         #region ToByteArray.....
 
@@ -2356,7 +2347,7 @@ namespace Commons
             return byteArray;
         }
 
-        #endregion
+        #endregion ToByteArray.....
 
         #region ToSByteArray.....
 
@@ -2373,7 +2364,7 @@ namespace Commons
             return sbyteArray;
         }
 
-        #endregion
+        #endregion ToSByteArray.....
 
         #region ReadInput.....
 
@@ -2437,7 +2428,7 @@ namespace Commons
             return bytesRead;
         }
 
-        #endregion
+        #endregion ReadInput.....
 
         #region FileLength.....
 
@@ -2454,7 +2445,7 @@ namespace Commons
                 return file.Length;
         }
 
-        #endregion
+        #endregion FileLength.....
 
         #region Identity.....
 
@@ -2498,11 +2489,10 @@ namespace Commons
             return literal;
         }
 
-        #endregion
+        #endregion Identity.....
 
-        #endregion
+        #endregion Methods.....
     }
 
-    #endregion
-
+    #endregion Class IdentifyEncoding.....
 }

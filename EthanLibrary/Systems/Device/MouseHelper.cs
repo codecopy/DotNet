@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows.Forms;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// 模拟鼠标点击
@@ -52,20 +50,20 @@ namespace Core.Systems
                 if (!WheelExists)
                 {
                     throw new InvalidOperationException("没有找到鼠标滑轮.");
-
                 }
                 return SystemInformation.MouseWheelScrollLines;
             }
         }
 
-        #endregion
+        #endregion 鼠标相关属性
 
         #region 鼠标操作函数
+
         [DllImport("user32.dll")]
-        static extern void mouse_event(MouseEventFlag flags, int dx, int dy, uint data, UIntPtr extraInfo);
+        private static extern void mouse_event(MouseEventFlag flags, int dx, int dy, uint data, UIntPtr extraInfo);
 
         [Flags]
-        enum MouseEventFlag : uint
+        private enum MouseEventFlag : uint
         {
             Move = 0x0001,
             LeftDown = 0x0002,
@@ -105,9 +103,10 @@ namespace Core.Systems
         [DllImport("user32.dll")]
         public static extern int SetCursorPos(int x, int y);
 
-        #endregion
+        #endregion 鼠标操作函数
 
         #region 封装函数
+
         /// <summary>
         /// 在当前鼠标的位置左键点击一下
         /// </summary>
@@ -145,8 +144,8 @@ namespace Core.Systems
         public static void MouseMove(Point location)
         {
             SetCursorPos(location.X, location.Y);
-        } 
-        #endregion
-        
+        }
+
+        #endregion 封装函数
     }
 }

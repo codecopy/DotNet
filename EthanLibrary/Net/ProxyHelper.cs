@@ -1,12 +1,11 @@
-﻿using System;
-using System.Text;
+﻿using Microsoft.Win32;
+using System;
 using System.IO;
-using Microsoft.Win32;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using System.Net;
+using System.Runtime.InteropServices;
+using System.Text;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
     /// <summary>
     /// IE代理设置辅助类
@@ -20,7 +19,8 @@ namespace Core.Net
 
         private const int INTERNET_OPTION_REFRESH = 0x000025;
         private const int INTERNET_OPTION_SETTINGS_CHANGED = 0x000027;
-        #endregion
+
+        #endregion Variable
 
         #region IE代理设置
 
@@ -39,7 +39,7 @@ namespace Core.Net
                             @"Software\Classes\MIME\Database\Content Type\text/vnd.wap.wml");
             }
 
-            //设置代理可用 
+            //设置代理可用
             rk.SetValue("CLSID", "{25336920-03F9-11cf-8FD0-00AA00686F13}");
 
             rk.Close();
@@ -54,18 +54,18 @@ namespace Core.Net
         /// <returns></returns>
         public static string SetIEProxy(string ProxyServer, int EnableProxy)
         {
-            string result ="";
-            //打开注册表键 
+            string result = "";
+            //打开注册表键
             Microsoft.Win32.RegistryKey rk = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
                         @"Software\Microsoft\Windows\CurrentVersion\Internet Settings",
                         true);
 
-            //设置代理可用 
+            //设置代理可用
             rk.SetValue("ProxyEnable", EnableProxy);
 
             if (!ProxyServer.Equals("") && EnableProxy == 1)
             {
-                //设置代理IP和端口 
+                //设置代理IP和端口
                 rk.SetValue("ProxyServer", ProxyServer);
                 rk.SetValue("ProxyEnable", 1);
                 result = "设置代理成功！";
@@ -73,7 +73,7 @@ namespace Core.Net
 
             if (EnableProxy == 0)
             {
-                //设置代理IP和端口 
+                //设置代理IP和端口
                 rk.SetValue("ProxyEnable", 0);
                 result = "取消代理成功！";
             }
@@ -87,9 +87,9 @@ namespace Core.Net
         {
             InternetSetOption(IntPtr.Zero, INTERNET_OPTION_SETTINGS_CHANGED, IntPtr.Zero, 0);
             InternetSetOption(IntPtr.Zero, INTERNET_OPTION_REFRESH, IntPtr.Zero, 0);
-        } 
-        
-        #endregion
+        }
+
+        #endregion IE代理设置
 
         #region 其他操作
 
@@ -169,12 +169,14 @@ namespace Core.Net
             }
         }
 
-        #endregion
+        #endregion 其他操作
     }
+
     [Serializable]
     public class TestEntity
     {
         private string _testUrl = "http://www.baidu.com";
+
         /// <summary>
         /// 测试网站地址
         /// </summary>
@@ -185,6 +187,7 @@ namespace Core.Net
         }
 
         private string _testWebTitle = "百度一下";
+
         /// <summary>
         /// 测试网站Title
         /// </summary>
@@ -216,6 +219,7 @@ namespace Core.Net
             get { return _id; }
             set { _id = value; }
         }
+
         private string ip;
 
         /// <summary>
@@ -226,6 +230,7 @@ namespace Core.Net
             get { return ip; }
             set { ip = value; }
         }
+
         private int port;
 
         /// <summary>
@@ -247,6 +252,7 @@ namespace Core.Net
             get { return userName; }
             set { userName = value; }
         }
+
         private string password;
 
         /// <summary>

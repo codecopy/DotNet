@@ -11,6 +11,7 @@ namespace EmailHelp
     internal class Pop3Response
     {
         private byte[] _responseContents;
+
         /// <summary>
         /// Gets the response contents.
         /// </summary>
@@ -24,6 +25,7 @@ namespace EmailHelp
         }
 
         private bool _statusIndicator;
+
         /// <summary>
         /// Gets a value indicating whether message was <c>true</c> +OK or <c>false</c> -ERR
         /// </summary>
@@ -34,6 +36,7 @@ namespace EmailHelp
         }
 
         private string _hostMessage;
+
         /// <summary>
         /// Gets the host message.
         /// </summary>
@@ -42,7 +45,6 @@ namespace EmailHelp
         {
             get { return _hostMessage; }
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pop3Response"/> class.

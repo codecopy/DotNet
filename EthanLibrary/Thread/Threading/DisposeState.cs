@@ -1,4 +1,4 @@
-﻿namespace Core.Threads
+﻿namespace EthanLibrary.Threads
 {
     /// <summary>
     /// State of Object Implementing <see cref="T:System.IDisposable"/> Interface

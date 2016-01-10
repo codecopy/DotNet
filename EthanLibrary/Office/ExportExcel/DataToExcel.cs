@@ -1,10 +1,11 @@
 using System;
-using System.Text;
-using System.Data.OleDb;
-using System.Data;
 using System.Collections;
+using System.Data;
+using System.Data.OleDb;
 using System.Diagnostics;
-namespace Core.Office
+using System.Text;
+
+namespace EthanLibrary.Office
 {
     /// <summary>
     /// 操作EXCEL导出数据报表的类
@@ -15,7 +16,7 @@ namespace Core.Office
         {
         }
 
-        const string ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=Excel 8.0;";
+        private const string ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=Excel 8.0;";
 
         /// <summary>
         /// 导出EXECL 表格
@@ -25,8 +26,6 @@ namespace Core.Office
         /// <returns></returns>
         public string DataTableToExcel(System.Data.DataTable dt, string excelPath)
         {
-
-
             if (dt == null)
             {
                 return "DataTable不能为空";
@@ -78,6 +77,7 @@ namespace Core.Office
                 }
 
                 #region 生成插入数据脚本
+
                 sb.Remove(0, sb.Length);
                 sb.Append("INSERT INTO ");
                 sb.Append(dt.TableName + " ( ");
@@ -97,8 +97,8 @@ namespace Core.Office
                     else
                         sb.Append("@" + dt.Columns[i].ColumnName + ")");
                 }
-                #endregion
 
+                #endregion 生成插入数据脚本
 
                 //建立插入动作的Command
                 objCmd.CommandText = sb.ToString();
@@ -124,12 +124,11 @@ namespace Core.Office
             }//end using
         }
 
-
-        /// <summary> 
-        /// 读取Excel文档 
-        /// </summary> 
-        /// <param name="Path">文件名称</param> 
-        /// <returns>返回一个数据集</returns> 
+        /// <summary>
+        /// 读取Excel文档
+        /// </summary>
+        /// <param name="Path">文件名称</param>
+        /// <returns>返回一个数据集</returns>
         public DataSet ExcelToDS(string Path)
         {
             string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
@@ -149,6 +148,7 @@ namespace Core.Office
         #region 操作EXCEL的一个类(需要Excel.dll支持)
 
         private int titleColorindex = 15;
+
         /// <summary>
         /// 标题背景色
         /// </summary>
@@ -162,6 +162,7 @@ namespace Core.Office
         private DateTime afterTime;				//Excel启动之后时间
 
         #region 创建一个Excel示例
+
         /// <summary>
         /// 创建一个Excel示例
         /// </summary>
@@ -181,12 +182,14 @@ namespace Core.Office
             ////打开显示
             //excel.Visible = true;
             ////			excel.Quit();
-            ////			excel=null;            
+            ////			excel=null;
             ////			GC.Collect();//垃圾回收
         }
-        #endregion
+
+        #endregion 创建一个Excel示例
 
         #region 将DataTable的数据导出显示为报表
+
         /// <summary>
         /// 将DataTable的数据导出显示为报表
         /// </summary>
@@ -209,7 +212,7 @@ namespace Core.Office
         //    xBk = excel.Workbooks.Add(true);
         //    xSt = (Excel._Worksheet)xBk.ActiveSheet;
 
-        //    //取得列标题			
+        //    //取得列标题
         //    foreach (DataColumn col in dt.Columns)
         //    {
         //        colIndex++;
@@ -222,8 +225,7 @@ namespace Core.Office
         //        xSt.get_Range(excel.Cells[4, colIndex], excel.Cells[4, colIndex]).Interior.ColorIndex = titleColorindex;//19;//设置为浅黄色，共计有56种
         //    }
 
-
-        //    //取得表格中的数据			
+        //    //取得表格中的数据
         //    foreach (DataRow row in dt.Rows)
         //    {
         //        rowIndex++;
@@ -249,43 +251,41 @@ namespace Core.Office
         //        }
         //    }
 
-        //    //加载一个合计行			
+        //    //加载一个合计行
         //    int rowSum = rowIndex + 1;
         //    int colSum = 2;
         //    excel.Cells[rowSum, 2] = "合计";
         //    xSt.get_Range(excel.Cells[rowSum, 2], excel.Cells[rowSum, 2]).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-        //    //设置选中的部分的颜色			
+        //    //设置选中的部分的颜色
         //    xSt.get_Range(excel.Cells[rowSum, colSum], excel.Cells[rowSum, colIndex]).Select();
         //    //xSt.get_Range(excel.Cells[rowSum,colSum],excel.Cells[rowSum,colIndex]).Interior.ColorIndex =Assistant.GetConfigInt("ColorIndex");// 1;//设置为浅黄色，共计有56种
 
-        //    //取得整个报表的标题			
+        //    //取得整个报表的标题
         //    excel.Cells[2, 2] = strTitle;
 
-        //    //设置整个报表的标题格式			
+        //    //设置整个报表的标题格式
         //    xSt.get_Range(excel.Cells[2, 2], excel.Cells[2, 2]).Font.Bold = true;
         //    xSt.get_Range(excel.Cells[2, 2], excel.Cells[2, 2]).Font.Size = 22;
 
-        //    //设置报表表格为最适应宽度			
+        //    //设置报表表格为最适应宽度
         //    xSt.get_Range(excel.Cells[4, 2], excel.Cells[rowSum, colIndex]).Select();
         //    xSt.get_Range(excel.Cells[4, 2], excel.Cells[rowSum, colIndex]).Columns.AutoFit();
 
-        //    //设置整个报表的标题为跨列居中			
+        //    //设置整个报表的标题为跨列居中
         //    xSt.get_Range(excel.Cells[2, 2], excel.Cells[2, colIndex]).Select();
         //    xSt.get_Range(excel.Cells[2, 2], excel.Cells[2, colIndex]).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenterAcrossSelection;
 
-        //    //绘制边框			
+        //    //绘制边框
         //    xSt.get_Range(excel.Cells[4, 2], excel.Cells[rowSum, colIndex]).Borders.LineStyle = 1;
         //    xSt.get_Range(excel.Cells[4, 2], excel.Cells[rowSum, 2]).Borders[Excel.XlBordersIndex.xlEdgeLeft].Weight = Excel.XlBorderWeight.xlThick;//设置左边线加粗
         //    xSt.get_Range(excel.Cells[4, 2], excel.Cells[4, colIndex]).Borders[Excel.XlBordersIndex.xlEdgeTop].Weight = Excel.XlBorderWeight.xlThick;//设置上边线加粗
         //    xSt.get_Range(excel.Cells[4, colIndex], excel.Cells[rowSum, colIndex]).Borders[Excel.XlBordersIndex.xlEdgeRight].Weight = Excel.XlBorderWeight.xlThick;//设置右边线加粗
         //    xSt.get_Range(excel.Cells[rowSum, 2], excel.Cells[rowSum, colIndex]).Borders[Excel.XlBordersIndex.xlEdgeBottom].Weight = Excel.XlBorderWeight.xlThick;//设置下边线加粗
 
-
-
         //    afterTime = DateTime.Now;
 
-        //    //显示效果			
-        //    //excel.Visible=true;			
+        //    //显示效果
+        //    //excel.Visible=true;
         //    //excel.Sheets[0] = "sss";
 
         //    ClearFile(FilePath);
@@ -299,14 +299,12 @@ namespace Core.Office
 
         //    //需要对Excel的DCOM对象进行配置:dcomcnfg
 
-
         //    //excel.Quit();
-        //    //excel=null;            
+        //    //excel=null;
 
         //    xBk.Close(null, null, null);
         //    excel.Workbooks.Close();
         //    excel.Quit();
-
 
         //    //注意：这里用到的所有Excel对象都要执行这个操作，否则结束不了Excel进程
         //    //			if(rng != null)
@@ -340,7 +338,8 @@ namespace Core.Office
         //    return filename;
 
         //}
-        #endregion
+
+        #endregion 将DataTable的数据导出显示为报表
 
         #region Kill Excel进程
 
@@ -363,18 +362,20 @@ namespace Core.Office
                 }
             }
         }
-        #endregion
 
-        #endregion
+        #endregion Kill Excel进程
+
+        #endregion 操作EXCEL的一个类(需要Excel.dll支持)
 
         #region 将DataTable的数据导出显示为报表(不使用Excel对象，使用COM.Excel)
 
         #region 使用示例
+
         /*使用示例：
          * DataSet ds=(DataSet)Session["AdBrowseHitDayList"];
             string ExcelFolder=Assistant.GetConfigString("ExcelFolder");
             string FilePath=Server.MapPath(".")+"\\"+ExcelFolder+"\\";
-			
+
             //生成列的中文对应表
             Hashtable nameList = new Hashtable();
             nameList.Add("ADID", "广告编码");
@@ -389,7 +390,7 @@ namespace Core.Office
             DataToExcel dte=new DataToExcel();
             string filename="";
             try
-            {			
+            {
                 if(ds.Tables[0].Rows.Count>0)
                 {
                     filename=dte.DataExcel(ds.Tables[0],"标题",FilePath,nameList);
@@ -399,24 +400,24 @@ namespace Core.Office
             {
                 //dte.KillExcelProcess();
             }
-			
+
             if(filename!="")
             {
                 Response.Redirect(ExcelFolder+"\\"+filename,true);
             }
-         * 
+         *
          * */
 
-        #endregion
+        #endregion 使用示例
 
-         ///<summary>
-         ///将DataTable的数据导出显示为报表(不使用Excel对象)
-         ///</summary>
-         ///<param name="dt">数据DataTable</param>
-         ///<param name="strTitle">标题</param>
-         ///<param name="FilePath">生成文件的路径</param>
-         ///<param name="nameList"></param>
-         ///<returns></returns>
+        ///<summary>
+        ///将DataTable的数据导出显示为报表(不使用Excel对象)
+        ///</summary>
+        ///<param name="dt">数据DataTable</param>
+        ///<param name="strTitle">标题</param>
+        ///<param name="FilePath">生成文件的路径</param>
+        ///<param name="nameList"></param>
+        ///<returns></returns>
         public string DataExcel(System.Data.DataTable dt, string strTitle, string FilePath, Hashtable nameList)
         {
             COM.Excel.cExcelFile excel = new COM.Excel.cExcelFile();
@@ -451,7 +452,6 @@ namespace Core.Office
             excel.SetHeader(ref header);
             excel.SetFooter(ref footer);
 
-
             COM.Excel.cExcelFile.ValueTypes vt = COM.Excel.cExcelFile.ValueTypes.xlsText;
             COM.Excel.cExcelFile.CellFont cf = COM.Excel.cExcelFile.CellFont.xlsFont0;
             COM.Excel.cExcelFile.CellAlignment ca = COM.Excel.cExcelFile.CellAlignment.xlsCentreAlign;
@@ -459,16 +459,14 @@ namespace Core.Office
 
             // 报表标题
             int cellformat = 1;
-            //			int rowindex = 1,colindex = 3;					
+            //			int rowindex = 1,colindex = 3;
             //			object title = (object)strTitle;
             //			excel.WriteValue(ref vt, ref cf, ref ca, ref chl,ref rowindex,ref colindex,ref title,ref cellformat);
 
             int rowIndex = 1;//起始行
             int colIndex = 0;
 
-
-
-            //取得列标题				
+            //取得列标题
             foreach (DataColumn colhead in dt.Columns)
             {
                 colIndex++;
@@ -485,7 +483,7 @@ namespace Core.Office
                 excel.WriteValue(ref vt, ref cf, ref ca, ref chl, ref rowIndex, ref colIndex, ref namestr, ref cellformat);
             }
 
-            //取得表格中的数据			
+            //取得表格中的数据
             foreach (DataRow row in dt.Rows)
             {
                 rowIndex++;
@@ -516,12 +514,11 @@ namespace Core.Office
             //				//MessageBox.Show(this,"请打开文件c:\\test.xls!");
             //			}
             return filename;
-
         }
-        
-        #endregion
 
-        #region  清理过时的Excel文件
+        #endregion 将DataTable的数据导出显示为报表(不使用Excel对象，使用COM.Excel)
+
+        #region 清理过时的Excel文件
 
         private void ClearFile(string FilePath)
         {
@@ -537,11 +534,10 @@ namespace Core.Office
                     catch
                     {
                     }
-
                 }
             }
         }
-        #endregion
 
+        #endregion 清理过时的Excel文件
     }
 }

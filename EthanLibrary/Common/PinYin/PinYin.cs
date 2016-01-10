@@ -54,7 +54,6 @@ namespace EthanLibrary.Common
                 //一级汉字
                 else if (array[0] >= 176 && array[0] <= 215)
                 {
-
                     if (hz[i].ToString().CompareTo("匝") >= 0)
                         return_py += "z";
                     else if (hz[i].ToString().CompareTo("压") >= 0)
@@ -133,7 +132,9 @@ namespace EthanLibrary.Common
                     strResult = strResult + (char)gbkBytes[i];
                     i++;
                 }
+
                 #region 生成汉字拼音简码,取拼音首字母
+
                 else
                 {
                     key = (ushort)(gbkBytes[i] * 256 + gbkBytes[i + 1]);
@@ -235,7 +236,8 @@ namespace EthanLibrary.Common
                     }
                     i = i + 2;
                 }
-                #endregion
+
+                #endregion 生成汉字拼音简码,取拼音首字母
             }
             return strResult;
         }

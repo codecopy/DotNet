@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
     /// Allows to create thread safe instance for specified object
@@ -21,14 +21,14 @@ namespace Core.Threads
         /// <summary>
         /// Initializes a new instance of the <see cref="ThreadSafeObjectProvider{T}"/> class.
         /// </summary>
-        /// <param name="nonPublic">true if a public or nonpublic default constructor can match; 
+        /// <param name="nonPublic">true if a public or nonpublic default constructor can match;
         /// false if only a public default constructor can match.</param>
         public ThreadSafeObjectProvider(bool nonPublic)
         {
             this.NonPublic = nonPublic;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Fields
 
@@ -36,7 +36,7 @@ namespace Core.Threads
 
         private bool NonPublic;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -52,7 +52,7 @@ namespace Core.Threads
             get { return _Instance == null ? false : true; }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -88,7 +88,7 @@ namespace Core.Threads
         {
             if (_Instance == null)
             {
-                _Instance = (T) Activator.CreateInstance(typeof (T), args);
+                _Instance = (T)Activator.CreateInstance(typeof(T), args);
             }
         }
 
@@ -96,7 +96,7 @@ namespace Core.Threads
         /// Creates an instance of the specified type using the constructor that best matches
         /// the specified parameters.
         /// </summary>
-        /// <param name="bindingAttr">A combination of zero or more bit flags that affect the 
+        /// <param name="bindingAttr">A combination of zero or more bit flags that affect the
         /// search for the type constructor. If bindingAttr is zero, a case-sensitive search for
         /// public constructors is conducted. .</param>
         /// <param name="args">An array of one or more arguments that can participate in activation. .</param>
@@ -107,17 +107,16 @@ namespace Core.Threads
             {
                 _Instance =
                     (T)
-                    Activator.CreateInstance(typeof (T), bindingAttr, null, args,
+                    Activator.CreateInstance(typeof(T), bindingAttr, null, args,
                                              null);
             }
         }
-
 
         /// <summary>
         /// Creates an instance of the specified type using the constructor that best matches
         /// the specified parameters.
         /// </summary>
-        /// <param name="bindingAttr">A combination of zero or more bit flags that affect the 
+        /// <param name="bindingAttr">A combination of zero or more bit flags that affect the
         /// search for the type constructor. If bindingAttr is zero, a case-sensitive search for
         /// public constructors is conducted. .</param>
         public void CreateInstance(BindingFlags bindingAttr)
@@ -126,7 +125,7 @@ namespace Core.Threads
             {
                 _Instance =
                     (T)
-                    Activator.CreateInstance(typeof (T), bindingAttr, null, null,
+                    Activator.CreateInstance(typeof(T), bindingAttr, null, null,
                                              null);
             }
         }
@@ -135,7 +134,7 @@ namespace Core.Threads
         /// Creates an instance of the specified type using the constructor that best matches
         /// the specified parameters.
         /// </summary>
-        /// <param name="nonPublic">true if a public or nonpublic default constructor can match; 
+        /// <param name="nonPublic">true if a public or nonpublic default constructor can match;
         /// false if only a public default constructor can match.</param>
         public void CreateInstance(bool nonPublic)
         {
@@ -144,11 +143,10 @@ namespace Core.Threads
                 if (nonPublic)
                 {
                     _Instance =
-                        (T) Activator.CreateInstance(typeof (T), nonPublic);
+                        (T)Activator.CreateInstance(typeof(T), nonPublic);
                 }
             }
         }
-
 
         /// <summary>
         /// Override This Method To Dispose Unmanaged Resources.
@@ -159,6 +157,6 @@ namespace Core.Threads
             base.DisposeManagedResources();
         }
 
-        #endregion
+        #endregion Methods
     }
 }

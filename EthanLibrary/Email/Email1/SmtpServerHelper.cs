@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Text;
+using System.Collections;
 using System.IO;
 using System.Net.Sockets;
-using System.Collections;
+using System.Text;
+
 //方法有关键字 命名空间重新起名
 namespace EmailHelp_X
 {
     public enum MailFormat { Text, HTML };
+
     public enum MailPriority { Low = 1, Normal = 3, High = 5 };
 
     /// <summary>
@@ -15,25 +17,32 @@ namespace EmailHelp_X
     public class MailAttachments
     {
         #region 构造函数
+
         public MailAttachments()
         {
             _Attachments = new ArrayList();
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 私有字段
+
         private IList _Attachments;
         private const int MaxAttachmentNum = 10;
-        #endregion
+
+        #endregion 私有字段
 
         #region 索引器
+
         public string this[int index]
         {
             get { return (string)_Attachments[index]; }
         }
-        #endregion
+
+        #endregion 索引器
 
         #region 公共方法
+
         /// <summary>
         /// 添加邮件附件
         /// </summary>
@@ -83,7 +92,8 @@ namespace EmailHelp_X
         {
             get { return _Attachments.Count; }
         }
-        #endregion
+
+        #endregion 公共方法
     }
 
     /// <summary>
@@ -92,6 +102,7 @@ namespace EmailHelp_X
     public class MailMessage
     {
         #region 构造函数
+
         public MailMessage()
         {
             _Recipients = new ArrayList();        //收件人列表
@@ -100,9 +111,11 @@ namespace EmailHelp_X
             _Priority = MailPriority.Normal;
             _Charset = "GB2312";
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 私有字段
+
         private int _MaxRecipientNum = 30;
         private string _From;      //发件人地址
         private string _FromName;  //发件人姓名
@@ -113,9 +126,11 @@ namespace EmailHelp_X
         private MailFormat _BodyFormat;     //邮件格式
         private string _Charset = "GB2312"; //字符编码格式
         private MailPriority _Priority;     //邮件优先级
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
+
         /// <summary>
         /// 设定语言代码，默认设定为GB2312，如不需要可设置为""
         /// </summary>
@@ -204,9 +219,11 @@ namespace EmailHelp_X
             set { _BodyFormat = value; }
             get { return _BodyFormat; }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 公共方法
+
         /// <summary>
         /// 增加一个收件人地址
         /// </summary>
@@ -237,7 +254,8 @@ namespace EmailHelp_X
                 }
             }
         }
-        #endregion
+
+        #endregion 公共方法
     }
 
     /// <summary>
@@ -246,6 +264,7 @@ namespace EmailHelp_X
     public class SmtpServerHelper
     {
         #region 构造函数、析构函数
+
         public SmtpServerHelper()
         {
             SMTPCodeAdd();
@@ -256,9 +275,11 @@ namespace EmailHelp_X
             networkStream.Close();
             tcpClient.Close();
         }
-        #endregion
+
+        #endregion 构造函数、析构函数
 
         #region 私有字段
+
         /// <summary>
         /// 回车换行
         /// </summary>
@@ -271,12 +292,12 @@ namespace EmailHelp_X
 
         /// <summary>
         /// TcpClient对象，用于连接服务器
-        /// </summary> 
+        /// </summary>
         private TcpClient tcpClient;
 
         /// <summary>
         /// NetworkStream对象
-        /// </summary> 
+        /// </summary>
         private NetworkStream networkStream;
 
         /// <summary>
@@ -293,9 +314,11 @@ namespace EmailHelp_X
         /// SMTP正确代码哈希表
         /// </summary>
         private Hashtable RightCodeHT = new Hashtable();
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
+
         /// <summary>
         /// 错误消息反馈
         /// </summary>
@@ -304,9 +327,11 @@ namespace EmailHelp_X
             set { errmsg = value; }
             get { return errmsg; }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 私有方法
+
         /// <summary>
         /// 将字符串编码为Base64字符串
         /// </summary>
@@ -378,7 +403,7 @@ namespace EmailHelp_X
 
         /// <summary>
         /// 发送SMTP命令
-        /// </summary> 
+        /// </summary>
         private bool SendCommand(string str)
         {
             byte[] WriteBuffer;
@@ -672,9 +697,11 @@ namespace EmailHelp_X
             tcpClient.Close();
             return true;
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 公有方法
+
         /// <summary>
         /// 发送电子邮件,SMTP服务器不需要身份验证
         /// </summary>
@@ -698,7 +725,8 @@ namespace EmailHelp_X
         {
             return SendEmail(smtpServer, port, true, username, password, mailMessage);
         }
-        #endregion
+
+        #endregion 公有方法
     }
 
     /// <summary>
@@ -721,6 +749,7 @@ namespace EmailHelp_X
     public class SmtpClient
     {
         #region 构造函数
+
         public SmtpClient()
         { }
 
@@ -728,14 +757,18 @@ namespace EmailHelp_X
         {
             _SmtpServer = _smtpServer;
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 私有字段
+
         private string errmsg;
         private string _SmtpServer;
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
+
         /// <summary>
         /// 错误消息反馈
         /// </summary>
@@ -752,7 +785,8 @@ namespace EmailHelp_X
             set { _SmtpServer = value; }
             get { return _SmtpServer; }
         }
-        #endregion
+
+        #endregion 公有属性
 
         public bool Send(MailMessage mailMessage, string username, string password)
         {
@@ -776,13 +810,16 @@ namespace EmailHelp_X
         { }
 
         #region 字段
+
         private StreamReader sr;
         private StreamWriter sw;
         private TcpClient tcpClient;
         private NetworkStream networkStream;
-        #endregion
+
+        #endregion 字段
 
         #region 私有方法
+
         /// <summary>
         /// 向服务器发送信息
         /// </summary>
@@ -820,9 +857,11 @@ namespace EmailHelp_X
             }
             return str;
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 获取邮件信息
+
         /// <summary>
         /// 获取邮件信息
         /// </summary>
@@ -865,9 +904,11 @@ namespace EmailHelp_X
                 return EmailMes;
             }
         }
-        #endregion
+
+        #endregion 获取邮件信息
 
         #region 读取邮件内容
+
         /// <summary>
         /// 读取邮件内容
         /// </summary>
@@ -884,9 +925,11 @@ namespace EmailHelp_X
             }
             return state;
         }
-        #endregion
+
+        #endregion 读取邮件内容
 
         #region 删除邮件
+
         /// <summary>
         /// 删除邮件
         /// </summary>
@@ -905,9 +948,11 @@ namespace EmailHelp_X
             }
             return state;
         }
-        #endregion
+
+        #endregion 删除邮件
 
         #region 关闭服务器连接
+
         /// <summary>
         /// 关闭服务器连接
         /// </summary>
@@ -919,8 +964,7 @@ namespace EmailHelp_X
             networkStream.Close();
             tcpClient.Close();
         }
-        #endregion
+
+        #endregion 关闭服务器连接
     }
-
 }
-

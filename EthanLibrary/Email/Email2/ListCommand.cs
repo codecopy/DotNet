@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 
-
 namespace EmailHelp
 {
     /// <summary>
@@ -11,12 +10,11 @@ namespace EmailHelp
     internal sealed class ListCommand : Pop3Command<ListResponse>
     {
         // the id of the message on the server to retrieve.
-        int _messageId;
+        private int _messageId;
 
         public ListCommand(Stream stream)
             : base(stream, true, Pop3State.Transaction)
         {
-
         }
 
         /// <summary>

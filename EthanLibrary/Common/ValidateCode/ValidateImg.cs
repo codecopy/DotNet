@@ -27,6 +27,7 @@ namespace EthanLibrary.Common
             Session["xk_validate_code"] = validateCode;
             CreateImage(validateCode);
         }
+
         /// <summary>
         /// 创建图片
         /// </summary>

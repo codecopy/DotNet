@@ -7,17 +7,17 @@ using System.Security.Permissions;
 namespace EthanLibrary.Collections
 {
     /// <summary>
-    /// Represents a Ordered collection of values and values. 
+    /// Represents a Ordered collection of values and values.
     /// </summary>
     /// <typeparam name="TKey">The type of the values in the dictionarytable.</typeparam>
     /// <typeparam name="TValue">The type of the values in the dictionarytable.</typeparam>
     [Serializable()]
     public class OrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICloneable,
-        ICloneable<OrderedDictionary<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, 
+        ICloneable<OrderedDictionary<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>,
         IEnumerable<TValue>
     {
-
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OrderedDictionary{TKey, TValue}"/> class.
         /// </summary>
@@ -27,7 +27,6 @@ namespace EthanLibrary.Collections
         {
             dictionary = new Dictionary<TKey, TValue>();
             list = new List<KeyValuePair<TKey, TValue>>();
-
         } // OrderedDictionary
 
         /// <summary>
@@ -39,7 +38,6 @@ namespace EthanLibrary.Collections
             this.dictionary = new Dictionary<TKey, TValue>(dictionary);
             list = new List<KeyValuePair<TKey, TValue>>();
         } // OrderedDictionary
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrderedDictionary{TKey, TValue}"/> class.
@@ -82,27 +80,21 @@ namespace EthanLibrary.Collections
             dictionary = new Dictionary<TKey, TValue>(capacity, comparer);
             list = new List<KeyValuePair<TKey, TValue>>();
         }
-        #endregion
 
-        #region Destructor
+        #endregion Constructors
 
-        #endregion
+
 
         #region Fields
         private Dictionary<TKey, TValue> dictionary;
         private List<KeyValuePair<TKey, TValue>> list;
 
-        #endregion
+        #endregion Fields
 
-        #region Events
 
-        #endregion
-
-        #region Operators
-
-        #endregion
 
         #region Properties
+
         /// <summary>Gets the <see cref="System.Collections.Generic.IEqualityComparer{TKey}"></see> that is used to determine equality of keys for the dictionarytable. </summary>
         /// <returns>The <see cref="System.Collections.Generic.IEqualityComparer{TKey}"></see> generic interface implementation that is used to determine equality of keys for the current <see cref="T:System.Collections.Generic.Dictionary`2"></see> and to provide hash values for the keys.</returns>
         public virtual IEqualityComparer<TKey> Comparer
@@ -112,9 +104,11 @@ namespace EthanLibrary.Collections
                 return this.dictionary.Comparer;
             }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         /// <summary>
         /// Determines whether the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see> ContainsKey a specific value.
         /// </summary>
@@ -127,21 +121,21 @@ namespace EthanLibrary.Collections
             return this.dictionary.ContainsValue(value);
         } // ContainsValue
 
-        #endregion
+        #endregion Methods
 
         #region IDictionary<TKey,TValue> Members
 
         /// <summary>
-        /// Adds an element with the provided key and value to the 
+        /// Adds an element with the provided key and value to the
         /// <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"></see>.
         /// </summary>
         /// <param name="key">The object to use as the key of the element to add.</param>
         /// <param name="value">The object to use as the value of the element to add.</param>
-        /// <exception cref="System.NotSupportedException">The 
-        /// <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"></see> 
+        /// <exception cref="System.NotSupportedException">The
+        /// <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"></see>
         /// is read-only.</exception>
-        /// <exception cref="System.ArgumentException">An element with the 
-        /// same key already exists in the 
+        /// <exception cref="System.ArgumentException">An element with the
+        /// same key already exists in the
         /// <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"></see>.</exception>
         /// <exception cref="System.ArgumentNullException">key is null.</exception>
         public virtual void Add(TKey key, TValue value)
@@ -161,7 +155,6 @@ namespace EthanLibrary.Collections
         public virtual bool ContainsKey(TKey key)
         {
             return this.dictionary.ContainsKey(key);
-
         }
 
         /// <summary>
@@ -183,7 +176,6 @@ namespace EthanLibrary.Collections
             this.list.Insert(index, new KeyValuePair<TKey, TValue>(key, value));
         }
 
-
         /// <summary>
         /// Determines whether the specified key ContainsKey key.
         /// </summary>
@@ -195,7 +187,6 @@ namespace EthanLibrary.Collections
         {
             return this.ContainsKey(key);
         } // ContainsKey
-
 
         /// <summary>
         /// Gets an collection containing the values of the <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"></see>.
@@ -237,7 +228,6 @@ namespace EthanLibrary.Collections
             return -1;
         }
 
-
         /// <summary>
         /// Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"></see>.
         /// </summary>
@@ -258,9 +248,6 @@ namespace EthanLibrary.Collections
             return -1;
         }
 
-
-
-
         /// <summary>
         /// Removes the element with the specified key from the <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"></see>.
         /// </summary>
@@ -276,7 +263,6 @@ namespace EthanLibrary.Collections
             this.list.RemoveAt(this.IndexOf(key));
             return flag;
         }
-    
 
         /// <summary>
         /// Removes the <see cref="T:System.Collections.Generic.IList`1"></see> item at the specified index.
@@ -295,7 +281,6 @@ namespace EthanLibrary.Collections
             this.dictionary.Remove(keyValue.Key);
             this.list.RemoveAt(index);
         }
-
 
         /// <summary>
         /// Tries the get value.
@@ -358,7 +343,7 @@ namespace EthanLibrary.Collections
         }
 
         /// <summary>Gets or sets the value associated on the specified index.</summary>
-        /// <returns>The value associated on the specified index. If the specified index is invalid, 
+        /// <returns>The value associated on the specified index. If the specified index is invalid,
         /// a get or set operation throws a <see cref="ArgumentOutOfRangeException"></see>
         /// </returns>
         /// <param name="index">The index at which the value is get or set.</param>
@@ -417,9 +402,8 @@ namespace EthanLibrary.Collections
             } // get
         }
 
-
         /// <summary>
-        /// Returns a synchronized (thread safe) wrapper for the Hashtable. 
+        /// Returns a synchronized (thread safe) wrapper for the Hashtable.
         /// </summary>
         /// <param name="dictionary">The dictionarytable to synchronize. </param>
         /// <returns>A synchronized (thread safe) wrapper for the dictionarytable. </returns>
@@ -441,8 +425,7 @@ namespace EthanLibrary.Collections
             this.dictionary.OnDeserialization(sender);
         } // OnDeserialization
 
-
-        #endregion
+        #endregion IDictionary<TKey,TValue> Members
 
         #region ICollection<KeyValuePair<TKey,TValue>> Members
 
@@ -498,7 +481,7 @@ namespace EthanLibrary.Collections
         {
             // Calling CopyTo on a Dictionary
             // Copies all KeyValuePair objects in Dictionary object to objs[]
-           this.dictionary.CopyTo(array, arrayIndex);
+            this.dictionary.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
@@ -510,8 +493,6 @@ namespace EthanLibrary.Collections
         {
             get { return this.list.Count; }
         }
-
-
 
         /// <summary>
         /// Removes the first occurrence of a specific object from the collection.
@@ -533,7 +514,6 @@ namespace EthanLibrary.Collections
                 }
             }
             return false;
-
         }
 
         /// <summary>
@@ -546,10 +526,9 @@ namespace EthanLibrary.Collections
             get { return false; }
         }
 
-        #endregion
+        #endregion ICollection<KeyValuePair<TKey,TValue>> Members
 
         #region IEnumerable<KeyValuePair<TKey,TValue>> Members
-
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
@@ -571,10 +550,7 @@ namespace EthanLibrary.Collections
             return new OrderedDictionaryEnumerator<TKey, TValue>(this.list);
         }
 
-
-
-
-        #endregion
+        #endregion IEnumerable<KeyValuePair<TKey,TValue>> Members
 
         #region IEnumerable Members
 
@@ -589,11 +565,7 @@ namespace EthanLibrary.Collections
             return new OrderedDictionaryEnumerator<TKey, TValue>(this.list);
         }
 
-        #endregion
-
-
-
-
+        #endregion IEnumerable Members
 
         #region ICloneable Members
 
@@ -608,7 +580,7 @@ namespace EthanLibrary.Collections
             return this.Clone();
         }
 
-        #endregion
+        #endregion ICloneable Members
 
         #region ICloneable<OrderedDictionary<TKey,TValue>> Members
 
@@ -623,8 +595,7 @@ namespace EthanLibrary.Collections
             return new OrderedDictionary<TKey, TValue>(this);
         }
 
-        #endregion
-
+        #endregion ICloneable<OrderedDictionary<TKey,TValue>> Members
 
         #region IEnumerable<TValue> Members
 
@@ -639,6 +610,6 @@ namespace EthanLibrary.Collections
             return new OrderedDictionaryEnumerator<TKey, TValue>(this.list);
         }
 
-        #endregion
+        #endregion IEnumerable<TValue> Members
     }
 }

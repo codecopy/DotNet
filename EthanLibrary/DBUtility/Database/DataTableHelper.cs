@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Data;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Reflection;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
     /// DataTable帮助类
@@ -78,7 +77,6 @@ namespace Core.DBUtility
             return list;
         }
 
-
         /// <summary>
         /// 实体列表转换成DataTable
         /// </summary>
@@ -130,9 +128,7 @@ namespace Core.DBUtility
                 dt.Rows.Add(row);
             }
             return dt;
-
         }
-
 
         /// <summary>
         /// 将泛型集合类转换成DataTable
@@ -203,7 +199,6 @@ namespace Core.DBUtility
             return result;
         }
 
-
         /// <summary>
         /// 根据nameList里面的字段创建一个表格,返回该表格的DataTable
         /// </summary>
@@ -247,7 +242,7 @@ namespace Core.DBUtility
                     {
                         dt.Columns.Add(subItems[0]);
                     }
-                 }
+                }
             }
             return dt;
         }
@@ -262,30 +257,37 @@ namespace Core.DBUtility
                 case "bool":
                     newType = typeof(bool);
                     break;
+
                 case "int16":
                 case "short":
                     newType = typeof(short);
                     break;
+
                 case "int32":
                 case "int":
                     newType = typeof(int);
                     break;
+
                 case "long":
                 case "int64":
                     newType = typeof(long);
                     break;
+
                 case "uint16":
                 case "ushort":
                     newType = typeof(ushort);
                     break;
+
                 case "uint32":
                 case "uint":
                     newType = typeof(uint);
                     break;
+
                 case "uint64":
                 case "ulong":
                     newType = typeof(ulong);
                     break;
+
                 case "single":
                 case "float":
                     newType = typeof(float);
@@ -294,21 +296,27 @@ namespace Core.DBUtility
                 case "string":
                     newType = typeof(string);
                     break;
+
                 case "guid":
                     newType = typeof(Guid);
                     break;
+
                 case "decimal":
                     newType = typeof(decimal);
                     break;
+
                 case "double":
                     newType = typeof(double);
                     break;
+
                 case "datetime":
                     newType = typeof(DateTime);
                     break;
+
                 case "byte":
                     newType = typeof(byte);
                     break;
+
                 case "char":
                     newType = typeof(char);
                     break;

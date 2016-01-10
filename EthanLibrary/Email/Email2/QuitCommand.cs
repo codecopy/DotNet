@@ -12,7 +12,8 @@ namespace EmailHelp
         /// </summary>
         /// <param name="stream">The stream.</param>
         public QuitCommand(Stream stream)
-            : base(stream, false, Pop3State.Transaction | Pop3State.Authorization) { }
+            : base(stream, false, Pop3State.Transaction | Pop3State.Authorization)
+        { }
 
         /// <summary>
         /// Creates the Quit request message.

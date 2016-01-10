@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
 using System.IO;
-using System.Net.Mime;
 using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 
 namespace EmailHelp
 {
@@ -15,6 +15,7 @@ namespace EmailHelp
     public class MimeEntity
     {
         private StringBuilder _encodedMessage;
+
         /// <summary>
         /// Gets the encoded message.
         /// 获取编码的消息。
@@ -27,7 +28,6 @@ namespace EmailHelp
         {
             get { return _encodedMessage; }
         }
-
 
         private List<MimeEntity> _children;
 
@@ -44,6 +44,7 @@ namespace EmailHelp
         }
 
         private ContentType _contentType;
+
         /// <summary>
         /// Gets the type of the content.
         /// </summary>
@@ -54,6 +55,7 @@ namespace EmailHelp
         }
 
         private string _mediaSubType;
+
         /// <summary>
         /// Gets the type of the media sub.
         /// </summary>
@@ -64,6 +66,7 @@ namespace EmailHelp
         }
 
         private string _mediaMainType;
+
         /// <summary>
         /// Gets the type of the media main.
         /// </summary>
@@ -74,6 +77,7 @@ namespace EmailHelp
         }
 
         private NameValueCollection _headers;
+
         /// <summary>
         /// Gets the headers.
         /// </summary>
@@ -84,6 +88,7 @@ namespace EmailHelp
         }
 
         private string _mimeVersion;
+
         /// <summary>
         /// Gets or sets the MIME version.
         /// </summary>
@@ -101,6 +106,7 @@ namespace EmailHelp
         }
 
         private string _contentId;
+
         /// <summary>
         /// Gets or sets the content id.
         /// </summary>
@@ -118,6 +124,7 @@ namespace EmailHelp
         }
 
         private string _contentDescription;
+
         /// <summary>
         /// Gets or sets the content description.
         /// </summary>
@@ -135,6 +142,7 @@ namespace EmailHelp
         }
 
         private ContentDisposition _contentDisposition;
+
         /// <summary>
         /// Gets or sets the content disposition.
         /// </summary>
@@ -152,6 +160,7 @@ namespace EmailHelp
         }
 
         private string _transferEncoding;
+
         /// <summary>
         /// Gets or sets the transfer encoding.
         /// </summary>
@@ -169,6 +178,7 @@ namespace EmailHelp
         }
 
         private TransferEncoding _contentTransferEncoding;
+
         /// <summary>
         /// Gets or sets the content transfer encoding.
         /// </summary>
@@ -201,6 +211,7 @@ namespace EmailHelp
         }
 
         private string _startBoundary;
+
         /// <summary>
         /// Gets the start boundary.
         /// </summary>
@@ -231,6 +242,7 @@ namespace EmailHelp
         }
 
         private MimeEntity _parent;
+
         /// <summary>
         /// Gets or sets the parent.
         /// </summary>
@@ -252,7 +264,6 @@ namespace EmailHelp
             get { return _content; }
             internal set { _content = value; }
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MimeEntity"/> class.
@@ -335,7 +346,7 @@ namespace EmailHelp
                 //create the mail message from the first child because it will
                 //contain all of the mail headers.  The entity in this state
                 //only contains simple content type headers indicating, disposition, type and description.
-                //This means we can't create the mail message from this type as there is no 
+                //This means we can't create the mail message from this type as there is no
                 //internet mail headers attached to this entity.
                 message = MailMessageEx.CreateMailMessageFromEntity(entity.Children[0]);
                 BuildMultiPartMessage(entity, message);
@@ -358,7 +369,6 @@ namespace EmailHelp
         {
             SetMessageBody(message, entity);
         }
-
 
         /// <summary>
         /// Gets the body encoding.
@@ -407,17 +417,15 @@ namespace EmailHelp
                 {
                     message.AlternateViews.Add(CreateAlternateView(child));
                     SetMessageBody(message, child);
-
                 } //add the alternative views.
                 else if (string.Equals(child.ContentType.MediaType, MediaTypes.MessageRfc822, StringComparison.InvariantCultureIgnoreCase)
                     && string.Equals(child.ContentDisposition.DispositionType, DispositionTypeNames.Attachment, StringComparison.InvariantCultureIgnoreCase))
                 {
                     message.Children.Add(ToMailMessageEx(child));
-                } //create a child message and 
+                } //create a child message and
                 else if (IsAttachment(child))
                 {
                     message.Attachments.Add(CreateAttachment(child));
-
                 }
             }
         }
@@ -458,7 +466,7 @@ namespace EmailHelp
             if (encoding == null)
             {
                 encoding = Encoding.UTF7;
-            }  //email defaults to 7bit.  
+            }  //email defaults to 7bit.
 
             return encoding.GetString(buffer);
         }

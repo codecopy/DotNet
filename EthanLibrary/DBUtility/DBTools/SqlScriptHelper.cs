@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
-using System.Data;
-using System.Data.SqlClient;
+using System.Text;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
     /// OSql命令操作函数（可用于安装程序的时候数据库脚本执行）
@@ -71,14 +70,14 @@ namespace Core.DBUtility
             process.WaitForExit();
         }
 
-        ///   <summary>   
-        ///   运行指定DOS命令行   
-        ///   </summary>   
-        ///   <param name="cmd">命令</param>   
-        ///   <param name="tempFolder">命令行参数</param>   
-        ///   <param name="comfirm">写入命令行的确认信息</param>   
-        ///   <param name="showWindow">是否显示窗口</param> 
-        ///   <returns></returns>   
+        ///   <summary>
+        ///   运行指定DOS命令行
+        ///   </summary>
+        ///   <param name="cmd">命令</param>
+        ///   <param name="tempFolder">命令行参数</param>
+        ///   <param name="comfirm">写入命令行的确认信息</param>
+        ///   <param name="showWindow">是否显示窗口</param>
+        ///   <returns></returns>
         private static string ExecuteCMD(string cmd, string arg, string comfirm, bool showWindow)
         {
             Process p = new Process();
@@ -169,7 +168,7 @@ namespace Core.DBUtility
             regKey.SetValue(key, result);
         }
 
-        #endregion
+        #endregion OSql操作函数
 
         #region 附加、分离、备份、恢复数据库操作
 
@@ -256,9 +255,8 @@ namespace Core.DBUtility
                 comm.ExecuteNonQuery();
             }
             return true;
-        } 
+        }
 
-        #endregion
-
+        #endregion 附加、分离、备份、恢复数据库操作
     }
 }

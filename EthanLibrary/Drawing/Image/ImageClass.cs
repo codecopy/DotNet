@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections;
-using System.IO;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 
-namespace Core.Drawing
+namespace EthanLibrary.Drawing
 {
     public class ImageClass
     {
         public ImageClass()
         { }
+
         public static string[] postion = new string[] { "WM_TOP_LEFT", "WM_TOP_RIGHT", "WM_TOP_MIDDLE", "WM_BOTTOM_RIGHT", "WM_BOTTOM_LEFT", "WM_BOTTOM_MIDDLE" };
 
         #region 缩略图
+
         /// <summary>
         /// 生成缩略图
         /// </summary>
@@ -21,7 +23,7 @@ namespace Core.Drawing
         /// <param name="thumbnailPath">缩略图路径（物理路径）</param>
         /// <param name="width">缩略图宽度</param>
         /// <param name="height">缩略图高度</param>
-        /// <param name="mode">生成缩略图的方式</param>    
+        /// <param name="mode">生成缩略图的方式</param>
         public static void MakeThumbnail(string originalImagePath, string thumbnailPath, int width, int height, string mode)
         {
             System.Drawing.Image originalImage = System.Drawing.Image.FromFile(originalImagePath);
@@ -36,15 +38,18 @@ namespace Core.Drawing
 
             switch (mode)
             {
-                case "HW":  //指定高宽缩放（可能变形）                
+                case "HW":  //指定高宽缩放（可能变形）
                     break;
-                case "W":   //指定宽，高按比例                    
+
+                case "W":   //指定宽，高按比例
                     toheight = originalImage.Height * width / originalImage.Width;
                     break;
+
                 case "H":   //指定高，宽按比例
                     towidth = originalImage.Width * height / originalImage.Height;
                     break;
-                case "Cut": //指定高宽裁减（不变形）                
+
+                case "Cut": //指定高宽裁减（不变形）
                     if ((double)originalImage.Width / (double)originalImage.Height > (double)towidth / (double)toheight)
                     {
                         oh = originalImage.Height;
@@ -60,6 +65,7 @@ namespace Core.Drawing
                         y = (originalImage.Height - oh) / 2;
                     }
                     break;
+
                 default:
                     break;
             }
@@ -100,9 +106,11 @@ namespace Core.Drawing
                 g.Dispose();
             }
         }
-        #endregion
+
+        #endregion 缩略图
 
         #region 图片水印
+
         /// <summary>
         /// 图片水印处理方法
         /// </summary>
@@ -196,6 +204,7 @@ namespace Core.Drawing
             loca.Add(y);
             return loca;
         }
+
         /// <summary>
         ///  加水印图片
         /// </summary>
@@ -220,22 +229,27 @@ namespace Core.Drawing
                     xpos = 0 + 10;
                     ypos = 0 + 10;
                     break;
+
                 case "WM_TOP_RIGHT":
                     xpos = _width - w - 10;
                     ypos = 0 + 10;
                     break;
+
                 case "WM_BOTTOM_RIGHT":
                     xpos = _width - w - 10;
                     ypos = _height - h - 10;
                     break;
+
                 case "WM_BOTTOM_LEFT":
                     xpos = 0 + 10;
                     ypos = _height - h - 10;
                     break;
+
                 case "WM_BOTTOM_MIDDLE":
                     xpos = _width / 2 - w / 2;
                     ypos = _height - h - 10;
                     break;
+
                 case "WM_TOP_MIDDLE":
                     xpos = _width / 2 - w / 2;
                     ypos = 0 + 10;
@@ -243,7 +257,6 @@ namespace Core.Drawing
             }
 
             picture.DrawImage(watermark, xpos, ypos, w, h);
-
 
             watermark.Dispose();
         }
@@ -273,9 +286,11 @@ namespace Core.Drawing
                 logo.Dispose();
             }
         }
-        #endregion
+
+        #endregion 图片水印
 
         #region 文字水印
+
         /// <summary>
         /// 文字水印处理方法
         /// </summary>
@@ -311,7 +326,7 @@ namespace Core.Drawing
             }
             return path;
 
-            #endregion
+            #endregion 文字水印
         }
 
         /// <summary>
@@ -378,9 +393,11 @@ namespace Core.Drawing
 
             #endregion
         }
+
         #endregion
 
         #region 调整光暗
+
         /// <summary>
         /// 调整光暗
         /// </summary>
@@ -406,9 +423,11 @@ namespace Core.Drawing
             }
             return bm;
         }
+
         #endregion
 
         #region 反色处理
+
         /// <summary>
         /// 反色处理
         /// </summary>
@@ -433,9 +452,11 @@ namespace Core.Drawing
             }
             return bm;
         }
+
         #endregion
 
         #region 浮雕处理
+
         /// <summary>
         /// 浮雕处理
         /// </summary>
@@ -467,9 +488,11 @@ namespace Core.Drawing
             }
             return newBitmap;
         }
+
         #endregion
 
         #region 拉伸图片
+
         /// <summary>
         /// 拉伸图片
         /// </summary>
@@ -492,9 +515,11 @@ namespace Core.Drawing
                 return null;
             }
         }
+
         #endregion
 
         #region 滤色处理
+
         /// <summary>
         /// 滤色处理
         /// </summary>
@@ -517,9 +542,11 @@ namespace Core.Drawing
             }
             return bm;
         }
+
         #endregion
 
         #region 左右翻转
+
         /// <summary>
         /// 左右翻转
         /// </summary>
@@ -541,9 +568,11 @@ namespace Core.Drawing
             }
             return bm;
         }
+
         #endregion
 
         #region 上下翻转
+
         /// <summary>
         /// 上下翻转
         /// </summary>
@@ -565,9 +594,11 @@ namespace Core.Drawing
             }
             return bm;
         }
+
         #endregion
 
         #region 压缩图片
+
         /// <summary>
         /// 压缩到指定尺寸
         /// </summary>
@@ -610,7 +641,9 @@ namespace Core.Drawing
                 return false;
             }
         }
+
         #region 图片压缩(降低质量)Compress
+
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
             int j;
@@ -623,6 +656,7 @@ namespace Core.Drawing
             }
             return null;
         }
+
         /// <summary>
         /// 图片压缩(降低质量以减小文件的大小)
         /// </summary>
@@ -642,6 +676,7 @@ namespace Core.Drawing
             myEncoderParameters.Param[0] = myEncoderParameter;
             srcBitmap.Save(destStream, myImageCodecInfo, myEncoderParameters);
         }
+
         /// <summary>
         /// 图片压缩(降低质量以减小文件的大小)
         /// </summary>
@@ -654,6 +689,7 @@ namespace Core.Drawing
             Compress(srcBitMap, s, level);
             s.Close();
         }
+
         /// <summary>
         /// 图片压缩(降低质量以减小文件的大小)
         /// </summary>
@@ -666,6 +702,7 @@ namespace Core.Drawing
             Compress(bm, destFile, level);
             bm.Dispose();
         }
+
         /// <summary>
         /// 图片压缩(降低质量以减小文件的大小)
         /// </summary>
@@ -678,6 +715,7 @@ namespace Core.Drawing
             Compress(bm, destFile, level);
             bm.Dispose();
         }
+
         /// <summary>
         /// 图片压缩(降低质量以减小文件的大小)
         /// </summary>
@@ -696,14 +734,17 @@ namespace Core.Drawing
         #endregion
 
         #region 图片灰度化
+
         public Color Gray(Color c)
         {
             int rgb = Convert.ToInt32((double)(((0.3 * c.R) + (0.59 * c.G)) + (0.11 * c.B)));
             return Color.FromArgb(rgb, rgb, rgb);
         }
+
         #endregion
 
         #region 转换为黑白图片
+
         /// <summary>
         /// 转换为黑白图片
         /// </summary>
@@ -726,9 +767,11 @@ namespace Core.Drawing
             }
             return bm;
         }
+
         #endregion
 
         #region 获取图片中的各帧
+
         /// <summary>
         /// 获取图片中的各帧
         /// </summary>
@@ -745,6 +788,7 @@ namespace Core.Drawing
                 gif.Save(pSavedPath + "\\frame_" + i + ".jpg", ImageFormat.Jpeg);
             }
         }
+
         #endregion
     }
 }

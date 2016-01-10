@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
 using System.IO;
+using System.Net;
+using System.Text;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
     /// <summary>
     /// 网页抓取帮助
@@ -14,7 +13,7 @@ namespace Core.Net
         #region 构造函数
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="cookie"></param>
         public HttpWebRequestHelper(CookieContainer cookie)
@@ -23,17 +22,17 @@ namespace Core.Net
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public HttpWebRequestHelper()
         {
             cookieContainer = new CookieContainer();
         }
 
-        #endregion
+        #endregion 构造函数
 
         /// <summary>
-        /// cookie集合 
+        /// cookie集合
         /// </summary>
         private CookieContainer cookieContainer;
 
@@ -110,7 +109,6 @@ namespace Core.Net
             }
 
             return html;
-
         }
 
         /// <summary>
@@ -153,14 +151,12 @@ namespace Core.Net
                     {
                         count = responseStream.Read(buffer, 0, buffer.Length);
                         memoryStream.Write(buffer, 0, count);
-
                     } while (count != 0);
 
                     return memoryStream.ToArray();
                 }
             }
         }
-
 
         /// <summary>
         /// 获取文件或图片 （验证码）

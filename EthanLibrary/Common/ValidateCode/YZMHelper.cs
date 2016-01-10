@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Web;
 using System.Drawing;
 using System.Security.Cryptography;
+using System.Web;
 
 namespace EthanLibrary.Common
 {
@@ -11,6 +11,7 @@ namespace EthanLibrary.Common
     public class Rand
     {
         #region 生成随机数字
+
         /// <summary>
         /// 生成随机数字
         /// </summary>
@@ -36,9 +37,11 @@ namespace EthanLibrary.Common
             }
             return result;
         }
-        #endregion
+
+        #endregion 生成随机数字
 
         #region 生成随机字母与数字
+
         /// <summary>
         /// 生成随机字母与数字
         /// </summary>
@@ -67,9 +70,11 @@ namespace EthanLibrary.Common
             }
             return result;
         }
-        #endregion
+
+        #endregion 生成随机字母与数字
 
         #region 生成随机纯字母随机数
+
         /// <summary>
         /// 生成随机纯字母随机数
         /// </summary>
@@ -98,7 +103,8 @@ namespace EthanLibrary.Common
             }
             return result;
         }
-        #endregion
+
+        #endregion 生成随机纯字母随机数
     }
 
     /// <summary>
@@ -107,6 +113,7 @@ namespace EthanLibrary.Common
     public class YZMHelper
     {
         #region 私有字段
+
         private string text;
         private Bitmap image;
         private int letterCount = 4;   //验证码位数
@@ -114,16 +121,19 @@ namespace EthanLibrary.Common
         private int letterHeight = 20; //单个字体的高度范围
         private static byte[] randb = new byte[4];
         private static RNGCryptoServiceProvider rand = new RNGCryptoServiceProvider();
-        private Font[] fonts = 
+
+        private Font[] fonts =
     {
        new Font(new FontFamily("Times New Roman"),10 +Next(1),System.Drawing.FontStyle.Regular),
        new Font(new FontFamily("Georgia"), 10 + Next(1),System.Drawing.FontStyle.Regular),
        new Font(new FontFamily("Arial"), 10 + Next(1),System.Drawing.FontStyle.Regular),
        new Font(new FontFamily("Comic Sans MS"), 10 + Next(1),System.Drawing.FontStyle.Regular)
     };
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
+
         /// <summary>
         /// 验证码
         /// </summary>
@@ -139,9 +149,11 @@ namespace EthanLibrary.Common
         {
             get { return this.image; }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 构造函数
+
         public YZMHelper()
         {
             HttpContext.Current.Response.Expires = 0;
@@ -152,9 +164,11 @@ namespace EthanLibrary.Common
             this.text = Rand.Number(4);
             CreateImage();
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 私有方法
+
         /// <summary>
         /// 获得下一个随机数
         /// </summary>
@@ -178,9 +192,11 @@ namespace EthanLibrary.Common
             int value = Next(max - min) + min;
             return value;
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 公共方法
+
         /// <summary>
         /// 绘制验证码
         /// </summary>
@@ -273,6 +289,7 @@ namespace EthanLibrary.Common
             srcBmp.Dispose();
             return destBmp;
         }
-        #endregion
+
+        #endregion 公共方法
     }
 }

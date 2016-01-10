@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace EthanLibrary.Common
 {
@@ -11,6 +9,7 @@ namespace EthanLibrary.Common
     public sealed class ConvertHelper
     {
         #region 补足位数
+
         /// <summary>
         /// 指定字符串的固定长度，如果字符串小于固定长度，
         /// 则在字符串的前面补足零，可设置的固定长度最大为9位
@@ -34,9 +33,11 @@ namespace EthanLibrary.Common
             //返回补足0的字符串
             return temp;
         }
-        #endregion
+
+        #endregion 补足位数
 
         #region 各进制数间转换
+
         /// <summary>
         /// 实现各进制数间的转换。ConvertBase("15",10,16)表示将十进制数15转换为16进制的数。
         /// </summary>
@@ -61,15 +62,19 @@ namespace EthanLibrary.Common
                     case 7:
                         result = "0" + result;
                         break;
+
                     case 6:
                         result = "00" + result;
                         break;
+
                     case 5:
                         result = "000" + result;
                         break;
+
                     case 4:
                         result = "0000" + result;
                         break;
+
                     case 3:
                         result = "00000" + result;
                         break;
@@ -90,7 +95,7 @@ namespace EthanLibrary.Common
             return false;
         }
 
-        #endregion
+        #endregion 各进制数间转换
 
         #region 使用指定字符集将string转换成byte[]
 
@@ -113,10 +118,10 @@ namespace EthanLibrary.Common
             return encoding.GetBytes(text);
         }
 
-        #endregion
+        #endregion 使用指定字符集将string转换成byte[]
 
         #region 使用指定字符集将byte[]转换成string
-        
+
         /// <summary>
         /// 将byte[]转换成string
         /// </summary>
@@ -135,9 +140,11 @@ namespace EthanLibrary.Common
         {
             return encoding.GetString(bytes);
         }
-        #endregion
+
+        #endregion 使用指定字符集将byte[]转换成string
 
         #region 将byte[]转换成int
+
         /// <summary>
         /// 将byte[]转换成int
         /// </summary>
@@ -169,7 +176,8 @@ namespace EthanLibrary.Common
             //返回整数
             return num;
         }
-        #endregion
+
+        #endregion 将byte[]转换成int
 
         #region 将数据转换为整型
 
@@ -196,7 +204,6 @@ namespace EthanLibrary.Common
             {
                 return defValue;
             }
-
         }
 
         /// <summary>
@@ -260,8 +267,7 @@ namespace EthanLibrary.Common
             }
         }
 
-
-        #endregion
+        #endregion 将数据转换为整型
 
         #region 将数据转换为布尔型
 
@@ -315,7 +321,6 @@ namespace EthanLibrary.Common
             }
         }
 
-
         /// <summary>
         /// 将数据转换为布尔类型  转换失败返回 默认值
         /// </summary>
@@ -353,11 +358,9 @@ namespace EthanLibrary.Common
             //return defValue;
         }
 
-
-        #endregion
+        #endregion 将数据转换为布尔型
 
         #region 将数据转换为单精度浮点型
-
 
         /// <summary>
         /// 将数据转换为单精度浮点型  转换失败 返回默认值
@@ -384,13 +387,9 @@ namespace EthanLibrary.Common
             }
         }
 
-     
-
-
-        #endregion
+        #endregion 将数据转换为单精度浮点型
 
         #region 将数据转换为双精度浮点型
-
 
         /// <summary>
         /// 将数据转换为双精度浮点型   转换失败返回默认值
@@ -465,7 +464,6 @@ namespace EthanLibrary.Common
             {
                 return defValue;
             }
-
         }
 
         /// <summary>
@@ -492,7 +490,6 @@ namespace EthanLibrary.Common
             {
                 return defValue;
             }
-
         }
 
         /// <summary>
@@ -536,10 +533,10 @@ namespace EthanLibrary.Common
             //}
         }
 
-
-        #endregion
+        #endregion 将数据转换为双精度浮点型
 
         #region 将数据转换为指定类型
+
         /// <summary>
         /// 将数据转换为指定类型
         /// </summary>
@@ -603,7 +600,8 @@ namespace EthanLibrary.Common
             }
             return (T)obj;
         }
-        #endregion
+
+        #endregion 将数据转换为指定类型
 
         #region 将数据转换Decimal
 
@@ -631,7 +629,6 @@ namespace EthanLibrary.Common
                 return defValue;
             }
         }
-
 
         /// <summary>
         /// 将数据转换为Decimal  转换失败返回 默认值
@@ -683,8 +680,7 @@ namespace EthanLibrary.Common
             }
         }
 
-
-        #endregion
+        #endregion 将数据转换Decimal
 
         #region 将数据转换为DateTime
 
@@ -713,7 +709,6 @@ namespace EthanLibrary.Common
             }
         }
 
-
         /// <summary>
         /// 将数据转换为DateTime  转换失败返回 默认值
         /// </summary>
@@ -737,6 +732,7 @@ namespace EthanLibrary.Common
                 return defValue;
             }
         }
+
         /// <summary>
         /// 将对象转换为数值(DateTime)类型,转换失败返回Now。
         /// </summary>
@@ -754,6 +750,7 @@ namespace EthanLibrary.Common
             catch
             { return DateTime.Now; }
         }
+
         /// <summary>
         /// 将数据转换为DateTime  转换失败返回 默认值
         /// </summary>
@@ -780,9 +777,10 @@ namespace EthanLibrary.Common
             }
         }
 
-        #endregion
-      
+        #endregion 将数据转换为DateTime
+
         #region 数据转换obj为null时返回空值
+
         /// <summary>
         /// 返回对象obj的String值,obj为null时返回空值。
         /// </summary>
@@ -793,11 +791,10 @@ namespace EthanLibrary.Common
             return null == obj ? String.Empty : obj.ToString();
         }
 
+        #endregion 数据转换obj为null时返回空值
 
+        #region 从Boolean转换成byte
 
-     
-        #endregion
-           #region 从Boolean转换成byte
         /// <summary>
         /// 从Boolean转换成byte,转换失败返回0。
         /// </summary>
@@ -843,9 +840,12 @@ namespace EthanLibrary.Common
                     return returnValue;
                 }
             }
-        } 
-        #endregion
-       #region 从byte转换成Boolean
+        }
+
+        #endregion 从Boolean转换成byte
+
+        #region 从byte转换成Boolean
+
         /// <summary>
         /// 从byte转换成Boolean,转换失败返回false。
         /// </summary>
@@ -863,6 +863,7 @@ namespace EthanLibrary.Common
                 return false;
             }
         }
+
         /// <summary>
         /// 从byte转换成Boolean。
         /// </summary>
@@ -881,7 +882,9 @@ namespace EthanLibrary.Common
                 return returnValue;
             }
         }
-        #endregion
+
+        #endregion 从byte转换成Boolean
+
         /// <summary>
         /// 将对象转换为数值(Long)类型,转换失败返回-1。
         /// </summary>
@@ -896,6 +899,7 @@ namespace EthanLibrary.Common
             catch
             { return -1L; }
         }
+
         /// <summary>
         /// 将对象转换为数值(Long)类型。
         /// </summary>
@@ -911,6 +915,7 @@ namespace EthanLibrary.Common
             catch
             { return returnValue; }
         }
+
         /// <summary>
         /// 将long型数值转换为Int32类型
         /// </summary>
@@ -925,7 +930,6 @@ namespace EthanLibrary.Common
             string strNum = objNum.ToString();
             if (TypeTools.IsNumeric(strNum))
             {
-
                 if (strNum.ToString().Length > 9)
                 {
                     if (strNum.StartsWith("-"))
@@ -943,6 +947,6 @@ namespace EthanLibrary.Common
             {
                 return 0;
             }
-        } 
+        }
     }
 }

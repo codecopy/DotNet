@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace EthanLibrary.Common
 {
@@ -23,6 +20,7 @@ namespace EthanLibrary.Common
             sTemp += ((lTicks % 3600) % 60).ToString().PadLeft(2, '0');
             return sTemp;
         }
+
         /// <summary>
         /// 获得8位时间整型数字
         /// </summary>
@@ -32,10 +30,10 @@ namespace EthanLibrary.Common
         {
             return dt.Year.ToString() + dt.Month.ToString().PadLeft(2, '0') + dt.Day.ToString().PadLeft(2, '0');
         }
-        #endregion
+
+        #endregion 时间相关操作类
 
         #region 返回每月的第一天和最后一天
-
 
         /// <summary>
         ///  返回每月的第一天和最后一天
@@ -56,6 +54,7 @@ namespace EthanLibrary.Common
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-31");
                     break;
+
                 case 2:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     if (DateTime.IsLeapYear(DateTime.Now.Year))
@@ -63,51 +62,62 @@ namespace EthanLibrary.Common
                     else
                         lastDay = DateTime.Now.ToString(year + "-0" + month + "-28");
                     break;
+
                 case 3:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString("yyyy-0" + month + "-31");
                     break;
+
                 case 4:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-30");
                     break;
+
                 case 5:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-31");
                     break;
+
                 case 6:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-30");
                     break;
+
                 case 7:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-31");
                     break;
+
                 case 8:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-31");
                     break;
+
                 case 9:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-30");
                     break;
+
                 case 10:
                     firstDay = DateTime.Now.ToString(year + "-" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-" + month + "-31");
                     break;
+
                 case 11:
                     firstDay = DateTime.Now.ToString(year + "-" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-" + month + "-30");
                     break;
+
                 default:
                     firstDay = DateTime.Now.ToString(year + "-" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-" + month + "-31");
                     break;
             }
         }
-        #endregion
 
-        #region  将时间格式化成 年月日 的形式,如果时间为null，返回当前系统时间
+        #endregion 返回每月的第一天和最后一天
+
+        #region 将时间格式化成 年月日 的形式,如果时间为null，返回当前系统时间
 
         /// <summary>
         /// 将时间格式化成 年月日 的形式,如果时间为null，返回当前系统时间
@@ -127,10 +137,10 @@ namespace EthanLibrary.Common
                 return GetFormatDate(DateTime.Now, Separator);
             }
         }
-        #endregion
+
+        #endregion 将时间格式化成 年月日 的形式,如果时间为null，返回当前系统时间
 
         #region 将时间格式化成 时分秒 的形式,如果时间为null，返回当前系统时间
-
 
         /// <summary>
         /// 将时间格式化成 时分秒 的形式,如果时间为null，返回当前系统时间
@@ -150,9 +160,10 @@ namespace EthanLibrary.Common
                 return GetFormatDate(DateTime.Now, Separator);
             }
         }
-        #endregion
 
-        #region  把秒转换成分钟
+        #endregion 将时间格式化成 时分秒 的形式,如果时间为null，返回当前系统时间
+
+        #region 把秒转换成分钟
 
         /// <summary>
         /// 把秒转换成分钟
@@ -163,9 +174,11 @@ namespace EthanLibrary.Common
             decimal mm = (decimal)((decimal)Second / (decimal)60);
             return Convert.ToInt32(Math.Ceiling(mm));
         }
-        #endregion
+
+        #endregion 把秒转换成分钟
 
         #region 返回某年某月最后一天
+
         /// <summary>
         /// 返回某年某月最后一天
         /// </summary>
@@ -178,9 +191,11 @@ namespace EthanLibrary.Common
             int Day = lastDay.Day;
             return Day;
         }
-        #endregion
+
+        #endregion 返回某年某月最后一天
 
         #region 返回时间差
+
         public static string DateDiff(DateTime DateTime1, DateTime DateTime2)
         {
             string dateDiff = null;
@@ -210,7 +225,7 @@ namespace EthanLibrary.Common
             { }
             return dateDiff;
         }
-    
+
         public static string GetDiffTime(DateTime beginTime, DateTime endTime)
         {
             int i = 0;
@@ -261,7 +276,6 @@ namespace EthanLibrary.Common
             {
                 strResout += iTatol / iDay + "天";
                 iTatol = iTatol % iDay;
-
             }
             if (iTatol > iHours)
             {
@@ -276,11 +290,12 @@ namespace EthanLibrary.Common
             strResout += iTatol + "秒";
 
             return strResout;
-        } 
-      
-        #endregion
+        }
+
+        #endregion 返回时间差
 
         #region 获得两个日期的间隔
+
         /// <summary>
         /// 获得两个日期的间隔
         /// </summary>
@@ -294,9 +309,11 @@ namespace EthanLibrary.Common
             TimeSpan ts = ts1.Subtract(ts2).Duration();
             return ts;
         }
-        #endregion
+
+        #endregion 获得两个日期的间隔
 
         #region 格式化日期时间
+
         /// <summary>
         /// 格式化日期时间
         /// </summary>
@@ -309,31 +326,43 @@ namespace EthanLibrary.Common
             {
                 case "0":
                     return dateTime1.ToString("yyyy-MM-dd");
+
                 case "1":
                     return dateTime1.ToString("yyyy-MM-dd HH:mm:ss");
+
                 case "2":
                     return dateTime1.ToString("yyyy/MM/dd");
+
                 case "3":
                     return dateTime1.ToString("yyyy年MM月dd日");
+
                 case "4":
                     return dateTime1.ToString("MM-dd");
+
                 case "5":
                     return dateTime1.ToString("MM/dd");
+
                 case "6":
                     return dateTime1.ToString("MM月dd日");
+
                 case "7":
                     return dateTime1.ToString("yyyy-MM");
+
                 case "8":
                     return dateTime1.ToString("yyyy/MM");
+
                 case "9":
                     return dateTime1.ToString("yyyy年MM月");
+
                 default:
                     return dateTime1.ToString();
             }
         }
-        #endregion
+
+        #endregion 格式化日期时间
 
         #region 得到随机日期
+
         /// <summary>
         /// 得到随机日期
         /// </summary>
@@ -365,7 +394,6 @@ namespace EthanLibrary.Common
                 iTotalSecontds = (int)dTotalSecontds;
             }
 
-
             if (iTotalSecontds > 0)
             {
                 minTime = time2;
@@ -390,9 +418,11 @@ namespace EthanLibrary.Common
 
             return minTime.AddSeconds(i);
         }
-        #endregion
+
+        #endregion 得到随机日期
 
         #region 时间其他转换静态方法
+
         /// <summary>
         /// C#的时间到Javascript的时间的转换
         /// </summary>
@@ -435,16 +465,15 @@ namespace EthanLibrary.Common
             return a;
         }
 
-
-        #endregion
-
+        #endregion 时间其他转换静态方法
 
         #region Rss日期时间转换，将时间全部转换为GMT时间
-        /// <summary> 
-        /// Rss日期时间转换，将时间全部转换为GMT时间 
-        /// </summary> 
-        /// <param name="strDateTime">Rss中读取的时间</param> 
-        /// <returns>处理后的标准时间格式</returns> 
+
+        /// <summary>
+        /// Rss日期时间转换，将时间全部转换为GMT时间
+        /// </summary>
+        /// <param name="strDateTime">Rss中读取的时间</param>
+        /// <returns>处理后的标准时间格式</returns>
         public static string dateConvert(string strDateTime)
         {
             strDateTime = strDateTime.Replace("+0000", "GMT");
@@ -468,7 +497,7 @@ namespace EthanLibrary.Common
             DateTime dt = DateTime.Parse(strDateTime, null, System.Globalization.DateTimeStyles.AdjustToUniversal);
             return dt.ToString();
         }
-        #endregion
 
+        #endregion Rss日期时间转换，将时间全部转换为GMT时间
     }
 }

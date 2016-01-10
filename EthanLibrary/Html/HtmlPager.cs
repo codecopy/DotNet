@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Core.Html
+namespace EthanLibrary.Html
 {
     /// <summary>
     /// HTMl 分页
@@ -95,8 +93,6 @@ namespace Core.Html
             sb.Append("</tr>\r</table>");
             return sb.ToString();
         }
-
-
 
         /// <summary>
         /// 写出分页
@@ -194,6 +190,7 @@ namespace Core.Html
                     case 1:
                         sb.Append(string.Format("<p class=\"next\"><a href=\"{0}?page={1}{2}\">{3}</a> ", new object[] { url, page + 1, para, "下一页" }));
                         break;
+
                     default:
                         if (sumpage == page)
                         {
@@ -236,6 +233,7 @@ namespace Core.Html
                     case 1:
                         sb.Append(string.Format("<a href=\"{0}?page={1}{2}\">{3}</a> ", new object[] { url, page + 1, para, "下一页" }));
                         break;
+
                     default:
                         if (sumpage == page)
                         {
@@ -270,6 +268,7 @@ namespace Core.Html
                         case 1:
                             sb.Append(string.Format("<a href=\"?page={0}{1}\">{2}</a> ", new object[] { page + 1, para, "下一页" }));
                             break;
+
                         default:
                             if (sumpage == page)
                             {
@@ -403,6 +402,7 @@ namespace Core.Html
                             //后一页图片
                             sb.Append(string.Format("<a href=\"?page={0}{1}\">{2}</a>", new object[] { page + 1, para, "<img src=\"images/right-icon.gif\" border=\"0\"/>" }));
                             break;
+
                         default:
                             if (sumpage == page)
                             {
@@ -454,6 +454,7 @@ namespace Core.Html
                             //后一页图片
                             // sb.Append(string.Format("<a href=\"?page={0}{1}\">{2}</a>", new object[] { page + 1, para, "<img src=\"images/right-icon.gif\" border=\"0\"/>" }));
                             break;
+
                         default:
                             if (sumpage == page)
                             {
@@ -481,7 +482,7 @@ namespace Core.Html
             }
             return sb.ToString();
         }
-        #endregion
-     
+
+        #endregion 分页
     }
 }

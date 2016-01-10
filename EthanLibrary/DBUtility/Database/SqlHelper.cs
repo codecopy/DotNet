@@ -1,18 +1,17 @@
 ﻿/**********************************************
  * 类作用：   MSSQL访问基础类
  * 建立人：   abaal
- * 建立时间： 2008-09-03 
+ * 建立时间： 2008-09-03
  * Copyright (C) 2007-2008 abaal
  * All rights reserved
  * http://blog.csdn.net/abaal888
  ***********************************************/
 
 using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.Collections;
 using System.Configuration;
-
+using System.Data;
+using System.Data.SqlClient;
 
 /// <summary>
 /// 数据访问基础类(基于SQLServer)
@@ -20,12 +19,12 @@ using System.Configuration;
 public abstract class SqlHelper
 {
     //数据库连接字符串(web.config来配置)
-    //<add key="ConnectionString" value="Data Source=CHF;Initial Catalog=JGXT;User ID=sa" />  
+    //<add key="ConnectionString" value="Data Source=CHF;Initial Catalog=JGXT;User ID=sa" />
     //public static readonly string connectionString = ConfigurationSettings.AppSettings["JGXTConnectionString"];
     public static readonly string connectionString = ConfigurationManager.ConnectionStrings["strProvider"].ConnectionString;
+
     public SqlHelper()
     {
-
     }
 
     /// <summary>
@@ -48,16 +47,11 @@ public abstract class SqlHelper
                     object obj = cmd.ExecuteScalar();
                     if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
                     {
-
                         return 1;
-
                     }
-
                     else
                     {
-
                         return Convert.ToInt32(obj.ToString()) + 1;
-
                     }
                 }
                 catch (System.Data.SqlClient.SqlException E)
@@ -68,7 +62,6 @@ public abstract class SqlHelper
             }
         }
     }
-
 
     #region 执行带参数的SQL语句
 
@@ -139,7 +132,6 @@ public abstract class SqlHelper
         }
     }
 
-
     /// <summary>
     /// 执行多条SQL语句，实现数据库事务。
     /// </summary>
@@ -174,7 +166,6 @@ public abstract class SqlHelper
             }
         }
     }
-
 
     /// <summary>
     /// 执行一条计算查询结果语句，返回查询结果（object）。
@@ -259,7 +250,6 @@ public abstract class SqlHelper
         }
     }
 
-
     private static void PrepareCommand(SqlCommand cmd, SqlConnection conn, SqlTransaction trans, string cmdText, SqlParameter[] cmdParms)
     {
         if (conn.State != ConnectionState.Open)
@@ -276,10 +266,9 @@ public abstract class SqlHelper
         }
     }
 
-    #endregion
+    #endregion 执行带参数的SQL语句
 
-
-    #region  执行简单SQL语句
+    #region 执行简单SQL语句
 
     /// <summary>
     /// 执行SQL语句，返回影响的记录数
@@ -310,7 +299,7 @@ public abstract class SqlHelper
     /// <summary>
     /// 执行多条SQL语句，实现数据库事务。
     /// </summary>
-    /// <param name="SQLStringList">多条SQL语句</param>  
+    /// <param name="SQLStringList">多条SQL语句</param>
     public static void ExecuteSqlTran(ArrayList SQLStringList)
     {
         using (SqlConnection conn = new SqlConnection(connectionString))
@@ -340,6 +329,7 @@ public abstract class SqlHelper
             }
         }
     }
+
     /// <summary>
     /// 执行带一个存储过程参数的的SQL语句。
     /// </summary>
@@ -371,6 +361,7 @@ public abstract class SqlHelper
             }
         }
     }
+
     /// <summary>
     /// 向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
     /// </summary>
@@ -435,6 +426,7 @@ public abstract class SqlHelper
             }
         }
     }
+
     /// <summary>
     /// 执行查询语句，返回SqlDataReader
     /// </summary>
@@ -454,8 +446,8 @@ public abstract class SqlHelper
         {
             throw new Exception(e.Message);
         }
-
     }
+
     /// <summary>
     /// 执行查询语句，返回DataSet
     /// </summary>
@@ -480,8 +472,7 @@ public abstract class SqlHelper
         }
     }
 
-
-    #endregion
+    #endregion 执行简单SQL语句
 
     #region 存储过程操作
 
@@ -501,7 +492,6 @@ public abstract class SqlHelper
         returnReader = command.ExecuteReader();
         return returnReader;
     }
-
 
     /// <summary>
     /// 执行存储过程
@@ -524,7 +514,6 @@ public abstract class SqlHelper
         }
     }
 
-
     /// <summary>
     /// 构建 SqlCommand 对象(用来返回一个结果集，而不是一个整数值)
     /// </summary>
@@ -544,7 +533,7 @@ public abstract class SqlHelper
     }
 
     /// <summary>
-    /// 执行存储过程，返回影响的行数  
+    /// 执行存储过程，返回影响的行数
     /// </summary>
     /// <param name="storedProcName">存储过程名</param>
     /// <param name="parameters">存储过程参数</param>
@@ -565,7 +554,7 @@ public abstract class SqlHelper
     }
 
     /// <summary>
-    /// 创建 SqlCommand 对象实例(用来返回一个整数值) 
+    /// 创建 SqlCommand 对象实例(用来返回一个整数值)
     /// </summary>
     /// <param name="storedProcName">存储过程名</param>
     /// <param name="parameters">存储过程参数</param>
@@ -578,8 +567,6 @@ public abstract class SqlHelper
             false, 0, 0, string.Empty, DataRowVersion.Default, null));
         return command;
     }
-    #endregion
 
+    #endregion 存储过程操作
 }
-
-

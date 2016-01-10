@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace EthanLibrary.Common
 {
-
-    class StringListHelp
+    internal class StringListHelp
     {
         /// 1、GetStrArray(string str, char speater, bool toLower)  把字符串按照分隔符转换成 List
         /// 3、GetArrayStr(List list, string speater) 把 List 按照分隔符组装成 string
         /// 4、GetArrayStr(List list)  得到数组列表以逗号分隔的字符串
         /// 5、GetArrayValueStr(Dictionary<int, int> list)得到数组列表以逗号分隔的字符串
         /// 10、GetSubStringList(string o_str, char sepeater)把字符串按照指定分隔符装成 List 去除重复
-    
-        #region  1.把字符串按照分隔符转换成List
+
+        #region 1.把字符串按照分隔符转换成List
+
         /// <summary>
         /// 把字符串按照分隔符转换成 List
         /// </summary>
@@ -40,7 +38,8 @@ namespace EthanLibrary.Common
             }
             return list;
         }
-        #endregion
+
+        #endregion 1.把字符串按照分隔符转换成List
 
         /// <summary>
         /// 把字符串按照指定分隔符装成 List 去除重复
@@ -65,6 +64,7 @@ namespace EthanLibrary.Common
         #region
 
         #endregion
+
         /// <summary>
         /// 把 List<string> 按照分隔符组装成 string
         /// </summary>
@@ -88,6 +88,7 @@ namespace EthanLibrary.Common
             }
             return sb.ToString();
         }
+
         /// <summary>
         /// 得到数组列表以逗号分隔的字符串
         /// </summary>
@@ -110,6 +111,7 @@ namespace EthanLibrary.Common
             }
             return sb.ToString();
         }
+
         /// <summary>
         /// 得到数组列表以逗号分隔的字符串
         /// </summary>
@@ -127,13 +129,12 @@ namespace EthanLibrary.Common
             {
                 str = sb.ToString();
 
-                return  str.Substring(0, str.LastIndexOf(","));
+                return str.Substring(0, str.LastIndexOf(","));
             }
             else
             {
                 return "";
             }
         }
-
     }
 }

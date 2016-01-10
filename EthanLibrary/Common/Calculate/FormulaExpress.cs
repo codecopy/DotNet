@@ -27,8 +27,8 @@ namespace EthanLibrary.Common
     {
         static FormulaDeal()
         {
-
         }
+
         private double CalculateExpress(string strExpression)
         {
             string strTemp = "";
@@ -55,7 +55,6 @@ namespace EthanLibrary.Common
                     strTempB = strExpression.Substring(0, strExpression.IndexOf("/"));
                     strOne = strTempB.Substring(GetPrivorPos(strTempB) + 1, strTempB.Length - GetPrivorPos(strTempB) - 1);
 
-
                     strTwo = strTemp.Substring(0, GetNextPos(strTemp));
                     ReplaceValue = Convert.ToDouble(GetExpType(strOne)) / Convert.ToDouble(GetExpType(strTwo));
                     strExpression = strExpression.Replace(strOne + "/" + strTwo, ReplaceValue.ToString());
@@ -76,7 +75,6 @@ namespace EthanLibrary.Common
                     strTempB = strExpression.Substring(0, strExpression.IndexOf("-"));
                     strOne = strTempB.Substring(GetPrivorPos(strTempB) + 1, strTempB.Length - GetPrivorPos(strTempB) - 1);
 
-
                     strTwo = strTemp.Substring(0, GetNextPos(strTemp));
                     ReplaceValue = Convert.ToDouble(GetExpType(strOne)) - Convert.ToDouble(GetExpType(strTwo));
                     strExpression = strExpression.Replace(strOne + "-" + strTwo, ReplaceValue.ToString());
@@ -93,18 +91,23 @@ namespace EthanLibrary.Common
                 case EnumFormula.Sin:
                     retValue = Math.Sin(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.Cos:
                     retValue = Math.Cos(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.Tan:
                     retValue = Math.Tan(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.ATan:
                     retValue = Math.Atan(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.Sqrt:
                     retValue = Math.Sqrt(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.Pow:
                     retValue = Math.Pow(Convert.ToDouble(strExpression), 2);
                     break;
@@ -112,7 +115,6 @@ namespace EthanLibrary.Common
             if (retValue == 0) return Convert.ToDouble(strExpression);
             return retValue;
         }
-
 
         private int GetNextPos(string strExpression)
         {
@@ -132,7 +134,6 @@ namespace EthanLibrary.Common
             return tmpMin;
         }
 
-
         private int GetPrivorPos(string strExpression)
         {
             int[] ExpPos = new int[4];
@@ -149,8 +150,8 @@ namespace EthanLibrary.Common
                 }
             }
             return tmpMax;
-
         }
+
         public string SpiltExpression(string strExpression)
         {
             string strTemp = "";

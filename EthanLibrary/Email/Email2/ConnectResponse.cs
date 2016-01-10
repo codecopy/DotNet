@@ -6,6 +6,7 @@ namespace EmailHelp
     internal sealed class ConnectResponse : Pop3Response
     {
         private Stream _networkStream;
+
         public Stream NetworkStream
         {
             get

@@ -1,4 +1,5 @@
 ﻿using System;
+
 //using System.Net.Sockets;
 using System.IO;
 
@@ -9,7 +10,7 @@ namespace EmailHelp
     /// </summary>
     internal sealed class DeleCommand : Pop3Command<Pop3Response>
     {
-        int _messageId = int.MinValue;
+        private int _messageId = int.MinValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleCommand"/> class.

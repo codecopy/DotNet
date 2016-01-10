@@ -1,11 +1,7 @@
 ﻿using System;
 using System.IO;
 
-using ICSharpCode.SharpZipLib.Checksums;
-using ICSharpCode.SharpZipLib.Zip;
-
-
-namespace Core.Zip
+namespace EthanLibrary.Zip
 {
     /// <summary>
     /// 用ICSharpCode.SharpZipLib.dll进行压缩解压
@@ -17,7 +13,7 @@ namespace Core.Zip
 
         /// <summary>
         /// 压缩
-        /// </summary> 
+        /// </summary>
         /// <param name="filename"> 压缩后的文件名(包含物理路径)</param>
         /// <param name="directory">待压缩的文件夹(包含物理路径)</param>
         public static void PackFiles(string filename, string directory)
@@ -26,7 +22,7 @@ namespace Core.Zip
             {
                 FastZip fz = new FastZip();
                 fz.CreateEmptyDirectories = true;
-                fz.CreateZip(filename, directory, true,"");
+                fz.CreateZip(filename, directory, true, "");
                 fz = null;
             }
             catch (Exception)
@@ -88,10 +84,10 @@ namespace Core.Zip
         }
     }
 
-
     public class ClassZip
     {
         #region 私有方法
+
         /// <summary>
         /// 递归压缩文件夹方法
         /// </summary>
@@ -228,10 +224,11 @@ namespace Core.Zip
             }
             return res;
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 公有方法
-       
+
         /// <summary>
         /// 压缩
         /// </summary>
@@ -324,7 +321,7 @@ namespace Core.Zip
                 GC.Collect(1);
             }
         }
-        #endregion
+
+        #endregion 公有方法
     }
-  
 }

@@ -1,11 +1,11 @@
-using System.Runtime.InteropServices;
-using System.Management;
-using System.Collections.Generic;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
+using System.Management;
+using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// HardDiskVal 的摘要说明。
@@ -59,7 +59,6 @@ namespace Core.Systems
         public static string HDVal()
         {
             return HDVal("C");
-
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace Core.Systems
             return HDid;
         }
 
-        #endregion
+        #endregion 硬盘信息获取
 
         #region CPU信息获取
 
@@ -105,7 +104,6 @@ namespace Core.Systems
                 strCpuID = "078BFBFF00020FC1";//默认给出一个
             }
             return strCpuID;
-
         }
 
         /// <summary>
@@ -120,10 +118,11 @@ namespace Core.Systems
             string CPUName = (string)obj;
             return CPUName.TrimStart();
         }
- 
-        #endregion
+
+        #endregion CPU信息获取
 
         #region USB盘符列表
+
         // Credits of Team 2: SyncButler. With this method, it enables us to find all USB drives regardless of whether they are removable or fixed.
 
         /// <summary>
@@ -148,8 +147,9 @@ namespace Core.Systems
             }
 
             return list;
-        } 
-        #endregion
+        }
+
+        #endregion USB盘符列表
 
         /// <summary>
         /// 获取MAC地址
@@ -204,6 +204,7 @@ namespace Core.Systems
         {
             return Environment.UserName;
         }
+
         /// <summary>
         /// 获取计算机名
         /// </summary>
@@ -212,6 +213,7 @@ namespace Core.Systems
         {
             return System.Environment.MachineName;
         }
+
         /// <summary>
         /// 获取PC类型
         /// </summary>
@@ -223,12 +225,11 @@ namespace Core.Systems
             ManagementObjectCollection moc = mc.GetInstances();
             foreach (ManagementObject mo in moc)
             {
-
                 st = mo["SystemType"].ToString();
-
             }
             return st;
         }
+
         /// <summary>
         /// 获取物理内存
         /// </summary>
@@ -240,9 +241,7 @@ namespace Core.Systems
             ManagementObjectCollection moc = mc.GetInstances();
             foreach (ManagementObject mo in moc)
             {
-
                 st = mo["TotalPhysicalMemory"].ToString();
-
             }
             return st;
         }
@@ -256,8 +255,10 @@ namespace Core.Systems
             {
                 case PlatformID.Win32Windows:
                     return GetHddInfo9x(driveIndex);
+
                 case PlatformID.Win32NT:
                     return GetHddInfoNT(driveIndex);
+
                 case PlatformID.Win32S:
                     throw new NotSupportedException("Win32s is not supported.");
                 case PlatformID.WinCE:
@@ -278,19 +279,23 @@ namespace Core.Systems
             /// 型号
             /// </summary>
             public string ModuleNumber;
+
             /// <summary>
             /// 固件版本
             /// </summary>
             public string Firmware;
+
             /// <summary>
             /// 序列号
             /// </summary>
             public string SerialNumber;
+
             /// <summary>
             /// 容量，以M为单位
             /// </summary>
             public uint Capacity;
         }
+
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct GetVersionOutParams
         {
@@ -299,9 +304,11 @@ namespace Core.Systems
             public byte bReserved;
             public byte bIDEDeviceMap;
             public uint fCapabilities;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
             public uint[] dwReserved; // For future use.
         }
+
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct IdeRegs
         {
@@ -314,28 +321,36 @@ namespace Core.Systems
             public byte bCommandReg;
             public byte bReserved;
         }
+
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct SendCmdInParams
         {
             public uint cBufferSize;
             public IdeRegs irDriveRegs;
             public byte bDriveNumber;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
             public byte[] bReserved;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
             public uint[] dwReserved;
+
             public byte bBuffer;
         }
+
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct DriverStatus
         {
             public byte bDriverError;
             public byte bIDEStatus;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
             public byte[] bReserved;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
             public uint[] dwReserved;
         }
+
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct SendCmdOutParams
         {
@@ -343,6 +358,7 @@ namespace Core.Systems
             public DriverStatus DriverStatus;
             public IdSector bBuffer;
         }
+
         [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 512)]
         internal struct IdSector
         {
@@ -353,17 +369,23 @@ namespace Core.Systems
             public ushort wBytesPerTrack;
             public ushort wBytesPerSector;
             public ushort wSectorsPerTrack;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
             public ushort[] wVendorUnique;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
             public byte[] sSerialNumber;
+
             public ushort wBufferType;
             public ushort wBufferSize;
             public ushort wECCSize;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
             public byte[] sFirmwareRev;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 40)]
             public byte[] sModelNumber;
+
             public ushort wMoreVendorUnique;
             public ushort wDoubleWordIO;
             public ushort wCapabilities;
@@ -379,19 +401,20 @@ namespace Core.Systems
             public uint ulTotalAddressableSectors;
             public ushort wSingleWordDMA;
             public ushort wMultiWordDMA;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
             public byte[] bReserved;
         }
 
-        #endregion
+        #endregion 结构
 
         #region API
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern int CloseHandle(IntPtr hObject);
+        private static extern int CloseHandle(IntPtr hObject);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern IntPtr CreateFile(
+        private static extern IntPtr CreateFile(
          string lpFileName,
          uint dwDesiredAccess,
          uint dwShareMode,
@@ -401,7 +424,7 @@ namespace Core.Systems
          IntPtr hTemplateFile);
 
         [DllImport("kernel32.dll")]
-        static extern int DeviceIoControl(
+        private static extern int DeviceIoControl(
          IntPtr hDevice,
          uint dwIoControlCode,
          IntPtr lpInBuffer,
@@ -412,7 +435,7 @@ namespace Core.Systems
          [Out] IntPtr lpOverlapped);
 
         [DllImport("kernel32.dll")]
-        static extern int DeviceIoControl(
+        private static extern int DeviceIoControl(
          IntPtr hDevice,
          uint dwIoControlCode,
          ref SendCmdInParams lpInBuffer,
@@ -422,21 +445,18 @@ namespace Core.Systems
          ref uint lpBytesReturned,
          [Out] IntPtr lpOverlapped);
 
+        private const uint DFP_GET_VERSION = 0x00074080;
+        private const uint DFP_SEND_DRIVE_COMMAND = 0x0007c084;
+        private const uint DFP_RECEIVE_DRIVE_DATA = 0x0007c088;
 
-        const uint DFP_GET_VERSION = 0x00074080;
-        const uint DFP_SEND_DRIVE_COMMAND = 0x0007c084;
-        const uint DFP_RECEIVE_DRIVE_DATA = 0x0007c088;
+        private const uint GENERIC_READ = 0x80000000;
+        private const uint GENERIC_WRITE = 0x40000000;
+        private const uint FILE_SHARE_READ = 0x00000001;
+        private const uint FILE_SHARE_WRITE = 0x00000002;
+        private const uint CREATE_NEW = 1;
+        private const uint OPEN_EXISTING = 3;
 
-
-        const uint GENERIC_READ = 0x80000000;
-        const uint GENERIC_WRITE = 0x40000000;
-        const uint FILE_SHARE_READ = 0x00000001;
-        const uint FILE_SHARE_WRITE = 0x00000002;
-        const uint CREATE_NEW = 1;
-        const uint OPEN_EXISTING = 3;
-
-
-        #endregion
+        #endregion API
 
         /// <summary>
         /// 获取9X架构的硬盘信息
@@ -449,7 +469,6 @@ namespace Core.Systems
             SendCmdInParams inParam = new SendCmdInParams();
             SendCmdOutParams outParam = new SendCmdOutParams();
             uint bytesReturned = 0;
-
 
             IntPtr hDevice = CreateFile(
              @"\\.\Smartvsd",
@@ -519,9 +538,9 @@ namespace Core.Systems
             }
             CloseHandle(hDevice);
 
-
             return GetHardDiskInfo(outParam.bBuffer);
         }
+
         /// <summary>
         /// 获取NT架构的硬盘信息
         /// </summary>
@@ -533,7 +552,6 @@ namespace Core.Systems
             SendCmdInParams inParam = new SendCmdInParams();
             SendCmdOutParams outParam = new SendCmdOutParams();
             uint bytesReturned = 0;
-
 
             // We start in NT/Win2000
             IntPtr hDevice = CreateFile(
@@ -590,7 +608,6 @@ namespace Core.Systems
             inParam.irDriveRegs.bSectorNumberReg = 1;
             inParam.cBufferSize = 512;
 
-
             if (0 == DeviceIoControl(
              hDevice,
              DFP_RECEIVE_DRIVE_DATA,
@@ -606,9 +623,9 @@ namespace Core.Systems
             }
             CloseHandle(hDevice);
 
-
             return GetHardDiskInfo(outParam.bBuffer);
         }
+
         /// <summary>
         /// 获取硬盘信息的细节
         /// </summary>
@@ -630,6 +647,7 @@ namespace Core.Systems
 
             return hddInfo;
         }
+
         /// <summary>
         /// 将byte数组中保存的信息转换成字符串
         /// </summary>
@@ -645,7 +663,6 @@ namespace Core.Systems
             }
         }
 
-        #endregion
-
+        #endregion 获取硬盘信息的实现
     }
 }

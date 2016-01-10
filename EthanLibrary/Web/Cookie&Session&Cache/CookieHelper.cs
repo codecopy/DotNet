@@ -21,13 +21,13 @@ namespace EthanLibrary.Web
         public static CookieContainer GetUriCookieContainer(Uri uri)
         {
             CookieContainer cookies = null;
-            //定义Cookie数据的大小。   
+            //定义Cookie数据的大小。
             int datasize = 256;
             StringBuilder cookieData = new StringBuilder(datasize);
             if (!InternetGetCookie(uri.ToString(), null, cookieData, ref datasize))
             {
                 if (datasize < 0) return null;
-                // 确信有足够大的空间来容纳Cookie数据。   
+                // 确信有足够大的空间来容纳Cookie数据。
                 cookieData = new StringBuilder(datasize);
                 if (!InternetGetCookie(uri.ToString(), null, cookieData, ref datasize)) return null;
             }
@@ -50,9 +50,10 @@ namespace EthanLibrary.Web
             return sb.ToString();
         }
 
-        #region 清除CooKie 
+        #region 清除CooKie
 
         #region 清除指定Cookie
+
         /// <summary>
         /// 清除指定Cookie
         /// </summary>
@@ -66,9 +67,11 @@ namespace EthanLibrary.Web
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
         }
-        #endregion
-     
-        #region   删除所有cookie值
+
+        #endregion 清除指定Cookie
+
+        #region 删除所有cookie值
+
         /// <summary>
         /// 删除所有cookie值
         /// </summary>
@@ -82,9 +85,11 @@ namespace EthanLibrary.Web
                 HttpContext.Current.Response.Cookies.Add(MyCookie);
             }
         }
-        #endregion
-    
+
+        #endregion 删除所有cookie值
+
         #region 清除系统指定的Cookie
+
         /// <summary>
         /// 清除系统指定的Cookie
         /// </summary>
@@ -102,12 +107,12 @@ namespace EthanLibrary.Web
                     InternetSetCookie(domains[j], nv[0], "abc;expires = Sat, 31-Dec-2007 14:00:00 GMT");
                 }
             }
-
         }
-        #endregion
 
-        #region   将浏览器中的Cookie清除
-        
+        #endregion 清除系统指定的Cookie
+
+        #region 将浏览器中的Cookie清除
+
         /// <summary>
         /// 将浏览器中的Cookie清除
         /// </summary>
@@ -119,11 +124,11 @@ namespace EthanLibrary.Web
                 ClearCookies(browser.Document.Cookie, browser.Url.ToString());
             }
         }
-        #endregion
+
+        #endregion 将浏览器中的Cookie清除
 
         #region 清除系统的Cookie文件
 
-        
         /// <summary>
         /// 清除系统的Cookie文件
         /// </summary>
@@ -141,11 +146,13 @@ namespace EthanLibrary.Web
                 }
             }
         }
-        #endregion
-        #endregion
-   
+
+        #endregion 清除系统的Cookie文件
+
+        #endregion 清除CooKie
+
         #region 获取Cookie
-    
+
         #region 获取指定Cookie值
 
         /// <summary>
@@ -198,10 +205,11 @@ namespace EthanLibrary.Web
             }
             return cookielist;
         }
-        #endregion
-      
-        #region  获取cookie数组
-      
+
+        #endregion 获取指定Cookie值
+
+        #region 获取cookie数组
+
         /// <summary>
         /// 获取cookie数组
         /// </summary>
@@ -218,11 +226,11 @@ namespace EthanLibrary.Web
                 return new string[0];
             }
         }
-          #endregion
 
-        #region   获得浏览器里的Cookie字符串
-      
-      
+        #endregion 获取cookie数组
+
+        #region 获得浏览器里的Cookie字符串
+
         /// <summary>
         /// 获得浏览器里的Cookie字符串
         /// </summary>
@@ -238,11 +246,11 @@ namespace EthanLibrary.Web
                 res = GetCK(cks);
             }
             return res;
-
         }
-        #endregion
 
-        #region  从Cookie数组中转换成不重复的Cookie字符串，相同的Cookie取前面的
+        #endregion 获得浏览器里的Cookie字符串
+
+        #region 从Cookie数组中转换成不重复的Cookie字符串，相同的Cookie取前面的
 
         /// <summary>
         /// 从Cookie数组中转换成不重复的Cookie字符串，相同的Cookie取前面的
@@ -269,10 +277,10 @@ namespace EthanLibrary.Web
             }
             return res;
         }
-        #endregion
 
-        #region  从CookieCollection中获取Cookie字符串
+        #endregion 从Cookie数组中转换成不重复的Cookie字符串，相同的Cookie取前面的
 
+        #region 从CookieCollection中获取Cookie字符串
 
         /// <summary>
         /// 从CookieCollection中获取Cookie字符串
@@ -288,10 +296,10 @@ namespace EthanLibrary.Web
             }
             return ck;
         }
-        #endregion
 
-        #region   将Cookie字符串填充到CookieCollection中
+        #endregion 从CookieCollection中获取Cookie字符串
 
+        #region 将Cookie字符串填充到CookieCollection中
 
         /// <summary>
         /// 将Cookie字符串填充到CookieCollection中
@@ -329,14 +337,14 @@ namespace EthanLibrary.Web
             }
             return cc;
         }
-        #endregion
-        #endregion
-    
+
+        #endregion 将Cookie字符串填充到CookieCollection中
+
+        #endregion 获取Cookie
+
         #region 添加Cookie
 
-
-
-        #region   添加一个Cookie（24小时过期）
+        #region 添加一个Cookie（24小时过期）
 
         /// <summary>
         /// 添加一个Cookie（24小时过期）
@@ -347,9 +355,11 @@ namespace EthanLibrary.Web
         {
             SetCookie(cookiename, cookievalue, DateTime.Now.AddDays(1.0));
         }
-        #endregion
 
-        #region   添加一个Cookie
+        #endregion 添加一个Cookie（24小时过期）
+
+        #region 添加一个Cookie
+
         /// <summary>
         /// 添加一个Cookie
         /// </summary>
@@ -365,12 +375,13 @@ namespace EthanLibrary.Web
             };
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
-        #endregion
-        #endregion
+
+        #endregion 添加一个Cookie
+
+        #endregion 添加Cookie
 
         #region 检查Cookie集合中是否包含指定的Cookie值
 
-        
         /// <summary>
         /// 检查Cookie集合中是否包含指定的Cookie值
         /// </summary>
@@ -392,9 +403,9 @@ namespace EthanLibrary.Web
                 return false;
             }
             catch { return false; }
-
         }
-        #endregion
+
+        #endregion 检查Cookie集合中是否包含指定的Cookie值
 
         #region 设置系统Cookie
 
@@ -407,9 +418,10 @@ namespace EthanLibrary.Web
         /// <returns>设置成功与否</returns>
         [System.Runtime.InteropServices.DllImport("wininet.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
         public static extern bool InternetSetCookie(string lpszUrlName, string lbszCookieName, string lpszCookieData);
-        #endregion
 
-        #region   获取所有可能的Cookie域
+        #endregion 设置系统Cookie
+
+        #region 获取所有可能的Cookie域
 
         /// <summary>
         /// 获取所有可能的Cookie域
@@ -437,10 +449,10 @@ namespace EthanLibrary.Web
             catch { }
             return res;
         }
-        #endregion
 
-        #region   获取浏览器的所有可能的Cookie域
+        #endregion 获取所有可能的Cookie域
 
+        #region 获取浏览器的所有可能的Cookie域
 
         /// <summary>
         /// 获取浏览器的所有可能的Cookie域
@@ -455,10 +467,10 @@ namespace EthanLibrary.Web
             }
             return new List<string>();
         }
-        #endregion
 
-        #region   将定制的Cookie字符串发给浏览器
+        #endregion 获取浏览器的所有可能的Cookie域
 
+        #region 将定制的Cookie字符串发给浏览器
 
         /// <summary>
         /// 将定制的Cookie字符串发给浏览器
@@ -479,10 +491,10 @@ namespace EthanLibrary.Web
                 }
             }
         }
-        #endregion
 
-        #region  将Cookie字符串描述的Cookie追加到CookieCoollection
+        #endregion 将定制的Cookie字符串发给浏览器
 
+        #region 将Cookie字符串描述的Cookie追加到CookieCoollection
 
         /// <summary>
         /// 将Cookie字符串描述的Cookie追加到CookieCoollection
@@ -498,10 +510,10 @@ namespace EthanLibrary.Web
                 cc.Add(tmp[i]);
             }
         }
-        #endregion
+
+        #endregion 将Cookie字符串描述的Cookie追加到CookieCoollection
 
         #region 将Cookie字符串设置到系统中，便于浏览器使用
-
 
         /// <summary>
         /// 将Cookie字符串设置到系统中，便于浏览器使用
@@ -517,10 +529,10 @@ namespace EthanLibrary.Web
                 InternetSetCookie(url, nv[0], nv.Length > 1 ? nv[1] : "");
             }
         }
-        #endregion
+
+        #endregion 将Cookie字符串设置到系统中，便于浏览器使用
 
         #region 将CookieCollection中的Cookie设置到系统中，便于浏览器使用
-
 
         /// <summary>
         /// 将CookieCollection中的Cookie设置到系统中，便于浏览器使用
@@ -538,7 +550,8 @@ namespace EthanLibrary.Web
                 }
             }
         }
-        #endregion
+
+        #endregion 将CookieCollection中的Cookie设置到系统中，便于浏览器使用
 
         /// <summary>
         /// 格式化Cookie为标准格式
@@ -551,12 +564,10 @@ namespace EthanLibrary.Web
             return string.Format("{0}={1};", key, value);
         }
     }
-  
-    
-    
+
     public class Test
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             string url = @"http://www.kaixin001.com/";
             Uri uri = new Uri(url);
@@ -576,10 +587,10 @@ namespace EthanLibrary.Web
         /// 键
         /// </summary>
         public string Key { get; set; }
+
         /// <summary>
         /// 值
         /// </summary>
         public string Value { get; set; }
     }
-
 }

@@ -9,6 +9,7 @@ namespace EmailHelp
     internal sealed class RetrResponse : Pop3Response
     {
         private string[] _messageLines;
+
         /// <summary>
         /// Gets the message lines.
         /// </summary>
@@ -19,6 +20,7 @@ namespace EmailHelp
         }
 
         private long _octects;
+
         public long Octets
         {
             get

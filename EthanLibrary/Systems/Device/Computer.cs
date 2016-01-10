@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Win32;
+using System;
 using System.Management;
-using Microsoft.Win32;
 using System.Runtime.InteropServices;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// 电脑信息
@@ -13,6 +11,7 @@ namespace Core.Systems
     public class Computer
     {
         #region CpuUsage类
+
         /// <summary>
         /// Defines an abstract base class for implementations of CPU usage counters.
         /// </summary>
@@ -213,19 +212,19 @@ namespace Core.Systems
             /// <returns>Returns a success NTSTATUS if successful, and an NTSTATUS error code otherwise.</returns>
             [DllImport("ntdll", EntryPoint = "NtQuerySystemInformation")]
             private static extern int NtQuerySystemInformation(int dwInfoType, byte[] lpStructure, int dwSize, IntPtr returnLength);
-            
+
             /// <summary>Returns the number of processors in the system in a SYSTEM_BASIC_INFORMATION structure.</summary>
             private const int SYSTEM_BASICINFORMATION = 0;
-            
+
             /// <summary>Returns an opaque SYSTEM_PERFORMANCE_INFORMATION structure.</summary>
             private const int SYSTEM_PERFORMANCEINFORMATION = 2;
-            
+
             /// <summary>Returns an opaque SYSTEM_TIMEOFDAY_INFORMATION structure.</summary>
             private const int SYSTEM_TIMEINFORMATION = 3;
-           
+
             /// <summary>The value returned by NtQuerySystemInformation is no error occurred.</summary>
             private const int NO_ERROR = 0;
-            
+
             /// <summary>Holds the old idle time.</summary>
             private long oldIdleTime;
 
@@ -235,7 +234,8 @@ namespace Core.Systems
             /// <summary>Holds the number of processors in the system.</summary>
             private double processorCount;
         }
-        #endregion
+
+        #endregion CpuUsage类
 
         /// <summary>
         /// 获得Cpu使用率
@@ -260,7 +260,6 @@ namespace Core.Systems
                 {
                     cpuInfo = mo.Properties["ProcessorId"].Value.ToString();
                 }
-
             }
             return cpuInfo;
         }
@@ -304,7 +303,6 @@ namespace Core.Systems
             }
             return HDid;
         }
-        
 
         /// <summary>
         /// 操作系统的登录用户名
@@ -341,7 +339,6 @@ namespace Core.Systems
             }
             return st;
         }
-
 
         /// <summary>
         /// 物理内存

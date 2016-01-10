@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-namespace Core.Json
+
+namespace EthanLibrary.Json
 {
     public class JsonHelper
     {

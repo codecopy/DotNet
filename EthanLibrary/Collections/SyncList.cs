@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 
 namespace EthanLibrary.Collections
 {
@@ -13,7 +12,6 @@ namespace EthanLibrary.Collections
     internal class SyncList<T> : List<T>
     {
         protected List<T> list;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:SyncList"/> class.
@@ -58,7 +56,6 @@ namespace EthanLibrary.Collections
             }
         }
 
-
         /// <summary>
         /// Returns a read-only <see cref="System.Collections.Generic.IList&lt;T&gt;"></see> wrapper for the current collection.
         /// </summary>
@@ -81,7 +78,6 @@ namespace EthanLibrary.Collections
                 this.list.Clear();
             }
         }
-
 
         /// <summary>Determines whether an element is in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <returns>true if item is found in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>; otherwise, false.</returns>
@@ -111,7 +107,6 @@ namespace EthanLibrary.Collections
             }
 
             return list;
-
         }
 
         /// <summary>Copies the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see> to a compatible one-dimensional array, starting at the beginning of the target array.</summary>
@@ -126,7 +121,6 @@ namespace EthanLibrary.Collections
             }
         }
 
-
         /// <summary>Copies the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see> to a compatible one-dimensional array, starting at the specified index of the target array.</summary>
         /// <param name="array">The one-dimensional <see cref="System.Array"></see> that is the destination of the elements copied from <see cref="System.Collections.Generic.List&lt;T&gt;"></see>. The <see cref="System.Array"></see> must have zero-based indexing.</param>
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
@@ -140,7 +134,6 @@ namespace EthanLibrary.Collections
                 this.list.CopyTo(array, arrayIndex);
             }
         }
-
 
         /// <summary>Copies a range of elements from the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> to a compatible one-dimensional array, starting at the specified index of the target array.</summary>
         /// <param name="array">The one-dimensional <see cref="System.Array"></see> that is the destination of the elements copied from <see cref="System.Collections.Generic.List&lt;T&gt;"></see>. The <see cref="System.Array"></see> must have zero-based indexing.</param>
@@ -166,7 +159,6 @@ namespace EthanLibrary.Collections
         {
             return (this.FindIndex(match) != -1);
         }
-
 
         /// <summary>Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <returns>The first element that matches the conditions defined by the specified predicate, if found; otherwise, the default value for type TKey.</returns>
@@ -232,9 +224,7 @@ namespace EthanLibrary.Collections
             }
 
             return temp;
-
         }
-
 
         /// <summary>Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first occurrence within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that starts at the specified index and contains the specified number of elements.</summary>
         /// <returns>The zero-based index of the first occurrence of an element that matches the conditions defined by match, if found; otherwise, –1.</returns>
@@ -253,9 +243,7 @@ namespace EthanLibrary.Collections
             }
 
             return temp;
-
         }
-
 
         /// <summary>Searches for an element that matches the conditions defined by the specified predicate, and returns the last occurrence within the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <returns>The last element that matches the conditions defined by the specified predicate, if found; otherwise, the default value for type TKey.</returns>
@@ -271,7 +259,6 @@ namespace EthanLibrary.Collections
             }
 
             return temp;
-
         }
 
         /// <summary>Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last occurrence within the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
@@ -289,7 +276,6 @@ namespace EthanLibrary.Collections
 
             return temp;
         }
-
 
         /// <summary>Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last occurrence within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that extends from the first element to the specified index.</summary>
         /// <returns>The zero-based index of the last occurrence of an element that matches the conditions defined by match, if found; otherwise, –1.</returns>
@@ -309,7 +295,6 @@ namespace EthanLibrary.Collections
             return temp;
         }
 
-
         /// <summary>Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last occurrence within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that contains the specified number of elements and ends at the specified index.</summary>
         /// <returns>The zero-based index of the last occurrence of an element that matches the conditions defined by match, if found; otherwise, –1.</returns>
         /// <param name="count">The number of elements in the section to search.</param>
@@ -327,23 +312,18 @@ namespace EthanLibrary.Collections
             }
 
             return temp;
-
         }
-
-
 
         /// <summary>Performs the specified action on each element of the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <param name="action">The <see cref="System.Action&lt;T&gt;"></see> delegate to perform on each element of the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</param>
         /// <exception cref="System.ArgumentNullException">action is null.</exception>
         public new void ForEach(Action<T> action)
         {
-
             lock (this.list)
             {
                 this.list.ForEach(action);
             }
         }
-
 
         /// <summary>Returns an enumerator that iterates through the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <returns>A <see cref="System.Collections.Generic.List&lt;T&gt;.Enumerator"></see> for the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</returns>
@@ -357,7 +337,6 @@ namespace EthanLibrary.Collections
 
             return temp;
         }
-
 
         /// <summary>Creates a shallow copy of a range of elements in the source <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <returns>A shallow copy of a range of elements in the source <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</returns>
@@ -391,7 +370,6 @@ namespace EthanLibrary.Collections
             return temp;
         }
 
-
         /// <summary>Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that extends from the specified index to the last element.</summary>
         /// <returns>The zero-based index of the first occurrence of item within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that extends from index to the last element, if found; otherwise, –1.</returns>
         /// <param name="item">The object to locate in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>. The value can be null for reference types.</param>
@@ -408,7 +386,6 @@ namespace EthanLibrary.Collections
 
             return temp;
         }
-
 
         /// <summary>Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that starts at the specified index and contains the specified number of elements.</summary>
         /// <returns>The zero-based index of the first occurrence of item within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that starts at index and contains count number of elements, if found; otherwise, –1.</returns>
@@ -428,7 +405,6 @@ namespace EthanLibrary.Collections
             return temp;
         }
 
-
         /// <summary>Inserts an element into the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> at the specified index.</summary>
         /// <param name="item">The object to insert. The value can be null for reference types.</param>
         /// <param name="index">The zero-based index at which item should be inserted.</param>
@@ -440,7 +416,6 @@ namespace EthanLibrary.Collections
                 this.list.Insert(index, item);
             }
         }
-
 
         /// <summary>Inserts the elements of a collection into the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> at the specified index.</summary>
         /// <param name="collection">The collection whose elements should be inserted into the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>. The collection itself cannot be null, but it can contain elements that are null, if type TKey is a reference type.</param>
@@ -455,8 +430,6 @@ namespace EthanLibrary.Collections
             }
         } // InsertRange
 
-
-
         /// <summary>Searches for the specified object and returns the zero-based index of the last occurrence within the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <returns>The zero-based index of the last occurrence of item within the entire the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>, if found; otherwise, –1.</returns>
         /// <param name="item">The object to locate in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>. The value can be null for reference types.</param>
@@ -470,7 +443,6 @@ namespace EthanLibrary.Collections
 
             return flag;
         }
-
 
         /// <summary>Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that extends from the first element to the specified index.</summary>
         /// <returns>The zero-based index of the last occurrence of item within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that extends from the first element to index, if found; otherwise, –1.</returns>
@@ -487,7 +459,6 @@ namespace EthanLibrary.Collections
 
             return flag;
         }
-
 
         /// <summary>Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that contains the specified number of elements and ends at the specified index.</summary>
         /// <returns>The zero-based index of the last occurrence of item within the range of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> that contains count number of elements and ends at index, if found; otherwise, –1.</returns>
@@ -533,9 +504,7 @@ namespace EthanLibrary.Collections
             }
 
             return flag;
-
         }
-
 
         /// <summary>Removes the element at the specified index of the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <param name="index">The zero-based index of the element to remove.</param>
@@ -548,7 +517,6 @@ namespace EthanLibrary.Collections
             }
         }
 
-
         /// <summary>Removes a range of elements from the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         /// <param name="count">The number of elements to remove.</param>
         /// <param name="index">The zero-based starting index of the range of elements to remove.</param>
@@ -560,9 +528,7 @@ namespace EthanLibrary.Collections
             {
                 this.list.RemoveRange(index, count);
             }
-
         }
-
 
         /// <summary>Reverses the order of the elements in the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see>.</summary>
         public new void Reverse()
@@ -572,7 +538,6 @@ namespace EthanLibrary.Collections
                 this.list.Reverse();
             }
         }
-
 
         /// <summary>Reverses the order of the elements in the specified range.</summary>
         /// <param name="count">The number of elements in the range to reverse.</param>
@@ -597,7 +562,6 @@ namespace EthanLibrary.Collections
             }
         }
 
-
         /// <summary>Sorts the elements in the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see> using the specified comparer.</summary>
         /// <param name="comparer">The <see cref="System.Collections.Generic.IComparer&lt;T&gt;"></see> implementation to use when comparing elements, or null to use the default comparer <see cref="P:System.Collections.Generic.Comparer&lt;T&gt;.Default"></see>.</param>
         /// <exception cref="System.ArgumentException">The implementation of comparer caused an error during the sort. For example, comparer might not return 0 when comparing an item with itself.</exception>
@@ -610,7 +574,6 @@ namespace EthanLibrary.Collections
             }
         }
 
-
         /// <summary>Sorts the elements in the entire <see cref="System.Collections.Generic.List&lt;T&gt;"></see> using the specified <see cref="System.Comparison&lt;T&gt;"></see>.</summary>
         /// <param name="comparison">The <see cref="System.Comparison&lt;T&gt;"></see> to use when comparing elements.</param>
         /// <exception cref="System.ArgumentException">The implementation of comparison caused an error during the sort. For example, comparison might not return 0 when comparing an item with itself.</exception>
@@ -622,7 +585,6 @@ namespace EthanLibrary.Collections
                 this.list.Sort(comparison);
             }
         }
-
 
         /// <summary>Sorts the elements in a range of elements in <see cref="System.Collections.Generic.List&lt;T&gt;"></see> using the specified comparer.</summary>
         /// <param name="count">The length of the range to sort.</param>
@@ -652,8 +614,6 @@ namespace EthanLibrary.Collections
             return localArray1;
         }
 
-
-
         /// <summary>Sets the capacity to the actual number of elements in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see>, if that number is less than a threshold value.</summary>
         public new void TrimExcess()
         {
@@ -662,8 +622,6 @@ namespace EthanLibrary.Collections
                 this.list.TrimExcess();
             }
         }
-
-
 
         /// <summary>Determines whether every element in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> matches the conditions defined by the specified predicate.</summary>
         /// <returns>true if every element in the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> matches the conditions defined by the specified predicate; otherwise, false. If the list has no elements, the return value is true.</returns>
@@ -678,8 +636,6 @@ namespace EthanLibrary.Collections
             }
             return flag;
         }
-
-
 
         /// <summary>Gets or sets the total number of elements the internal data structure can hold without resizing.</summary>
         /// <returns>The number of elements that the <see cref="System.Collections.Generic.List&lt;T&gt;"></see> can contain before resizing is required.</returns>
@@ -701,7 +657,6 @@ namespace EthanLibrary.Collections
                 {
                     this.list.Capacity = value;
                 }
-
             }
         }
 
@@ -739,7 +694,5 @@ namespace EthanLibrary.Collections
                 }
             }
         }
-
     } // class SyncList
-
 }

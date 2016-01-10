@@ -1,12 +1,11 @@
-﻿
-using System;
-using System.Reflection;
+﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Resources;
-using System.ComponentModel;
-using System.Text;
 using System.IO;
+using System.Reflection;
+using System.Resources;
+using System.Text;
 
 namespace EthanLibrary.Common
 {
@@ -16,6 +15,7 @@ namespace EthanLibrary.Common
     public static class ReflectHelper
     {
         #region 成员读写
+
         /// <summary>
         /// 通过数据行填充实体类型
         /// </summary>
@@ -70,10 +70,12 @@ namespace EthanLibrary.Common
                 }
             }
             return objRet;
-        } 
-        #endregion
+        }
+
+        #endregion 成员读写
 
         #region 方法调用
+
         /// <summary>
         /// 直接调用内部对象的方法/函数或获取属性(支持重载调用)
         /// </summary>
@@ -100,9 +102,11 @@ namespace EthanLibrary.Common
                         if (mi.MemberType == MemberTypes.Property)
                         {
                             #region 调用属性方法Get
+
                             targetMethod = ((PropertyInfo)mi).GetGetMethod();
                             break;
-                            #endregion
+
+                            #endregion 调用属性方法Get
                         }
                         else
                         {
@@ -112,6 +116,7 @@ namespace EthanLibrary.Common
                     else
                     {
                         #region 检查函数参数和数据类型 绑定正确的函数到目标调用
+
                         bool validParamsLen = false, validParamsType = false;
 
                         MethodInfo curMethod = (MethodInfo)mi;
@@ -125,6 +130,7 @@ namespace EthanLibrary.Common
                             int paramIdx = 0;
 
                             #region 检查数据类型 设置validParamsType是否有效
+
                             foreach (ParameterInfo pi in pis)
                             {
                                 pb.AppendFormat("Parameter {0}: Type={1}, Name={2}\n", paramIdx, pi.ParameterType, pi.Name);
@@ -134,6 +140,7 @@ namespace EthanLibrary.Common
                                      (pi.ParameterType != funParams[paramIdx].GetType()))
                                 {
                                     #region 检查类型是否兼容
+
                                     try
                                     {
                                         funParams[paramIdx] = Convert.ChangeType(funParams[paramIdx], pi.ParameterType);
@@ -142,12 +149,15 @@ namespace EthanLibrary.Common
                                     {
                                         paramFlag = false;
                                     }
-                                    #endregion
+
+                                    #endregion 检查类型是否兼容
+
                                     //break;
                                 }
                                 ++paramIdx;
                             }
-                            #endregion
+
+                            #endregion 检查数据类型 设置validParamsType是否有效
 
                             if (paramFlag == true)
                             {
@@ -164,14 +174,17 @@ namespace EthanLibrary.Common
                                 break;
                             }
                         }
-                        #endregion
+
+                        #endregion 检查函数参数和数据类型 绑定正确的函数到目标调用
                     }
                 }
 
                 if (targetMethod != null)
                 {
                     object objReturn = null;
+
                     #region 兼顾效率和兼容重载函数调用
+
                     try
                     {
                         object objInstance = System.Activator.CreateInstance(refType, objInitial);
@@ -182,7 +195,9 @@ namespace EthanLibrary.Common
                     {
                         objReturn = refType.InvokeMember(funName, BindingFlags.InvokeMethod, Type.DefaultBinder, null, funParams);
                     }
-                    #endregion
+
+                    #endregion 兼顾效率和兼容重载函数调用
+
                     return objReturn;
                 }
                 else
@@ -192,7 +207,6 @@ namespace EthanLibrary.Common
                         pb.ToString()));
                 }
             }
-
         }
 
         /// <summary>
@@ -205,10 +219,12 @@ namespace EthanLibrary.Common
         public static object InvokeFunction(Type refType, string funName, params object[] funParams)
         {
             return InvokeMethodOrGetProperty(refType, funName, null, funParams);
-        } 
-        #endregion
+        }
+
+        #endregion 方法调用
 
         #region 资源获取
+
         /// <summary>
         /// 获取程序集资源的位图资源
         /// </summary>
@@ -252,8 +268,8 @@ namespace EthanLibrary.Common
             byte[] bytes = new byte[iLen];
             st.Read(bytes, 0, iLen);
             return (bytes != null) ? Encoding.GetEncoding(charset).GetString(bytes) : "";
-        } 
-        #endregion
+        }
 
+        #endregion 资源获取
     }
 }

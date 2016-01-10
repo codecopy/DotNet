@@ -1,9 +1,8 @@
+using log4net;
 using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
-using log4net;
+using System.Text;
 
 namespace EthanLibrary.Common
 {
@@ -59,10 +58,11 @@ namespace EthanLibrary.Common
     /// 文本日志记录辅助类
     /// </summary>
     public class LogTextHelper
-    {                
-        static string LogFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log");
+    {
+        private static string LogFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log");
         public static bool RecordLog = true;
         public static bool DebugLog = false;
+
         static LogTextHelper()
         {
             if (!Directory.Exists(LogFolder))

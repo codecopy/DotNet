@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 //using System.Windows.Forms;
 using System.Data;
 using System.Text.RegularExpressions;
-using System.Web.UI;
 
 namespace EthanLibrary.Common
 {
@@ -14,6 +12,7 @@ namespace EthanLibrary.Common
     public class IDCardHelper
     {
         private static DataTable dt_IdType;
+
         static IDCardHelper()
         {
             dt_IdType = new DataTable();
@@ -84,7 +83,6 @@ namespace EthanLibrary.Common
                 }
             }
 
-
             try
             {
                 DateTime.Parse(idcard.Substring(6, 4) + "-" + idcard.Substring(10, 2) + "-" + idcard.Substring(12, 2));
@@ -95,8 +93,6 @@ namespace EthanLibrary.Common
             }
             return string.Empty;
         }
-
-
 
         private static string[] ls_jy = { "1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2" };
         private static int[] li_quan = { 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 };
@@ -109,7 +105,7 @@ namespace EthanLibrary.Common
         public static string IdCard15To18(string idcard)
         {
             /*
-             
+
              string ls_jy[] =  { "1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"}, t, ls_sfzmhm
 integer li_quan[] =  { 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1}
 int ll_sum = 0, i
@@ -143,7 +139,6 @@ return ls_sfzmhm
                 ll_sum = ll_sum % 11;
                 result += ls_jy[ll_sum];
                 return result;
-
             }
         }
 

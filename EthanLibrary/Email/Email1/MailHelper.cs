@@ -26,6 +26,7 @@ namespace EmailHelp
             email = "http://mail." + email.Substring(index + 1);
             return email;
         }
+
         /// <summary>
         /// 发送邮件
         /// </summary>
@@ -59,6 +60,7 @@ namespace EmailHelp
             }
             return str;
         }
+
         /// <summary>
         /// 发送邮件（要求登陆）
         /// </summary>
@@ -76,6 +78,7 @@ namespace EmailHelp
             string str = sendMail(mailSubjct, mailBody, mailFrom, mailAddress, HostIP, 0x19, username, password, false, string.Empty, out flag);
             return flag;
         }
+
         /// <summary>
         /// 发送邮件
         /// </summary>
@@ -128,6 +131,7 @@ namespace EmailHelp
             }
             return str;
         }
+
         /// <summary>
         /// 发送邮件
         /// </summary>

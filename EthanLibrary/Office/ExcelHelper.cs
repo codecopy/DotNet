@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections;
-using System.IO;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
-using System.Collections.Generic;
+using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
-using DataGrid = System.Windows.Forms.DataGrid;
 
-
-namespace Core.Office
+namespace EthanLibrary.Office
 {
     /// <summary>
     /// Excel操作辅助类（无需VBA引用）
     /// </summary>
     public class ExcelHelper
     {
-
         /// <summary>
         /// Excel 版本
         /// </summary>
@@ -77,7 +74,7 @@ namespace Core.Office
             return connectstring;
         }
 
-        #endregion
+        #endregion 获取Excel连接字符串
 
         #region 获取Excel工作表名
 
@@ -129,7 +126,7 @@ namespace Core.Office
 
             return list;
         }
-        
+
         /// <summary>
         /// 返回Excel第一个工作表表名
         /// </summary>
@@ -198,7 +195,7 @@ namespace Core.Office
                 string datatype = ((OleDbType)dr["ProviderType"]).ToString();//对应数据库类型
                 string netType = dr["DataType"].ToString();//对应的.NET类型，如System.String
                 list.Add(columnName);
-            }         
+            }
 
             return list;
         }
@@ -217,7 +214,7 @@ namespace Core.Office
             return schemaTable;
         }
 
-        #endregion
+        #endregion 获取Excel工作表名
 
         #region EXCEL导入DataSet
 
@@ -310,12 +307,12 @@ namespace Core.Office
             }
         }
 
-        #endregion
+        #endregion EXCEL导入DataSet
 
         #region 数据导出至Excel文件
 
         #region 把一个数据集中的数据导出到Excel文件中(XML格式操作)
-        
+
         /// <summary>
         /// 把一个数据集中的数据导出到Excel文件中(XML格式操作)
         /// </summary>
@@ -324,6 +321,7 @@ namespace Core.Office
         public static void DataSetToExcel(DataSet source, string fileName)
         {
             #region Excel格式内容
+
             var excelDoc = new StreamWriter(fileName);
             const string startExcelXML = "<xml version>\r\n<Workbook " +
                   "xmlns=\"urn:schemas-microsoft-com:office:spreadsheet\"\r\n" +
@@ -347,7 +345,8 @@ namespace Core.Office
                   "ss:Format=\"yyyy-mm-dd;@\"/>\r\n </Style>\r\n " +
                   "</Styles>\r\n ";
             const string endExcelXML = "</Workbook>";
-            #endregion
+
+            #endregion Excel格式内容
 
             int sheetCount = 1;
             excelDoc.Write(startExcelXML);
@@ -385,7 +384,9 @@ namespace Core.Office
                     for (int y = 0; y < source.Tables[0].Columns.Count; y++)
                     {
                         Type rowType = x[y].GetType();
+
                         #region 根据不同数据类型生成内容
+
                         switch (rowType.ToString())
                         {
                             case "System.String":
@@ -399,6 +400,7 @@ namespace Core.Office
                                 excelDoc.Write(XMLstring);
                                 excelDoc.Write("</Data></Cell>");
                                 break;
+
                             case "System.DateTime":
                                 //Excel has a specific Date Format of YYYY-MM-DD followed by
                                 //the letter 'T' then hh:mm:sss.lll Example 2005-01-31T24:01:21.000
@@ -439,12 +441,14 @@ namespace Core.Office
                                 excelDoc.Write(XMLDatetoString);
                                 excelDoc.Write("</Data></Cell>");
                                 break;
+
                             case "System.Boolean":
                                 excelDoc.Write("<Cell ss:StyleID=\"StringLiteral\">" +
                                             "<Data ss:Type=\"String\">");
                                 excelDoc.Write(x[y].ToString());
                                 excelDoc.Write("</Data></Cell>");
                                 break;
+
                             case "System.Int16":
                             case "System.Int32":
                             case "System.Int64":
@@ -454,6 +458,7 @@ namespace Core.Office
                                 excelDoc.Write(x[y].ToString());
                                 excelDoc.Write("</Data></Cell>");
                                 break;
+
                             case "System.Decimal":
                             case "System.Double":
                                 excelDoc.Write("<Cell ss:StyleID=\"Decimal\">" +
@@ -461,16 +466,19 @@ namespace Core.Office
                                 excelDoc.Write(x[y].ToString());
                                 excelDoc.Write("</Data></Cell>");
                                 break;
+
                             case "System.DBNull":
                                 excelDoc.Write("<Cell ss:StyleID=\"StringLiteral\">" +
                                       "<Data ss:Type=\"String\">");
                                 excelDoc.Write("");
                                 excelDoc.Write("</Data></Cell>");
                                 break;
+
                             default:
                                 throw (new Exception(rowType.ToString() + " not handled."));
                         }
-                        #endregion
+
+                        #endregion 根据不同数据类型生成内容
                     }
                     excelDoc.Write("</Row>");
                 }
@@ -483,11 +491,11 @@ namespace Core.Office
             excelDoc.Write(endExcelXML);
             excelDoc.Close();
         }
-        #endregion
+
+        #endregion 把一个数据集中的数据导出到Excel文件中(XML格式操作)
 
         #region 将DataTable导出为Excel(OleDb 方式操作）
 
-       
         /// <summary>
         /// 将DataTable导出为Excel(OleDb 方式操作）
         /// </summary>
@@ -560,13 +568,14 @@ namespace Core.Office
                 }
             }
         }
-        #endregion
 
-        #region   导出Excel文件，自动返回可下载的文件流
+        #endregion 将DataTable导出为Excel(OleDb 方式操作）
 
-        /// <summary> 
-        /// 导出Excel文件，自动返回可下载的文件流 
-        /// </summary> 
+        #region 导出Excel文件，自动返回可下载的文件流
+
+        /// <summary>
+        /// 导出Excel文件，自动返回可下载的文件流
+        /// </summary>
         public static void DataTable1Excel(DataTable dtData)
         {
             GridView gvExport = null;
@@ -589,11 +598,11 @@ namespace Core.Office
                 curContext.Response.End();
             }
         }
-        #endregion
 
-        #region  导出Excel文件，转换为可读模式
+        #endregion 导出Excel文件，自动返回可下载的文件流
 
-        
+        #region 导出Excel文件，转换为可读模式
+
         /// <summary>
         /// 导出Excel文件，转换为可读模式
         /// </summary>
@@ -620,10 +629,11 @@ namespace Core.Office
                 curContext.Response.End();
             }
         }
-        #endregion
 
-        #region    导出Excel文件，并自定义文件名
-      
+        #endregion 导出Excel文件，转换为可读模式
+
+        #region 导出Excel文件，并自定义文件名
+
         /// <summary>
         /// 导出Excel文件，并自定义文件名
         /// </summary>
@@ -652,10 +662,11 @@ namespace Core.Office
                 curContext.Response.End();
             }
         }
-        #endregion
+
+        #endregion 导出Excel文件，并自定义文件名
 
         #region 将数据导出至Excel文件
-       
+
         /// <summary>
         /// 将数据导出至Excel文件
         /// </summary>
@@ -814,11 +825,11 @@ namespace Core.Office
             }
             return true;
         }
-        #endregion
+
+        #endregion 将数据导出至Excel文件
 
         #region 将数据导出至Excel文件
 
-       
         /// <summary>
         /// 将数据导出至Excel文件
         /// </summary>
@@ -1003,11 +1014,13 @@ namespace Core.Office
             }
             return true;
         }
-        #endregion
-        #endregion
 
-        #region  获取Excel文件数据表列表
-       
+        #endregion 将数据导出至Excel文件
+
+        #endregion 数据导出至Excel文件
+
+        #region 获取Excel文件数据表列表
+
         /// <summary>
         /// 获取Excel文件数据表列表
         /// </summary>
@@ -1043,10 +1056,11 @@ namespace Core.Office
             }
             return TablesList;
         }
-        #endregion
 
-        #region      将Excel文件导出至DataTable(第一行作为表头)
-       
+        #endregion 获取Excel文件数据表列表
+
+        #region 将Excel文件导出至DataTable(第一行作为表头)
+
         /// <summary>
         /// 将Excel文件导出至DataTable(第一行作为表头)
         /// </summary>
@@ -1094,11 +1108,11 @@ namespace Core.Office
             }
             return table;
         }
-        #endregion
-   
+
+        #endregion 将Excel文件导出至DataTable(第一行作为表头)
+
         #region 获取Excel文件指定数据表的数据列表
 
-       
         /// <summary>
         /// 获取Excel文件指定数据表的数据列表
         /// </summary>
@@ -1126,9 +1140,10 @@ namespace Core.Office
             }
             return ColsList;
         }
-        #endregion
-      
-        #region  清理过时的Excel文件
+
+        #endregion 获取Excel文件指定数据表的数据列表
+
+        #region 清理过时的Excel文件
 
         private void ClearFile(string FilePath)
         {
@@ -1144,13 +1159,14 @@ namespace Core.Office
                     catch
                     {
                     }
-
                 }
             }
         }
-        #endregion
-        
+
+        #endregion 清理过时的Excel文件
+
         #region 将数据转换为指定类型
+
         /// <summary>
         /// 将数据转换为指定类型
         /// </summary>
@@ -1214,6 +1230,7 @@ namespace Core.Office
             }
             return (T)obj;
         }
-        #endregion
+
+        #endregion 将数据转换为指定类型
     }
 }

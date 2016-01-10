@@ -1,11 +1,11 @@
 ﻿using System.Data;
+using System.IO;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.IO;
-using System.Text;
 
-namespace Core.Office
+namespace EthanLibrary.Office
 {
     /// <summary>
     /// Summary description for GridViewExport
@@ -26,7 +26,6 @@ namespace Core.Office
                 "content-disposition", string.Format("attachment; filename={0}", fileName));
             HttpContext.Current.Response.ContentType = "application/ms-excel";
             //HttpContext.Current.Response.Charset = "utf-8";
-
 
             using (StringWriter sw = new StringWriter())
             {
@@ -66,9 +65,9 @@ namespace Core.Office
                 }
             }
         }
+
         public static void Export(GridView gv, string nd)
         {
-
             string filename = HttpUtility.UrlEncode(nd) + ".xls";
             HttpContext.Current.Response.Clear();
             HttpContext.Current.Response.Buffer = true;
@@ -113,20 +112,17 @@ namespace Core.Office
                         table.Rows.Add(gv.HeaderRow);
                     }
 
-
                     foreach (GridViewRow row in gv.Rows)
                     {
                         PrepareControlForExport(row);
                         table.Rows.Add(row);
                     }
 
-
                     if (gv.FooterRow != null)
                     {
                         PrepareControlForExport(gv.FooterRow);
                         table.Rows.Add(gv.FooterRow);
                     }
-
 
                     table.RenderControl(htw);
                     HttpContext.Current.Response.Write(xlsHeader);
@@ -137,6 +133,7 @@ namespace Core.Office
                 }
             }
         }
+
         /// <summary>
         /// Replace any of the contained controls with literals
         /// </summary>
@@ -179,7 +176,6 @@ namespace Core.Office
             }
         }
 
-
         /// <summary>
         /// 导出Grid的数据(全部)到Excel
         /// 字段全部为BoundField类型时可用
@@ -206,12 +202,10 @@ namespace Core.Office
             s.AppendLine("<tr>");
             for (int i = 0; i < count; i++)
             {
-
                 if (grid.Columns[i].GetType() == typeof(BoundField))
                     s.Append("<td>" + grid.Columns[i].HeaderText + "</td>");
 
                 //s.Append("<td>" + grid.Columns[i].HeaderText + "</td>");
-
             }
             s.Append("</tr>");
 
@@ -222,7 +216,6 @@ namespace Core.Office
                 {
                     if (grid.Columns[n].Visible && grid.Columns[n].GetType() == typeof(BoundField))
                         s.Append("<td>" + dr[((BoundField)grid.Columns[n]).DataField].ToString() + "</td>");
-
                 }
                 s.AppendLine("</tr>");
             }
@@ -233,10 +226,5 @@ namespace Core.Office
             page.Response.BinaryWrite(System.Text.Encoding.GetEncoding("utf-8").GetBytes(s.ToString()));
             page.Response.End();
         }
-
-
-
-
-
     }
 }

@@ -5,7 +5,7 @@ using System.Media;
 using System.Security;
 using System.Security.Permissions;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// 声音播放辅助类
@@ -18,6 +18,7 @@ namespace Core.Systems
         private static SoundPlayer _SoundPlayer;
 
         #region Methods
+
         private static void InternalStop(SoundPlayer sound)
         {
             new SecurityPermission(SecurityPermissionFlag.UnmanagedCode).Assert();
@@ -31,7 +32,6 @@ namespace Core.Systems
             }
         }
 
-
         /// <summary>Plays a .wav sound file.</summary>
         /// <param name="location">A String containing the name of the sound file </param>
         /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlThread" /><IPermission class="System.Net.WebPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" /></PermissionSet>
@@ -39,7 +39,6 @@ namespace Core.Systems
         {
             Play(location, AudioPlayMode.Background);
         }
-
 
         /// <summary>Plays a .wav sound file.</summary>
         /// <param name="playMode">AudioPlayMode Enumeration mode for playing the sound. By default, AudioPlayMode.Background.</param>
@@ -52,7 +51,6 @@ namespace Core.Systems
             SoundPlayer player1 = new SoundPlayer(text1);
             Play(player1, playMode);
         }
-
 
         /// <summary>Plays a .wav sound file.</summary>
         /// <param name="playMode">AudioPlayMode Enumeration mode for playing the sound. By default, AudioPlayMode.Background.</param>
@@ -67,7 +65,6 @@ namespace Core.Systems
             }
             Play(new SoundPlayer(stream), playMode);
         }
-
 
         /// <summary>Plays a .wav sound file.</summary>
         /// <param name="data">Byte array that represents the sound file.</param>
@@ -84,7 +81,6 @@ namespace Core.Systems
             Play(stream1, playMode);
             stream1.Close();
         }
-
 
         private static void Play(SoundPlayer sound, AudioPlayMode mode)
         {
@@ -109,18 +105,16 @@ namespace Core.Systems
             }
         }
 
-
         /// <summary>Plays a system sound.</summary>
         /// <param name="systemSound"><see cref="T:System.Media.SystemSound"></see> object representing the system sound to play.</param>
         public static void PlaySystemSound(SystemSound systemSound)
         {
             if (systemSound == null)
             {
-                throw new ArgumentNullException("systemSound"); 
+                throw new ArgumentNullException("systemSound");
             }
             systemSound.Play();
         }
-
 
         /// <summary>Stops a sound playing in the background.</summary>
         /// <filterpriority>1</filterpriority>
@@ -130,7 +124,6 @@ namespace Core.Systems
             InternalStop(player1);
         }
 
-
         private static void ValidateAudioPlayModeEnum(AudioPlayMode value, string paramName)
         {
             if ((value < AudioPlayMode.WaitToComplete) || (value > AudioPlayMode.BackgroundLoop))
@@ -139,37 +132,33 @@ namespace Core.Systems
             }
         }
 
-
         private static string ValidateFilename(string location)
         {
             if (String.IsNullOrEmpty(location))
             {
                 throw new ArgumentNullException("location");
-
             }
             return location;
         }
 
- 
-
-        #endregion
+        #endregion Methods
     }
 
     /// <summary>Indicates how to play sounds when calling audio methods.</summary>
     public enum AudioPlayMode
     {
         /// <summary>
-        /// play the sound, and waits until it completes before calling code continues. 
+        /// play the sound, and waits until it completes before calling code continues.
         /// </summary>
         WaitToComplete,
 
         /// <summary>
-        /// play the sound in the background. The calling code continues to execute. 
+        /// play the sound in the background. The calling code continues to execute.
         /// </summary>
         Background,
 
         /// <summary>
-        /// play the sound in the background until the Stop Method is called. The calling code continues to execute. 
+        /// play the sound in the background until the Stop Method is called. The calling code continues to execute.
         /// </summary>
         BackgroundLoop
     }

@@ -1,9 +1,9 @@
-﻿
-namespace EthanLibrary.Web
+﻿namespace EthanLibrary.Web
 {
     public static class ControlHelp
     {
         #region jquery获得select option的值 和对select option的操作
+
         /*服务器控件dropdownlist再被服务器解析后，客户端呈现为select*/
 
         //获取Select ：
@@ -20,30 +20,24 @@ namespace EthanLibrary.Web
         //设置select 选中的索引：
         //$("#ddlRegType").get(0).selectedIndex=index;//index为索引值
 
-
-
         //设置select 选中的value：
         //$("#ddlRegType").attr("value","Normal");
         //$("#ddlRegType").val("Normal");
         //$("#ddlRegType").get(0).value = value;
 
-
-
         // 设置select 选中的text:
 
         //var count=$("#ddlRegTypeoption").length;
-        //  for(var i=0;i<count;i++)  
+        //  for(var i=0;i<count;i++)
         //     {
-        //        if($("#ddlRegType").get(0).options[i].text == text)  
-        //        {  
+        //        if($("#ddlRegType").get(0).options[i].text == text)
+        //        {
         //            $("#ddlRegType").get(0).options[i].selected = true;
-        //            break;  
-        //        }  
+        //            break;
+        //        }
         //    }
 
-
         //$("#select_id option[text='jQuery']").attr("selected", true);
-
 
         //设置select option项:
         // $("#select_id").append("<option value='Value'>Text</option>");  //添加一项option
@@ -56,9 +50,10 @@ namespace EthanLibrary.Web
         //清空 Select:
         //$("#ddlRegType").empty();
 
-        #endregion
+        #endregion jquery获得select option的值 和对select option的操作
 
         #region CheckBox父级与子级联动操作
+
         //□父 | □子1，□子2，□子3，...
 
         //外层被td套住
@@ -74,16 +69,16 @@ namespace EthanLibrary.Web
         //    var _checked = $(obj).attr("checked")?true:false;
         //    $(obj).parents('td').next().find('input').attr('checked',_checked);
         //}
-        
+
         //function aaa(obj)
         //{
         //    var _checked = true;
-        //    $(obj).parent().parent().find('input:checked').length==$(obj).parent().parent().find('input').length?true:false;            
+        //    $(obj).parent().parent().find('input:checked').length==$(obj).parent().parent().find('input').length?true:false;
         //    $(obj).parents('td').prev().find('input').attr('checked',_checked);
         //}
 
         //HTML:
-        //<asp:Repeater runat="server" ID="rpt_RoleList" 
+        //<asp:Repeater runat="server" ID="rpt_RoleList"
         //    onitemdatabound="rpt_RoleList_ItemDataBound">
         //    <ItemTemplate>
         //        <tr class=<%#(Container.ItemIndex%2==0)?"\"trnull\"":"\"tr1\""%> >
@@ -116,9 +111,11 @@ namespace EthanLibrary.Web
         //        childRen.DataBind();
         //    }
         //}
-        #endregion
+
+        #endregion CheckBox父级与子级联动操作
 
         #region 从js文件中读取信息
+
         //思路，构建一个对象写入js，然后读取改对象
         //比如js文件是
         //var JOB_ABC = new Object();
@@ -145,11 +142,10 @@ namespace EthanLibrary.Web
         //    $("#ddlSex option:nth-child(2)").attr("selected","selected");
         //});
 
-
         //<ul class="scroll_news" style="margin: 0px; padding: 0px; overflow: hidden;">
         //</ul>
 
-        #endregion
+        #endregion 从js文件中读取信息
 
         #region JS特效函数[主要是JQ方面的]
 
@@ -168,7 +164,7 @@ namespace EthanLibrary.Web
         //        obj.eq(index).fadeOut('normal',function(){
         //            index = index < len-1 ? index+1 : 0;
         //            obj.eq(index).fadeIn('normal');
-        //        })	
+        //        })
         //    }
         //}
 
@@ -199,9 +195,11 @@ namespace EthanLibrary.Web
         //$(document).ready(function(){
         //  ...
         //})
-        #endregion
+
+        #endregion JS特效函数[主要是JQ方面的]
 
         #region 网页卷轴移动[返回首页]
+
         //多浏览器兼容
         //$(function(){
         //    $('a.abgne_gotoheader').click(function(){
@@ -223,9 +221,11 @@ namespace EthanLibrary.Web
         //<a href="#header" class="abgne_gotoheader">Go To Header</a>
         //<pre></pre >
         //<a href="#header" class="abgne_gotoheader">Go To Header</a>
-        #endregion
+
+        #endregion 网页卷轴移动[返回首页]
 
         #region 图片透明度更改
+
         //<style type="text/css">
         //    .black-div {
         //        background: #000;
@@ -252,7 +252,8 @@ namespace EthanLibrary.Web
         //<div class="black-div">
         //    <img src="images/nami.jpg" />
         //</div>
-        #endregion
+
+        #endregion 图片透明度更改
 
         #region JQ方法处理Tab切换，
 
@@ -265,7 +266,7 @@ namespace EthanLibrary.Web
         //    $('.tab_box div:gt(0)').hide();
         //    tab_menu_li.mouseover(function() {
         //        //siblings()在这里的作用是，筛选出除了本身含有class="select"属性的另一个含有该属性的内容
-        //        $(this).addClass('select').siblings().removeClass('select');                
+        //        $(this).addClass('select').siblings().removeClass('select');
         //        var index = tab_menu_li.index(this);
         //        $('.tab_box div').eq(index).show().siblings().hide();
         //    });
@@ -287,9 +288,10 @@ namespace EthanLibrary.Web
         //        <div>
         //            tab3</div>
         //        <div>
-        //            tab3</div>   
+        //            tab3</div>
         //    </div>
         //</div>
-        #endregion
+
+        #endregion JQ方法处理Tab切换，
     }
 }

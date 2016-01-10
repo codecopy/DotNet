@@ -1,8 +1,8 @@
-﻿using System.IO;
-using iTextSharp.text;
+﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.IO;
 
-namespace Core.Drawing
+namespace EthanLibrary.Drawing
 {
     /// <summary>
     /// PDF文档操作类
@@ -17,6 +17,7 @@ namespace Core.Drawing
     public class PDFOperation
     {
         #region 构造函数
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -49,16 +50,20 @@ namespace Core.Drawing
             SetPageSize(type);
             document = new Document(rect, marginLeft, marginRight, marginTop, marginBottom);
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 私有字段
+
         private Font font;
         private Rectangle rect;   //文档大小
         private Document document;//文档对象
         private BaseFont basefont;//字体
-        #endregion
+
+        #endregion 私有字段
 
         #region 设置字体
+
         /// <summary>
         /// 设置字体
         /// </summary>
@@ -75,9 +80,11 @@ namespace Core.Drawing
         {
             font = new Font(basefont, size);
         }
-        #endregion
+
+        #endregion 设置字体
 
         #region 设置页面大小
+
         /// <summary>
         /// 设置页面大小
         /// </summary>
@@ -89,14 +96,17 @@ namespace Core.Drawing
                 case "A4":
                     rect = PageSize.A4;
                     break;
+
                 case "A8":
                     rect = PageSize.A8;
                     break;
             }
         }
-        #endregion
+
+        #endregion 设置页面大小
 
         #region 实例化文档
+
         /// <summary>
         /// 实例化文档
         /// </summary>
@@ -105,9 +115,11 @@ namespace Core.Drawing
         {
             PdfWriter.GetInstance(document, os);
         }
-        #endregion
+
+        #endregion 实例化文档
 
         #region 打开文档对象
+
         /// <summary>
         /// 打开文档对象
         /// </summary>
@@ -117,9 +129,11 @@ namespace Core.Drawing
             GetInstance(os);
             document.Open();
         }
-        #endregion
+
+        #endregion 打开文档对象
 
         #region 关闭打开的文档
+
         /// <summary>
         /// 关闭打开的文档
         /// </summary>
@@ -127,9 +141,11 @@ namespace Core.Drawing
         {
             document.Close();
         }
-        #endregion
+
+        #endregion 关闭打开的文档
 
         #region 添加段落
+
         /// <summary>
         /// 添加段落
         /// </summary>
@@ -170,9 +186,11 @@ namespace Core.Drawing
             }
             document.Add(pra);
         }
-        #endregion
+
+        #endregion 添加段落
 
         #region 添加图片
+
         /// <summary>
         /// 添加图片
         /// </summary>
@@ -197,9 +215,11 @@ namespace Core.Drawing
             }
             document.Add(img);
         }
-        #endregion
+
+        #endregion 添加图片
 
         #region 添加链接、点
+
         /// <summary>
         /// 添加链接
         /// </summary>
@@ -227,6 +247,7 @@ namespace Core.Drawing
             auc.Name = Name;
             document.Add(auc);
         }
-        #endregion
+
+        #endregion 添加链接、点
     }
 }

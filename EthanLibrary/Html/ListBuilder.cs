@@ -1,20 +1,19 @@
 /**********************************************
  * 类作用：   链接辅助类
  * 建立人：   abaal
- * 建立时间： 2008-09-03 
+ * 建立时间： 2008-09-03
  * Copyright (C) 2007-2008 abaal
  * All rights reserved
  * http://blog.csdn.net/abaal888
  ***********************************************/
-using System;
-using System.Collections.Generic;
+
+using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Data;
 
 namespace Svnhost.Common
 {
-    /*  使用方式         
+    /*  使用方式
     ListBuilder lb1=new ListBuilder("ul");
     lb1.SetTemplate("<a href=\"{#url}\" target=\"_blank\"><strong>{#sortName}</strong></a>\r\n{#lb2}");
 
@@ -28,6 +27,7 @@ namespace Svnhost.Common
     lb1.EndTemplateData();
     lSitemap.Text=lb1.ToString();
  */
+
     public class ListBuilder
     {
         protected string type = "dl";
@@ -46,6 +46,7 @@ namespace Svnhost.Common
             if (className != string.Empty) className = " class='" + className + "'";
             sb.Append("<" + type + className + ">");
         }
+
         /// <summary>
         /// 以ul构造列表
         /// </summary>
@@ -53,6 +54,7 @@ namespace Svnhost.Common
         {
             sb.Append("<dl>");
         }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -109,7 +111,7 @@ namespace Svnhost.Common
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="fileName"></param>
         protected string GenerateString()
@@ -139,6 +141,7 @@ namespace Svnhost.Common
         {
             this.SetTitle(text, url, target, "");
         }
+
         /// <summary>
         /// 设置标题
         /// </summary>
@@ -148,6 +151,7 @@ namespace Svnhost.Common
         {
             this.SetTitle(text, url, "", "");
         }
+
         /// <summary>
         /// 设置纯文本标题
         /// </summary>
@@ -156,6 +160,7 @@ namespace Svnhost.Common
         {
             this.SetTitle(text, "", "", "");
         }
+
         /// <summary>
         /// 设置标题
         /// </summary>
@@ -165,8 +170,6 @@ namespace Svnhost.Common
         /// <param name="className">CSS类名</param>
         public void SetTitle(string text, string url, string target, string className)
         {
-
-
             string itemName = "dt";
             if (type != "dl")
             {
@@ -188,6 +191,7 @@ namespace Svnhost.Common
             }
             sb.Append("</" + itemName + ">");
         }
+
         /// <summary>
         /// 添加一项
         /// </summary>
@@ -216,7 +220,7 @@ namespace Svnhost.Common
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         /// <param name="url"></param>
@@ -225,8 +229,9 @@ namespace Svnhost.Common
         {
             this.AddItem(text, url, target, "");
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         /// <param name="url"></param>
@@ -234,8 +239,9 @@ namespace Svnhost.Common
         {
             this.AddItem(text, url, "", "");
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         public void AddItem(string text)

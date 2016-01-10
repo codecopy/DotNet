@@ -12,11 +12,13 @@ namespace EmailHelp
         /// Initializes a new instance of the <see cref="Pop3Exception"/> class.
         /// </summary>
         public Pop3Exception() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Pop3Exception"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public Pop3Exception(string message) : base(message) { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Pop3Exception"/> class.
         /// </summary>
@@ -34,6 +36,7 @@ namespace EmailHelp
         protected Pop3Exception(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
+            : base(info, context)
+        { }
     }
 }

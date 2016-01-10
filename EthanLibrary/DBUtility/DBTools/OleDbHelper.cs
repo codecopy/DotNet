@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Data.Common;
-using System.Data;
-using System.Data.OleDb;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.OleDb;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
     /// 常用的Access数据库Sql操作辅助类库
@@ -13,6 +13,7 @@ namespace Core.DBUtility
     {
         private string connectionString = "";
         private const string accessPrefix = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};User ID=Admin;Jet OLEDB:Database Password=;";
+
         /// <summary>
         /// 获得连接对象
         /// </summary>
@@ -21,6 +22,7 @@ namespace Core.DBUtility
         {
             return new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + System.Web.HttpContext.Current.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["db"].ToString()));
         }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -147,6 +149,7 @@ namespace Core.DBUtility
             }
             return result;
         }
+
         /// <summary>
         /// 返回结果集中的第一行第一列，忽略其他行或列
         /// </summary>
@@ -185,6 +188,7 @@ namespace Core.DBUtility
 
             return reader;
         }
+
         /// <summary>
         /// 返回SqlDataReader对象
         /// </summary>
@@ -220,6 +224,7 @@ namespace Core.DBUtility
             adapter.Fill(ds);
             return ds;
         }
+
         public static DataSet ExecuteDataset(string cmdText, params object[] p)
         {
             DataSet ds = new DataSet();
@@ -236,7 +241,6 @@ namespace Core.DBUtility
 
         private static void PrepareCommand(OleDbCommand cmd, OleDbConnection conn, string cmdText, params object[] p)
         {
-
             if (conn.State != ConnectionState.Open)
                 conn.Open();
             cmd.Parameters.Clear();
@@ -287,8 +291,5 @@ namespace Core.DBUtility
                 return ds.Tables[0].Rows[0];
             return null;
         }
-
-     
-
     }
 }

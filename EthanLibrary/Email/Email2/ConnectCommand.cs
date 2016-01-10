@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Net.Sockets;
 using System.Net.Security;
+using System.Net.Sockets;
 using System.Security.Authentication;
 
 namespace EmailHelp
 {
     /// <summary>
-    /// Performs the connect to a Pop3 server and returns a Pop3 
+    /// Performs the connect to a Pop3 server and returns a Pop3
     /// response indicating the attempt to connect results and the
     /// network stream to use for all subsequent Pop3 Commands.
     /// </summary>
@@ -23,7 +23,7 @@ namespace EmailHelp
         /// <remarks>
         /// Even though a network stream is provided to the base constructor the stream
         /// does not already exist so we have to send in a dummy stream until the actual
-        /// connect has taken place.  Then we'll reset network stream to the 
+        /// connect has taken place.  Then we'll reset network stream to the
         /// stream made available by the TcpClient.GetStream() to read the data returned
         /// after a connect.
         /// </remarks>
@@ -115,7 +115,6 @@ namespace EmailHelp
             {
                 NetworkStream = _client.GetStream();
             }
-
         }
 
         /// <summary>

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
 using System.Configuration;
-using System.Web;
 using System.IO;
+using System.Web;
+using System.Xml;
 
 namespace EmailHelp
 {
     public class MailPoper
     {
-
         public static List<MailMessageEx> Receive()
         {
             PopSetting ps = PopConfig.Create().PopSetting;
@@ -33,7 +32,6 @@ namespace EmailHelp
                         client.Dele(item);
                         maillist.Add(message);
                     }
-
                 }
                 client.Noop();
                 client.Rset();
@@ -41,9 +39,7 @@ namespace EmailHelp
                 return maillist;
             }
         }
-
     }
-
 
     public class PopSetting
     {
@@ -54,7 +50,9 @@ namespace EmailHelp
             get { return _server; }
             set { _server = value; }
         }
+
         private int _port;
+
         public int Port
         {
             get { return _port; }
@@ -68,6 +66,7 @@ namespace EmailHelp
             get { return _usessl; }
             set { _usessl = value; }
         }
+
         private string _username;
 
         public string UserName
@@ -88,6 +87,7 @@ namespace EmailHelp
     public class PopConfig
     {
         private static PopConfig _popConfig;
+
         private string ConfigFile
         {
             get
@@ -107,6 +107,7 @@ namespace EmailHelp
                 return configPath;
             }
         }
+
         public PopSetting PopSetting
         {
             get
@@ -120,17 +121,13 @@ namespace EmailHelp
                 popSetting.UserName = doc.DocumentElement.SelectSingleNode("User").InnerText;
                 popSetting.Password = doc.DocumentElement.SelectSingleNode("Password").InnerText;
 
-
                 return popSetting;
             }
-
-
         }
 
         //public static Save()
         //{
         //}
-
 
         public static PopConfig Create()
         {
@@ -140,8 +137,5 @@ namespace EmailHelp
             }
             return _popConfig;
         }
-
-
-
     }
 }

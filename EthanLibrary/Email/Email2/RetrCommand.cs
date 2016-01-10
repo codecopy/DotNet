@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+
 namespace EmailHelp
 {
     /// <summary>
@@ -7,7 +8,7 @@ namespace EmailHelp
     /// </summary>
     internal sealed class RetrCommand : Pop3Command<RetrResponse>
     {
-        int _message;
+        private int _message;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RetrCommand"/> class.

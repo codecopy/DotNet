@@ -7,8 +7,8 @@ namespace EmailHelp
 {
     /// <summary>
     /// The Pop3Client class provides a wrapper for the Pop3 commands
-    /// that can be executed against a Pop3Server.  This class will 
-    /// execute and return results for the various commands that are 
+    /// that can be executed against a Pop3Server.  This class will
+    /// execute and return results for the various commands that are
     /// executed.
     /// </summary>
     public sealed class Pop3Client : IDisposable
@@ -33,6 +33,7 @@ namespace EmailHelp
         }
 
         private string _hostname;
+
         /// <summary>
         /// Gets the hostname.
         /// </summary>
@@ -43,6 +44,7 @@ namespace EmailHelp
         }
 
         private int _port;
+
         /// <summary>
         /// Gets the port.
         /// </summary>
@@ -53,6 +55,7 @@ namespace EmailHelp
         }
 
         private bool _useSsl;
+
         /// <summary>
         /// Gets a value indicating whether [use SSL].
         /// </summary>
@@ -63,6 +66,7 @@ namespace EmailHelp
         }
 
         private string _username;
+
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
@@ -74,6 +78,7 @@ namespace EmailHelp
         }
 
         private string _password;
+
         /// <summary>
         /// Gets or sets the password.
         /// </summary>
@@ -85,6 +90,7 @@ namespace EmailHelp
         }
 
         private Pop3State _currentState;
+
         /// <summary>
         /// Gets the state of the current.
         /// </summary>
@@ -102,7 +108,8 @@ namespace EmailHelp
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         public Pop3Client(string hostname, string username, string password)
-            : this(hostname, DefaultPort, false, username, password) { }
+            : this(hostname, DefaultPort, false, username, password)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pop3Client"/> class using the default POP3 port 110.
@@ -112,7 +119,8 @@ namespace EmailHelp
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         public Pop3Client(string hostname, bool useSsl, string username, string password)
-            : this(hostname, DefaultPort, useSsl, username, password) { }
+            : this(hostname, DefaultPort, useSsl, username, password)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pop3Client"/> class.
@@ -231,12 +239,12 @@ namespace EmailHelp
         {
             if (Trace != null)
             {
-                command.Trace += delegate(string message) { OnTrace(message); };
+                command.Trace += delegate (string message) { OnTrace(message); };
             }
         }
 
         /// <summary>
-        /// Connects this instance and properly sets the 
+        /// Connects this instance and properly sets the
         /// client stream to Use Ssl if it is specified.
         /// </summary>
         private void Connect()
@@ -266,8 +274,8 @@ namespace EmailHelp
         }
 
         /// <summary>
-        /// Sets the client stream.  If UseSsl <c>true</c> then wrap 
-        /// the client's <c>NetworkStream</c> in an <c>SslStream</c>, if UseSsl <c>false</c> 
+        /// Sets the client stream.  If UseSsl <c>true</c> then wrap
+        /// the client's <c>NetworkStream</c> in an <c>SslStream</c>, if UseSsl <c>false</c>
         /// then set the client stream to the <c>NetworkStream</c>
         /// </summary>
         private void SetClientStream(Stream networkStream)
@@ -284,7 +292,7 @@ namespace EmailHelp
         /// Authenticates this instance.
         /// </summary>
         /// <remarks>A successful execution of this method will result in a Current State of Transaction.
-        /// Unsuccessful USER or PASS commands can be reattempted by resetting the Username or Password 
+        /// Unsuccessful USER or PASS commands can be reattempted by resetting the Username or Password
         /// properties and re-execution of the methods.</remarks>
         /// <exception cref="Pop3Exception">
         /// If the Pop3Server is unable to be connected.
@@ -459,7 +467,6 @@ namespace EmailHelp
         /// <returns></returns>
         public MailMessageEx RetrMailMessageEx(Pop3ListItem item)
         {
-
             MailMessageEx message = RetrMimeEntity(item).ToMailMessageEx();
             if (message != null)
             {
@@ -467,7 +474,6 @@ namespace EmailHelp
             }
             return message;
         }
-
 
         /// <summary>
         /// Executes the Pop3 QUIT command.

@@ -8,8 +8,8 @@
     <ProjectGuid>{5792C255-30E5-4A29-8C92-BB696E9BC6C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Drawing</RootNamespace>
-    <AssemblyName>Core.Drawing</AssemblyName>
+    <RootNamespace>EthanLibrary.Drawing</RootNamespace>
+    <AssemblyName>EthanLibrary.Drawing</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

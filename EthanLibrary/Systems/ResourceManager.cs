@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------
-// All Rights Reserved , Copyright (C) 2010 , Jirisoft , Ltd. 
+// All Rights Reserved , Copyright (C) 2010 , Jirisoft , Ltd.
 //------------------------------------------------------------
 
 using System;
@@ -7,28 +7,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-
-
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// ResourceManager
     /// 资源管理器
-    /// 
+    ///
     ///	修改纪录
     ///		2007.05.16 版本：1.0 JiRiGaLa	重新调整代码的规范化。
-    /// 
+    ///
     /// 版本：1.0
-    /// 
+    ///
     /// <author>
     ///		<name>JiRiGaLa</name>
     ///		<date>2007.05.16</date>
-    /// </author> 
+    /// </author>
     /// </summary>
     public class ResourceManager
     {
         private volatile static ResourceManager instance = null;
         private static object locker = new Object();
+
         public static ResourceManager Instance
         {
             get
@@ -69,7 +68,7 @@ namespace Core.Systems
             {
                 Resources resources = ResourcesSerializer.DeSerialize(FileInfo[i].FullName);
                 resources.createIndex();
-                LanguageResources.Add(resources.language, resources);     
+                LanguageResources.Add(resources.language, resources);
             }
         }
 
@@ -111,7 +110,7 @@ namespace Core.Systems
             }
             return resources;
         }
-                
+
         public string Get(string language, string key)
         {
             if (!LanguageResources.ContainsKey(language))

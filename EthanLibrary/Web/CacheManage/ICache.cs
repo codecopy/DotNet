@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections.Specialized;
 using System.Collections.ObjectModel;
 
 namespace EthanLibrary.Web.CacheManage
@@ -34,7 +31,6 @@ namespace EthanLibrary.Web.CacheManage
         /// <returns>返回一个值,指示检查的键是否存在</returns>
         bool Contains(string key);
 
-
         /// <summary>
         /// 检查系统中是否存在指定的缓存
         /// </summary>
@@ -42,7 +38,6 @@ namespace EthanLibrary.Web.CacheManage
         /// <param name="key">缓存key</param>
         /// <returns>返回这个类型的值是否存在</returns>
         bool Contains<T>(string key);
-
 
         /// <summary>
         /// 从缓存中获取指定键的值
@@ -112,7 +107,6 @@ namespace EthanLibrary.Web.CacheManage
         /// <param name="absoluteExpiration">过期时间</param>
         void Add<T>(string key, T value, CachePriority priority, DateTime absoluteExpiration);
 
-
         /// <summary>
         /// 尝试返回指定的缓存
         /// </summary>
@@ -121,9 +115,6 @@ namespace EthanLibrary.Web.CacheManage
         /// <param name="value">缓存的内容</param>
         /// <returns>是否存在这个缓存</returns>
         bool TryGetValue<T>(string key, out T value);
-
-       
-
 
         /// <summary>
         /// 移除键中某关键字的缓存并返回相应的值
@@ -198,4 +189,3 @@ namespace EthanLibrary.Web.CacheManage
         NotRemovable = 4,
     }
 }
-

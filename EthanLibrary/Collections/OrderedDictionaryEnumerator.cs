@@ -10,8 +10,8 @@ namespace EthanLibrary.Collections
     /// <typeparam name="TValue"></typeparam>
     public sealed class OrderedDictionaryEnumerator<TKey, TValue> : IEnumerator<KeyValuePair<TKey, TValue>>, IEnumerator<TValue>
     {
-
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OrderedDictionaryEnumerator{TKey, TValue}"/> class.
         /// </summary>
@@ -22,9 +22,10 @@ namespace EthanLibrary.Collections
             this.list = list;
         } // method
 
-        #endregion
+        #endregion Constructors
 
         #region Destructor
+
         /// <summary>
         /// Releases unmanaged resources and performs other cleanup operations before the
         /// <see cref="OrderedDictionaryEnumerator{TKey, TValue}"/> is reclaimed by garbage collection.
@@ -33,9 +34,11 @@ namespace EthanLibrary.Collections
         {
             this.Dispose(false);
         }
-        #endregion
+
+        #endregion Destructor
 
         #region Fields
+
         private int index;
 
         private List<KeyValuePair<TKey, TValue>> list;
@@ -43,30 +46,19 @@ namespace EthanLibrary.Collections
         // Track whether Dispose has been called.
         private bool disposed = false;
 
-        #endregion
+        #endregion Fields
 
-        #region Events
 
-        #endregion
-
-        #region Operators
-
-        #endregion
-
-        #region Properties
-
-        #endregion
 
         #region Methods
-
 
         /// <summary>
         /// Dispose(bool disposing) executes in two distinct scenarios.
         /// If disposing equals true, the method has been called directly
         /// or indirectly by a user's code. Managed and unmanaged resources
         /// can be disposed.
-        /// If disposing equals false, the method has been called by the 
-        /// runtime from inside the finalizer and you should not reference 
+        /// If disposing equals false, the method has been called by the
+        /// runtime from inside the finalizer and you should not reference
         /// other objects. Only unmanaged resources can be disposed.
         /// </summary>
         /// <param name="disposing">if set to <see langword="true"/> [disposing].</param>
@@ -87,8 +79,7 @@ namespace EthanLibrary.Collections
             }
         }
 
-
-        #endregion
+        #endregion Methods
 
         #region IEnumerator<KeyValuePair<TKey,TValue>> Members
 
@@ -102,7 +93,6 @@ namespace EthanLibrary.Collections
             get
             {
                 return this.InternalCurrent;
-
             }
         }
 
@@ -119,7 +109,6 @@ namespace EthanLibrary.Collections
                     throw new InvalidOperationException();
                 }
                 return this.list[this.index];
-
             }
         }
 
@@ -135,7 +124,6 @@ namespace EthanLibrary.Collections
             }
         }
 
-
         /// <summary>
         /// Gets the value.
         /// </summary>
@@ -148,9 +136,7 @@ namespace EthanLibrary.Collections
             }
         }
 
-
-
-        #endregion
+        #endregion IEnumerator<KeyValuePair<TKey,TValue>> Members
 
         #region IDisposable Members
 
@@ -159,7 +145,7 @@ namespace EthanLibrary.Collections
         /// </summary>
         public void Dispose() { this.Dispose(true); }
 
-        #endregion
+        #endregion IDisposable Members
 
         #region IEnumerator Members
 
@@ -191,7 +177,6 @@ namespace EthanLibrary.Collections
                 return false;
             } // if
             return true;
-
         } // MoveNext
 
         /// <summary>
@@ -203,8 +188,7 @@ namespace EthanLibrary.Collections
             this.index = -1;
         }
 
-        #endregion
-
+        #endregion IEnumerator Members
 
         #region IEnumerator<TValue> Members
 
@@ -218,7 +202,6 @@ namespace EthanLibrary.Collections
             get { return this.InternalCurrent.Value; }
         }
 
-        #endregion
- 
+        #endregion IEnumerator<TValue> Members
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 
-
 namespace EthanLibrary.Common
 {
     public class UnicodeHelper
@@ -50,21 +49,21 @@ namespace EthanLibrary.Common
                         {
                             strTemp = strlist[i].Substring(0, 4);
                             //将unicode字符转为10进制整数，然后转为char中文字符
-                            outStr += (char)int.Parse(strTemp , System.Globalization.NumberStyles.HexNumber);
+                            outStr += (char)int.Parse(strTemp, System.Globalization.NumberStyles.HexNumber);
                             outStr += strlist[i].Substring(4);
                         }
                     }
                 }
                 catch (FormatException ex)
                 {
-                    outStr += "Erorr"+ex.Message;
+                    outStr += "Erorr" + ex.Message;
                 }
             }
             return outStr;
         }
 
         /// <summary>
-        /// GB2312转换成unicode编码 
+        /// GB2312转换成unicode编码
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -106,7 +105,6 @@ namespace EthanLibrary.Common
                 case 'f':
                 case 'F': rtnNum = 15; break;
                 default: rtnNum = ushort.Parse(ch.ToString()); break;
-
             }
             return rtnNum;
         }
@@ -118,31 +116,30 @@ namespace EthanLibrary.Common
         /// <returns></returns>
         public static string ConvertSingle(string unicodeSingle)
         {
-            if (unicodeSingle.Length!=4) 
-                return null ;
-              Encoding unicode = Encoding.Unicode;
-              byte[] unicodeBytes = new byte[2] { 0, 0 };
-              for (int i = 0; i < 4; i++)
-              {
-                  switch (i)
-                  {
-                      case 0: unicodeBytes[1] += (byte)(GetByte(unicodeSingle[i]) * 16); break;
-                      case 1: unicodeBytes[1] += (byte)GetByte(unicodeSingle[i]); break;
-                      case 2: unicodeBytes[0] += (byte)(GetByte(unicodeSingle[i]) * 16); break;
-                      case 3: unicodeBytes[0] += (byte)GetByte(unicodeSingle[i]); break;
-                  }
-              }
+            if (unicodeSingle.Length != 4)
+                return null;
+            Encoding unicode = Encoding.Unicode;
+            byte[] unicodeBytes = new byte[2] { 0, 0 };
+            for (int i = 0; i < 4; i++)
+            {
+                switch (i)
+                {
+                    case 0: unicodeBytes[1] += (byte)(GetByte(unicodeSingle[i]) * 16); break;
+                    case 1: unicodeBytes[1] += (byte)GetByte(unicodeSingle[i]); break;
+                    case 2: unicodeBytes[0] += (byte)(GetByte(unicodeSingle[i]) * 16); break;
+                    case 3: unicodeBytes[0] += (byte)GetByte(unicodeSingle[i]); break;
+                }
+            }
 
-              char[] asciiChars = new char[unicode.GetCharCount(unicodeBytes, 0, unicodeBytes.Length)];
-              unicode.GetChars(unicodeBytes, 0, unicodeBytes.Length, asciiChars, 0);
-              string asciiString = new string(asciiChars);
+            char[] asciiChars = new char[unicode.GetCharCount(unicodeBytes, 0, unicodeBytes.Length)];
+            unicode.GetChars(unicodeBytes, 0, unicodeBytes.Length, asciiChars, 0);
+            string asciiString = new string(asciiChars);
 
-              return asciiString;
-
+            return asciiString;
         }
 
         /// <summary>
-        /// unicode编码转换成GB2312汉字 
+        /// unicode编码转换成GB2312汉字
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -152,7 +149,7 @@ namespace EthanLibrary.Common
             byte[] bs = new Byte[ss.Length - 1];
             for (int i = 1; i < ss.Length; i++)
             {
-                bs[i - 1] = Convert.ToByte(Convert2Hex(ss[i]));   //ss[0]为空串   
+                bs[i - 1] = Convert.ToByte(Convert2Hex(ss[i]));   //ss[0]为空串
             }
             char[] chrs = System.Text.Encoding.GetEncoding("GB2312").GetChars(bs);
             string s = "";
@@ -177,6 +174,5 @@ namespace EthanLibrary.Common
                 return "";
             }
         }
-
     }
 }

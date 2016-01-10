@@ -1,19 +1,17 @@
-﻿using System;
-using System.Text;
-using System.Data;
-using System.Web;
-using OWCChart;
+﻿using OWCChart;
+using System;
 using System.Configuration;
+using System.Data;
+using System.Text;
+using System.Web;
 
-namespace Core.Office
+namespace EthanLibrary.Office
 {
     /// <summary>
     /// Assistant 的摘要说明。
     /// </summary>
     public sealed class Assistant
     {
-
-
         #region 创建显示图像的标签
 
         /// <summary>
@@ -56,10 +54,10 @@ namespace Core.Office
                         ////					TagStr.Append(" <param name=\"movie\" value=\""+filename+"?clickthru=");
                         ////					TagStr.Append("FormAdHit.aspx?ADID="+ADID);
                         ////					TagStr.Append("_LinkURL="+LinkURL);
-                        ////					TagStr.Append("\"> ");					
+                        ////					TagStr.Append("\"> ");
                         //					TagStr.Append(" <param name=\"wmode\" value=\"opaque\"> ");
                         //					TagStr.Append(" <param name=\"quality\" value=\"autohigh\"> ");
-                        //					
+                        //
                         //					TagStr.Append(" <embed  ");
                         //					TagStr.Append(" width="+Width+" height="+High+"  ");
                         //					TagStr.Append(" src=\""+filename+"?clickthru=");
@@ -68,7 +66,7 @@ namespace Core.Office
                         //					{
                         //						TagStr.Append("_LinkURL="+LinkURL);
                         //					}
-                        //					TagStr.Append("\"  ");	
+                        //					TagStr.Append("\"  ");
                         //					TagStr.Append(" quality=\"high\" wmode=\"opaque\" type=\"application/x-shockwave-flash\"  ");
                         //					TagStr.Append(" plugspace=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\"> ");
                         //					TagStr.Append(" </embed></object> ");
@@ -81,11 +79,10 @@ namespace Core.Office
                         //					{
                         //						TagStr.Append("_LinkURL="+LinkURL);
                         //					}
-                        //					TagStr.Append("\"  ");	
+                        //					TagStr.Append("\"  ");
                         TagStr.Append(" width=" + Width + " height=" + High + "  ");
                         TagStr.Append(" quality=\"high\" ");
                         TagStr.Append(" ></embed>");
-
                     }
 
                     break;
@@ -111,13 +108,11 @@ namespace Core.Office
             }
 
             return TagStr.ToString();
-
         }
-
 
         /// <summary>
         /// 创建显示图像的标签(flash无点击)
-        /// </summary>		
+        /// </summary>
         public static string CreateTag2(string ADID, string filename, string desc, string FileType, string LinkURL, int Width, int High)
         {
             StringBuilder TagStr = new StringBuilder();
@@ -180,7 +175,6 @@ namespace Core.Office
                     TagStr.Append(" type=\"application/x-mplayer2\"></embed>");
                     //					TagStr.Append("</a>");
 
-
                     break;
 
                 default:
@@ -189,9 +183,7 @@ namespace Core.Office
             }
 
             return TagStr.ToString();
-
         }
-
 
         /// <summary>
         /// 创建显示图像的标签(重载)，无宽高限制，(flash加点击)
@@ -227,7 +219,7 @@ namespace Core.Office
                         //					TagStr.Append(" <param name=\"movie\" value=\""+filename+"?clickthru=");
                         //					TagStr.Append("FormAdHit.aspx?ADID="+ADID);
                         //					TagStr.Append("_LinkURL="+LinkURL);
-                        //					TagStr.Append("\"> ");					
+                        //					TagStr.Append("\"> ");
                         TagStr.Append(" <param name=\"wmode\" value=\"opaque\"> ");
                         TagStr.Append(" <param name=\"quality\" value=\"autohigh\"> ");
                         TagStr.Append(" <embed  ");
@@ -253,10 +245,9 @@ namespace Core.Office
                 case "audio/x-ms-wma":
                     TagStr.Append("<embed");
                     TagStr.Append(" src=\"" + filename + "\" border=\"0\" ");
-                    //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");	
+                    //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");
                     TagStr.Append(" autoStart=\"1\" playCount=\"0\" enableContextMenu=\"0\"");
                     TagStr.Append(" type=\"application/x-mplayer2\"></embed>");
-
 
                     break;
 
@@ -265,9 +256,7 @@ namespace Core.Office
             }
 
             return TagStr.ToString();
-
         }
-
 
         /// <summary>
         /// 创建显示图像的标签(重载)，无宽高限制，(flash无点击)
@@ -313,10 +302,9 @@ namespace Core.Office
                 case "audio/x-ms-wma":
                     TagStr.Append("<embed");
                     TagStr.Append(" src=\"" + filename + "\" border=\"0\" ");
-                    //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");	
+                    //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");
                     TagStr.Append(" autoStart=\"1\" playCount=\"0\" enableContextMenu=\"0\"");
                     TagStr.Append(" type=\"application/x-mplayer2\"></embed>");
-
 
                     break;
 
@@ -325,11 +313,10 @@ namespace Core.Office
             }
 
             return TagStr.ToString();
-
         }
 
-
         #region
+
         /// <summary>
         /// 创建显示图像的标签
         /// </summary>
@@ -370,11 +357,11 @@ namespace Core.Office
                         TagStr.Append(" quality=\"high\" bgcolor=\"#f5f5f5\"");
                         TagStr.Append(" ></embed>");
 
-                        //					TagStr.Append(" <embed src=\""+filename+"\" ");		
-                        //					TagStr.Append("pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\"");					
+                        //					TagStr.Append(" <embed src=\""+filename+"\" ");
+                        //					TagStr.Append("pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\"");
                         //					TagStr.Append(" type=\"application/x-shockwave-flash\"");
                         //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");
-                        //					TagStr.Append(" play=\"true\" loop=\"true\" quality=\"high\" scale=\"showall\" ");					
+                        //					TagStr.Append(" play=\"true\" loop=\"true\" quality=\"high\" scale=\"showall\" ");
                         //					TagStr.Append(" ></embed>");
 
                         TagStr.Append("</a>");
@@ -397,7 +384,7 @@ namespace Core.Office
                     //					TagStr.Append("<OBJECT  classid=\"clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6\" VIEWASTEXT>");
                     //					TagStr.Append("<PARAM NAME=\"URL\" VALUE=\""+filename+"\">");
                     //					TagStr.Append("<PARAM NAME=\"autoStart\" VALUE=\"1\">");
-                    //					TagStr.Append("<PARAM NAME=\"enableContextMenu\" VALUE=\"0\" ></OBJECT>");	
+                    //					TagStr.Append("<PARAM NAME=\"enableContextMenu\" VALUE=\"0\" ></OBJECT>");
                     //					TagStr.Append("</a>");
 
                     TagStr.Append("<a href=\"");
@@ -410,7 +397,6 @@ namespace Core.Office
                     TagStr.Append(" type=\"application/x-mplayer2\"></embed>");
                     TagStr.Append("</a>");
 
-
                     break;
 
                 default://其他类型作为附件链接下载
@@ -419,10 +405,9 @@ namespace Core.Office
             }
 
             return TagStr.ToString();
-
         }
 
-        #endregion
+        #endregion 创建显示图像的标签
 
         #endregion
 
@@ -449,16 +434,16 @@ namespace Core.Office
                 case "Column":
                     mychart.CreateOneColumn("时间", "次", MyItem);
                     break;
+
                 case "Pie":
                     mychart.CreateSinglePie(MyItem);
                     break;
-
             }
             String imageName = mychart.ExportPictuire();
             return imageName;
             //			Image1.ImageUrl = ".\\"+m_imagePath+imageName;
-
         }
+
         public static string CreateMultiColumns(DataTable[] dts, string ImagePath, string Title)
         {
             String PhaysicalImagePath = ImagePath;
@@ -473,13 +458,10 @@ namespace Core.Office
             MyItems[1].SeriesName = "点击次数";
             MyItems[1].SetDataSource(dts[1], "Item", "Value");
 
-
             mychart.CreateMultiColumns("时间", "次", MyItems);
-
 
             String imageName = mychart.ExportPictuire();
             return imageName;
-
         }
 
         public static string CreateSingleBar(DataTable dt, string CharType, string ImagePath, string Title)
@@ -494,6 +476,7 @@ namespace Core.Office
             String imageName = mychart.ExportPictuire();
             return imageName;
         }
+
         public static string CreateMultiBar(DataTable[] dts, string ImagePath, string Title)
         {
             String PhaysicalImagePath = ImagePath;
@@ -508,13 +491,10 @@ namespace Core.Office
             MyItems[1].SeriesName = "点击次数";
             MyItems[1].SetDataSource(dts[1], "Item", "Value");
 
-
             mychart.CreateMultiBar(" ", "", MyItems);
-
 
             String imageName = mychart.ExportPictuire();
             return imageName;
-
         }
 
         #endregion
@@ -529,7 +509,7 @@ namespace Core.Office
         /// <returns></returns>
         private string GetRandomCode(string allChar, int CodeCount)
         {
-            //string allChar = "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"; 
+            //string allChar = "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
             string[] allCharArray = allChar.Split(',');
             string RandomCode = "";
             int temp = -1;
@@ -557,7 +537,6 @@ namespace Core.Office
 
         #endregion
 
-
         /// <summary>
         /// 得到AppSettings中的配置字符串信息
         /// </summary>
@@ -582,6 +561,7 @@ namespace Core.Office
             }
             return objModel.ToString();
         }
+
         #region  获取数据缓存
 
         /// <summary>
@@ -593,6 +573,7 @@ namespace Core.Office
             System.Web.Caching.Cache objCache = HttpRuntime.Cache;
             return objCache[CacheKey];
         }
+
         #endregion
         #region  设置数据缓存
 
@@ -604,8 +585,7 @@ namespace Core.Office
             System.Web.Caching.Cache objCache = HttpRuntime.Cache;
             objCache.Insert(CacheKey, objObject, null, absoluteExpiration, slidingExpiration);
         }
+
         #endregion
-
-
     }
 }

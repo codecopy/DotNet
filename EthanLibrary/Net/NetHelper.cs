@@ -1,18 +1,19 @@
 ﻿using System;
-using System.Text;
-using System.Net.Sockets;
-using System.Net.Mail;
 using System.Net;
+using System.Net.Mail;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Text;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
     /// <summary>
     /// 网络操作相关的类
-    /// </summary>    
+    /// </summary>
     public class NetHelper
     {
         #region 检查设置的IP地址是否正确，返回正确的IP地址
+
         /// <summary>
         /// 检查设置的IP地址是否正确，并返回正确的IP地址,无效IP地址返回"-1"。
         /// </summary>
@@ -28,6 +29,7 @@ namespace Core.Net
                 return "-1";
             }
         }
+
         /// <summary>
         /// 是否为ip
         /// </summary>
@@ -37,15 +39,16 @@ namespace Core.Net
         {
             return System.Text.RegularExpressions.Regex.IsMatch(ip,
                 @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
-
         }
-        #endregion
+
+        #endregion 检查设置的IP地址是否正确，返回正确的IP地址
 
         #region 检查设置的端口号是否正确，返回正确的端口号
+
         /// <summary>
         /// 检查设置的端口号是否正确，并返回正确的端口号,无效端口号返回-1。
         /// </summary>
-        /// <param name="port">设置的端口号</param>        
+        /// <param name="port">设置的端口号</param>
         public static int GetValidPort(string port)
         {
             //声明返回的正确端口号
@@ -79,20 +82,24 @@ namespace Core.Net
             }
             return validPort;
         }
-        #endregion
+
+        #endregion 检查设置的端口号是否正确，返回正确的端口号
 
         #region 将字符串形式的IP地址转换成IPAddress对象
+
         /// <summary>
         /// 将字符串形式的IP地址转换成IPAddress对象
         /// </summary>
-        /// <param name="ip">字符串形式的IP地址</param>        
+        /// <param name="ip">字符串形式的IP地址</param>
         public static IPAddress StringToIPAddress(string ip)
         {
             return IPAddress.Parse(ip);
         }
-        #endregion
+
+        #endregion 将字符串形式的IP地址转换成IPAddress对象
 
         #region 获取本机的计算机名
+
         /// <summary>
         /// 获取本机的计算机名
         /// </summary>
@@ -103,12 +110,14 @@ namespace Core.Net
                 return Dns.GetHostName();
             }
         }
-        #endregion
+
+        #endregion 获取本机的计算机名
 
         #region 获取本机的局域网IP
+
         /// <summary>
         /// 获取本机的局域网IP
-        /// </summary>        
+        /// </summary>
         public static string LANIP
         {
             get
@@ -126,12 +135,14 @@ namespace Core.Net
                 return addressList[0].ToString();
             }
         }
-        #endregion
+
+        #endregion 获取本机的局域网IP
 
         #region 获取本机在Internet网络的广域网IP
+
         /// <summary>
         /// 获取本机在Internet网络的广域网IP
-        /// </summary>        
+        /// </summary>
         public static string WANIP
         {
             get
@@ -149,37 +160,43 @@ namespace Core.Net
                 return addressList[1].ToString();
             }
         }
-        #endregion
+
+        #endregion 获取本机在Internet网络的广域网IP
 
         #region 获取远程客户机的IP地址
+
         /// <summary>
         /// 获取远程客户机的IP地址
         /// </summary>
-        /// <param name="clientSocket">客户端的socket对象</param>        
+        /// <param name="clientSocket">客户端的socket对象</param>
         public static string GetClientIP(Socket clientSocket)
         {
             IPEndPoint client = (IPEndPoint)clientSocket.RemoteEndPoint;
             return client.Address.ToString();
         }
-        #endregion
+
+        #endregion 获取远程客户机的IP地址
 
         #region 创建一个IPEndPoint对象
+
         /// <summary>
         /// 创建一个IPEndPoint对象
         /// </summary>
         /// <param name="ip">IP地址</param>
-        /// <param name="port">端口号</param>        
+        /// <param name="port">端口号</param>
         public static IPEndPoint CreateIPEndPoint(string ip, int port)
         {
             IPAddress ipAddress = StringToIPAddress(ip);
             return new IPEndPoint(ipAddress, port);
         }
-        #endregion
+
+        #endregion 创建一个IPEndPoint对象
 
         #region 创建一个TcpListener对象
+
         /// <summary>
         /// 创建一个自动分配IP和端口的TcpListener对象
-        /// </summary>        
+        /// </summary>
         public static TcpListener CreateTcpListener()
         {
             //创建一个自动分配的网络节点
@@ -188,11 +205,12 @@ namespace Core.Net
 
             return new TcpListener(localEndPoint);
         }
+
         /// <summary>
         /// 创建一个TcpListener对象
         /// </summary>
         /// <param name="ip">IP地址</param>
-        /// <param name="port">端口</param>        
+        /// <param name="port">端口</param>
         public static TcpListener CreateTcpListener(string ip, int port)
         {
             //创建一个网络节点
@@ -201,35 +219,41 @@ namespace Core.Net
 
             return new TcpListener(localEndPoint);
         }
-        #endregion
+
+        #endregion 创建一个TcpListener对象
 
         #region 创建一个基于TCP协议的Socket对象
+
         /// <summary>
         /// 创建一个基于TCP协议的Socket对象
-        /// </summary>        
+        /// </summary>
         public static Socket CreateTcpSocket()
         {
             return new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
-        #endregion
+
+        #endregion 创建一个基于TCP协议的Socket对象
 
         #region 创建一个基于UDP协议的Socket对象
+
         /// <summary>
         /// 创建一个基于UDP协议的Socket对象
-        /// </summary>        
+        /// </summary>
         public static Socket CreateUdpSocket()
         {
             return new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         }
-        #endregion
+
+        #endregion 创建一个基于UDP协议的Socket对象
 
         #region 获取本地终结点
 
         #region 获取TcpListener对象的本地终结点
+
         /// <summary>
         /// 获取TcpListener对象的本地终结点
         /// </summary>
-        /// <param name="tcpListener">TcpListener对象</param>        
+        /// <param name="tcpListener">TcpListener对象</param>
         public static IPEndPoint GetLocalPoint(TcpListener tcpListener)
         {
             return (IPEndPoint)tcpListener.LocalEndpoint;
@@ -238,7 +262,7 @@ namespace Core.Net
         /// <summary>
         /// 获取TcpListener对象的本地终结点的IP地址
         /// </summary>
-        /// <param name="tcpListener">TcpListener对象</param>        
+        /// <param name="tcpListener">TcpListener对象</param>
         public static string GetLocalPoint_IP(TcpListener tcpListener)
         {
             IPEndPoint localEndPoint = (IPEndPoint)tcpListener.LocalEndpoint;
@@ -248,19 +272,21 @@ namespace Core.Net
         /// <summary>
         /// 获取TcpListener对象的本地终结点的端口号
         /// </summary>
-        /// <param name="tcpListener">TcpListener对象</param>        
+        /// <param name="tcpListener">TcpListener对象</param>
         public static int GetLocalPoint_Port(TcpListener tcpListener)
         {
             IPEndPoint localEndPoint = (IPEndPoint)tcpListener.LocalEndpoint;
             return localEndPoint.Port;
         }
-        #endregion
+
+        #endregion 获取TcpListener对象的本地终结点
 
         #region 获取Socket对象的本地终结点
+
         /// <summary>
         /// 获取Socket对象的本地终结点
         /// </summary>
-        /// <param name="socket">Socket对象</param>        
+        /// <param name="socket">Socket对象</param>
         public static IPEndPoint GetLocalPoint(Socket socket)
         {
             return (IPEndPoint)socket.LocalEndPoint;
@@ -269,7 +295,7 @@ namespace Core.Net
         /// <summary>
         /// 获取Socket对象的本地终结点的IP地址
         /// </summary>
-        /// <param name="socket">Socket对象</param>        
+        /// <param name="socket">Socket对象</param>
         public static string GetLocalPoint_IP(Socket socket)
         {
             IPEndPoint localEndPoint = (IPEndPoint)socket.LocalEndPoint;
@@ -279,17 +305,19 @@ namespace Core.Net
         /// <summary>
         /// 获取Socket对象的本地终结点的端口号
         /// </summary>
-        /// <param name="socket">Socket对象</param>        
+        /// <param name="socket">Socket对象</param>
         public static int GetLocalPoint_Port(Socket socket)
         {
             IPEndPoint localEndPoint = (IPEndPoint)socket.LocalEndPoint;
             return localEndPoint.Port;
         }
-        #endregion
 
-        #endregion
+        #endregion 获取Socket对象的本地终结点
+
+        #endregion 获取本地终结点
 
         #region 绑定终结点
+
         /// <summary>
         /// 绑定终结点
         /// </summary>
@@ -306,7 +334,7 @@ namespace Core.Net
         /// <summary>
         /// 绑定终结点
         /// </summary>
-        /// <param name="socket">Socket对象</param>        
+        /// <param name="socket">Socket对象</param>
         /// <param name="ip">服务器IP地址</param>
         /// <param name="port">服务器端口</param>
         public static void BindEndPoint(Socket socket, string ip, int port)
@@ -320,9 +348,11 @@ namespace Core.Net
                 socket.Bind(endPoint);
             }
         }
-        #endregion
+
+        #endregion 绑定终结点
 
         #region 指定Socket对象执行监听
+
         /// <summary>
         /// 指定Socket对象执行监听，默认允许的最大挂起连接数为100
         /// </summary>
@@ -373,15 +403,17 @@ namespace Core.Net
             //开始监听
             socket.Listen(maxConnection);
         }
-        #endregion
+
+        #endregion 指定Socket对象执行监听
 
         #region 连接到基于TCP协议的服务器
+
         /// <summary>
         /// 连接到基于TCP协议的服务器,连接成功返回true，否则返回false
         /// </summary>
         /// <param name="socket">Socket对象</param>
         /// <param name="ip">服务器IP地址</param>
-        /// <param name="port">服务器端口号</param>     
+        /// <param name="port">服务器端口号</param>
         public static bool Connect(Socket socket, string ip, int port)
         {
             try
@@ -398,9 +430,11 @@ namespace Core.Net
                 //LogHelper.WriteTraceLog(TraceLogLevel.Error, ex.Message);
             }
         }
-        #endregion
+
+        #endregion 连接到基于TCP协议的服务器
 
         #region 以同步方式发送消息
+
         /// <summary>
         /// 以同步方式向指定的Socket对象发送消息
         /// </summary>
@@ -422,15 +456,15 @@ namespace Core.Net
             //将字符串消息转换成字符数组
             Encoding encoding = Encoding.Default;
             byte[] buffer = encoding.GetBytes(msg);
-               
 
             //发送消息
             socket.Send(buffer, buffer.Length, SocketFlags.None);
         }
-        
-        #endregion
+
+        #endregion 以同步方式发送消息
 
         #region 以同步方式接收消息
+
         /// <summary>
         /// 以同步方式接收消息
         /// </summary>
@@ -444,7 +478,7 @@ namespace Core.Net
         /// <summary>
         /// 以同步方式接收消息，并转换为UTF8编码格式的字符串,使用5000字节的默认缓冲区接收。
         /// </summary>
-        /// <param name="socket">socket对象</param>        
+        /// <param name="socket">socket对象</param>
         public static string ReceiveMsg(Socket socket)
         {
             //定义接收缓冲区
@@ -459,11 +493,13 @@ namespace Core.Net
             //转换成字符串，并将其返回
 
             return Encoding.Default.GetString(tempBuffer);
-                //ConvertHelper.BytesToString(tempBuffer, Encoding.Default);
+            //ConvertHelper.BytesToString(tempBuffer, Encoding.Default);
         }
-        #endregion
+
+        #endregion 以同步方式接收消息
 
         #region 关闭基于Tcp协议的Socket对象
+
         /// <summary>
         /// 关闭基于Tcp协议的Socket对象
         /// </summary>
@@ -485,13 +521,13 @@ namespace Core.Net
                 socket.Close();
             }
         }
-        #endregion
+
+        #endregion 关闭基于Tcp协议的Socket对象
 
         #region 检测本机是否联网（互联网）
 
         [DllImport("wininet")]
         private extern static bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
-
 
         /// <summary>
         /// 检测本机是否联网
@@ -510,12 +546,12 @@ namespace Core.Net
                 //未联网
                 return false;
             }
-
         }
 
-        #endregion
+        #endregion 检测本机是否联网（互联网）
 
         #region 发送电子邮件
+
         /// <summary>
         /// 发送电子邮件,所有SMTP配置信息均在config配置文件中system.net节设置.
         /// </summary>
@@ -554,6 +590,6 @@ namespace Core.Net
             }
         }
 
-        #endregion
+        #endregion 发送电子邮件
     }
 }

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Web;
 using System.IO;
-using System.Text;
 using System.IO.Compression;
+using System.Text;
+using System.Web;
 
-namespace Core.Zip
+namespace EthanLibrary.Zip
 {
     public class GZipHandler : IHttpHandler
     {
-
         public void ProcessRequest(HttpContext context)
         {
             HttpContext Context = HttpContext.Current;
@@ -39,15 +38,13 @@ namespace Core.Zip
                 return;
             }
 
-            // *** Load the script file 
+            // *** Load the script file
 
             string Script = "";
-
 
             StreamReader sr = new StreamReader(context.Server.MapPath(Request["src"]));
 
             Script = sr.ReadToEnd();
-
 
             // *** Now we're ready to create out output
 
@@ -56,14 +53,11 @@ namespace Core.Zip
             if (UseGZip && Script.Length > 6000)
 
                 Output = GZipMemory(Script);
-
             else
             {
-
                 Output = Encoding.ASCII.GetBytes(Script);
 
                 UseGZip = false;
-
             }
             // *** Add into the cache with one day
 
@@ -72,6 +66,7 @@ namespace Core.Zip
 
             this.SendOutput(Output, UseGZip);
         }
+
         /// <summary>
         /// Sends the output to the client using appropriate cache settings.
         /// Content should be already encoded and ready to be sent as binary.
@@ -80,14 +75,12 @@ namespace Core.Zip
         /// <param name="UseGZip"></param>
         private void SendOutput(byte[] Output, bool UseGZip)
         {
-
             HttpResponse Response = HttpContext.Current.Response;
             Response.ContentType = "application/x-javascript";
             if (UseGZip)
                 Response.AppendHeader("Content-Encoding", "gzip");
             //if (!HttpContext.Current.IsDebuggingEnabled)
             // {
-
             Response.ExpiresAbsolute = DateTime.UtcNow.AddYears(1);
             Response.Cache.SetLastModified(DateTime.UtcNow);
             Response.Cache.SetCacheability(HttpCacheability.Public);
@@ -95,9 +88,7 @@ namespace Core.Zip
 
             Response.BinaryWrite(Output);
             Response.End();
-
         }
-
 
         /// <summary>
         /// Takes a binary input buffer and GZip encodes the input
@@ -107,7 +98,6 @@ namespace Core.Zip
 
         public static byte[] GZipMemory(byte[] Buffer)
         {
-
             MemoryStream ms = new MemoryStream();
             GZipStream GZip = new GZipStream(ms, CompressionMode.Compress);
             GZip.Write(Buffer, 0, Buffer.Length);
@@ -115,13 +105,11 @@ namespace Core.Zip
             byte[] Result = ms.ToArray();
             ms.Close();
             return Result;
-
         }
-       
+
         public static byte[] GZipMemory(string Input)
         {
             return GZipMemory(Encoding.ASCII.GetBytes(Input));
-
         }
 
         public bool IsReusable
@@ -131,6 +119,5 @@ namespace Core.Zip
                 return false;
             }
         }
-
     }
 }

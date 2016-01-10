@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace EthanLibrary.Common
 {
     public class EmailHelper
     {
-        #region  生成邮件验证码
+        #region 生成邮件验证码
+
         /// <summary>
         /// 生成邮件验证码
         /// </summary>
@@ -15,7 +14,6 @@ namespace EthanLibrary.Common
         /// <returns></returns>
         public static string CreateAuthStr(int len)
         {
-
             int number;
             StringBuilder checkCode = new StringBuilder();
             Random random = new Random();
@@ -33,9 +31,8 @@ namespace EthanLibrary.Common
                 }
             }
             return checkCode.ToString();
-
         }
-        #endregion
 
+        #endregion 生成邮件验证码
     }
 }

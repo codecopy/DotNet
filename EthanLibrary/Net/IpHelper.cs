@@ -1,9 +1,8 @@
-﻿
+﻿using System;
 using System.Net;
-using System;
 using System.Web;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
     /// <summary>
     /// 共用工具类
@@ -11,6 +10,7 @@ namespace Core.Net
     public static class IpHelper
     {
         #region 获得用户IP
+
         /// <summary>
         /// 获得用户IP
         /// </summary>
@@ -44,17 +44,17 @@ namespace Core.Net
             else
                 return ip;
         }
-        #endregion
-   
+
+        #endregion 获得用户IP
+
         #region 获得当前页面客户端的IP
+
         /// <summary>
         /// 获得当前页面客户端的IP
         /// </summary>
         /// <returns>当前页面客户端的IP</returns>
         public static string GetIP()
         {
-
-
             string result = String.Empty;
 
             result = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
@@ -74,10 +74,10 @@ namespace Core.Net
             }
 
             return result;
+        }
 
-        } 
-        #endregion
-        
+        #endregion 获得当前页面客户端的IP
+
         /// <summary>
         /// 是否为ip
         /// </summary>
@@ -87,8 +87,8 @@ namespace Core.Net
         {
             return System.Text.RegularExpressions.Regex.IsMatch(ip,
                 @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
-
         }
+
         /// <summary>
         /// 获取本地机器IP地址
         /// </summary>
@@ -105,17 +105,18 @@ namespace Core.Net
         }
 
         #region 把IP地址转换为数字格式
-        /// <summary> 
-        /// 把IP地址转换为数字格式 
-        /// </summary> 
-        /// <param name="strIp">IP地址</param> 
-        /// <returns>数字</returns> 
+
+        /// <summary>
+        /// 把IP地址转换为数字格式
+        /// </summary>
+        /// <param name="strIp">IP地址</param>
+        /// <returns>数字</returns>
         public static int IPtoNum(string strIp)
         {
             string[] temp = strIp.Split('.');
             return (int.Parse(temp[0])) * 256 * 256 * 256 + (int.Parse(temp[1])) * 256 * 256 * 256 + (int.Parse(temp[2])) * 256 * 256 * 256;
         }
-        #endregion
-       
+
+        #endregion 把IP地址转换为数字格式
     }
 }

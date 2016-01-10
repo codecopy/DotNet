@@ -11,7 +11,7 @@ namespace EthanLibrary.Common
     /// <summary>
     /// 序列号操作辅助类
     /// </summary>
-    /// 
+    ///
     public class Serializer
     {
         private Serializer()
@@ -19,6 +19,7 @@ namespace EthanLibrary.Common
         }
 
         #region 各种格式的序列化操作
+
         /// <summary>
         /// 序列化对象到二进制字节数组
         /// </summary>
@@ -217,9 +218,9 @@ namespace EthanLibrary.Common
         public static void SerializeToXmlFile(object obj, string path)
         {
             SerializeToXmlFile(obj, path, FileMode.Create);
-        } 
-        #endregion
+        }
 
+        #endregion 各种格式的序列化操作
 
         /// <summary>
         /// 从指定的文件中反序列化到具体的对象

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Data;
+using System.Data.OleDb;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Data.OleDb;
-using System.Data;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
     /// Access数据库文件操作辅助类
@@ -109,7 +108,6 @@ namespace Core.DBUtility
             }
 
             return (strRet == "") ? "0" : strRet;
-
         }
 
         /// <summary>

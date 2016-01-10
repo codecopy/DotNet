@@ -14,6 +14,7 @@ namespace EmailHelp
         private static readonly char[] HeaderWhitespaceChars = new char[] { ' ', '\t' };
 
         private Queue<string> _lines;
+
         /// <summary>
         /// Gets the lines.
         /// </summary>
@@ -129,19 +130,24 @@ namespace EmailHelp
                     case "content-description":
                         _entity.ContentDescription = _entity.Headers[key];
                         break;
+
                     case "content-disposition":
                         _entity.ContentDisposition = new ContentDisposition(_entity.Headers[key]);
                         break;
+
                     case "content-id":
                         _entity.ContentId = _entity.Headers[key];
                         break;
+
                     case "content-transfer-encoding":
                         _entity.TransferEncoding = _entity.Headers[key];
                         _entity.ContentTransferEncoding = MimeReader.GetTransferEncoding(_entity.Headers[key]);
                         break;
+
                     case "content-type":
                         _entity.SetContentType(MimeReader.GetContentType(_entity.Headers[key]));
                         break;
+
                     case "mime-version":
                         _entity.MimeVersion = _entity.Headers[key];
                         break;
@@ -170,13 +176,11 @@ namespace EmailHelp
             catch
             {
                 return null;
-
             }
         }
 
-
         /// <summary>
-        /// Sets the decoded content stream by decoding the EncodedMessage 
+        /// Sets the decoded content stream by decoding the EncodedMessage
         /// and writing it to the entity content stream.
         /// </summary>
         /// <param name="entity">The entity containing the encoded message.</param>
@@ -226,8 +230,8 @@ namespace EmailHelp
                 while (_lines.Count > 0
                     && !string.Equals(_lines.Peek(), _entity.EndBoundary))
                 {
-                    /*Check to verify the current line is not the same as the parent starting boundary.  
-                       If it is the same as the parent starting boundary this indicates existence of a 
+                    /*Check to verify the current line is not the same as the parent starting boundary.
+                       If it is the same as the parent starting boundary this indicates existence of a
                        new child entity. Return and process the next child.*/
                     if (_entity.Parent != null
                         && string.Equals(_entity.Parent.StartBoundary, _lines.Peek()))
@@ -297,7 +301,6 @@ namespace EmailHelp
                 contentType = "text/plain; charset=us-ascii";
             }
             return new ContentType(contentType);
-
         }
 
         /// <summary>
@@ -372,8 +375,8 @@ namespace EmailHelp
         /// <param name="transferEncoding">The transfer encoding.</param>
         /// <returns></returns>
         /// <remarks>
-        /// The transfer encoding determination follows the same rules as 
-        /// Peter Huber's article w/ the exception of not throwing exceptions 
+        /// The transfer encoding determination follows the same rules as
+        /// Peter Huber's article w/ the exception of not throwing exceptions
         /// when binary is provided as a transferEncoding.  Instead it is left
         /// to the calling code to check for binary.
         /// </remarks>
@@ -384,14 +387,16 @@ namespace EmailHelp
                 case "7bit":
                 case "8bit":
                     return System.Net.Mime.TransferEncoding.SevenBit;
+
                 case "quoted-printable":
                     return System.Net.Mime.TransferEncoding.QuotedPrintable;
+
                 case "base64":
                     return System.Net.Mime.TransferEncoding.Base64;
+
                 case "binary":
                 default:
                     return System.Net.Mime.TransferEncoding.Unknown;
-
             }
         }
     }

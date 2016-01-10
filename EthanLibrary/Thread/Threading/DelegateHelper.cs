@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
     /// Help functions for Delgates.
     /// </summary>
-    public static  class DelegateHelper
+    public static class DelegateHelper
     {
         private static WaitCallback dynamicInvoker = new WaitCallback(DynamicInvoke);
 
@@ -47,6 +47,6 @@ namespace Core.Threads
         {
             TargetInfo ti = (TargetInfo)obj;
             ti.Target.DynamicInvoke((object[])ti.Arguments);
-        }     
+        }
     }
 }

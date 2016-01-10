@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// MP3文件播放操作辅助类
@@ -11,12 +11,13 @@ namespace Core.Systems
     {
         [DllImport("winmm.dll")]
         private static extern long mciSendString(string strCommand, System.Text.StringBuilder strReturn, int iReturnLength, IntPtr hwndCallback);
-        
-        public static void Play(string MP3_FileName,bool Repeat)
+
+        public static void Play(string MP3_FileName, bool Repeat)
         {
             mciSendString("open \"" + MP3_FileName + "\" type mpegvideo alias MediaFile", null, 0, IntPtr.Zero);
-            mciSendString("play MediaFile" + (Repeat ? " repeat" :String.Empty), null, 0, IntPtr.Zero);
+            mciSendString("play MediaFile" + (Repeat ? " repeat" : String.Empty), null, 0, IntPtr.Zero);
         }
+
         public static void Play(byte[] MP3_EmbeddedResource, bool Repeat)
         {
             extractResource(MP3_EmbeddedResource, Path.GetTempPath() + "resource.tmp");
@@ -34,7 +35,7 @@ namespace Core.Systems
             mciSendString("close MediaFile", null, 0, IntPtr.Zero);
         }
 
-        private static void extractResource(byte[] res,string filePath)
+        private static void extractResource(byte[] res, string filePath)
         {
             FileStream fs;
             BinaryWriter bw;

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.ComponentModel;
 using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace EthanLibrary.Common
 {
@@ -13,6 +12,7 @@ namespace EthanLibrary.Common
     public class EnumHelper
     {
         #region 通过字符串获取枚举成员实例
+
         /// <summary>
         /// 通过字符串获取枚举成员实例
         /// </summary>
@@ -23,9 +23,11 @@ namespace EthanLibrary.Common
         {
             return ConvertHelper.ConvertTo<T>(Enum.Parse(typeof(T), member, true));
         }
-        #endregion
+
+        #endregion 通过字符串获取枚举成员实例
 
         #region 获取枚举成员名称和成员值的键值对集合
+
         /// <summary>
         /// 获取枚举成员名称和成员值的键值对集合
         /// </summary>
@@ -43,13 +45,14 @@ namespace EthanLibrary.Common
                 dic.Add(memberName, GetMemberValue<T>(memberName));
             }
 
-
             //返回哈希表
             return dic;
         }
-        #endregion
+
+        #endregion 获取枚举成员名称和成员值的键值对集合
 
         #region 获取枚举所有成员名称
+
         /// <summary>
         /// 获取枚举所有成员名称
         /// </summary>
@@ -58,9 +61,11 @@ namespace EthanLibrary.Common
         {
             return Enum.GetNames(typeof(T));
         }
-        #endregion
+
+        #endregion 获取枚举所有成员名称
 
         #region 获取枚举成员的名称
+
         /// <summary>
         /// 获取枚举成员的名称
         /// </summary>
@@ -76,9 +81,11 @@ namespace EthanLibrary.Common
             //获取枚举成员的名称
             return Enum.GetName(typeof(T), memberValue);
         }
-        #endregion
+
+        #endregion 获取枚举成员的名称
 
         #region 获取枚举所有成员值
+
         /// <summary>
         /// 获取枚举所有成员值
         /// </summary>
@@ -87,9 +94,11 @@ namespace EthanLibrary.Common
         {
             return Enum.GetValues(typeof(T));
         }
-        #endregion
+
+        #endregion 获取枚举所有成员值
 
         #region 获取枚举成员的值
+
         /// <summary>
         /// 获取枚举成员的值
         /// </summary>
@@ -107,9 +116,11 @@ namespace EthanLibrary.Common
             //获取枚举成员的值
             return ConvertHelper.ConvertTo(instance, underlyingType);
         }
-        #endregion
+
+        #endregion 获取枚举成员的值
 
         #region 获取枚举的基础类型
+
         /// <summary>
         /// 获取枚举的基础类型
         /// </summary>
@@ -119,9 +130,11 @@ namespace EthanLibrary.Common
             //获取基础类型
             return Enum.GetUnderlyingType(enumType);
         }
-        #endregion
+
+        #endregion 获取枚举的基础类型
 
         #region 检测枚举是否包含指定成员
+
         /// <summary>
         /// 检测枚举是否包含指定成员
         /// </summary>
@@ -131,7 +144,8 @@ namespace EthanLibrary.Common
         {
             return Enum.IsDefined(typeof(T), member);
         }
-        #endregion
+
+        #endregion 检测枚举是否包含指定成员
 
         /// <summary>
         /// 返回指定枚举类型的指定值的描述

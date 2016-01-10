@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -13,11 +12,12 @@ namespace EthanLibrary.Common
     public class TypeTools
     {
         #region 判断对象是否为空
+
         /// <summary>
         /// 判断对象是否为空，为空返回true
         /// </summary>
         /// <typeparam name="T">要验证的对象的类型</typeparam>
-        /// <param name="data">要验证的对象</param>        
+        /// <param name="data">要验证的对象</param>
         public static bool IsNullOrEmpty<T>(T data)
         {
             //如果为null
@@ -75,7 +75,8 @@ namespace EthanLibrary.Common
             //不为空
             return false;
         }
-        #endregion
+
+        #endregion 判断对象是否为空
 
         #region 数值类型验证
 
@@ -88,16 +89,13 @@ namespace EthanLibrary.Common
         {
             return Regex.IsMatch(val, @"^[1-9]\d*\.?[0]*$");
         }
-       
-       
 
         #region 验证是否为数字
-
 
         /// <summary>
         /// 验证是否为数字
         /// </summary>
-        /// <param name="number">要验证的数字</param>        
+        /// <param name="number">要验证的数字</param>
         public static bool IsNumber(string number)
         {
             //如果为空，认为验证不合格
@@ -115,13 +113,15 @@ namespace EthanLibrary.Common
             //验证
             return Regex.IsMatch(number, pattern);
         }
-        #endregion
+
+        #endregion 验证是否为数字
 
         #region 验证是否为整数
+
         /// <summary>
         /// 验证是否为整数 如果为空，认为验证不合格 返回false
         /// </summary>
-        /// <param name="number">要验证的整数</param>        
+        /// <param name="number">要验证的整数</param>
         public static bool IsInt(string number)
         {
             //如果为空，认为验证不合格
@@ -138,9 +138,11 @@ namespace EthanLibrary.Common
             //验证
             return Regex.IsMatch(number, pattern);
         }
-        #endregion
+
+        #endregion 验证是否为整数
 
         #region 判断对象是否为Int32类型的数字
+
         /// <summary>
         /// 判断对象是否为Int32类型的数字
         /// </summary>
@@ -160,7 +162,6 @@ namespace EthanLibrary.Common
                 }
             }
             return false;
-
         }
 
         //public static bool IsNumeric(object o)
@@ -181,9 +182,11 @@ namespace EthanLibrary.Common
         //    }
         //    return false;
         //}
-        #endregion
+
+        #endregion 判断对象是否为Int32类型的数字
 
         #region 判断对象是否为Double类型的数字
+
         /// <summary>
         /// 判断对象是否为Double类型的数字
         /// </summary>
@@ -197,9 +200,11 @@ namespace EthanLibrary.Common
             }
             return false;
         }
-        #endregion
+
+        #endregion 判断对象是否为Double类型的数字
 
         #region 判断给定的字符串数组(strNumber)中的数据是不是都为数值型
+
         /// <summary>
         /// 判断给定的字符串数组(strNumber)中的数据是不是都为数值型
         /// </summary>
@@ -223,16 +228,13 @@ namespace EthanLibrary.Common
                 }
             }
             return true;
-
         }
-        #endregion
 
-        #endregion
+        #endregion 判断给定的字符串数组(strNumber)中的数据是不是都为数值型
+
+        #endregion 数值类型验证
 
         #region 数字字符串检查
-
-
-
 
         /// <summary>
         /// 是否数字字符串 可带正负号
@@ -245,6 +247,7 @@ namespace EthanLibrary.Common
             Match m = RegNumberSign.Match(inputData);
             return m.Success;
         }
+
         /// <summary>
         /// 是否是浮点数
         /// </summary>
@@ -256,6 +259,7 @@ namespace EthanLibrary.Common
             Match m = RegDecimal.Match(inputData);
             return m.Success;
         }
+
         /// <summary>
         /// 是否是浮点数 可带正负号
         /// </summary>
@@ -268,11 +272,12 @@ namespace EthanLibrary.Common
             return m.Success;
         }
 
-        #endregion
+        #endregion 数字字符串检查
 
         #region 字符串类型验证
 
         #region 判断是否为base64字符串
+
         /// <summary>
         /// 判断是否为base64字符串
         /// </summary>
@@ -283,7 +288,8 @@ namespace EthanLibrary.Common
             //A-Z, a-z, 0-9, +, /, =
             return Regex.IsMatch(str, @"[A-Za-z0-9\+\/\=]");
         }
-        #endregion
+
+        #endregion 判断是否为base64字符串
 
         #region 中文检测
 
@@ -299,9 +305,9 @@ namespace EthanLibrary.Common
             return m.Success;
         }
 
-        #endregion
+        #endregion 中文检测
 
-        #endregion
+        #endregion 字符串类型验证
 
         #region 字符串功能验证
 
@@ -390,8 +396,7 @@ namespace EthanLibrary.Common
             return InArray(str, StringHelper.SplitString(stringarray, strsplit), caseInsensetive);
         }
 
-
-        #endregion
+        #endregion 字符串功能验证
 
         #region 逻辑判断类
 
@@ -447,9 +452,12 @@ namespace EthanLibrary.Common
             return strRet;
         }
 
-        #endregion 
+        #endregion 逻辑判断类
+
+
 
         #region 数据操作
+
         /// <summary>
         /// 去除字符串的所有空格。
         /// </summary>
@@ -538,8 +546,6 @@ namespace EthanLibrary.Common
             return b;
         }
 
-
-
         /// <summary>
         /// 判断两个字节数组是否具有相同值.
         /// </summary>
@@ -573,7 +579,6 @@ namespace EthanLibrary.Common
                 }
             }
         }
-
 
         /// <summary>
         /// 日期智能生成。
@@ -627,8 +632,6 @@ namespace EthanLibrary.Common
             }
         }
 
-
-
         /// <summary>
         /// 查找文件中是否存在匹配行。
         /// </summary>
@@ -674,7 +677,6 @@ namespace EthanLibrary.Common
             return b;
         }
 
-
         /// <summary>
         /// 判断父子级关系是否正确。
         /// </summary>
@@ -690,7 +692,6 @@ namespace EthanLibrary.Common
             SearchChild(array, table, columnName, parentColumnName, inputString, compareString);
             return array.Count == 0;
         }
-
 
         // 内部方法
         private static void SearchChild(ArrayList array, DataTable table, string columnName, string parentColumnName, string inputString, string compareString)
@@ -712,13 +713,12 @@ namespace EthanLibrary.Common
             }
         }
 
-        #endregion
-
+        #endregion 数据操作
 
         #region 日期类型格式验证
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public static bool IsTime(string timeval)
@@ -752,7 +752,6 @@ namespace EthanLibrary.Common
                     cs = c[i];
                     break;
                 }
-
             };
 
             if (cs != "")
@@ -775,7 +774,6 @@ namespace EthanLibrary.Common
             {
                 return false;
             }
-
         }
 
         /// <summary>
@@ -794,8 +792,6 @@ namespace EthanLibrary.Common
             if (iday > DateUtil.GetDaysOfMonth(iyear, imonth) || iday < 1) { return false; };
             return true;
         }
-
-
 
         /// <summary>
         /// 判断输入的字符是否为日期
@@ -816,8 +812,9 @@ namespace EthanLibrary.Common
         {
             return Regex.IsMatch(strValue, @"^(19[0-9]{2}|[2-9][0-9]{3})-((0(1|3|5|7|8)|10|12)-(0[1-9]|1[0-9]|2[0-9]|3[0-1])|(0(4|6|9)|11)-(0[1-9]|1[0-9]|2[0-9]|30)|(02)-(0[1-9]|1[0-9]|2[0-9]))\x20(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){1}$");
         }
-    
+
         #region 验证日期是否合法
+
         /// <summary>
         /// 验证日期是否合法,对不规则的作了简单处理
         /// </summary>
@@ -859,6 +856,7 @@ namespace EthanLibrary.Common
                 }
 
                 #region 对纯数字进行解析
+
                 //对8位纯数字进行解析
                 if (date.Length == 8)
                 {
@@ -938,14 +936,16 @@ namespace EthanLibrary.Common
                     date = Convert.ToDateTime(year).ToString("d");
                     return true;
                 }
-                #endregion
+
+                #endregion 对纯数字进行解析
 
                 return false;
             }
         }
-        #endregion
 
-        #endregion
+        #endregion 验证日期是否合法
+
+        #endregion 日期类型格式验证
 
         #region 合并数组
 
@@ -980,7 +980,6 @@ namespace EthanLibrary.Common
             return Join<string>(list, c);
         }
 
-
         /// <summary>
         /// 合并数组 分割符
         /// </summary>
@@ -1008,10 +1007,10 @@ namespace EthanLibrary.Common
             return string.Empty;
         }
 
-
-        #endregion
+        #endregion 合并数组
 
         #region 身份证号码验证
+
         ///// <summary>
         ///// 验证身份证是否合法  15 和  18位两种
         ///// </summary>
@@ -1058,7 +1057,6 @@ namespace EthanLibrary.Common
                 return false;
             }
         }
-
 
         /// <summary>
         /// 验证15位身份证号
@@ -1126,19 +1124,19 @@ namespace EthanLibrary.Common
             return true;//符合15位身份证标准
         }
 
-        #endregion
+        #endregion 身份证号码验证
 
-        #region  验证EMail是否合法
+        #region 验证EMail是否合法
 
-        /// <summary> 
-        /// 检查邮件正确性 
-        /// </summary> 
-        /// <param name="inputEmail">输入的邮件地址</param> 
-        /// <returns>返回BOOL值</returns> 
+        /// <summary>
+        /// 检查邮件正确性
+        /// </summary>
+        /// <param name="inputEmail">输入的邮件地址</param>
+        /// <returns>返回BOOL值</returns>
         public static bool IsEmail(string inputEmail)
         {
             //string strRegex = @"^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$";
-            //string strRegex = "^[\\w-]+@[\\w-]+\\.(com|net|org|edu|mil|tv|biz|info)$";//w 英文字母或数字的字符串，和 [a-zA-Z0-9] 语法一样 
+            //string strRegex = "^[\\w-]+@[\\w-]+\\.(com|net|org|edu|mil|tv|biz|info)$";//w 英文字母或数字的字符串，和 [a-zA-Z0-9] 语法一样
 
             string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
             Regex re = new Regex(strRegex);
@@ -1147,15 +1145,17 @@ namespace EthanLibrary.Common
             else
                 return (false);
         }
-        #endregion
+
+        #endregion 验证EMail是否合法
 
         #region IP地址验证
 
         #region 验证IP地址是否合法
+
         /// <summary>
         /// 验证IP地址是否合法
         /// </summary>
-        /// <param name="ip">要验证的IP地址</param>        
+        /// <param name="ip">要验证的IP地址</param>
         public static bool IsIP(string ip)
         {
             //如果为空，认为验证合格
@@ -1170,12 +1170,12 @@ namespace EthanLibrary.Common
             //验证
             return Regex.IsMatch(ip, pattern);
             //return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){2}((2[0-4]\d|25[0-5]|[01]?\d\d?|\*)\.)(2[0-4]\d|25[0-5]|[01]?\d\d?|\*)$");
-
         }
 
-        #endregion
+        #endregion 验证IP地址是否合法
 
         #region 返回指定IP是否在指定的IP数组所限定的范围内
+
         /// <summary>
         /// 返回指定IP是否在指定的IP数组所限定的范围内, IP数组内的IP地址可以使用*表示该IP段任意, 例如192.168.1.*
         /// </summary>
@@ -1184,7 +1184,6 @@ namespace EthanLibrary.Common
         /// <returns></returns>
         public static bool InIPArray(string ip, string[] iparray)
         {
-
             string[] userip = StringHelper.SplitString(ip, @".");
             for (int ipIndex = 0; ipIndex < iparray.Length; ipIndex++)
             {
@@ -1212,22 +1211,18 @@ namespace EthanLibrary.Common
                     {
                         break;
                     }
-
                 }
                 if (r == 4)
                 {
                     return true;
                 }
-
-
             }
             return false;
-
         }
-        #endregion
 
-        #endregion
+        #endregion 返回指定IP是否在指定的IP数组所限定的范围内
 
+        #endregion IP地址验证
 
         /// <summary>
         /// 检查Request查询字符串的键值，是否是数字，最大长度限制
@@ -1255,6 +1250,7 @@ namespace EthanLibrary.Common
                 retVal = string.Empty;
             return retVal;
         }
+
         public static string SqlText(string sqlInput, int maxLength)
         {
             if (sqlInput != null && sqlInput != string.Empty)

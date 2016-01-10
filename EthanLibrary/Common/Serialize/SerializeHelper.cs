@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
+//using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-//using System.Runtime.Serialization.Json;
-using System.Runtime.Serialization.Formatters.Soap;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace EthanLibrary.Common
 {
@@ -15,6 +16,7 @@ namespace EthanLibrary.Common
         { }
 
         #region XML序列化
+
         /// <summary>
         /// 文件化XML序列化
         /// </summary>
@@ -90,9 +92,11 @@ namespace EthanLibrary.Common
                 return (T)serializer.Deserialize(reader);
             }
         }
-        #endregion
+
+        #endregion XML序列化
 
         #region Json序列化
+
         /// <summary>
         /// JsonSerializer序列化
         /// </summary>
@@ -119,9 +123,11 @@ namespace EthanLibrary.Common
         //        return serializer.ReadObject(ms) as T;
         //    }
         //}
-        #endregion
+
+        #endregion Json序列化
 
         #region SoapFormatter序列化
+
         /// <summary>
         /// SoapFormatter序列化
         /// </summary>
@@ -155,9 +161,11 @@ namespace EthanLibrary.Common
                 return (T)formatter.Deserialize(ms);
             }
         }
-        #endregion
+
+        #endregion SoapFormatter序列化
 
         #region BinaryFormatter序列化
+
         /// <summary>
         /// BinaryFormatter序列化
         /// </summary>
@@ -198,7 +206,8 @@ namespace EthanLibrary.Common
                 return (T)formatter.Deserialize(ms);
             }
         }
-        #endregion
+
+        #endregion BinaryFormatter序列化
 
         /// <summary>
         /// 获取对象序列化的二进制版本

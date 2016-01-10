@@ -8,7 +8,7 @@ using System.Threading;
 namespace EmailHelp
 {
     /// <summary>
-    /// This class represents a generic Pop3 command and 
+    /// This class represents a generic Pop3 command and
     /// encapsulates the major operations when executing a
     /// Pop3 command against a Pop3 Server.
     /// </summary>
@@ -35,19 +35,22 @@ namespace EmailHelp
         private MemoryStream _responseContents;
 
         private Pop3State _validExecuteState;
+
         public Pop3State ValidExecuteState
         {
             get { return _validExecuteState; }
         }
 
         private Stream _networkStream;
+
         public Stream NetworkStream
         {
             get { return _networkStream; }
             set { _networkStream = value; }
         }
 
-        bool _isMultiline;
+        private bool _isMultiline;
+
         /// <summary>
         /// Sets a value indicating whether this instance is multiline.
         /// </summary>
@@ -88,8 +91,8 @@ namespace EmailHelp
         }
 
         /// <summary>
-        /// Abstract method intended for inheritors to 
-        /// build out the byte[] request message for 
+        /// Abstract method intended for inheritors to
+        /// build out the byte[] request message for
         /// the specific command.
         /// </summary>
         /// <returns>The byte[] containing the request message.</returns>
@@ -256,7 +259,6 @@ namespace EmailHelp
             }
         }
 
-
         /// <summary>
         /// Gets the request message.
         /// </summary>
@@ -299,9 +301,9 @@ namespace EmailHelp
                     {
                         line = reader.ReadLine();
 
-                        //pop3 protocol states if a line starts w/ a 
+                        //pop3 protocol states if a line starts w/ a
                         //'.' that line will be byte stuffed w/ a '.'
-                        //if it is byte stuffed the remove the byte, 
+                        //if it is byte stuffed the remove the byte,
                         //otherwise we have reached the end of the message.
                         if (line.StartsWith(MessageTerminator))
                         {
@@ -314,9 +316,7 @@ namespace EmailHelp
                         }
 
                         lines.Add(line);
-
                     } while (true);
-
                 }
                 catch (IOException e)
                 {

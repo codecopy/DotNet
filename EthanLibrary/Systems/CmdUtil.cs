@@ -1,37 +1,35 @@
 ﻿/**********************************************
  * 类作用：   执行命令类
  * 建立人：   abaal
- * 建立时间： 2008-09-03 
+ * 建立时间： 2008-09-03
  * Copyright (C) 2007-2008 abaal
  * All rights reserved
  * http://blog.csdn.net/abaal888
  ***********************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
 
-
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// 执行命令
     /// </summary>
     public class CmdUtil
     {
-        /// 
+        ///
         /// 执行cmd.exe命令
-        /// 
+        ///
         ///命令文本
         /// 命令输出文本
         public static string ExeCommand(string commandText)
         {
             return ExeCommand(new string[] { commandText });
         }
-        /// 
+
+        ///
         /// 执行多条cmd.exe命令
-        /// 
+        ///
         ///命令文本数组
         /// 命令输出文本
         public static string ExeCommand(string[] commandTexts)
@@ -63,18 +61,20 @@ namespace Core.Systems
             }
             return strOutput;
         }
-        /// 
+
+        ///
         /// 启动外部Windows应用程序，隐藏程序界面
-        /// 
+        ///
         ///应用程序路径名称
         /// true表示成功，false表示失败
         public static bool StartApp(string appName)
         {
             return StartApp(appName, ProcessWindowStyle.Hidden);
         }
-        /// 
+
+        ///
         /// 启动外部应用程序
-        /// 
+        ///
         ///应用程序路径名称
         ///进程窗口模式
         /// true表示成功，false表示失败
@@ -82,9 +82,10 @@ namespace Core.Systems
         {
             return StartApp(appName, null, style);
         }
-        /// 
+
+        ///
         /// 启动外部应用程序，隐藏程序界面
-        /// 
+        ///
         ///应用程序路径名称
         ///启动参数
         /// true表示成功，false表示失败
@@ -92,9 +93,10 @@ namespace Core.Systems
         {
             return StartApp(appName, arguments, ProcessWindowStyle.Hidden);
         }
-        /// 
+
+        ///
         /// 启动外部应用程序
-        /// 
+        ///
         ///应用程序路径名称
         ///启动参数
         ///进程窗口模式
@@ -119,11 +121,11 @@ namespace Core.Systems
             return blnRst;
         }
 
-       /// <summary>
-       /// 实现压缩，需要rar.exe上传到网站根目录
-       /// </summary>
-       /// <param name="s"></param>
-       /// <param name="d"></param>
+        /// <summary>
+        /// 实现压缩，需要rar.exe上传到网站根目录
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="d"></param>
         /// <example>rar("e:/www.svnhost.cn/", "e:/www.svnhost.cn.rar");</example>
         public static void Rar(string s, string d)
         {
@@ -140,7 +142,5 @@ namespace Core.Systems
         {
             ExeCommand(System.Web.HttpContext.Current.Server.MapPath("~/rar.exe") + " x \"" + s + "\" \"" + d + "\" -o+");
         }
-
     }
-
 }

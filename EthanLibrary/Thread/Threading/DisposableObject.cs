@@ -1,15 +1,16 @@
 ﻿using System;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
-    /// Class that implements <see cref="T:System.IDisposable"/> to provide disposing 
+    /// Class that implements <see cref="T:System.IDisposable"/> to provide disposing
     /// functions to inherited classes.
     /// </summary>
     [Serializable()]
     public abstract class DisposableObject : IDisposable
     {
         #region Destructors & IDisposable Members
+
         /// <summary>
         /// This is called when the object is garbage collected unless the Dispose() method is called.
         /// </summary>
@@ -27,7 +28,7 @@ namespace Core.Threads
             this.Dispose(true);
         }
 
-        #endregion
+        #endregion Destructors & IDisposable Members
 
         #region Fields & Properties
 
@@ -41,8 +42,6 @@ namespace Core.Threads
         /// </summary>
         public event EventHandler Disposed;
 
-
-
         /// <summary>
         /// Get Whether Object is Disposed.
         /// </summary>
@@ -50,7 +49,6 @@ namespace Core.Threads
         public bool IsDisposed
         {
             get { return (this._disposeState == DisposeState.Disposed); }
-
         }
 
         /// <summary>
@@ -61,12 +59,13 @@ namespace Core.Threads
         {
             get { return (this._disposeState == DisposeState.Disposing); }
         }
-        #endregion
+
+        #endregion Fields & Properties
 
         #region Methods
 
         /// <summary>
-        /// Method for checking the disposed flag and raising the 
+        /// Method for checking the disposed flag and raising the
         /// <see cref="T:System.ObjectDisposedException"/> exception
         /// </summary>
         /// <exception cref="T:System.ObjectDisposedException">
@@ -85,8 +84,8 @@ namespace Core.Threads
         /// </summary>
         /// <remarks>
         /// 	<note type="inheritinfo">
-        ///        When overriding <see ref="M:SmartCore.DisposableObject.OnDisposed"/>
-        /// 	   in a derived class, be sure to call the base class's 
+        ///        When overriding <see ref="M:SmartEthanLibrary.DisposableObject.OnDisposed"/>
+        /// 	   in a derived class, be sure to call the base class's
         /// 	   <see cref="DisposableObject.OnDisposed"/> method so that
         /// 	   registered delegates receive the event.
         /// 	</note>
@@ -99,8 +98,6 @@ namespace Core.Threads
                 this.Disposed(this, EventArgs.Empty);
             }
         }
-
-  
 
         /// <summary>
         /// Override This Method To Dispose Unmanaged Resources.
@@ -126,11 +123,10 @@ namespace Core.Threads
 
                 try
                 {
-                    //If disposing equals true, dispose all managed 
+                    //If disposing equals true, dispose all managed
                     // and unmanaged resources.
                     if (disposing)
                     {
-                      
                         this.DisposeManagedResources();
                         this.DisposeUnmanagedResources();
                         this._disposeState = DisposeState.Disposed;
@@ -151,6 +147,6 @@ namespace Core.Threads
             }
         }
 
-        #endregion
+        #endregion Methods
     }
 }

@@ -16,7 +16,7 @@ namespace EthanLibrary.Collections
     internal class SyncOrderedDictionary<TKey, TValue> : OrderedDictionary<TKey, TValue>
     {
         /// <summary>
-        /// Gets the value associated with the specified key. 
+        /// Gets the value associated with the specified key.
         /// </summary>
         /// <param name="key">The key of the value to get.</param>
         /// <param name="value">When this method returns, ContainsKey the value associated with the specified key, if the key is found; otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.</param>
@@ -31,8 +31,6 @@ namespace EthanLibrary.Collections
 
             return flag;
         }
-
-
 
         /// <summary>Gets or sets the value associated with the specified key.</summary>
         /// <returns>The value associated with the specified key. If the specified key is not found, a get operation throws a <see cref="System.Collections.Generic.KeyNotFoundException"></see>, and a set operation creates a new element with the specified key.</returns>
@@ -86,10 +84,8 @@ namespace EthanLibrary.Collections
                     keys = this.dictionarytable.Keys;
                 }
                 return keys;
-
             }
         }
-
 
         /// <summary>Gets a collection containing the values in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</summary>
         /// <returns>A <see cref="System.Collections.Generic.Dictionary{TKey, TValue}.ValueCollection"></see> containing the values in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</returns>
@@ -99,13 +95,11 @@ namespace EthanLibrary.Collections
             {
                 ICollection<TValue> collection;
 
-
                 lock (this.dictionarytable)
                 {
                     collection = this.dictionarytable.Values;
                 }
                 return collection;
-
             }
         }
 
@@ -124,8 +118,6 @@ namespace EthanLibrary.Collections
             }
         }
 
-
-
         /// <summary>Gets the number of key/value pairs contained in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</summary>
         /// <returns>The number of key/value pairs contained in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</returns>
         public override int Count
@@ -133,9 +125,9 @@ namespace EthanLibrary.Collections
             get
             {
                 return this.dictionarytable.Count;
-
             }
         }
+
         /// <summary>Removes the value with the specified key from the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</summary>
         /// <returns>true if the element is successfully found and removed; otherwise, false.  This method returns false if key is not found in the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</returns>
         /// <param name="key">The key of the element to remove.</param>
@@ -146,7 +138,6 @@ namespace EthanLibrary.Collections
             {
                 return this.dictionarytable.Remove(key);
             }
-
         } // Remove
 
         /// <summary>Returns an enumerator that iterates through the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see>.</summary>
@@ -164,7 +155,6 @@ namespace EthanLibrary.Collections
 
         private OrderedDictionary<TKey, TValue> dictionarytable;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SyncOrderedDictionary{TKey, TValue}"/> class.
         /// </summary>
@@ -173,7 +163,6 @@ namespace EthanLibrary.Collections
         {
             this.dictionarytable = dictionary;
         }
-
 
         /// <summary>
         /// Adds the specified key and value to the dictionarytable.
@@ -230,9 +219,8 @@ namespace EthanLibrary.Collections
             info.AddValue("ParentTable", this.dictionarytable, typeof(Dictionary<TKey, TValue>));
         }
 
-
         /// <summary>
-        /// Copies the elements of the ICollection to an array of type KeyValuePair, starting at the specified array index. 
+        /// Copies the elements of the ICollection to an array of type KeyValuePair, starting at the specified array index.
         /// </summary>
         /// <param name="array">The one-dimensional array of type KeyValuePair that is the destination of the KeyValuePair elements copied from the ICollection. The array must have zero-based indexing.</param>
         /// <param name="index">The zero-based index in array at which copying begins.</param>
@@ -242,9 +230,7 @@ namespace EthanLibrary.Collections
             {
                 this.dictionarytable.CopyTo(array, index);
             }
-
         } // CopyTo
-
 
         /// <summary>
         /// Implements the <see cref="System.Runtime.Serialization.ISerializable"></see> interface and raises the deserialization event when the deserialization is complete.
@@ -268,8 +254,6 @@ namespace EthanLibrary.Collections
             return this.dictionarytable.ContainsKey(key);
         } // ContainsKey
 
-
-
         /// <summary>
         /// Determines whether the <see cref="System.Collections.Generic.Dictionary{TKey, TValue}"></see> ContainsKey a specific value.
         /// </summary>
@@ -286,7 +270,7 @@ namespace EthanLibrary.Collections
             }
             return flag;
         } // ContainsValue
+    } // class SyncOrderedList
 
-    } // class SyncOrderedList 
-    #endregion
+    #endregion SyncOrderedList
 }

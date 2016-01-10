@@ -1,8 +1,8 @@
-using System.Xml;
-using System.IO;
 using System;
+using System.IO;
+using System.Xml;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
     /// 用于获取或设置Web.config/*.exe.config中节点数据的辅助类
@@ -51,14 +51,14 @@ namespace Core.DBUtility
         public void AppConfigSet(string keyName, string keyValue)
         {
             //由于存在多个Add键值，使得访问appSetting的操作不成功，故注释下面语句，改用新的方式
-            /* 
+            /*
             string xpath = "//add[@key='" + keyName + "']";
             XmlDocument document = new XmlDocument();
             document.Load(filePath);
 
             XmlNode node = document.SelectSingleNode(xpath);
             node.Attributes["value"].Value = keyValue;
-            document.Save(filePath); 
+            document.Save(filePath);
              */
 
             XmlDocument document = new XmlDocument();
@@ -254,7 +254,7 @@ namespace Core.DBUtility
                 }
             }
             catch
-            { ; }
+            {; }
 
             return strReturn;
         }
@@ -280,7 +280,6 @@ namespace Core.DBUtility
             SetConnectionString(keyName, databaseInfo.ConnectionString);
         }
 
-        #endregion
+        #endregion 一些常用的配置项属性
     }
-
 }

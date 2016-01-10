@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EthanLibrary.Common
 {
     public class MyDateTime
     {
         private DateTime dt = DateTime.Now;
-       
-    
+
         /// <summary>
         /// 哪天
         /// </summary>
@@ -30,6 +27,7 @@ namespace EthanLibrary.Common
             int week = weeks ?? 0;
             return dt.AddDays(Convert.ToDouble((0 - Convert.ToInt16(dt.DayOfWeek))) + 7 * week).ToShortDateString();
         }
+
         /// <summary>
         /// 周六
         /// </summary>
@@ -40,6 +38,7 @@ namespace EthanLibrary.Common
             int week = weeks ?? 0;
             return dt.AddDays(Convert.ToDouble((6 - Convert.ToInt16(dt.DayOfWeek))) + 7 * week).ToShortDateString();
         }
+
         /// <summary>
         /// 月第一天
         /// </summary>
@@ -50,6 +49,7 @@ namespace EthanLibrary.Common
             int month = months ?? 0;
             return DateTime.Parse(DateTime.Now.ToString("yyyy-MM-01")).AddMonths(month).ToShortDateString();
         }
+
         /// <summary>
         /// 月最后一天
         /// </summary>
@@ -60,6 +60,7 @@ namespace EthanLibrary.Common
             int month = months ?? 0;
             return DateTime.Parse(dt.ToString("yyyy-MM-01")).AddMonths(month).AddDays(-1).ToShortDateString();
         }
+
         /// <summary>
         /// 年度第一天
         /// </summary>
@@ -70,6 +71,7 @@ namespace EthanLibrary.Common
             int year = years ?? 0;
             return DateTime.Parse(dt.ToString("yyyy-01-01")).AddYears(year).ToShortDateString();
         }
+
         /// <summary>
         /// 年度最后一天
         /// </summary>
@@ -80,6 +82,7 @@ namespace EthanLibrary.Common
             int year = years ?? 0;
             return DateTime.Parse(dt.ToString("yyyy-01-01")).AddYears(year).AddDays(-1).ToShortDateString();
         }
+
         /// <summary>
         /// 季度第一天
         /// </summary>
@@ -90,6 +93,7 @@ namespace EthanLibrary.Common
             int quarter = quarters ?? 0;
             return dt.AddMonths(quarter * 3 - ((dt.Month - 1) % 3)).ToString("yyyy-MM-01");
         }
+
         /// <summary>
         /// 季度最后一天
         /// </summary>
@@ -100,6 +104,7 @@ namespace EthanLibrary.Common
             int quarter = quarters ?? 0;
             return DateTime.Parse(dt.AddMonths(quarter * 3 - ((dt.Month - 1) % 3)).ToString("yyyy-MM-01")).AddDays(-1).ToShortDateString();
         }
+
         /// <summary>
         /// 中文星期
         /// </summary>
@@ -109,6 +114,7 @@ namespace EthanLibrary.Common
             string[] Day = new string[] { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
             return Day[Convert.ToInt16(dt.DayOfWeek)];
         }
+
         /// <summary>
         /// 获取星期数字形式,周一开始
         /// </summary>
@@ -121,6 +127,7 @@ namespace EthanLibrary.Common
     }
 
     #region MyRegion
+
     //dt.ToString();//2005-11-5 13:21:25
     //dt.ToFileTime().ToString();//127756416859912816
     //dt.ToFileTimeUtc().ToString();//127756704859912816
@@ -186,6 +193,7 @@ namespace EthanLibrary.Common
     //string.Format("{0:U}",dt);//2005年11月5日 6:23:23
     //string.Format("{0:Y}",dt);//2005年11月
     //string.Format("{0}",dt);//2005-11-5 14:23:23
-    //string.Format("{0:yyyyMMddHHmmssffff}",dt); 
-    #endregion
+    //string.Format("{0:yyyyMMddHHmmssffff}",dt);
+
+    #endregion MyRegion
 }

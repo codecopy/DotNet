@@ -1,12 +1,8 @@
-using System;
-using System.Data;
-using System.Data.Common;
-
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
-    /// <summary> 
+    /// <summary>
     /// 根据各种不同数据库生成不同分页语句的辅助类 PagerHelper
-    /// </summary> 
+    /// </summary>
     public class PagerHelper
     {
         #region 成员变量
@@ -19,7 +15,7 @@ namespace Core.DBUtility
         private bool isDescending = false;//是否以降序排列
         private string strwhere = string.Empty;//检索条件(注意: 不要加 where)
 
-        #endregion
+        #endregion 成员变量
 
         #region 属性对象
 
@@ -105,7 +101,7 @@ namespace Core.DBUtility
             }
         }
 
-        #endregion
+        #endregion 属性对象
 
         #region 构造函数
 
@@ -139,7 +135,7 @@ namespace Core.DBUtility
             this.strwhere = strwhere;
         }
 
-        #endregion
+        #endregion 构造函数
 
         /// <summary>
         /// 不依赖于存储过程的分页(Oracle)
@@ -252,7 +248,7 @@ namespace Core.DBUtility
             }
             else
             {
-                //SELECT * FROM 表名称 LIMIT M,N 
+                //SELECT * FROM 表名称 LIMIT M,N
                 string strOrder = string.Format(" order by {0} {1}", this.fieldNameToSort, this.isDescending ? "DESC" : "ASC");
 
                 int minRow = pageSize * (pageIndex - 1);
@@ -277,12 +273,15 @@ namespace Core.DBUtility
                 case DatabaseType.Access:
                     sql = GetAccessSql(isDoCount);
                     break;
+
                 case DatabaseType.SqlServer:
                     sql = GetSqlServerSql(isDoCount);
                     break;
+
                 case DatabaseType.Oracle:
                     sql = GetOracleSql(isDoCount);
                     break;
+
                 case DatabaseType.MySql:
                     sql = GetMySqlSql(isDoCount);
                     break;
@@ -292,4 +291,4 @@ namespace Core.DBUtility
     }
 
     public enum DatabaseType { SqlServer, Oracle, Access, MySql }
-} 
+}

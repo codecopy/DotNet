@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
     /// Used internally to call delegate in Thread Pool
@@ -20,6 +20,5 @@ namespace Core.Threads
             Target = target;
             Arguments = args;
         }
-
     }
 }

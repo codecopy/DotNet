@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Globalization;
+using System.Threading;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     public class ThreadHelper
     {
@@ -50,7 +48,7 @@ namespace Core.Threads
             }
             catch (Exception ex)
             {
-               // LogHelper.Error(string.Format("Error setting UICulture: {0}", cultureName), ex);
+                // LogHelper.Error(string.Format("Error setting UICulture: {0}", cultureName), ex);
             }
         }
 
@@ -78,7 +76,7 @@ namespace Core.Threads
         /// <returns></returns>
         public static bool Queue(WaitCallback callBack, string threadName, object state, ThreadPriority priority)
         {
-            WaitCallback start = delegate(object _state)
+            WaitCallback start = delegate (object _state)
             {
                 SetThreadName(threadName);
 

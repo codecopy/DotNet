@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace EthanLibrary.Common
-{  
+{
     /// <summary>
     /// 中国日历
-    /// </summary>          
+    /// </summary>
     //-------------------------------------------------------------------------------
     //调用:
     //CNDateHelper c = new CNDateHelper(new DateTime(1990, 01, 15));
@@ -25,13 +22,14 @@ namespace EthanLibrary.Common
     //dayInfo.Append("星宿：" + c.ChineseConstellation + "\r\n");
     //dayInfo.Append("星座：" + c.Constellation + "\r\n");
     //-------------------------------------------------------------------------------
-    public  class CNDateHelper
+    public class CNDateHelper
     {
         public CNDateHelper()
         {
-            
         }
+
         #region 内部变量
+
         private DateTime _date;
         private DateTime _datetime;
         private int _cYear;
@@ -39,11 +37,13 @@ namespace EthanLibrary.Common
         private int _cDay;
         private bool _cIsLeapMonth; //当月是否闰月
         private bool _cIsLeapYear;  //当年是否有闰月
-        #endregion
-    
+
+        #endregion 内部变量
+
         #region 内部结构
-  
+
         #region 阳历放假天数和节日
+
         /// <summary>
         /// 阳历放假天数和节日
         /// </summary>
@@ -53,6 +53,7 @@ namespace EthanLibrary.Common
             public int Day;
             public int Recess; //假期长度
             public string HolidayName;
+
             public SolarHolidayStruct(int month, int day, int recess, string name)
             {
                 Month = month;
@@ -61,9 +62,11 @@ namespace EthanLibrary.Common
                 HolidayName = name;
             }
         }
-        #endregion
-    
+
+        #endregion 阳历放假天数和节日
+
         #region 农历放假天数和节日
+
         /// <summary>
         /// 农历放假天数和节日
         /// </summary>
@@ -82,9 +85,11 @@ namespace EthanLibrary.Common
                 HolidayName = name;
             }
         }
-        #endregion
+
+        #endregion 农历放假天数和节日
 
         #region 按某月第几个星期几放假天数和节日
+
         /// <summary>
         ///  按某月第几个星期几放假天数和节日
         /// </summary>
@@ -103,13 +108,15 @@ namespace EthanLibrary.Common
                 HolidayName = name;
             }
         }
-        #endregion
-        
-        #endregion
+
+        #endregion 按某月第几个星期几放假天数和节日
+
+        #endregion 内部结构
 
         #region 基础数据
 
         #region 基本常量
+
         private const int MinYear = 1900;
         private const int MaxYear = 2050;
         private static DateTime MinDay = new DateTime(1900, 1, 30);
@@ -119,9 +126,11 @@ namespace EthanLibrary.Common
         private const string HZNum = "零一二三四五六七八九";
         private const int AnimalStartYear = 1900; //1900年为鼠年
         private static DateTime ChineseConstellationReferDay = new DateTime(2007, 9, 13);//28星宿参考值,本日为角
-        #endregion
+
+        #endregion 基本常量
 
         #region 阴历数据
+
         /// <summary>
         /// 来源于网上的农历数据
         /// </summary>
@@ -147,62 +156,74 @@ namespace EthanLibrary.Common
                 0x07954,0x06AA0,0x0AD50,0x05B52,0x04B60,0x0A6E6,0x0A4E0,0x0D260,0x0EA65,0x0D530,
                 0x05AA0,0x076A3,0x096D0,0x04BD7,0x04AD0,0x0A4D0,0x1D0B6,0x0D250,0x0D520,0x0DD45,
                 0x0B5A0,0x056D0,0x055B2,0x049B0,0x0A577,0x0A4B0,0x0AA50,0x1B255,0x06D20,0x0ADA0,
-                0x14B63        
+                0x14B63
                 };
 
-        #endregion
+        #endregion 阴历数据
 
         #region 星座名称
-        private static string[] _constellationName = 
-                { 
-                    "白羊座", "金牛座", "双子座", 
-                    "巨蟹座", "狮子座", "处女座", 
-                    "天秤座", "天蝎座", "射手座", 
+
+        private static string[] _constellationName =
+                {
+                    "白羊座", "金牛座", "双子座",
+                    "巨蟹座", "狮子座", "处女座",
+                    "天秤座", "天蝎座", "射手座",
                     "摩羯座", "水瓶座", "双鱼座"
                 };
-        #endregion
+
+        #endregion 星座名称
 
         #region 二十四节气
-        private static string[] _lunarHolidayName = 
-                    { 
-                    "小寒", "大寒", "立春", "雨水", 
-                    "惊蛰", "春分", "清明", "谷雨", 
-                    "立夏", "小满", "芒种", "夏至", 
-                    "小暑", "大暑", "立秋", "处暑", 
-                    "白露", "秋分", "寒露", "霜降", 
+
+        private static string[] _lunarHolidayName =
+                    {
+                    "小寒", "大寒", "立春", "雨水",
+                    "惊蛰", "春分", "清明", "谷雨",
+                    "立夏", "小满", "芒种", "夏至",
+                    "小暑", "大暑", "立秋", "处暑",
+                    "白露", "秋分", "寒露", "霜降",
                     "立冬", "小雪", "大雪", "冬至"
                     };
-        #endregion
+
+        #endregion 二十四节气
 
         #region 二十八星宿
+
         private static string[] _chineseConstellationName =
             {
-                  //四       五      六        日      一        二      三  
+                  //四       五      六        日      一        二      三
                 "角木蛟","亢金龙","女土蝠","房日兔","心月狐","尾火虎","箕水豹",
                 "斗木獬","牛金牛","氐土貉","虚日鼠","危月燕","室火猪","壁水獝",
                 "奎木狼","娄金狗","胃土彘","昴日鸡","毕月乌","觜火猴","参水猿",
-                "井木犴","鬼金羊","柳土獐","星日马","张月鹿","翼火蛇","轸水蚓" 
+                "井木犴","鬼金羊","柳土獐","星日马","张月鹿","翼火蛇","轸水蚓"
             };
-        #endregion
+
+        #endregion 二十八星宿
 
         #region 节气数据
+
         private static string[] SolarTerm = new string[] { "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至" };
         private static int[] sTermInfo = new int[] { 0, 21208, 42467, 63836, 85337, 107014, 128867, 150921, 173149, 195551, 218072, 240693, 263343, 285989, 308563, 331033, 353350, 375494, 397447, 419210, 440795, 462224, 483532, 504758 };
-        #endregion
+
+        #endregion 节气数据
 
         #region 农历相关数据
+
         private static string ganStr = "甲乙丙丁戊己庚辛壬癸";
         private static string zhiStr = "子丑寅卯辰巳午未申酉戌亥";
         private static string animalStr = "鼠牛虎兔龙蛇马羊猴鸡狗猪";
         private static string nStr1 = "日一二三四五六七八九";
         private static string nStr2 = "初十廿卅";
+
         private static string[] _monthString =
                 {
                     "出错","正月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","腊月"
                 };
-        #endregion
+
+        #endregion 农历相关数据
 
         #region 按公历计算的节日
+
         private static SolarHolidayStruct[] sHolidayInfo = new SolarHolidayStruct[]{
             new SolarHolidayStruct(1, 1, 1, "元旦"),
             new SolarHolidayStruct(2, 2, 0, "世界湿地日"),
@@ -210,8 +231,8 @@ namespace EthanLibrary.Common
             new SolarHolidayStruct(2, 14, 0, "情人节"),
             new SolarHolidayStruct(3, 1, 0, "国际海豹日"),
             new SolarHolidayStruct(3, 5, 0, "学雷锋纪念日"),
-            new SolarHolidayStruct(3, 8, 0, "妇女节"), 
-            new SolarHolidayStruct(3, 12, 0, "植树节 孙中山逝世纪念日"), 
+            new SolarHolidayStruct(3, 8, 0, "妇女节"),
+            new SolarHolidayStruct(3, 12, 0, "植树节 孙中山逝世纪念日"),
             new SolarHolidayStruct(3, 14, 0, "国际警察日"),
             new SolarHolidayStruct(3, 15, 0, "消费者权益日"),
             new SolarHolidayStruct(3, 17, 0, "中国国医节 国际航海日"),
@@ -221,23 +242,23 @@ namespace EthanLibrary.Common
             new SolarHolidayStruct(4, 1, 0, "愚人节"),
             new SolarHolidayStruct(4, 7, 0, "世界卫生日"),
             new SolarHolidayStruct(4, 22, 0, "世界地球日"),
-            new SolarHolidayStruct(5, 1, 1, "劳动节"), 
+            new SolarHolidayStruct(5, 1, 1, "劳动节"),
             new SolarHolidayStruct(5, 2, 1, "劳动节假日"),
             new SolarHolidayStruct(5, 3, 1, "劳动节假日"),
-            new SolarHolidayStruct(5, 4, 0, "青年节"), 
+            new SolarHolidayStruct(5, 4, 0, "青年节"),
             new SolarHolidayStruct(5, 8, 0, "世界红十字日"),
-            new SolarHolidayStruct(5, 12, 0, "国际护士节"), 
-            new SolarHolidayStruct(5, 31, 0, "世界无烟日"), 
-            new SolarHolidayStruct(6, 1, 0, "国际儿童节"), 
+            new SolarHolidayStruct(5, 12, 0, "国际护士节"),
+            new SolarHolidayStruct(5, 31, 0, "世界无烟日"),
+            new SolarHolidayStruct(6, 1, 0, "国际儿童节"),
             new SolarHolidayStruct(6, 5, 0, "世界环境保护日"),
             new SolarHolidayStruct(6, 26, 0, "国际禁毒日"),
             new SolarHolidayStruct(7, 1, 0, "建党节 香港回归纪念 世界建筑日"),
             new SolarHolidayStruct(7, 11, 0, "世界人口日"),
-            new SolarHolidayStruct(8, 1, 0, "建军节"), 
+            new SolarHolidayStruct(8, 1, 0, "建军节"),
             new SolarHolidayStruct(8, 8, 0, "中国男子节 父亲节"),
             new SolarHolidayStruct(8, 15, 0, "抗日战争胜利纪念"),
-            new SolarHolidayStruct(9, 9, 0, "毛主席逝世纪念"), 
-            new SolarHolidayStruct(9, 10, 0, "教师节"), 
+            new SolarHolidayStruct(9, 9, 0, "毛主席逝世纪念"),
+            new SolarHolidayStruct(9, 10, 0, "教师节"),
             new SolarHolidayStruct(9, 18, 0, "九·一八事变纪念日"),
             new SolarHolidayStruct(9, 20, 0, "国际爱牙日"),
             new SolarHolidayStruct(9, 27, 0, "世界旅游日"),
@@ -245,51 +266,59 @@ namespace EthanLibrary.Common
             new SolarHolidayStruct(10, 1, 1, "国庆节 国际音乐日"),
             new SolarHolidayStruct(10, 2, 1, "国庆节假日"),
             new SolarHolidayStruct(10, 3, 1, "国庆节假日"),
-            new SolarHolidayStruct(10, 6, 0, "老人节"), 
+            new SolarHolidayStruct(10, 6, 0, "老人节"),
             new SolarHolidayStruct(10, 24, 0, "联合国日"),
             new SolarHolidayStruct(11, 10, 0, "世界青年节"),
-            new SolarHolidayStruct(11, 12, 0, "孙中山诞辰纪念"), 
-            new SolarHolidayStruct(12, 1, 0, "世界艾滋病日"), 
-            new SolarHolidayStruct(12, 3, 0, "世界残疾人日"), 
-            new SolarHolidayStruct(12, 20, 0, "澳门回归纪念"), 
-            new SolarHolidayStruct(12, 24, 0, "平安夜"), 
-            new SolarHolidayStruct(12, 25, 0, "圣诞节"), 
+            new SolarHolidayStruct(11, 12, 0, "孙中山诞辰纪念"),
+            new SolarHolidayStruct(12, 1, 0, "世界艾滋病日"),
+            new SolarHolidayStruct(12, 3, 0, "世界残疾人日"),
+            new SolarHolidayStruct(12, 20, 0, "澳门回归纪念"),
+            new SolarHolidayStruct(12, 24, 0, "平安夜"),
+            new SolarHolidayStruct(12, 25, 0, "圣诞节"),
             new SolarHolidayStruct(12, 26, 0, "毛主席诞辰纪念")
            };
-        #endregion
+
+        #endregion 按公历计算的节日
 
         #region 按农历计算的节日
+
         private static LunarHolidayStruct[] lHolidayInfo = new LunarHolidayStruct[]{
-            new LunarHolidayStruct(1, 1, 1, "春节"), 
-            new LunarHolidayStruct(1, 15, 0, "元宵节"), 
-            new LunarHolidayStruct(5, 5, 0, "端午节"), 
+            new LunarHolidayStruct(1, 1, 1, "春节"),
+            new LunarHolidayStruct(1, 15, 0, "元宵节"),
+            new LunarHolidayStruct(5, 5, 0, "端午节"),
             new LunarHolidayStruct(7, 7, 0, "七夕情人节"),
-            new LunarHolidayStruct(7, 15, 0, "中元节 盂兰盆节"), 
-            new LunarHolidayStruct(8, 15, 0, "中秋节"), 
-            new LunarHolidayStruct(9, 9, 0, "重阳节"), 
+            new LunarHolidayStruct(7, 15, 0, "中元节 盂兰盆节"),
+            new LunarHolidayStruct(8, 15, 0, "中秋节"),
+            new LunarHolidayStruct(9, 9, 0, "重阳节"),
             new LunarHolidayStruct(12, 8, 0, "腊八节"),
             new LunarHolidayStruct(12, 23, 0, "北方小年(扫房)"),
             new LunarHolidayStruct(12, 24, 0, "南方小年(掸尘)"),
             //new LunarHolidayStruct(12, 30, 0, "除夕")  //注意除夕需要其它方法进行计算
         };
-        #endregion
+
+        #endregion 按农历计算的节日
 
         #region 按某月第几个星期几
+
         private static WeekHolidayStruct[] wHolidayInfo = new WeekHolidayStruct[]{
-            new WeekHolidayStruct(5, 2, 1, "母亲节"), 
-            new WeekHolidayStruct(5, 3, 1, "全国助残日"), 
-            new WeekHolidayStruct(6, 3, 1, "父亲节"), 
-            new WeekHolidayStruct(9, 3, 3, "国际和平日"), 
-            new WeekHolidayStruct(9, 4, 1, "国际聋人节"), 
-            new WeekHolidayStruct(10, 1, 2, "国际住房日"), 
+            new WeekHolidayStruct(5, 2, 1, "母亲节"),
+            new WeekHolidayStruct(5, 3, 1, "全国助残日"),
+            new WeekHolidayStruct(6, 3, 1, "父亲节"),
+            new WeekHolidayStruct(9, 3, 3, "国际和平日"),
+            new WeekHolidayStruct(9, 4, 1, "国际聋人节"),
+            new WeekHolidayStruct(10, 1, 2, "国际住房日"),
             new WeekHolidayStruct(10, 1, 4, "国际减轻自然灾害日"),
             new WeekHolidayStruct(11, 4, 5, "感恩节")
         };
-        #endregion
-        #endregion
+
+        #endregion 按某月第几个星期几
+
+        #endregion 基础数据
 
         #region 构造函数
+
         #region 公历日期初始化
+
         /// <summary>
         /// 用一个标准的公历日期来初使化
         /// </summary>
@@ -363,9 +392,11 @@ namespace EthanLibrary.Common
             _cMonth = i;
             _cDay = offset;
         }
-        #endregion
+
+        #endregion 公历日期初始化
 
         #region 农历日期初始化
+
         /// <summary>
         /// 用农历的日期来初使化
         /// </summary>
@@ -474,11 +505,15 @@ namespace EthanLibrary.Common
             }
             _date = MinDay.AddDays(offset);
         }
-        #endregion
-        #endregion
+
+        #endregion 农历日期初始化
+
+        #endregion 构造函数
 
         #region 私有函数
+
         #region 传回农历y年m月的总天数 GetChineseMonthDays
+
         /// <summary>
         /// 传回农历y年m月的总天数
         /// </summary>
@@ -493,9 +528,11 @@ namespace EthanLibrary.Common
                 return 29;
             }
         }
-        #endregion
+
+        #endregion 传回农历y年m月的总天数 GetChineseMonthDays
 
         #region 传回农历 y年闰哪个月 1-12 , 没闰传回 0 GetChineseLeapMonth
+
         /// <summary>
         /// 传回农历 y年闰哪个月 1-12 , 没闰传回 0
         /// </summary>
@@ -503,9 +540,11 @@ namespace EthanLibrary.Common
         {
             return LunarDateArray[year - MinYear] & 0xF;
         }
-        #endregion
 
-        #region  传回农历y年闰月的天数 GetChineseLeapMonthDays
+        #endregion 传回农历 y年闰哪个月 1-12 , 没闰传回 0 GetChineseLeapMonth
+
+        #region 传回农历y年闰月的天数 GetChineseLeapMonthDays
+
         /// <summary>
         /// 传回农历y年闰月的天数
         /// </summary>
@@ -527,9 +566,11 @@ namespace EthanLibrary.Common
                 return 0;
             }
         }
-        #endregion
+
+        #endregion 传回农历y年闰月的天数 GetChineseLeapMonthDays
 
         #region 取农历年一年的天数 GetChineseYearDays
+
         /// <summary>
         /// 取农历年一年的天数
         /// </summary>
@@ -553,12 +594,14 @@ namespace EthanLibrary.Common
             }
             return sumDay + GetChineseLeapMonthDays(year);
         }
-        #endregion
+
+        #endregion 取农历年一年的天数 GetChineseYearDays
 
         #region 获得当前时间的时辰 GetChineseHour
+
         /// <summary>
         /// 获得当前时间的时辰
-        /// </summary> 
+        /// </summary>
         private string GetChineseHour(DateTime dt)
         {
             int _hour, _minute, offset, i;
@@ -587,9 +630,11 @@ namespace EthanLibrary.Common
 
             return tmpGan[offset].ToString() + zhiStr[offset].ToString();
         }
-        #endregion
+
+        #endregion 获得当前时间的时辰 GetChineseHour
 
         #region 检查公历日期是否符合要求 CheckDateLimit
+
         /// <summary>
         /// 检查公历日期是否符合要求
         /// </summary>
@@ -600,9 +645,11 @@ namespace EthanLibrary.Common
                 throw new Exception("超出可转换的日期");
             }
         }
-        #endregion
+
+        #endregion 检查公历日期是否符合要求 CheckDateLimit
 
         #region 检查农历日期是否合理 CheckChineseDateLimit
+
         /// <summary>
         /// 检查农历日期是否合理
         /// </summary>
@@ -626,9 +673,11 @@ namespace EthanLibrary.Common
                 throw new Exception("非法农历日期");
             }
         }
-        #endregion
+
+        #endregion 检查农历日期是否合理 CheckChineseDateLimit
 
         #region 将0-9转成汉字形式 ConvertNumToChineseNum
+
         /// <summary>
         /// 将0-9转成汉字形式
         /// </summary>
@@ -639,31 +688,43 @@ namespace EthanLibrary.Common
             {
                 case '0':
                     return HZNum[0].ToString();
+
                 case '1':
                     return HZNum[1].ToString();
+
                 case '2':
                     return HZNum[2].ToString();
+
                 case '3':
                     return HZNum[3].ToString();
+
                 case '4':
                     return HZNum[4].ToString();
+
                 case '5':
                     return HZNum[5].ToString();
+
                 case '6':
                     return HZNum[6].ToString();
+
                 case '7':
                     return HZNum[7].ToString();
+
                 case '8':
                     return HZNum[8].ToString();
+
                 case '9':
                     return HZNum[9].ToString();
+
                 default:
                     return "";
             }
         }
-        #endregion
+
+        #endregion 将0-9转成汉字形式 ConvertNumToChineseNum
 
         #region 测试某位是否为真 BitTest32
+
         /// <summary>
         /// 测试某位是否为真
         /// </summary>
@@ -683,9 +744,11 @@ namespace EthanLibrary.Common
                 return true;
             }
         }
-        #endregion
+
+        #endregion 测试某位是否为真 BitTest32
 
         #region 将星期几转成数字表示 ConvertDayOfWeek
+
         /// <summary>
         /// 将星期几转成数字表示
         /// </summary>
@@ -695,25 +758,34 @@ namespace EthanLibrary.Common
             {
                 case DayOfWeek.Sunday:
                     return 1;
+
                 case DayOfWeek.Monday:
                     return 2;
+
                 case DayOfWeek.Tuesday:
                     return 3;
+
                 case DayOfWeek.Wednesday:
                     return 4;
+
                 case DayOfWeek.Thursday:
                     return 5;
+
                 case DayOfWeek.Friday:
                     return 6;
+
                 case DayOfWeek.Saturday:
                     return 7;
+
                 default:
                     return 0;
             }
         }
-        #endregion
+
+        #endregion 将星期几转成数字表示 ConvertDayOfWeek
 
         #region 比较当天是不是指定的第周几 CompareWeekDayHoliday
+
         /// <summary>
         /// 比较当天是不是指定的第周几
         /// </summary>
@@ -748,12 +820,17 @@ namespace EthanLibrary.Common
 
             return ret;
         }
-        #endregion
-        #endregion
 
-        #region  公有方法
+        #endregion 比较当天是不是指定的第周几 CompareWeekDayHoliday
+
+        #endregion 私有函数
+
+        #region 公有方法
+
         #region 节日
+
         #region 计算中国农历节日 newCalendarHoliday
+
         /// <summary>
         /// 计算中国农历节日
         /// </summary>
@@ -768,10 +845,8 @@ namespace EthanLibrary.Common
                     {
                         if ((lh.Month == this._cMonth) && (lh.Day == this._cDay))
                         {
-
                             tempStr = lh.HolidayName;
                             break;
-
                         }
                     }
 
@@ -788,9 +863,11 @@ namespace EthanLibrary.Common
                 return tempStr;
             }
         }
-        #endregion
+
+        #endregion 计算中国农历节日 newCalendarHoliday
 
         #region 按某月第几周第几日计算的节日 WeekDayHoliday
+
         /// <summary>
         /// 按某月第几周第几日计算的节日
         /// </summary>
@@ -810,9 +887,11 @@ namespace EthanLibrary.Common
                 return tempStr;
             }
         }
-        #endregion
+
+        #endregion 按某月第几周第几日计算的节日 WeekDayHoliday
 
         #region 按公历日计算的节日 DateHoliday
+
         /// <summary>
         /// 按公历日计算的节日
         /// </summary>
@@ -833,11 +912,15 @@ namespace EthanLibrary.Common
                 return tempStr;
             }
         }
-        #endregion
-        #endregion
+
+        #endregion 按公历日计算的节日 DateHoliday
+
+        #endregion 节日
 
         #region 公历日期
+
         #region 取对应的公历日期Date
+
         /// <summary>
         /// 取对应的公历日期
         /// </summary>
@@ -846,9 +929,11 @@ namespace EthanLibrary.Common
             get { return _date; }
             set { _date = value; }
         }
-        #endregion
+
+        #endregion 取对应的公历日期Date
 
         #region 取星期几 WeekDay
+
         /// <summary>
         /// 取星期几
         /// </summary>
@@ -856,9 +941,11 @@ namespace EthanLibrary.Common
         {
             get { return _date.DayOfWeek; }
         }
-        #endregion
+
+        #endregion 取星期几 WeekDay
 
         #region 周几的字符 WeekDayStr
+
         /// <summary>
         /// 周几的字符
         /// </summary>
@@ -870,24 +957,32 @@ namespace EthanLibrary.Common
                 {
                     case DayOfWeek.Sunday:
                         return "星期日";
+
                     case DayOfWeek.Monday:
                         return "星期一";
+
                     case DayOfWeek.Tuesday:
                         return "星期二";
+
                     case DayOfWeek.Wednesday:
                         return "星期三";
+
                     case DayOfWeek.Thursday:
                         return "星期四";
+
                     case DayOfWeek.Friday:
                         return "星期五";
+
                     default:
                         return "星期六";
                 }
             }
         }
-        #endregion
-  
+
+        #endregion 周几的字符 WeekDayStr
+
         #region 根据日期值获得周一的日期
+
         /// <summary>
         /// 根据日期值获得周一的日期
         /// </summary>
@@ -908,10 +1003,11 @@ namespace EthanLibrary.Common
             }
             return dt.AddDays(d);
         }
-        #endregion 
-      
+
+        #endregion 根据日期值获得周一的日期
+
         #region 传回公历y年m月的总天数
-      
+
         /// <summary>
         /// 传回公历y年m月的总天数
         /// </summary>
@@ -932,9 +1028,11 @@ namespace EthanLibrary.Common
             //    return (solarMonth[m]);
             //}
         }
-       #endregion
-   
+
+        #endregion 传回公历y年m月的总天数
+
         #region 公历日期中文表示法 如一九九七年七月一日 DateString
+
         /// <summary>
         /// 公历日期中文表示法 如一九九七年七月一日
         /// </summary>
@@ -945,9 +1043,11 @@ namespace EthanLibrary.Common
                 return "公元" + this._date.ToLongDateString();
             }
         }
-        #endregion
+
+        #endregion 公历日期中文表示法 如一九九七年七月一日 DateString
 
         #region 当前是否公历闰年IsLeapYear
+
         /// <summary>
         /// 当前是否公历闰年
         /// </summary>
@@ -958,9 +1058,11 @@ namespace EthanLibrary.Common
                 return DateTime.IsLeapYear(this._date.Year);
             }
         }
-        #endregion
+
+        #endregion 当前是否公历闰年IsLeapYear
 
         #region 28星宿计算 ChineseConstellation
+
         /// <summary>
         /// 28星宿计算
         /// </summary>
@@ -977,9 +1079,11 @@ namespace EthanLibrary.Common
                 return (modStarDay >= 0 ? _chineseConstellationName[modStarDay] : _chineseConstellationName[27 + modStarDay]);
             }
         }
-        #endregion
+
+        #endregion 28星宿计算 ChineseConstellation
 
         #region 时辰 ChineseHour
+
         /// <summary>
         /// 时辰
         /// </summary>
@@ -990,12 +1094,15 @@ namespace EthanLibrary.Common
                 return GetChineseHour(_datetime);
             }
         }
-        #endregion
 
-        #endregion
+        #endregion 时辰 ChineseHour
+
+        #endregion 公历日期
 
         #region 农历日期
+
         #region 是否闰月 IsChineseLeapMonth
+
         /// <summary>
         /// 是否闰月
         /// </summary>
@@ -1003,9 +1110,11 @@ namespace EthanLibrary.Common
         {
             get { return this._cIsLeapMonth; }
         }
-        #endregion
+
+        #endregion 是否闰月 IsChineseLeapMonth
 
         #region 当年是否有闰月 IsChineseLeapYear
+
         /// <summary>
         /// 当年是否有闰月
         /// </summary>
@@ -1016,9 +1125,11 @@ namespace EthanLibrary.Common
                 return this._cIsLeapYear;
             }
         }
-        #endregion
 
-        #region  农历日 ChineseDay
+        #endregion 当年是否有闰月 IsChineseLeapYear
+
+        #region 农历日 ChineseDay
+
         /// <summary>
         /// 农历日
         /// </summary>
@@ -1026,9 +1137,11 @@ namespace EthanLibrary.Common
         {
             get { return this._cDay; }
         }
-        #endregion
+
+        #endregion 农历日 ChineseDay
 
         #region 农历日中文表示 ChineseDayString
+
         /// <summary>
         /// 农历日中文表示
         /// </summary>
@@ -1040,21 +1153,26 @@ namespace EthanLibrary.Common
                 {
                     case 0:
                         return "";
+
                     case 10:
                         return "初十";
+
                     case 20:
                         return "二十";
+
                     case 30:
                         return "三十";
+
                     default:
                         return nStr2[(int)(_cDay / 10)].ToString() + nStr1[_cDay % 10].ToString();
-
                 }
             }
         }
-        #endregion
+
+        #endregion 农历日中文表示 ChineseDayString
 
         #region 农历的月份 ChineseMonth
+
         /// <summary>
         /// 农历的月份
         /// </summary>
@@ -1062,9 +1180,11 @@ namespace EthanLibrary.Common
         {
             get { return this._cMonth; }
         }
-        #endregion
+
+        #endregion 农历的月份 ChineseMonth
 
         #region 农历月份字符串 ChineseMonthString
+
         /// <summary>
         /// 农历月份字符串
         /// </summary>
@@ -1075,9 +1195,11 @@ namespace EthanLibrary.Common
                 return _monthString[this._cMonth];
             }
         }
-        #endregion
 
-        #region  取农历年份 ChineseYear
+        #endregion 农历月份字符串 ChineseMonthString
+
+        #region 取农历年份 ChineseYear
+
         /// <summary>
         /// 取农历年份
         /// </summary>
@@ -1085,9 +1207,11 @@ namespace EthanLibrary.Common
         {
             get { return this._cYear; }
         }
-        #endregion
+
+        #endregion 取农历年份 ChineseYear
 
         #region 取农历年字符串如，一九九七年 ChineseYearString
+
         /// <summary>
         /// 取农历年字符串如，一九九七年
         /// </summary>
@@ -1104,9 +1228,11 @@ namespace EthanLibrary.Common
                 return tempStr + "年";
             }
         }
-        #endregion
+
+        #endregion 取农历年字符串如，一九九七年 ChineseYearString
 
         #region 取农历日期表示法：农历一九九七年正月初五 ChineseDateString
+
         /// <summary>
         /// 取农历日期表示法：农历一九九七年正月初五
         /// </summary>
@@ -1124,11 +1250,13 @@ namespace EthanLibrary.Common
                 }
             }
         }
-        #endregion
 
-        #endregion
- 
+        #endregion 取农历日期表示法：农历一九九七年正月初五 ChineseDateString
+
+        #endregion 农历日期
+
         #region 定气法计算二十四节气,二十四节气是按地球公转来计算的，并非是阴历计算的  ChineseTwentyFourDay
+
         /// <summary>
         /// 定气法计算二十四节气,二十四节气是按地球公转来计算的，并非是阴历计算的
         /// </summary>
@@ -1168,6 +1296,7 @@ namespace EthanLibrary.Common
         }
 
         #region 当前日期前一个最近节气
+
         /// <summary>
         ///    当前日期前一个最近节气
         /// </summary>
@@ -1198,12 +1327,11 @@ namespace EthanLibrary.Common
 
                 return tempStr;
             }
-
         }
 
-        #endregion
+        #endregion 当前日期前一个最近节气
 
-        #region  当前日期后一个最近节气
+        #region 当前日期后一个最近节气
 
         /// <summary>
         /// 当前日期后一个最近节气
@@ -1234,50 +1362,49 @@ namespace EthanLibrary.Common
                 }
                 return tempStr;
             }
-
         }
-        #endregion
-        #endregion
+
+        #endregion 当前日期后一个最近节气
+
+        #endregion 定气法计算二十四节气,二十四节气是按地球公转来计算的，并非是阴历计算的  ChineseTwentyFourDay
 
         #region 星座
+
         /// <summary>
-        /// 计算指定日期的星座序号 
+        /// 计算指定日期的星座序号
         /// </summary>
         public int GetConstellation()
         {
-           
-                int index = 0;
-                int y, m, d;
-                y = _date.Year;
-                m = _date.Month;
-                d = _date.Day;
-                y = m * 100 + d;
+            int index = 0;
+            int y, m, d;
+            y = _date.Year;
+            m = _date.Month;
+            d = _date.Day;
+            y = m * 100 + d;
 
-                if (((y >= 321) && (y <= 419))) { index = 0; }
-                else if ((y >= 420) && (y <= 520)) { index = 1; }
-                else if ((y >= 521) && (y <= 620)) { index = 2; }
-                else if ((y >= 621) && (y <= 722)) { index = 3; }
-                else if ((y >= 723) && (y <= 822)) { index = 4; }
-                else if ((y >= 823) && (y <= 922)) { index = 5; }
-                else if ((y >= 923) && (y <= 1022)) { index = 6; }
-                else if ((y >= 1023) && (y <= 1121)) { index = 7; }
-                else if ((y >= 1122) && (y <= 1221)) { index = 8; }
-                else if ((y >= 1222) || (y <= 119)) { index = 9; }
-                else if ((y >= 120) && (y <= 218)) { index = 10; }
-                else if ((y >= 219) && (y <= 320)) { index = 11; }
-                else { index = -1; }
+            if (((y >= 321) && (y <= 419))) { index = 0; }
+            else if ((y >= 420) && (y <= 520)) { index = 1; }
+            else if ((y >= 521) && (y <= 620)) { index = 2; }
+            else if ((y >= 621) && (y <= 722)) { index = 3; }
+            else if ((y >= 723) && (y <= 822)) { index = 4; }
+            else if ((y >= 823) && (y <= 922)) { index = 5; }
+            else if ((y >= 923) && (y <= 1022)) { index = 6; }
+            else if ((y >= 1023) && (y <= 1121)) { index = 7; }
+            else if ((y >= 1122) && (y <= 1221)) { index = 8; }
+            else if ((y >= 1222) || (y <= 119)) { index = 9; }
+            else if ((y >= 120) && (y <= 218)) { index = 10; }
+            else if ((y >= 219) && (y <= 320)) { index = 11; }
+            else { index = -1; }
 
-                return index;
-            
+            return index;
         }
-        
+
         /// <summary>
         /// 计算指定日期的星座名称
         /// </summary>
         /// <returns></returns>
         public string GetConstellationName()
         {
-
             int Constellation;
 
             Constellation = GetConstellation();
@@ -1285,16 +1412,17 @@ namespace EthanLibrary.Common
             if ((Constellation >= 0) && (Constellation <= 11))
 
             { return _constellationName[Constellation]; }
-
             else
 
             { return ""; };
-
         }
-        #endregion
+
+        #endregion 星座
 
         #region 属相
+
         #region Animal
+
         /// <summary>
         /// 计算属相的索引，注意虽然属相是以农历年来区别的，但是目前在实际使用中是按公历来计算的
         /// 鼠年为1,其它类推
@@ -1307,9 +1435,11 @@ namespace EthanLibrary.Common
                 return (offset % 12) + 1;
             }
         }
-        #endregion
+
+        #endregion Animal
 
         #region 取属相字符串 AnimalString
+
         /// <summary>
         /// 取属相字符串
         /// </summary>
@@ -1322,11 +1452,15 @@ namespace EthanLibrary.Common
                 return animalStr[offset % 12].ToString();
             }
         }
-        #endregion
-        #endregion
-            
+
+        #endregion 取属相字符串 AnimalString
+
+        #endregion 属相
+
         #region 天干地支
+
         #region 取农历年的干支表示法如 乙丑年 GanZhiYearString
+
         /// <summary>
         /// 取农历年的干支表示法如 乙丑年
         /// </summary>
@@ -1340,9 +1474,11 @@ namespace EthanLibrary.Common
                 return tempStr;
             }
         }
-        #endregion
+
+        #endregion 取农历年的干支表示法如 乙丑年 GanZhiYearString
 
         #region 取干支的月表示字符串，注意农历的闰月不记干支 GanZhiMonthString
+
         /// <summary>
         /// 取干支的月表示字符串，注意农历的闰月不记干支
         /// </summary>
@@ -1370,46 +1506,59 @@ namespace EthanLibrary.Common
                 switch (i % 10)
                 {
                     #region ...
+
                     case 0: //甲
                         ganIndex = 3;
                         break;
+
                     case 1: //乙
                         ganIndex = 5;
                         break;
+
                     case 2: //丙
                         ganIndex = 7;
                         break;
+
                     case 3: //丁
                         ganIndex = 9;
                         break;
+
                     case 4: //戊
                         ganIndex = 1;
                         break;
+
                     case 5: //己
                         ganIndex = 3;
                         break;
+
                     case 6: //庚
                         ganIndex = 5;
                         break;
+
                     case 7: //辛
                         ganIndex = 7;
                         break;
+
                     case 8: //壬
                         ganIndex = 9;
                         break;
+
                     case 9: //癸
                         ganIndex = 1;
                         break;
-                    #endregion
+
+                        #endregion ...
                 }
                 gan = ganStr[(ganIndex + this._cMonth - 2) % 10].ToString();
 
                 return gan + zhi + "月";
             }
         }
-        #endregion
+
+        #endregion 取干支的月表示字符串，注意农历的闰月不记干支 GanZhiMonthString
 
         #region 取干支日表示法 GanZhiDayString
+
         /// <summary>
         /// 取干支日表示法
         /// </summary>
@@ -1424,9 +1573,11 @@ namespace EthanLibrary.Common
                 return ganStr[i % 10].ToString() + zhiStr[i % 12].ToString() + "日";
             }
         }
-        #endregion
+
+        #endregion 取干支日表示法 GanZhiDayString
 
         #region 取当前日期的干支表示法如 甲子年乙丑月丙庚日 GanZhiDateString
+
         /// <summary>
         /// 取当前日期的干支表示法如 甲子年乙丑月丙庚日
         /// </summary>
@@ -1437,9 +1588,12 @@ namespace EthanLibrary.Common
                 return GanZhiYearString + GanZhiMonthString + GanZhiDayString;
             }
         }
-        #endregion
-        #endregion
-        #endregion
+
+        #endregion 取当前日期的干支表示法如 甲子年乙丑月丙庚日 GanZhiDateString
+
+        #endregion 天干地支
+
+        #endregion 公有方法
 
         #region 更具生日获取星座
 
@@ -1474,6 +1628,6 @@ namespace EthanLibrary.Common
             return ret == "靠！外星人啊。" ? "魔羯座" : ret;
         }
 
-        #endregion
+        #endregion 更具生日获取星座
     }
 }

@@ -18,6 +18,7 @@ namespace Common
         protected static Base64Util s_b64 = new Base64Util();
 
         #region Base64加密解密
+
         /// <summary>
         /// Base64是一種使用64基的位置計數法。它使用2的最大次方來代表僅可列印的ASCII 字元。
         /// 這使它可用來作為電子郵件的傳輸編碼。在Base64中的變數使用字元A-Z、a-z和0-9 ，
@@ -43,7 +44,8 @@ namespace Common
             byte[] decbuff = Convert.FromBase64String(str);
             return System.Text.Encoding.UTF8.GetString(decbuff);
         }
-        #endregion
+
+        #endregion Base64加密解密
 
         /// <summary>
         /// 使用默认的密码表加密字符串
@@ -54,6 +56,7 @@ namespace Common
         {
             return s_b64.Encode(input);
         }
+
         /// <summary>
         /// 使用默认的密码表解密字符串
         /// </summary>
@@ -106,6 +109,7 @@ namespace Common
                 }
             }
         }
+
         /// <summary>
         /// 补码
         /// </summary>
@@ -130,7 +134,6 @@ namespace Common
                 }
             }
         }
-
 
         /// <summary>
         /// 返回编码后的字符串
@@ -168,8 +171,8 @@ namespace Common
                 }
                 return sb.ToString();
             }
-
         }
+
         protected string EncodeUnit(params byte[] unit)
         {
             int[] obj = new int[4];
@@ -184,6 +187,7 @@ namespace Common
             }
             return sb.ToString();
         }
+
         protected char GetEC(int code)
         {
             return m_t1[code];//m_codeTable[code];
@@ -226,6 +230,7 @@ namespace Common
                 return System.Text.Encoding.UTF8.GetString(list.ToArray());
             }
         }
+
         protected void DecodeUnit(List<byte> byteArr, params char[] chArray)
         {
             int[] res = new int[3];
@@ -242,6 +247,7 @@ namespace Common
                 byteArr.Add((byte)res[i]);
             }
         }
+
         protected byte FindChar(char ch)
         {
             int pos = m_t2[ch];//m_codeTable.IndexOf(ch);
@@ -262,6 +268,7 @@ namespace Common
                 m_t2.Add(m_codeTable[i], i);
             }
         }
+
         /// <summary>
         /// 检查字符串中的字符是否有重复
         /// </summary>
@@ -277,6 +284,7 @@ namespace Common
                 }
             }
         }
+
         /// <summary>
         /// 检查字符串是否包含补码字符
         /// </summary>
@@ -292,7 +300,6 @@ namespace Common
 
         protected void Test()
         {
-
             //m_codeTable = @"STUVWXYZbacdefghivklABCDEFGHIJKLMNOPQRmnopqrstu!wxyz0123456789+/";
             //m_pad = "j";
 
@@ -306,4 +313,3 @@ namespace Common
         }
     }
 }
-

@@ -1,7 +1,7 @@
-﻿using System.Web;
-using System.Text;
+﻿using System.Text;
+using System.Web;
 
-namespace Core.Drawing
+namespace EthanLibrary.Drawing
 {
     public static class PSD2swfHelper
     {

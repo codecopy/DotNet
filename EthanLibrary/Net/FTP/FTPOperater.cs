@@ -1,13 +1,15 @@
 using System;
-using System.Text;
 using System.IO;
+using System.Text;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
     public class FTPOperater
     {
         #region 属性
+
         private FTPClient ftp;
+
         /// <summary>
         /// 全局FTP访问变量
         /// </summary>
@@ -18,6 +20,7 @@ namespace Core.Net
         }
 
         private string _server;
+
         /// <summary>
         /// Ftp服务器
         /// </summary>
@@ -28,6 +31,7 @@ namespace Core.Net
         }
 
         private string _User;
+
         /// <summary>
         /// Ftp用户
         /// </summary>
@@ -38,6 +42,7 @@ namespace Core.Net
         }
 
         private string _Pass;
+
         /// <summary>
         /// Ftp密码
         /// </summary>
@@ -48,6 +53,7 @@ namespace Core.Net
         }
 
         private string _FolderZJ;
+
         /// <summary>
         /// Ftp密码
         /// </summary>
@@ -58,6 +64,7 @@ namespace Core.Net
         }
 
         private string _FolderWX;
+
         /// <summary>
         /// Ftp密码
         /// </summary>
@@ -66,7 +73,8 @@ namespace Core.Net
             get { return _FolderWX; }
             set { _FolderWX = value; }
         }
-        #endregion
+
+        #endregion 属性
 
         /// <summary>
         /// 得到文件列表

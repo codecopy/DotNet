@@ -1,6 +1,4 @@
-﻿
-
-namespace EmailHelp
+﻿namespace EmailHelp
 {
     public static class MailHeaders
     {

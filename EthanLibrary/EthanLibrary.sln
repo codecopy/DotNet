@@ -35,15 +35,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML", "XML\XML.csproj", "{C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zip", "Zip\Zip.csproj", "{EBE9BC81-573A-484B-8149-92E18286D9A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{3E007F8E-0836-41A2-8C18-05046EE6AC6F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{CAF046DA-C2EF-4AFD-985D-4A1EB5567F68}"
 	ProjectSection(SolutionItems) = preProject
-		DLL\COM.Excel.dll = DLL\COM.Excel.dll
-		DLL\Excel.dll = DLL\Excel.dll
-		DLL\ICSharpCode.SharpZipLib.dll = DLL\ICSharpCode.SharpZipLib.dll
-		DLL\itextsharp.dll = DLL\itextsharp.dll
-		DLL\Microsoft.Office.Interop.Owc11.dll = DLL\Microsoft.Office.Interop.Owc11.dll
-		DLL\Microsoft.Web.UI.WebControls.dll = DLL\Microsoft.Web.UI.WebControls.dll
-		DLL\OWC10Chart.dll = DLL\OWC10Chart.dll
+		Lib\COM.Excel.dll = Lib\COM.Excel.dll
+		Lib\Excel.dll = Lib\Excel.dll
+		Lib\ICSharpCode.SharpZipLib.dll = Lib\ICSharpCode.SharpZipLib.dll
+		Lib\itextsharp.dll = Lib\itextsharp.dll
+		Lib\log4net.dll = Lib\log4net.dll
+		Lib\Microsoft.Office.Interop.Owc11.dll = Lib\Microsoft.Office.Interop.Owc11.dll
+		Lib\Microsoft.Web.UI.WebControls.dll = Lib\Microsoft.Web.UI.WebControls.dll
+		Lib\OWC10Chart.dll = Lib\OWC10Chart.dll
 	EndProjectSection
 EndProject
 Global

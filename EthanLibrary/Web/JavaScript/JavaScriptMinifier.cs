@@ -1,13 +1,11 @@
 ﻿/**********************************************
  * 类作用：   客户端代码精简类
  * 建立人：   abaal
- * 建立时间： 2008-09-03 
+ * 建立时间： 2008-09-03
  * Copyright (C) 2007-2008 abaal
  * All rights reserved
  * http://blog.csdn.net/abaal888
  ***********************************************/
-
-
 
 using System;
 using System.IO;
@@ -53,6 +51,7 @@ namespace EthanLibrary.Web
                 replaced with spaces. Carriage returns will be replaced with linefeeds.
                 Most spaces and linefeeds will be removed.
         */
+
         private void jsmin()
         {
             theA = '\n';
@@ -149,6 +148,7 @@ namespace EthanLibrary.Web
                 }
             }
         }
+
         /* action -- do something! What you do is determined by the argument:
                 1   Output A. Copy B to A. Get the next B.
                 2   Copy B to A. Get the next B. (Delete A).
@@ -156,6 +156,7 @@ namespace EthanLibrary.Web
            action treats a string as a single character. Wow!
            action recognizes a regular expression if it is preceded by ( or , or =.
         */
+
         private void action(int d)
         {
             if (d <= 1)
@@ -165,7 +166,7 @@ namespace EthanLibrary.Web
                 theA = theB;
                 if (theA == '\'' || theA == '"')
                 {
-                    for (; ; )
+                    for (;;)
                     {
                         put(theA);
                         theA = get();
@@ -192,7 +193,7 @@ namespace EthanLibrary.Web
                 {
                     put(theA);
                     put(theB);
-                    for (; ; )
+                    for (;;)
                     {
                         theA = get();
                         if (theA == '/')
@@ -210,9 +211,11 @@ namespace EthanLibrary.Web
                 }
             }
         }
+
         /* next -- get the next character, excluding comments. peek() is used to see
                 if a '/' is followed by a '/' or '*'.
         */
+
         private int next()
         {
             int c = get();
@@ -222,7 +225,7 @@ namespace EthanLibrary.Web
                 {
                     case '/':
                         {
-                            for (; ; )
+                            for (;;)
                             {
                                 c = get();
                                 if (c <= '\n')
@@ -232,7 +235,7 @@ namespace EthanLibrary.Web
                     case '*':
                         {
                             get();
-                            for (; ; )
+                            for (;;)
                             {
                                 switch (get())
                                 {
@@ -260,17 +263,21 @@ namespace EthanLibrary.Web
             }
             return c;
         }
+
         /* peek -- get the next character without getting it.
         */
+
         private int peek()
         {
             theLookahead = get();
             return theLookahead;
         }
+
         /* get -- return the next character from stdin. Watch out for lookahead. If
                 the character is a control character, translate it to a space or
                 linefeed.
         */
+
         private int get()
         {
             int c = theLookahead;
@@ -283,13 +290,16 @@ namespace EthanLibrary.Web
                 return '\n';
             return ' ';
         }
+
         private void put(int c)
         {
             sw.Write((char)c);
         }
+
         /* isAlphanum -- return true if the character is a letter, digit, underscore,
                 dollar sign, or non-ASCII character.
         */
+
         private bool isAlphanum(int c)
         {
             return ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') ||

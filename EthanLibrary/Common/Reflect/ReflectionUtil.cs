@@ -1,11 +1,10 @@
 using System;
-using System.Reflection;
-using System.Resources;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
+using System.Resources;
 using System.Text;
-using System.ComponentModel;
-
 
 namespace EthanLibrary.Common
 {
@@ -19,6 +18,7 @@ namespace EthanLibrary.Common
         }
 
         #region 属性字段设置
+
         public static BindingFlags bf = BindingFlags.DeclaredOnly | BindingFlags.Public |
                                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
@@ -65,9 +65,9 @@ namespace EthanLibrary.Common
         {
             PropertyInfo[] propertyInfos = obj.GetType().GetProperties(bf);
             return propertyInfos;
-        } 
+        }
 
-        #endregion
+        #endregion 属性字段设置
 
         #region 获取Description
 
@@ -85,7 +85,7 @@ namespace EthanLibrary.Common
         }
 
         /// <summary>
-        /// Get The Enum Field Description using Description Attribute and 
+        /// Get The Enum Field Description using Description Attribute and
         /// objects to format the Description.
         /// </summary>
         /// <param name="value">Enum For Which description is required.</param>
@@ -125,12 +125,12 @@ namespace EthanLibrary.Common
         }
 
         /// <summary>
-        /// Get The Type Description using Description Attribute and 
+        /// Get The Type Description using Description Attribute and
         /// objects to format the Description.
         /// </summary>
         /// <param name="member"> Specified Member for which Info is Required</param>
         /// <param name="args">An Object array containing zero or more objects to format.</param>
-        /// <returns>return <see cref="String.Empty"/> if DescriptionAttribute is 
+        /// <returns>return <see cref="String.Empty"/> if DescriptionAttribute is
         /// not found or return type description</returns>
         public static string GetDescription(MemberInfo member, params object[] args)
         {
@@ -159,7 +159,7 @@ namespace EthanLibrary.Common
             return text1;
         }
 
-        #endregion
+        #endregion 获取Description
 
         #region 获取Attribute信息
 
@@ -184,7 +184,6 @@ namespace EthanLibrary.Common
                 throw new ArgumentNullException("assembly");
             }
 
-
             if (assembly.IsDefined(attributeType, false))
             {
                 object[] attributes = assembly.GetCustomAttributes(attributeType, false);
@@ -194,7 +193,6 @@ namespace EthanLibrary.Common
 
             return null;
         }
-
 
         /// <summary>
         /// Gets the specified object attributes for type as specified by type
@@ -206,7 +204,6 @@ namespace EthanLibrary.Common
         {
             return GetAttribute(attributeType, type, false);
         }
-
 
         /// <summary>
         /// Gets the specified object attributes for type as specified by type with option to serach parent
@@ -234,7 +231,6 @@ namespace EthanLibrary.Common
                 return null;
             }
 
-
             if (type.IsDefined(attributeType, searchParent))
             {
                 object[] attributes = type.GetCustomAttributes(attributeType, searchParent);
@@ -258,7 +254,6 @@ namespace EthanLibrary.Common
         {
             return GetAttributes(attributeType, type, false);
         }
-
 
         /// <summary>
         /// Gets the collection of all specified object attributes for type as specified by type with option to serach parent
@@ -286,7 +281,6 @@ namespace EthanLibrary.Common
                 return null;
             }
 
-
             if (type.IsDefined(attributeType, false))
             {
                 return type.GetCustomAttributes(attributeType, searchParent);
@@ -295,7 +289,7 @@ namespace EthanLibrary.Common
             return null;
         }
 
-        #endregion
+        #endregion 获取Attribute信息
 
         #region 资源获取
 
@@ -355,9 +349,10 @@ namespace EthanLibrary.Common
             return (bytes != null) ? Encoding.GetEncoding(charset).GetString(bytes) : "";
         }
 
-        #endregion
+        #endregion 资源获取
 
         #region 创建对应实例
+
         /// <summary>
         /// 创建对应实例
         /// </summary>
@@ -373,7 +368,6 @@ namespace EthanLibrary.Common
                 if (tmp != null)
                 {
                     return assemblies[i].CreateInstance(type);
-
                 }
             }
             return null;
@@ -388,7 +382,8 @@ namespace EthanLibrary.Common
         public static object CreateInstance(Type type)
         {
             return CreateInstance(type.FullName);
-        } 
-        #endregion
+        }
+
+        #endregion 创建对应实例
     }
 }

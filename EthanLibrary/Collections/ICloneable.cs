@@ -1,7 +1,7 @@
 ﻿namespace EthanLibrary.Collections
 {
-    /// <summary>Defines a generalized clone method that a 
-    /// value type or class implements to create a 
+    /// <summary>Defines a generalized clone method that a
+    /// value type or class implements to create a
     /// type-specific clone method to supports cloning.</summary>
     /// <typeparam name="T">The type of object to clone.</typeparam>
     public interface ICloneable<T>
@@ -11,4 +11,3 @@
         T Clone();
     }
 }
-

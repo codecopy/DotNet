@@ -3,24 +3,24 @@ using System.Collections;
 using System.Data;
 using System.Data.OleDb;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
-    /// Copyright (C) 2004-2008 LiTianPing 
+    /// Copyright (C) 2004-2008 LiTianPing
     /// 数据访问基础类(基于OleDb)
     /// 可以用户可以修改满足自己项目的需要。
     /// </summary>
     public abstract class DbHelperOleDb
     {
-        //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
-        public static string connectionString = "";// PubConstant.ConnectionString;     		
+        //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.
+        public static string connectionString = "";// PubConstant.ConnectionString;
+
         public DbHelperOleDb()
         {
         }
 
-
         #region 公用方法
-       
+
         public static int GetMaxID(string FieldName, string TableName)
         {
             string strsql = "select max(" + FieldName + ")+1 from " + TableName;
@@ -34,6 +34,7 @@ namespace Core.DBUtility
                 return int.Parse(obj.ToString());
             }
         }
+
         public static bool Exists(string strSql)
         {
             object obj = GetSingle(strSql);
@@ -55,6 +56,7 @@ namespace Core.DBUtility
                 return true;
             }
         }
+
         public static bool Exists(string strSql, params OleDbParameter[] cmdParms)
         {
             object obj = GetSingle(strSql, cmdParms);
@@ -76,10 +78,10 @@ namespace Core.DBUtility
                 return true;
             }
         }
-        
-        #endregion
 
-        #region  执行简单SQL语句
+        #endregion 公用方法
+
+        #region 执行简单SQL语句
 
         /// <summary>
         /// 执行SQL语句，返回影响的记录数
@@ -110,7 +112,7 @@ namespace Core.DBUtility
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">多条SQL语句</param>		
+        /// <param name="SQLStringList">多条SQL语句</param>
         public static void ExecuteSqlTran(ArrayList SQLStringList)
         {
             using (OleDbConnection conn = new OleDbConnection(connectionString))
@@ -140,6 +142,7 @@ namespace Core.DBUtility
                 }
             }
         }
+
         /// <summary>
         /// 执行带一个存储过程参数的的SQL语句。
         /// </summary>
@@ -171,6 +174,7 @@ namespace Core.DBUtility
                 }
             }
         }
+
         /// <summary>
         /// 向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
         /// </summary>
@@ -235,6 +239,7 @@ namespace Core.DBUtility
                 }
             }
         }
+
         /// <summary>
         /// 执行查询语句，返回OleDbDataReader
         /// </summary>
@@ -254,8 +259,8 @@ namespace Core.DBUtility
             {
                 throw new Exception(e.Message);
             }
-
         }
+
         /// <summary>
         /// 执行查询语句，返回DataSet
         /// </summary>
@@ -280,8 +285,7 @@ namespace Core.DBUtility
             }
         }
 
-
-        #endregion
+        #endregion 执行简单SQL语句
 
         #region 执行带参数的SQL语句
 
@@ -310,7 +314,6 @@ namespace Core.DBUtility
                 }
             }
         }
-
 
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
@@ -346,7 +349,6 @@ namespace Core.DBUtility
                 }
             }
         }
-
 
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
@@ -401,7 +403,6 @@ namespace Core.DBUtility
             {
                 throw new Exception(e.Message);
             }
-
         }
 
         /// <summary>
@@ -432,7 +433,6 @@ namespace Core.DBUtility
             }
         }
 
-
         private static void PrepareCommand(OleDbCommand cmd, OleDbConnection conn, OleDbTransaction trans, string cmdText, OleDbParameter[] cmdParms)
         {
             if (conn.State != ConnectionState.Open)
@@ -449,9 +449,6 @@ namespace Core.DBUtility
             }
         }
 
-        #endregion
-
-    
-
+        #endregion 执行带参数的SQL语句
     }
 }

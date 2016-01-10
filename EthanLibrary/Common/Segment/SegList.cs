@@ -73,7 +73,6 @@ namespace Common
                 max = i;
                 for (int j = i + 1; j < list.Count; ++j)
                 {
-
                     string str1 = list.GetElem(j).ToString();
                     string str2 = list.GetElem(max).ToString();
                     int l1;
@@ -111,6 +110,7 @@ namespace Common
     public class Segment
     {
         #region 私有字段
+
         private string m_DicPath = System.Web.HttpContext.Current.Server.MapPath("bin/ShootSeg/sDict.dic");
         private string m_NoisePath = System.Web.HttpContext.Current.Server.MapPath("bin/ShootSeg/sNoise.dic");
         private string m_NumberPath = System.Web.HttpContext.Current.Server.MapPath("bin/ShootSeg/sNumber.dic");
@@ -132,9 +132,11 @@ namespace Common
         /// 用于验证汉字的正则表达式
         /// </summary>
         private string strChinese = "[\u4e00-\u9fa5]";
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
+
         /// <summary>
         /// 基本词典路径
         /// </summary>
@@ -278,9 +280,11 @@ namespace Common
                 if (value != "" && value != null) m_Separator = value;
             }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 构造方法
+
         /// <summary>
         /// 构造方法
         /// </summary>
@@ -298,9 +302,11 @@ namespace Common
             m_WordPath = p_WordPath;
             this.InitWordDics();
         }
-        #endregion
+
+        #endregion 构造方法
 
         #region 公有方法
+
         /// <summary>
         /// 加载词列表
         /// </summary>
@@ -437,7 +443,7 @@ namespace Common
         }
 
         /// <summary>
-        /// 分词过程,不支持回车 
+        /// 分词过程,不支持回车
         /// </summary>
         /// <param name="strText">要分词的文本</param>
         /// <returns>分词后的文本</returns>
@@ -459,6 +465,7 @@ namespace Common
             for (int i = 0; i < strText.Length - 1; i++)
             {
                 #region 对于每一个字的处理过程
+
                 string strChar1 = strText.Substring(i, 1);
                 string strChar2 = strText.Substring(i + 1, 1).Trim();
                 bool yes;
@@ -479,7 +486,9 @@ namespace Common
                 switch (CharType)
                 {
                     case 1:
-                        #region  如果是数字，如果数字的上一位是字母要和后面的数字分开
+
+                        #region 如果是数字，如果数字的上一位是字母要和后面的数字分开
+
                         if (word)
                         {
                             reText += Separator;
@@ -488,10 +497,14 @@ namespace Common
                         number = true;
                         strLastWords = "";
                         break;
-                        #endregion
+
+                    #endregion 如果是数字，如果数字的上一位是字母要和后面的数字分开
+
                     case 2:
                     case 5:
+
                         #region 如果是字母
+
                         if (number)
                             strLastWords = Separator;
                         else
@@ -500,14 +513,19 @@ namespace Common
                         word = true;
                         number = false;
                         break;
-                        #endregion
+
+                    #endregion 如果是字母
+
                     case 3:
                     case 4:
+
                         #region 第一级哈希表是否包含关键字，假如包含处理第二级哈希表
+
                         //上一个字是否为字母
                         if (word) reText += Separator;
 
                         #region 检测上一个是否是数字，这个过程是用于修正数字后的量词的
+
                         if (number && CharType != 4)
                         {
                             h = (Hashtable)htWords["n"];
@@ -529,7 +547,8 @@ namespace Common
                             else
                                 reText += Separator;
                         }
-                        #endregion
+
+                        #endregion 检测上一个是否是数字，这个过程是用于修正数字后的量词的
 
                         //非汉字数字的汉字
                         if (CharType == 3)
@@ -551,7 +570,8 @@ namespace Common
                         //第二级哈希表是否包含关键字
                         if (h.ContainsKey(strChar2))
                         {
-                            #region  第二级包含关键字
+                            #region 第二级包含关键字
+
                             //取出ArrayList对象
                             l = (SegList)h[strChar2];
 
@@ -630,7 +650,8 @@ namespace Common
                                     break;
                                 }
                             }
-                            #endregion
+
+                            #endregion 第二级包含关键字
 
                             //如果没有匹配还可能有一种情况，这个词语只有两个字，以这两个字开头的词语不存在
                             if (!yes && l.Contains("null"))
@@ -664,10 +685,15 @@ namespace Common
                             }
                             else if (strLastChar != this.Separator) reText += this.Separator;
                         }
-                        #endregion
+
+                        #endregion 第一级哈希表是否包含关键字，假如包含处理第二级哈希表
+
                         break;
+
                     default:
+
                         #region 未知字符,可能是生僻字,也可能是标点符合之类
+
                         if (word && !yes)
                         {
                             reText += Separator;
@@ -680,7 +706,8 @@ namespace Common
                         word = false;
                         strLastWords = this.Separator;
                         break;
-                        #endregion
+
+                        #endregion 未知字符,可能是生僻字,也可能是标点符合之类
                 }
                 if (!yes && number || !yes && word)
                 {
@@ -690,6 +717,7 @@ namespace Common
                 if (!yes)
                 {
                     #region 处理姓名问题
+
                     if (preFix == 0)
                     {
                         if (alPrefix.Contains(strChar1 + strChar2))
@@ -770,13 +798,16 @@ namespace Common
                             number = false;
                         }
                     }
-                    #endregion
+
+                    #endregion 处理姓名问题
                 }
                 length = i;
-                #endregion
+
+                #endregion 对于每一个字的处理过程
             }
 
             #region 最后防止最后一个字的丢失
+
             if (length < strText.Length - 1)
             {
                 string strLastChar1 = strText.Substring(strText.Length - 1).Trim();
@@ -797,11 +828,13 @@ namespace Common
                             else
                                 reText += Separator + strLastChar1;
                             break;
+
                         case 2:
                         case 5:
                             if (alWord.Contains(strLastChar2))
                                 reText += strLastChar1;
                             break;
+
                         case 3:
                         case 4:
                             if ((number || word) && strLastChar != Separator)
@@ -809,6 +842,7 @@ namespace Common
                             else
                                 reText += strLastChar1;
                             break;
+
                         default:
                             if (strLastChar != Separator)
                                 reText += Separator + strLastChar1;
@@ -820,7 +854,8 @@ namespace Common
                 if (reText.Length > 0) strLastChar = (reText.Substring(reText.Length - 1));
                 if (strLastChar != this.Separator) reText += this.Separator;
             }
-            #endregion
+
+            #endregion 最后防止最后一个字的丢失
 
             TimeSpan duration = DateTime.Now - start;
             m_EventTime = duration.TotalMilliseconds;
@@ -854,6 +889,7 @@ namespace Common
         }
 
         #region 判断字符类型
+
         /// <summary>
         /// 判断字符类型,0为未知,1为数字,2为字母,3为汉字,4为汉字数字
         /// </summary>
@@ -865,9 +901,11 @@ namespace Common
             if (htWords.ContainsKey(p_Char)) CharType += 3;
             return CharType;
         }
-        #endregion
+
+        #endregion 判断字符类型
 
         #region 对加载的词典排序并重新写入
+
         /// <summary>
         /// 对加载的词典排序并重新写入
         /// </summary>
@@ -909,7 +947,8 @@ namespace Common
             TimeSpan duration = DateTime.Now - start;
             m_EventTime = duration.TotalMilliseconds;
         }
-        #endregion
+
+        #endregion 对加载的词典排序并重新写入
 
         /// <summary>
         /// 删除两行完全相同的词,暂时无用!
@@ -949,6 +988,7 @@ namespace Common
             m_EventTime = duration.TotalMilliseconds;
             return l;
         }
-        #endregion
+
+        #endregion 公有方法
     }
 }

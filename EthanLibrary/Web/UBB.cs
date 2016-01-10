@@ -1,7 +1,3 @@
-
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace EthanLibrary.Web
@@ -14,7 +10,6 @@ namespace EthanLibrary.Web
             //ubb = HttpUtility.HtmlEncode(ubb);
             Regex rex = new Regex(@"(\[Quote=([\s\S]*)\])(.[^\[]*)(\[\/Quote\])", RegexOptions.IgnoreCase | RegexOptions.IgnoreCase);
             ubb = rex.Replace(ubb, "<fieldset><legend>$2</legend>$3</fieldset>");
-
 
             rex = new Regex(@"(\[b\])(.[^\[]*)(\[\/b\])", RegexOptions.IgnoreCase | RegexOptions.IgnoreCase);
             ubb = rex.Replace(ubb, "<strong>$2</strong>");

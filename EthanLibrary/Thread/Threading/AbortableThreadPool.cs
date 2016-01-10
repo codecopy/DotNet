@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
     /// A object to main Thread Pool in which object execution can be aborted
     /// </summary>
     public static class AbortableThreadPool
-    {        
+    {
         #region Fields
+
         private static readonly LinkedList<WorkItem> CallbacksList = new LinkedList<WorkItem>();
         private static readonly Dictionary<WorkItem, System.Threading.Thread> ThreadList = new Dictionary<WorkItem, System.Threading.Thread>();
-        #endregion
+
+        #endregion Fields
 
         #region Methods
+
         /// <summary>
-        /// Queues a method for execution. The method executes when a thread pool thread becomes available. 
+        /// Queues a method for execution. The method executes when a thread pool thread becomes available.
         /// </summary>
         /// <param name="callback">A WaitCallback representing the method to be executed. </param>
         /// <returns>created workItem in Queue</returns>
@@ -68,7 +71,6 @@ namespace Core.Threads
                         return;
                     }
                     ThreadList.Add(item, System.Threading.Thread.CurrentThread);
-
                 }
                 ExecutionContext.Run(item.Context, delegate { item.Callback(item.State); }, null);
             }
@@ -156,6 +158,7 @@ namespace Core.Threads
                 }
             }
         }
-        #endregion
+
+        #endregion Methods
     }
 }

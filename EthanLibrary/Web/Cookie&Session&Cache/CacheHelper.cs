@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Web;
-using System.Collections;
 using System.Web.Caching;
 
 namespace EthanLibrary.Web
@@ -11,8 +11,8 @@ namespace EthanLibrary.Web
     /// </summary>
     public class CacheHelper
     {
-        #region  获取数据缓存
-       
+        #region 获取数据缓存
+
         /// <summary>
         /// 获取数据缓存
         /// </summary>
@@ -22,11 +22,11 @@ namespace EthanLibrary.Web
             System.Web.Caching.Cache objCache = HttpRuntime.Cache;
             return objCache[CacheKey];
         }
-        #endregion
 
-        #region  设置数据缓存
+        #endregion 获取数据缓存
 
-       
+        #region 设置数据缓存
+
         /// <summary>
         /// 设置数据缓存
         /// </summary>
@@ -35,8 +35,7 @@ namespace EthanLibrary.Web
             System.Web.Caching.Cache objCache = HttpRuntime.Cache;
             objCache.Insert(CacheKey, objObject);
         }
-      
-  
+
         /// <summary>
         /// 设置数据缓存
         /// </summary>
@@ -45,7 +44,7 @@ namespace EthanLibrary.Web
             System.Web.Caching.Cache objCache = HttpRuntime.Cache;
             objCache.Insert(CacheKey, objObject, null, DateTime.MaxValue, Timeout, System.Web.Caching.CacheItemPriority.NotRemovable, null);
         }
-       
+
         /// <summary>
         /// 设置当前应用程序指定CacheKey的Cache值
         /// </summary>
@@ -54,11 +53,11 @@ namespace EthanLibrary.Web
             System.Web.Caching.Cache objCache = HttpRuntime.Cache;
             objCache.Insert(CacheKey, objObject, null, absoluteExpiration, slidingExpiration);
         }
-        #endregion
 
-        #region   移除缓存
+        #endregion 设置数据缓存
 
-       
+        #region 移除缓存
+
         /// <summary>
         /// 移除指定数据缓存
         /// </summary>
@@ -80,18 +79,17 @@ namespace EthanLibrary.Web
                 _cache.Remove(CacheEnum.Key.ToString());
             }
         }
-        #endregion
-    
+
+        #endregion 移除缓存
+
         private SortedDictionary<string, object> dic = new SortedDictionary<string, object>();
         private static volatile Cache instance = null;
         private static object lockHelper = new object();
-
 
         public void Add(string key, object value)
         {
             dic.Add(key, value);
         }
-
 
         public object this[string index]
         {

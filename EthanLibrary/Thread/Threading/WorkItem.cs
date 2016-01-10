@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
     /// WorkItem that stores the supplied WaitCallback and user state object,
@@ -9,6 +9,7 @@ namespace Core.Threads
     public sealed class WorkItem
     {
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:WorkItem"/> class.
         /// </summary>
@@ -21,23 +22,26 @@ namespace Core.Threads
             _State = state;
             _Context = context;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Fields
+
         private WaitCallback _Callback;
         private object _State;
         private ExecutionContext _Context;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
+
         /// <summary>
-        /// a callback method to be executed by a thread pool thread. 
+        /// a callback method to be executed by a thread pool thread.
         /// </summary>
         public WaitCallback Callback { get { return _Callback; } }
 
         /// <summary>
-        /// An object containing information to be used by the callback method. 
+        /// An object containing information to be used by the callback method.
         /// </summary>
         public object State { get { return _State; } }
 
@@ -45,6 +49,7 @@ namespace Core.Threads
         /// the execution context for the current thread
         /// </summary>
         public ExecutionContext Context { get { return _Context; } }
-        #endregion
+
+        #endregion Properties
     }
 }

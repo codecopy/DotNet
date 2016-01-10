@@ -1,6 +1,4 @@
-﻿
-
-namespace EmailHelp
+﻿namespace EmailHelp
 {
     /// <summary>
     /// This class contains a string representation of Pop3 commands

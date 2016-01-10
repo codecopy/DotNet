@@ -18,6 +18,7 @@ namespace EthanLibrary.Web
         {
             return HttpContext.Current.Session[name];
         }
+
         /// <summary>
         /// 设置session
         /// </summary>
@@ -28,6 +29,7 @@ namespace EthanLibrary.Web
             HttpContext.Current.Session.Remove(name);
             HttpContext.Current.Session.Add(name, val);
         }
+
         /// <summary>
         /// 添加Session，调动有效期为20分钟
         /// </summary>
@@ -73,6 +75,7 @@ namespace EthanLibrary.Web
             HttpContext.Current.Session[strSessionName] = strValues;
             HttpContext.Current.Session.Timeout = iExpires;
         }
+
         /// <summary>
         /// 读取某个Session对象值
         /// </summary>
@@ -106,6 +109,7 @@ namespace EthanLibrary.Web
                 return (string[])HttpContext.Current.Session[strSessionName];
             }
         }
+
         /// <summary>
         /// 删除某个Session对象
         /// </summary>
@@ -114,6 +118,5 @@ namespace EthanLibrary.Web
         {
             HttpContext.Current.Session[strSessionName] = null;
         }
-    
     }
 }

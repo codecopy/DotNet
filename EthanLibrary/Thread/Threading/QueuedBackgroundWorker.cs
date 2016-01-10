@@ -1,13 +1,13 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
 using System.Drawing;
+using System.Threading;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /*
-     *         
+     *
        private QueuedBackgroundWorker worker;
 
         public Form1()
@@ -22,7 +22,6 @@ namespace Core.Threads
             worker.RunWorkerCompleted += new RunQueuedWorkerCompletedEventHandler(worker_RunWorkerCompleted);
         }
 
-        
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             worker.DoWork -= worker_DoWork;
@@ -73,6 +72,7 @@ namespace Core.Threads
     public class QueuedBackgroundWorker : Component
     {
         #region Member Variables
+
         private readonly object lockObject;
 
         private ProcessingMode processingMode;
@@ -87,9 +87,11 @@ namespace Core.Threads
         private Dictionary<object, bool> cancelledItems;
 
         private readonly SendOrPostCallback workCompletedCallback;
-        #endregion
+
+        #endregion Member Variables
 
         #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="QueuedBackgroundWorker"/> class.
         /// </summary>
@@ -113,9 +115,11 @@ namespace Core.Threads
             // The loader complete callback
             workCompletedCallback = new SendOrPostCallback(this.RunWorkerCompletedCallback);
         }
-        #endregion
+
+        #endregion Constructor
 
         #region RunWorkerAsync
+
         /// <summary>
         /// Starts processing a new background operation.
         /// </summary>
@@ -146,6 +150,7 @@ namespace Core.Threads
                 Monitor.Pulse(lockObject);
             }
         }
+
         /// <summary>
         /// Starts processing a new background operation.
         /// </summary>
@@ -154,6 +159,7 @@ namespace Core.Threads
         {
             RunWorkerAsync(argument, 0);
         }
+
         /// <summary>
         /// Starts processing a new background operation.
         /// </summary>
@@ -161,9 +167,11 @@ namespace Core.Threads
         {
             RunWorkerAsync(null, 0);
         }
-        #endregion
+
+        #endregion RunWorkerAsync
 
         #region Work Queue Access
+
         /// <summary>
         /// Determines if the work queue is empty.
         /// </summary>
@@ -178,6 +186,7 @@ namespace Core.Threads
 
             return true;
         }
+
         /// <summary>
         /// Adds the operation to the work queue.
         /// </summary>
@@ -194,6 +203,7 @@ namespace Core.Threads
             else
                 items[priority].AddFirst(asyncOp);
         }
+
         /// <summary>
         /// Gets a pending operation from the work queue.
         /// </summary>
@@ -218,6 +228,7 @@ namespace Core.Threads
 
             return Tuple.Create(request, priority);
         }
+
         /// <summary>
         /// Rebuilds the work queue.
         /// </summary>
@@ -227,6 +238,7 @@ namespace Core.Threads
             for (int i = 0; i < priorityQueues; i++)
                 items[i] = new LinkedList<AsyncOperation>();
         }
+
         /// <summary>
         /// Clears the work queue.
         /// </summary>
@@ -235,6 +247,7 @@ namespace Core.Threads
             for (int i = 0; i < priorityQueues; i++)
                 ClearWorkQueue(i);
         }
+
         /// <summary>
         /// Clears the work queue with the given priority.
         /// </summary>
@@ -249,9 +262,11 @@ namespace Core.Threads
                 items[priority].RemoveFirst();
             }
         }
-        #endregion
+
+        #endregion Work Queue Access
 
         #region Worker Threads
+
         /// <summary>
         /// Creates the thread array.
         /// </summary>
@@ -264,9 +279,11 @@ namespace Core.Threads
                 threads[i].IsBackground = true;
             }
         }
-        #endregion
+
+        #endregion Worker Threads
 
         #region Properties
+
         /// <summary>
         /// Represents the mode in which the work items are processed.
         /// Processing mode cannot be changed after any work is added to the work queue.
@@ -284,6 +301,7 @@ namespace Core.Threads
                 BuildWorkQueue();
             }
         }
+
         /// <summary>
         /// Gets or sets the number of priority queues. Number of queues
         /// cannot be changed after any work is added to the work queue.
@@ -301,11 +319,13 @@ namespace Core.Threads
                 BuildWorkQueue();
             }
         }
+
         /// <summary>
         /// Determines whether the <see cref="QueuedBackgroundWorker"/> started working.
         /// </summary>
         [Browsable(false), Description("Determines whether the QueuedBackgroundWorker started working."), Category("Behavior")]
         public bool Started { get { return started; } }
+
         /// <summary>
         /// Gets or sets a value indicating whether or not the worker thread is a background thread.
         /// </summary>
@@ -319,10 +339,12 @@ namespace Core.Threads
                     threads[i].IsBackground = value;
             }
         }
+
         /// <summary>
         /// Determines whether the <see cref="QueuedBackgroundWorker"/> is being stopped.
         /// </summary>
         private bool Stopping { get { lock (lockObject) { return stopping; } } }
+
         /// <summary>
         /// Gets or sets the number of worker threads. Number of threads
         /// cannot be changed after any work is added to the work queue.
@@ -340,9 +362,11 @@ namespace Core.Threads
                 CreateThreads();
             }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Cancel
+
         /// <summary>
         /// Cancels all pending operations in all queues.
         /// </summary>
@@ -354,6 +378,7 @@ namespace Core.Threads
                 Monitor.Pulse(lockObject);
             }
         }
+
         /// <summary>
         /// Cancels all pending operations in the given queue.
         /// </summary>
@@ -370,6 +395,7 @@ namespace Core.Threads
                 Monitor.Pulse(lockObject);
             }
         }
+
         /// <summary>
         /// Cancels processing the item with the given key.
         /// </summary>
@@ -385,9 +411,11 @@ namespace Core.Threads
                 }
             }
         }
-        #endregion
+
+        #endregion Cancel
 
         #region Delegate Callbacks
+
         /// <summary>
         /// Used to call <see cref="OnRunWorkerCompleted"/> by the synchronization context.
         /// </summary>
@@ -396,9 +424,11 @@ namespace Core.Threads
         {
             OnRunWorkerCompleted((QueuedWorkerCompletedEventArgs)arg);
         }
-        #endregion
+
+        #endregion Delegate Callbacks
 
         #region Virtual Methods
+
         /// <summary>
         /// Raises the RunWorkerCompleted event.
         /// </summary>
@@ -408,6 +438,7 @@ namespace Core.Threads
             if (RunWorkerCompleted != null)
                 RunWorkerCompleted(this, e);
         }
+
         /// <summary>
         /// Raises the DoWork event.
         /// </summary>
@@ -417,9 +448,11 @@ namespace Core.Threads
             if (DoWork != null)
                 DoWork(this, e);
         }
-        #endregion
+
+        #endregion Virtual Methods
 
         #region Get/Set Apartment State
+
         /// <summary>
         /// Gets the apartment state of the worker thread.
         /// </summary>
@@ -427,6 +460,7 @@ namespace Core.Threads
         {
             return threads[0].GetApartmentState();
         }
+
         /// <summary>
         /// Sets the apartment state of the worker thread. The apartment state
         /// cannot be changed after any work is added to the work queue.
@@ -436,23 +470,28 @@ namespace Core.Threads
             for (int i = 0; i < threadCount; i++)
                 threads[i].SetApartmentState(state);
         }
-        #endregion
+
+        #endregion Get/Set Apartment State
 
         #region Public Events
+
         /// <summary>
         /// Occurs when the background operation of an item has completed,
         /// has been canceled, or has raised an exception.
         /// </summary>
         [Category("Behavior"), Browsable(true), Description("Occurs when the background operation of an item has completed.")]
         public event RunQueuedWorkerCompletedEventHandler RunWorkerCompleted;
+
         /// <summary>
         /// Occurs when <see cref="RunWorkerAsync(object, int)" /> is called.
         /// </summary>
         [Category("Behavior"), Browsable(true), Description("Occurs when RunWorkerAsync is called.")]
         public event QueuedWorkerDoWorkEventHandler DoWork;
-        #endregion
+
+        #endregion Public Events
 
         #region Worker Method
+
         /// <summary>
         /// Used by the worker thread to process items.
         /// </summary>
@@ -521,9 +560,11 @@ namespace Core.Threads
                 }
             }
         }
-        #endregion
+
+        #endregion Worker Method
 
         #region Dispose
+
         /// <summary>
         /// Releases the unmanaged resources used by the <see cref="T:System.ComponentModel.Component"/>
         /// and optionally releases the managed resources.
@@ -550,10 +591,12 @@ namespace Core.Threads
 
             disposed = true;
         }
-        #endregion
+
+        #endregion Dispose
     }
 
     #region Tuples
+
     /// <summary>
     /// Represents a factory class for creating tuples.
     /// </summary>
@@ -569,6 +612,7 @@ namespace Core.Threads
         {
             return new Tuple<T1>(item1);
         }
+
         /// <summary>
         /// Creates a new 2-tuple.
         /// </summary>
@@ -582,6 +626,7 @@ namespace Core.Threads
             return new Tuple<T1, T2>(item1, item2);
         }
     }
+
     /// <summary>
     /// Represents a tuple with one element.
     /// </summary>
@@ -603,6 +648,7 @@ namespace Core.Threads
             mItem1 = item1;
         }
     }
+
     /// <summary>
     /// Represents a tuple with two elements.
     /// </summary>
@@ -626,9 +672,11 @@ namespace Core.Threads
             mItem2 = item2;
         }
     }
-    #endregion
+
+    #endregion Tuples
 
     #region QueuedBackgroundWorker Public Enums
+
     /// <summary>
     /// Represents the mode in which the work items of <see cref="QueuedBackgroundWorker"/> are processed.
     /// </summary>
@@ -638,10 +686,12 @@ namespace Core.Threads
         /// Items are processed in the order they are received.
         /// </summary>
         FIFO,
+
         /// <summary>
         /// Items are processed in reverse order.
         /// </summary>
         LIFO,
     }
-    #endregion
+
+    #endregion QueuedBackgroundWorker Public Enums
 }

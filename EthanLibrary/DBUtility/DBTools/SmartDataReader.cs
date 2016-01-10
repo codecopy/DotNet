@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
     /// 转换IDataReader字段对象的格式辅助类
@@ -29,7 +29,7 @@ namespace Core.DBUtility
         {
             return this.reader.Read();
         }
-        
+
         /// <summary>
         /// 转换为Int类型数据
         /// </summary>
@@ -172,19 +172,19 @@ namespace Core.DBUtility
         /// 转换为Single类型数据
         /// </summary>
         public Single GetSingle(string column, Single defaultIfNull)
-		{
+        {
             Single data = (reader.IsDBNull(reader.GetOrdinal(column))) ? defaultIfNull : Single.Parse(reader[column].ToString());
-			return data;
-		}
+            return data;
+        }
 
         /// <summary>
         /// 转换为Single类型数据(可空类型）
         /// </summary>
         public Single? GetSingleNullable(string column)
-		{
+        {
             Single? data = (reader.IsDBNull(reader.GetOrdinal(column))) ? (Single?)null : Single.Parse(reader[column].ToString());
-			return data;
-		}
+            return data;
+        }
 
         /// <summary>
         /// 转换为布尔类型数据
@@ -279,14 +279,14 @@ namespace Core.DBUtility
             Guid guid = Guid.Empty;
             if (data != null)
             {
-                guid = new Guid(data);             
+                guid = new Guid(data);
             }
             return guid;
         }
 
         /// <summary>
         /// 转换为Guid类型数据(可空类型）
-        /// </summary> 
+        /// </summary>
         public Guid? GetGuidNullable(string column)
         {
             string data = (reader.IsDBNull(reader.GetOrdinal(column))) ? null : reader[column].ToString();
@@ -324,5 +324,4 @@ namespace Core.DBUtility
             return data;
         }
     }
-
 }

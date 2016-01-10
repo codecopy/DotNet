@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Web.UI.WebControls;
 using System.Reflection;
+using System.Web.UI.WebControls;
 
 /*
  * 来源网络
  * 具体参考：http://bbs.csdn.net/topics/390204077
  */
+
 namespace EthanLibrary.Common
 {
     /// <summary>

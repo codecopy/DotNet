@@ -1,5 +1,4 @@
-﻿
-namespace EmailHelp
+﻿namespace EmailHelp
 {
     /// <summary>
     /// This class represents the resulting Pop3 response from a STAT command
@@ -8,6 +7,7 @@ namespace EmailHelp
     internal sealed class StatResponse : Pop3Response
     {
         private int _messageCount;
+
         /// <summary>
         /// Gets the message count.
         /// </summary>
@@ -18,6 +18,7 @@ namespace EmailHelp
         }
 
         private long _octets;
+
         /// <summary>
         /// Gets the octets.
         /// </summary>

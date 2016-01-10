@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
     /// This class is a timer that performs some tasks periodically.
@@ -15,7 +15,7 @@ namespace Core.Threads
         /// </summary>
         public event EventHandler Elapsed;
 
-        #endregion
+        #endregion Public events
 
         #region Public fields
 
@@ -30,7 +30,7 @@ namespace Core.Threads
         /// </summary>
         public bool RunOnStart { get; set; }
 
-        #endregion
+        #endregion Public fields
 
         #region Private fields
 
@@ -50,7 +50,7 @@ namespace Core.Threads
         /// </summary>
         private volatile bool _performingTasks;
 
-        #endregion
+        #endregion Private fields
 
         #region Constructors
 
@@ -61,7 +61,6 @@ namespace Core.Threads
         public Timer(int period)
             : this(period, false)
         {
-
         }
 
         /// <summary>
@@ -76,7 +75,7 @@ namespace Core.Threads
             _taskTimer = new System.Threading.Timer(TimerCallBack, null, Timeout.Infinite, Timeout.Infinite);
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public methods
 
@@ -115,7 +114,7 @@ namespace Core.Threads
             }
         }
 
-        #endregion
+        #endregion Public methods
 
         #region Private methods
 
@@ -145,7 +144,6 @@ namespace Core.Threads
             }
             catch
             {
-
             }
             finally
             {
@@ -162,6 +160,6 @@ namespace Core.Threads
             }
         }
 
-        #endregion
+        #endregion Private methods
     }
 }

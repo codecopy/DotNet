@@ -1,7 +1,7 @@
 using System;
-using System.Security.Cryptography;  
-using System.Text;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Common
 {
@@ -12,8 +12,9 @@ namespace Common
         }
 
         //密钥
-        private static byte[] arrDESKey = new byte[] {42, 16, 93, 156, 78, 4, 218, 32};
-        private static byte[] arrDESIV = new byte[] {55, 103, 246, 79, 36, 99, 167, 3};
+        private static byte[] arrDESKey = new byte[] { 42, 16, 93, 156, 78, 4, 218, 32 };
+
+        private static byte[] arrDESIV = new byte[] { 55, 103, 246, 79, 36, 99, 167, 3 };
 
         /// <summary>
         /// 加密。
@@ -35,7 +36,7 @@ namespace Common
             objStreamWriter.Flush();
             objCryptoStream.FlushFinalBlock();
             objMemoryStream.Flush();
-            return Convert.ToBase64String(objMemoryStream.GetBuffer(), 0, (int) objMemoryStream.Length);
+            return Convert.ToBase64String(objMemoryStream.GetBuffer(), 0, (int)objMemoryStream.Length);
         }
 
         /// <summary>
@@ -75,10 +76,6 @@ namespace Common
             return (retStr);
         }
 
-        
-
-        
-
         #region TripleDES加密
 
         /// <summary>
@@ -94,7 +91,7 @@ namespace Common
                     42, 16, 93, 156, 78, 4, 218, 32, 15, 167, 44, 80, 26, 20, 155, 112, 2, 94, 11, 204, 119,
                     35, 184, 197
                 }; //定义密钥
-                byte[] IV = {55, 103, 246, 79, 36, 99, 167, 3}; //定义偏移量
+                byte[] IV = { 55, 103, 246, 79, 36, 99, 167, 3 }; //定义偏移量
                 TripleDESCryptoServiceProvider TripleDES = new TripleDESCryptoServiceProvider();
                 TripleDES.IV = IV;
                 TripleDES.Key = key;
@@ -112,7 +109,7 @@ namespace Common
             }
         }
 
-        #endregion
+        #endregion TripleDES加密
 
         #region TripleDES解密
 
@@ -129,7 +126,7 @@ namespace Common
                     42, 16, 93, 156, 78, 4, 218, 32, 15, 167, 44, 80, 26, 20, 155, 112, 2, 94, 11, 204, 119,
                     35, 184, 197
                 }; //定义密钥
-                byte[] IV = {55, 103, 246, 79, 36, 99, 167, 3}; //定义偏移量
+                byte[] IV = { 55, 103, 246, 79, 36, 99, 167, 3 }; //定义偏移量
                 TripleDESCryptoServiceProvider TripleDES = new TripleDESCryptoServiceProvider();
                 TripleDES.IV = IV;
                 TripleDES.Key = key;
@@ -145,6 +142,6 @@ namespace Common
             }
         }
 
-        #endregion
+        #endregion TripleDES解密
     }
 }

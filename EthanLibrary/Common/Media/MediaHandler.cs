@@ -9,6 +9,7 @@ namespace Common
     public class MediaHandler
     {
         #region 同步播放wav文件
+
         /// <summary>
         /// 以同步方式播放wav文件
         /// </summary>
@@ -18,7 +19,7 @@ namespace Common
         {
             try
             {
-                //设置wav文件的路径 
+                //设置wav文件的路径
                 sp.SoundLocation = wavFilePath;
 
                 //使用异步方式加载wav文件
@@ -63,9 +64,11 @@ namespace Common
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion 同步播放wav文件
 
         #region 异步播放wav文件
+
         /// <summary>
         /// 以异步方式播放wav文件
         /// </summary>
@@ -75,7 +78,7 @@ namespace Common
         {
             try
             {
-                //设置wav文件的路径 
+                //设置wav文件的路径
                 sp.SoundLocation = wavFilePath;
 
                 //使用异步方式加载wav文件
@@ -120,17 +123,20 @@ namespace Common
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion 异步播放wav文件
 
         #region 停止播放wav文件
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sp">SoundPlayer对象</param>
         public static void StopWAV(SoundPlayer sp)
         {
             sp.Stop();
         }
-        #endregion
+
+        #endregion 停止播放wav文件
     }
 }

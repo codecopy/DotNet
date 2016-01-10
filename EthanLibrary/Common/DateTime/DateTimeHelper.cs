@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using System.Globalization;
 
 namespace EthanLibrary.Common
 {
     public class DateTimeHelper
     {
         private DateTime dt = DateTime.Now;
-        
+
         /// <summary>
         /// 获取某一年有多少周
         /// </summary>
@@ -45,7 +43,6 @@ namespace EthanLibrary.Common
             System.Globalization.GregorianCalendar gc = new System.Globalization.GregorianCalendar();
             return gc.GetWeekOfYear(date, System.Globalization.CalendarWeekRule.FirstDay, week);
         }
-
 
         /// <summary>
         /// 得到一年中的某周的起始日和截止日
@@ -119,10 +116,11 @@ namespace EthanLibrary.Common
             SetLocalTime(ref st);
         }
 
-        #endregion
+        #endregion P/Invoke 设置本地时间
 
         #region 获取网络时间
-         ///<summary>
+
+        ///<summary>
         /// 获取中国国家授时中心网络服务器时间发布的当前时间
         /// </summary>
         /// <returns></returns>
@@ -177,18 +175,21 @@ namespace EthanLibrary.Common
             int.TryParse(origin, out res);
             return res;
         }
-        #endregion
+
+        #endregion 获取网络时间
 
         #region 类实例方法
-     
+
         public DateTimeHelper(DateTime dateTime)
         {
             dt = dateTime;
         }
+
         public DateTimeHelper(string dateTime)
         {
             dt = DateTime.Parse(dateTime);
         }
+
         /// <summary>
         /// 哪天
         /// </summary>
@@ -210,6 +211,7 @@ namespace EthanLibrary.Common
             int week = weeks ?? 0;
             return dt.AddDays(Convert.ToDouble((0 - Convert.ToInt16(dt.DayOfWeek))) + 7 * week).ToShortDateString();
         }
+
         /// <summary>
         /// 周六
         /// </summary>
@@ -220,6 +222,7 @@ namespace EthanLibrary.Common
             int week = weeks ?? 0;
             return dt.AddDays(Convert.ToDouble((6 - Convert.ToInt16(dt.DayOfWeek))) + 7 * week).ToShortDateString();
         }
+
         /// <summary>
         /// 月第一天
         /// </summary>
@@ -230,6 +233,7 @@ namespace EthanLibrary.Common
             int month = months ?? 0;
             return DateTime.Parse(DateTime.Now.ToString("yyyy-MM-01")).AddMonths(month).ToShortDateString();
         }
+
         /// <summary>
         /// 月最后一天
         /// </summary>
@@ -240,6 +244,7 @@ namespace EthanLibrary.Common
             int month = months ?? 0;
             return DateTime.Parse(dt.ToString("yyyy-MM-01")).AddMonths(month).AddDays(-1).ToShortDateString();
         }
+
         /// <summary>
         /// 年度第一天
         /// </summary>
@@ -250,6 +255,7 @@ namespace EthanLibrary.Common
             int year = years ?? 0;
             return DateTime.Parse(dt.ToString("yyyy-01-01")).AddYears(year).ToShortDateString();
         }
+
         /// <summary>
         /// 年度最后一天
         /// </summary>
@@ -260,6 +266,7 @@ namespace EthanLibrary.Common
             int year = years ?? 0;
             return DateTime.Parse(dt.ToString("yyyy-01-01")).AddYears(year).AddDays(-1).ToShortDateString();
         }
+
         /// <summary>
         /// 季度第一天
         /// </summary>
@@ -270,6 +277,7 @@ namespace EthanLibrary.Common
             int quarter = quarters ?? 0;
             return dt.AddMonths(quarter * 3 - ((dt.Month - 1) % 3)).ToString("yyyy-MM-01");
         }
+
         /// <summary>
         /// 季度最后一天
         /// </summary>
@@ -280,6 +288,7 @@ namespace EthanLibrary.Common
             int quarter = quarters ?? 0;
             return DateTime.Parse(dt.AddMonths(quarter * 3 - ((dt.Month - 1) % 3)).ToString("yyyy-MM-01")).AddDays(-1).ToShortDateString();
         }
+
         /// <summary>
         /// 中文星期
         /// </summary>
@@ -289,6 +298,7 @@ namespace EthanLibrary.Common
             string[] Day = new string[] { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
             return Day[Convert.ToInt16(dt.DayOfWeek)];
         }
+
         /// <summary>
         /// 获取星期数字形式,周一开始
         /// </summary>
@@ -297,9 +307,8 @@ namespace EthanLibrary.Common
         {
             int day = (Convert.ToInt16(dt.DayOfWeek) == 0) ? 7 : Convert.ToInt16(dt.DayOfWeek);
             return day;
-        } 
-        #endregion
+        }
 
-        
+        #endregion 类实例方法
     }
 }

@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     /// <summary>
     /// 查询信息实体类
     /// </summary>
     public class SearchInfo
     {
-        public SearchInfo() {}
+        public SearchInfo()
+        {
+        }
 
         /// <summary>
         /// 构造函数
@@ -40,16 +38,17 @@ namespace Core.DBUtility
         /// <param name="sqlOperator">字段的Sql操作符号</param>
         /// <param name="excludeIfEmpty">如果字段为空或者Null则不作为查询条件</param>
         /// <param name="groupName">分组的名称，如需构造一个括号内的条件 ( Test = "AA1" OR Test = "AA2"), 定义一个组名集中条件</param>
-        public SearchInfo(string fieldName, object fieldValue, SqlOperator sqlOperator, bool excludeIfEmpty, string groupName) 
+        public SearchInfo(string fieldName, object fieldValue, SqlOperator sqlOperator, bool excludeIfEmpty, string groupName)
         {
             this.fieldName = fieldName;
             this.fieldValue = fieldValue;
-            this.sqlOperator = sqlOperator; 
+            this.sqlOperator = sqlOperator;
             this.excludeIfEmpty = excludeIfEmpty;
             this.groupName = groupName;
         }
 
         #region 字段属性
+
         private string fieldName;
         private object fieldValue;
         private SqlOperator sqlOperator;
@@ -64,7 +63,6 @@ namespace Core.DBUtility
             get { return groupName; }
             set { groupName = value; }
         }
-
 
         /// <summary>
         /// 字段名称
@@ -100,9 +98,9 @@ namespace Core.DBUtility
         {
             get { return excludeIfEmpty; }
             set { excludeIfEmpty = value; }
-        } 
+        }
 
-        #endregion
+        #endregion 字段属性
     }
 
     /// <summary>
@@ -126,7 +124,7 @@ namespace Core.DBUtility
         LikeStartAt,
 
         /// <summary>
-        /// ＝ is equal to 等于号 
+        /// ＝ is equal to 等于号
         /// </summary>
         Equal,
 
@@ -141,12 +139,12 @@ namespace Core.DBUtility
         MoreThan,
 
         /// <summary>
-        /// ＜ is less than 小于号 
+        /// ＜ is less than 小于号
         /// </summary>
         LessThan,
 
         /// <summary>
-        /// ≥ is more than or equal to 大于或等于号 
+        /// ≥ is more than or equal to 大于或等于号
         /// </summary>
         MoreThanOrEqual,
 
@@ -155,7 +153,7 @@ namespace Core.DBUtility
         /// </summary>
         LessThanOrEqual,
 
-        /*       
+        /*
         /// <summary>
         /// 在某个值的中间，拆成两个符号 >= 和 <=
         /// </summary>

@@ -1,5 +1,3 @@
-
-
 //===============================================================================
 // Microsoft Data Access Application Block for .NET微软.NET数据访问程序块
 // http://msdn.microsoft.com/library/en-us/dnbda/html/daab-rm.asp(可在此网页查看)
@@ -9,8 +7,8 @@
 // This file contains the implementations of the SqlHelper and SqlHelperParameterCache
 // classes. 这个文件实现了SqlHelper类和SqlHelperParameterCache类
 //其中SqlHelper类执行各种方式的数据操作处理，而SqlHelperParameterCache类则是获得存储过程的参数集合
-// For more information see the Data Access Application Block Implementation Overview. 
-// 
+// For more information see the Data Access Application Block Implementation Overview.
+//
 //===============================================================================
 // Copyright (C) 2000-2001 Microsoft Corporation
 // All rights reserved.
@@ -21,13 +19,13 @@
 //==============================================================================
 
 using System;
-using System.Data;
-using System.Xml;
-using System.Data.SqlClient;
 using System.Collections;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Xml;
 
-namespace Core.DBUtility
+namespace EthanLibrary.DBUtility
 {
     public sealed class SqlHelper
     {
@@ -35,19 +33,18 @@ namespace Core.DBUtility
 
         #region private utility methods & constructors
 
-        //Since this class provides only static methods, make the default constructor private to prevent 
+        //Since this class provides only static methods, make the default constructor private to prevent
         //instances from being created with "new SqlHelper()".
         private SqlHelper() { }
 
-
-
         /**/
+
         /// <summary>
         /// 这个方法用来将命令对象和一组参数对象联系起来
-        /// 
+        ///
         /// This method will assign a value of DbNull to any parameter with a direction of
         /// InputOutput and a value of null.  给输出类型参数对象赋空值
-        /// 
+        ///
         /// This behavior will prevent default values from being used, but
         /// this will be the less common case than an intended pure output parameter (derived as InputOutput)
         /// where the user provided no input value.
@@ -69,6 +66,7 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// 这个方法用来给一组参数对象赋值
         /// </summary>
@@ -88,7 +86,7 @@ namespace Core.DBUtility
                 throw new ArgumentException("Parameter count does not match Parameter Value count.");
             }
 
-            //iterate through the SqlParameters, assigning the values from the corresponding position in the 
+            //iterate through the SqlParameters, assigning the values from the corresponding position in the
             //value array
             for (int i = 0, j = commandParameters.Length; i < j; i++)
             {
@@ -113,7 +111,7 @@ namespace Core.DBUtility
                 throw new ArgumentException("Parameter count does not match Parameter Value count.");
             }
 
-            //iterate through the SqlParameters, assigning the values from the corresponding position in the 
+            //iterate through the SqlParameters, assigning the values from the corresponding position in the
             //value array
             for (int i = 0, j = commandParameters.Length; i < j; i++)
             {
@@ -124,10 +122,10 @@ namespace Core.DBUtility
             }
         }
 
-
         /**/
+
         /// <summary>
-        /// This method opens (if necessary) and assigns a connection, transaction, command type and parameters 
+        /// This method opens (if necessary) and assigns a connection, transaction, command type and parameters
         /// to the provided command.
         /// </summary>
         /// <param name="command">the SqlCommand to be prepared</param>
@@ -168,19 +166,19 @@ namespace Core.DBUtility
             return;
         }
 
-
-        #endregion
+        #endregion private utility methods & constructors
 
         #region ExecuteNonQuery
 
         /**/
+
         /// <summary>
         /// 执行一个指定连接串上的一个SqlCommand（不返回记录集也没有任何参数）
-        /// Execute a SqlCommand (that returns no resultset and takes no parameters) against the database specified in 
-        /// the connection string. 
+        /// Execute a SqlCommand (that returns no resultset and takes no parameters) against the database specified in
+        /// the connection string.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int result = ExecuteNonQuery(connString, CommandType.StoredProcedure, "PublishOrders");
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -194,12 +192,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// 执行一个指定连接串上的一个SqlCommand（不返回记录集），使用指定的参数集 
+        /// 执行一个指定连接串上的一个SqlCommand（不返回记录集），使用指定的参数集
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int result = ExecuteNonQuery(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -220,16 +219,17 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// 执行一个存储过程并赋值，这个方法将从数据库中获得存储过程的参数对象并根据其顺序赋值
-        /// Execute a stored procedure via a SqlCommand (that returns no resultset) against the database specified in 
-        /// the connection string using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns no resultset) against the database specified in
+        /// the connection string using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  int result = ExecuteNonQuery(connString, "PublishOrders", 24, 36);
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -279,11 +279,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns no resultset and takes no parameters) against the provided SqlConnection. 
+        /// Execute a SqlCommand (that returns no resultset and takes no parameters) against the provided SqlConnection.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int result = ExecuteNonQuery(conn, CommandType.StoredProcedure, "PublishOrders");
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -297,12 +298,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns no resultset) against the specified SqlConnection 
+        /// Execute a SqlCommand (that returns no resultset) against the specified SqlConnection
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int result = ExecuteNonQuery(conn, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -325,15 +327,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns no resultset) against the specified SqlConnection 
-        /// using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns no resultset) against the specified SqlConnection
+        /// using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  int result = ExecuteNonQuery(conn, "PublishOrders", 24, 36);
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -362,11 +365,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns no resultset and takes no parameters) against the provided SqlTransaction. 
+        /// Execute a SqlCommand (that returns no resultset and takes no parameters) against the provided SqlTransaction.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int result = ExecuteNonQuery(trans, CommandType.StoredProcedure, "PublishOrders");
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -380,12 +384,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// Execute a SqlCommand (that returns no resultset) against the specified SqlTransaction
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int result = ExecuteNonQuery(trans, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -408,15 +413,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns no resultset) against the specified 
-        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns no resultset) against the specified
+        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  int result = ExecuteNonQuery(conn, trans, "PublishOrders", 24, 36);
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -444,18 +450,18 @@ namespace Core.DBUtility
             }
         }
 
-
-        #endregion
+        #endregion ExecuteNonQuery
 
         #region ExecuteDataSet
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the database specified in 
-        /// the connection string. 
+        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the database specified in
+        /// the connection string.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(connString, CommandType.StoredProcedure, "GetOrders");
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -469,12 +475,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset) against the database specified in the connection string 
+        /// Execute a SqlCommand (that returns a resultset) against the database specified in the connection string
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(connString, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -495,15 +502,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the database specified in 
-        /// the connection string using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the database specified in
+        /// the connection string using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(connString, "GetOrders", 24, 36);
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -532,11 +540,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlConnection. 
+        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlConnection.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(conn, CommandType.StoredProcedure, "GetOrders");
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -550,12 +559,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset) against the specified SqlConnection 
+        /// Execute a SqlCommand (that returns a resultset) against the specified SqlConnection
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(conn, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -576,7 +586,7 @@ namespace Core.DBUtility
             //fill the DataSet using default values for DataTable names, etc.
             da.Fill(ds);
 
-            // detach the SqlParameters from the command object, so they can be used again.            
+            // detach the SqlParameters from the command object, so they can be used again.
             cmd.Parameters.Clear();
 
             //return the dataset
@@ -584,15 +594,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified SqlConnection 
-        /// using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified SqlConnection
+        /// using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(conn, "GetOrders", 24, 36);
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -621,11 +632,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlTransaction. 
+        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlTransaction.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(trans, CommandType.StoredProcedure, "GetOrders");
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -639,12 +651,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// Execute a SqlCommand (that returns a resultset) against the specified SqlTransaction
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(trans, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -673,15 +686,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified 
-        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified
+        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  DataSet ds = ExecuteDataset(trans, "GetOrders", 24, 36);
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -709,11 +723,12 @@ namespace Core.DBUtility
             }
         }
 
-        #endregion
+        #endregion ExecuteDataSet
 
         #region ExecuteReader
 
         /**/
+
         /// <summary>
         /// this enum is used to indicate whether the connection was provided by the caller, or created by SqlHelper, so that
         /// we can set the appropriate CommandBehavior when calling ExecuteReader()
@@ -721,20 +736,24 @@ namespace Core.DBUtility
         private enum SqlConnectionOwnership
         {
             /**/
+
             /// <summary>Connection is owned and managed by SqlHelper</summary>
             Internal,
+
             /**/
+
             /// <summary>Connection is owned and managed by the caller</summary>
             External
         }
 
         /**/
+
         /// <summary>
         /// Create and prepare a SqlCommand, and call ExecuteReader with the appropriate CommandBehavior.
         /// </summary>
         /// <remarks>
         /// If we created and opened the connection, we want the connection to be closed when the DataReader is closed.
-        /// 
+        ///
         /// If the caller provided the connection, we want to leave it to them to manage.
         /// </remarks>
         /// <param name="connection">a valid SqlConnection, on which to execute this command</param>
@@ -770,12 +789,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the database specified in 
-        /// the connection string. 
+        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the database specified in
+        /// the connection string.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  SqlDataReader dr = ExecuteReader(connString, CommandType.StoredProcedure, "GetOrders");
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -789,12 +809,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset) against the database specified in the connection string 
+        /// Execute a SqlCommand (that returns a resultset) against the database specified in the connection string
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  SqlDataReader dr = ExecuteReader(connString, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -822,15 +843,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the database specified in 
-        /// the connection string using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the database specified in
+        /// the connection string using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  SqlDataReader dr = ExecuteReader(connString, "GetOrders", 24, 36);
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -859,11 +881,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlConnection. 
+        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlConnection.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  SqlDataReader dr = ExecuteReader(conn, CommandType.StoredProcedure, "GetOrders");
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -877,12 +900,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset) against the specified SqlConnection 
+        /// Execute a SqlCommand (that returns a resultset) against the specified SqlConnection
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  SqlDataReader dr = ExecuteReader(conn, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -897,15 +921,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified SqlConnection 
-        /// using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified SqlConnection
+        /// using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  SqlDataReader dr = ExecuteReader(conn, "GetOrders", 24, 36);
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -931,11 +956,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlTransaction. 
+        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlTransaction.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  SqlDataReader dr = ExecuteReader(trans, CommandType.StoredProcedure, "GetOrders");
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -949,12 +975,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// Execute a SqlCommand (that returns a resultset) against the specified SqlTransaction
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///   SqlDataReader dr = ExecuteReader(trans, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -969,15 +996,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified
-        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  SqlDataReader dr = ExecuteReader(trans, "GetOrders", 24, 36);
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -1002,17 +1030,18 @@ namespace Core.DBUtility
             }
         }
 
-        #endregion
+        #endregion ExecuteReader
 
         #region ExecuteScalar
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a 1x1 resultset and takes no parameters) against the database specified in 
-        /// the connection string. 
+        /// Execute a SqlCommand (that returns a 1x1 resultset and takes no parameters) against the database specified in
+        /// the connection string.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(connString, CommandType.StoredProcedure, "GetOrderCount");
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -1026,12 +1055,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a 1x1 resultset) against the database specified in the connection string 
+        /// Execute a SqlCommand (that returns a 1x1 resultset) against the database specified in the connection string
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(connString, CommandType.StoredProcedure, "GetOrderCount", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -1052,15 +1082,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a 1x1 resultset) against the database specified in 
-        /// the connection string using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a 1x1 resultset) against the database specified in
+        /// the connection string using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(connString, "GetOrderCount", 24, 36);
         /// </remarks>
         /// <param name="connectionString">a valid connection string for a SqlConnection</param>
@@ -1089,11 +1120,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a 1x1 resultset and takes no parameters) against the provided SqlConnection. 
+        /// Execute a SqlCommand (that returns a 1x1 resultset and takes no parameters) against the provided SqlConnection.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(conn, CommandType.StoredProcedure, "GetOrderCount");
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -1107,12 +1139,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a 1x1 resultset) against the specified SqlConnection 
+        /// Execute a SqlCommand (that returns a 1x1 resultset) against the specified SqlConnection
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(conn, CommandType.StoredProcedure, "GetOrderCount", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -1132,19 +1165,19 @@ namespace Core.DBUtility
             // detach the SqlParameters from the command object, so they can be used again.
             cmd.Parameters.Clear();
             return retval;
-
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a 1x1 resultset) against the specified SqlConnection 
-        /// using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a 1x1 resultset) against the specified SqlConnection
+        /// using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(conn, "GetOrderCount", 24, 36);
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -1173,11 +1206,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a 1x1 resultset and takes no parameters) against the provided SqlTransaction. 
+        /// Execute a SqlCommand (that returns a 1x1 resultset and takes no parameters) against the provided SqlTransaction.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(trans, CommandType.StoredProcedure, "GetOrderCount");
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -1191,12 +1225,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// Execute a SqlCommand (that returns a 1x1 resultset) against the specified SqlTransaction
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(trans, CommandType.StoredProcedure, "GetOrderCount", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -1219,15 +1254,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// Execute a stored procedure via a SqlCommand (that returns a 1x1 resultset) against the specified
-        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  int orderCount = (int)ExecuteScalar(trans, "GetOrderCount", 24, 36);
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -1255,16 +1291,17 @@ namespace Core.DBUtility
             }
         }
 
-        #endregion
+        #endregion ExecuteScalar
 
         #region ExecuteXmlReader
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlConnection. 
+        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlConnection.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  XmlReader r = ExecuteXmlReader(conn, CommandType.StoredProcedure, "GetOrders");
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -1278,12 +1315,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset) against the specified SqlConnection 
+        /// Execute a SqlCommand (that returns a resultset) against the specified SqlConnection
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  XmlReader r = ExecuteXmlReader(conn, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -1303,19 +1341,19 @@ namespace Core.DBUtility
             // detach the SqlParameters from the command object, so they can be used again.
             cmd.Parameters.Clear();
             return retval;
-
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified SqlConnection 
-        /// using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified SqlConnection
+        /// using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  XmlReader r = ExecuteXmlReader(conn, "GetOrders", 24, 36);
         /// </remarks>
         /// <param name="connection">a valid SqlConnection</param>
@@ -1344,11 +1382,12 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlTransaction. 
+        /// Execute a SqlCommand (that returns a resultset and takes no parameters) against the provided SqlTransaction.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  XmlReader r = ExecuteXmlReader(trans, CommandType.StoredProcedure, "GetOrders");
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -1362,12 +1401,13 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// Execute a SqlCommand (that returns a resultset) against the specified SqlTransaction
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  XmlReader r = ExecuteXmlReader(trans, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -1390,15 +1430,16 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
-        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified 
-        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the 
+        /// Execute a stored procedure via a SqlCommand (that returns a resultset) against the specified
+        /// SqlTransaction using the provided parameter values.  This method will query the database to discover the parameters for the
         /// stored procedure (the first time each stored procedure is called), and assign the values based on parameter order.
         /// </summary>
         /// <remarks>
         /// This method provides no access to output parameters or the stored procedure's return value parameter.
-        /// 
-        /// e.g.:  
+        ///
+        /// e.g.:
         ///  XmlReader r = ExecuteXmlReader(trans, "GetOrders", 24, 36);
         /// </remarks>
         /// <param name="transaction">a valid SqlTransaction</param>
@@ -1426,11 +1467,11 @@ namespace Core.DBUtility
             }
         }
 
-
-        #endregion
+        #endregion ExecuteXmlReader
     }
 
     /**/
+
     /// <summary>
     /// SqlHelperParameterCache provides functions to leverage a static cache of procedure parameters, and the
     /// ability to discover parameters for stored procedures at run-time.
@@ -1440,7 +1481,7 @@ namespace Core.DBUtility
     {
         #region private methods, variables, and constructors
 
-        //Since this class provides only static methods, make the default constructor private to prevent 
+        //Since this class provides only static methods, make the default constructor private to prevent
         //instances from being created with "new SqlHelperParameterCache()".
         //类提供的都是静态方法，将默认构造函数设置为私有的以便阻止利用"new SqlHelperParameterCache()"来实例化类
         private SqlHelperParameterCache() { }
@@ -1449,6 +1490,7 @@ namespace Core.DBUtility
         private static Hashtable paramCache = Hashtable.Synchronized(new Hashtable());
 
         /**/
+
         /// <summary>
         /// resolve at run time the appropriate set of SqlParameters for a stored procedure
         /// 在运行时得到一个存储过程的一系列参数信息
@@ -1498,11 +1540,12 @@ namespace Core.DBUtility
             return clonedParameters;
         }
 
-        #endregion
+        #endregion private methods, variables, and constructors
 
         #region caching functions
 
         /**/
+
         /// <summary>
         /// 将参数数组添加到缓存中
         /// </summary>
@@ -1517,6 +1560,7 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// 从缓存中获得参数对象数组
         /// </summary>
@@ -1539,11 +1583,12 @@ namespace Core.DBUtility
             }
         }
 
-        #endregion
+        #endregion caching functions
 
         #region Parameter Discovery Functions
 
         /**/
+
         /// <summary>
         /// 获得存储过程的参数集
         /// </summary>
@@ -1559,6 +1604,7 @@ namespace Core.DBUtility
         }
 
         /**/
+
         /// <summary>
         /// 获得存储过程的参数集
         /// </summary>
@@ -1590,6 +1636,5 @@ namespace Core.DBUtility
         }
 
         #endregion Parameter Discovery Functions
-
     }
 }

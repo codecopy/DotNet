@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EthanLibrary.Collections
+﻿namespace EthanLibrary.Collections
 {
     /// <summary>
     /// 各种常用数组排序操作辅助类
@@ -73,7 +69,6 @@ namespace EthanLibrary.Collections
                 }
                 list[j] = t;
             }
-
         }
 
         /// <summary>
@@ -95,7 +90,6 @@ namespace EthanLibrary.Collections
                 list[min] = list[i];
                 list[i] = t;
             }
-
         }
 
         /// <summary>

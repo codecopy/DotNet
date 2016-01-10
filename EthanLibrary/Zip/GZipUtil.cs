@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Text;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 
-
-namespace Core.Zip
+namespace EthanLibrary.Zip
 {
     /// <summary>
     /// 压缩文本、字节或者文件的压缩辅助类
@@ -256,7 +255,5 @@ namespace Core.Zip
                 }
             }
         }
-
-     
     }
 }

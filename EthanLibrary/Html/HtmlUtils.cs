@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Data;
 using System.Web;
 using System.Xml;
 
@@ -16,6 +15,7 @@ namespace Common
     public class HtmlUtils
     {
         #region BaseMethod
+
         /// <summary>
         /// 多个匹配内容
         /// </summary>
@@ -240,6 +240,7 @@ namespace Common
         #endregion 获得特定内容
 
         #region 根据表达式，获得文章内容
+
         /// <summary>
         /// 文章标题
         /// </summary>
@@ -470,8 +471,6 @@ namespace Common
             return sReturn;
         }
 
-     
-
         public static string GetContent(string sOriContent, string sOtherRemoveReg, string sPageUrl, DataTable dtAntiLink)
         {
             string sFormartted = sOriContent;
@@ -502,6 +501,7 @@ namespace Common
                         case 1://置换
                             sFormartted = sFormartted.Replace(dr["imgUrl"].ToString(), "http://stat.580k.com/t.asp?url=");
                             break;
+
                         default://附加
                             sFormartted = sFormartted.Replace(dr["imgUrl"].ToString(), "http://stat.580k.com/t.asp?url=" + dr["imgUrl"].ToString());
                             break;
@@ -565,8 +565,8 @@ namespace Common
 
         #endregion 根据表达式，获得文章内容
 
-
         #region HTML相关操作
+
         public static string ClearTag(string sHtml)
         {
             if (sHtml == "")
@@ -575,12 +575,14 @@ namespace Common
             Regex re = new Regex(@"(<[^>\s]*\b(\w)+\b[^>]*>)|(<>)|(&nbsp;)|(&gt;)|(&lt;)|(&amp;)|\r|\n|\t", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace);
             return re.Replace(sHtml, "");
         }
+
         public static string ClearTag(string sHtml, string sRegex)
         {
             string sTemp = sHtml;
             Regex re = new Regex(sRegex, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace);
             return re.Replace(sHtml, "");
         }
+
         public static string ConvertToJS(string sHtml)
         {
             StringBuilder sText = new StringBuilder();
@@ -593,10 +595,9 @@ namespace Common
             }
             return sText.ToString();
         }
-       
- 
+
         /// <summary>
-        /// 删除字符串中的特定标记 
+        /// 删除字符串中的特定标记
         /// </summary>
         /// <param name="str"></param>
         /// <param name="tag"></param>
@@ -609,7 +610,7 @@ namespace Common
                 return str;
             }
 
-            if (isContent) //要求清除内容 
+            if (isContent) //要求清除内容
             {
                 return Regex.Replace(str, string.Format("<({0})[^>]*>([\\s\\S]*?)<\\/\\1>", tag), "", RegexOptions.IgnoreCase);
             }
@@ -618,7 +619,7 @@ namespace Common
         }
 
         /// <summary>
-        /// 删除字符串中的一组标记 
+        /// 删除字符串中的一组标记
         /// </summary>
         /// <param name="str"></param>
         /// <param name="tagA"></param>
@@ -626,20 +627,19 @@ namespace Common
         /// <returns></returns>
         public static string DelTagArray(string str, string tagA, bool isContent)
         {
-
             string[] tagAa = tagA.Split(',');
 
-            foreach (string sr1 in tagAa) //遍历所有标记，删除 
+            foreach (string sr1 in tagAa) //遍历所有标记，删除
             {
                 str = DelTag(str, sr1, isContent);
             }
             return str;
-
         }
 
         #endregion HTML相关操作
-       
+
         #region 根据内容获得链接
+
         public static string GetLink(string sContent)
         {
             string strReturn = "";
@@ -663,6 +663,7 @@ namespace Common
 
             return strReturn;
         }
+
         public static string GetTextByLink(string sContent)
         {
             Regex re = new Regex(@"<a(?:\s+[^>]*)?>([\s\S]*)?</a>", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline);
@@ -852,7 +853,6 @@ namespace Common
             return txtTranRegular;
         }
 
-
         /// <summary>
         /// 从RSS FEED中读取
         /// </summary>
@@ -891,7 +891,6 @@ namespace Common
                     }
                     return listResult;
                 }
-
             }
             catch { }
 
@@ -946,6 +945,7 @@ namespace Common
 
             return listResult;
         }
+
         public static string GetTitleFromRss(string sContent)
         {
             string title = "";
@@ -963,6 +963,7 @@ namespace Common
         }
 
         #region 已过时的方法
+
         [Obsolete("已过时的方法。")]
         public static List<string> GetLinksByKey(string sContent, /*string sUrl,*/ List<string> listKey)
         {
@@ -1015,11 +1016,13 @@ namespace Common
             }
 
             #region 对RSS的支持
+
             if (listResult.Count == 0)
             {
                 return GetLinksByKeyFromRss(sContent, listKey);
             }
-            #endregion
+
+            #endregion 对RSS的支持
 
             return listResult;
         }
@@ -1062,7 +1065,6 @@ namespace Common
                     }
                     return listResult;
                 }
-
             }
             catch { }
 
@@ -1105,7 +1107,8 @@ namespace Common
 
             return listResult;
         }
-        #endregion
+
+        #endregion 已过时的方法
 
         public static string RemoveByReg(string sContent, string sRegex)
         {
@@ -1124,7 +1127,7 @@ namespace Common
             sContent = re.Replace(sContent, sReplace);
             return sContent;
         }
-       
+
         /// <summary>
         ///  网页Body内容
         /// </summary>
@@ -1139,9 +1142,11 @@ namespace Common
             sContent = re.Replace(sContent, "");
             return sContent;
         }
-        #endregion 根据超链接地址获取页面内容
+
+        #endregion 根据内容获得链接
 
         #region 根据内容作字符串分析
+
         public static string GetTextByReg(string sContent, string sRegex)
         {
             Regex re = new Regex(sRegex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline);
@@ -1187,7 +1192,6 @@ namespace Common
                         string file = baseUri.Segments[i];
                         if (file.IndexOf('.') < 1)
                         {
-
                             baseUri = new Uri(sUrl + "/");
                         }
                     }
@@ -1239,7 +1243,7 @@ namespace Common
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sOri"></param>
         /// <returns></returns>
@@ -1264,7 +1268,7 @@ namespace Common
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sOri"></param>
         /// <returns></returns>
@@ -1319,10 +1323,8 @@ namespace Common
             else
                 return sReturn;
         }
-        #endregion
-        
 
-
+        #endregion 根据内容作字符串分析
 
         #region 杂项
 
@@ -1376,7 +1378,8 @@ namespace Common
 
             return content;
         }
-        #endregion
+
+        #endregion 杂项
 
         public static string RemoveEndWith(string sOrg, string sEnd)
         {
@@ -1386,6 +1389,7 @@ namespace Common
         }
 
         #region 根据超链接地址获取页面内容
+
         public static string GetHtmlByUrl(string sUrl)
         {
             return GetHtmlByUrl(sUrl, "auto");
@@ -1395,6 +1399,7 @@ namespace Common
         {
             return GetHtmlByUrl(ref sUrl, sCoding);
         }
+
         public static string GetHtmlByUrl(ref string sUrl, string sCoding)
         {
             string content = "";
@@ -1417,7 +1422,6 @@ namespace Common
                 string charset = "";
                 if (sCoding == null || sCoding == "" || sCoding.ToLower() == "auto")
                 {//如果不指定编码，那么系统代为指定
-
                     //首先，从返回头信息中寻找
                     string ht = response.GetResponseHeader("Content-Type");
                     response.Close();
@@ -1429,7 +1433,6 @@ namespace Common
 
                     if (charset == "")
                     {//找不到，则在文件信息本身中查找
-
                         //先按gb2312来获取文件信息
                         content = System.Text.Encoding.GetEncoding("gb2312").GetString(buffer);
 
@@ -1468,6 +1471,7 @@ namespace Common
 
             return content;
         }
+
         private static HttpWebResponse _MyGetResponse(string sUrl)
         {
             int iTimeOut = 10000;
@@ -1515,6 +1519,7 @@ namespace Common
                 return null;
             }
         }
+
         private static byte[] GetContent(Stream stream)
         {
             ArrayList arBuffer = new ArrayList();
@@ -1598,6 +1603,7 @@ namespace Common
         #endregion 根据超链接地址获取页面内容
 
         #region 获得多个页面
+
         public static List<KeyValuePair<int, string>> GetHtmlByUrlList(List<KeyValuePair<int, string>> listUrl, string sCoding)
         {
             int iTimeOut = int.Parse(System.Configuration.ConfigurationManager.AppSettings["SocketTimeOut"]);
@@ -1608,7 +1614,7 @@ namespace Common
             IPHostEntry ipHostInfo = null;
             try
             {
-                // 初始化				
+                // 初始化
                 Uri site = new Uri(listUrl[0].Value.ToString());
                 try
                 {
@@ -1713,9 +1719,11 @@ namespace Common
             }
             return listResult;
         }
-        #endregion 根据超链接地址获取页面内容
+
+        #endregion 获得多个页面
 
         public enum PageType : int { HTML = 0, RSS };
+
         public static PageType GetPageType(string sUrl, ref string sHtml)
         {
             PageType pt = PageType.HTML;

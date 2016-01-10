@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace EthanLibrary.Common
 {
@@ -123,7 +121,6 @@ namespace EthanLibrary.Common
             return str_Regex;
         }
 
-
         /// <summary>
         /// 检测是否有Sql危险字符
         /// </summary>
@@ -145,6 +142,7 @@ namespace EthanLibrary.Common
         }
 
         #region 检测客户的输入中是否有危险字符串
+
         /// <summary>
         /// 检测客户输入的字符串是否有效,并将原始字符串修改为有效字符串或空字符串。
         /// 当检测到客户的输入中有攻击性危险字符串,则返回false,有效返回true。
@@ -154,7 +152,6 @@ namespace EthanLibrary.Common
         {
             try
             {
-
                 //替换单引号
                 input = input.Replace("'", "''").Trim();
 
@@ -173,13 +170,13 @@ namespace EthanLibrary.Common
 
                 //未检测到攻击字符串
                 return true;
-
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        #endregion
+
+        #endregion 检测客户的输入中是否有危险字符串
     }
 }

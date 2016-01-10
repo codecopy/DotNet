@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Collections;
-using System.Threading;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace EthanLibrary.Common
 {
@@ -14,6 +13,7 @@ namespace EthanLibrary.Common
     public class PinYinUtil
     {
         #region 私有字段
+
         /// <SUMMARY>
         /// 包含字符 ASC 码的整形数组。
         /// </SUMMARY>
@@ -50,8 +50,6 @@ namespace EthanLibrary.Common
             -10262, -10260, -10256, -10254
         };
 
-
-
         /// <SUMMARY>
         /// 包含汉字拼音的字符串数组。
         /// </SUMMARY>
@@ -83,10 +81,13 @@ namespace EthanLibrary.Common
             "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuai", "zhuan", "zhuang", "zhui", "zhun", "zhuo", "zi",
             "zong", "zou", "zu", "zuan", "zui", "zun", "zuo"
         };
+
         private static Hashtable _PhraseSpecial;
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有方法
+
         /// <summary>
         /// 将指定中文字符串转换为拼音形式
         /// </summary>
@@ -96,7 +97,6 @@ namespace EthanLibrary.Common
         /// <returns>包含中文字符串的拼音的字符串</returns>
         public static string CHSToPinyin(string chs, string separator, bool initialCap)
         {
-
             if (chs == null || chs.Length == 0) return "";
             if (separator == null || separator.Length == 0) separator = "";
             // 例外词组
@@ -377,9 +377,11 @@ namespace EthanLibrary.Common
             }
             return pystr;//返回获取到的汉字拼音
         }
-        #endregion
+
+        #endregion 公有方法
 
         #region 公有属性
+
         /// <summary>
         /// 设置或获取包含例外词组读音的键/值对的组合
         /// </summary>
@@ -387,7 +389,6 @@ namespace EthanLibrary.Common
         {
             get
             {
-
                 if (_PhraseSpecial == null)
                 {
                     _PhraseSpecial = new Hashtable();
@@ -399,6 +400,7 @@ namespace EthanLibrary.Common
             }
             set { _PhraseSpecial = value; }
         }
-        #endregion
+
+        #endregion 公有属性
     }
 }

@@ -46,7 +46,6 @@ namespace EmailHelp
             TextHtml = MediaTypeNames.Text.Html;
             TextRich = MediaTypeNames.Text.RichText;
             TextXml = MediaTypeNames.Text.Xml;
-
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.IO.Compression;
-using System.Text;
-using System.Net;
 using System.IO;
-using System.Threading;
+using System.IO.Compression;
+using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 
-namespace Core.Html
+namespace EthanLibrary.Html
 {
     /// <summary>
     ///1、获取HTML
@@ -15,9 +15,9 @@ namespace Core.Html
     ///1.2获取HTMLGetHtml(string url, CookieContainer cookieContainer)
     ///2、获取字符流
     ///2.1获取字符流GetStream(string url, CookieContainer cookieContainer)
-    ///3、清除HTML标记 
+    ///3、清除HTML标记
     ///3.1清除HTML标记  NoHTML(string Htmlstring)
-    ///4、匹配页面的链接 
+    ///4、匹配页面的链接
     ///4.1获取页面的链接正则 GetHref(string HtmlCode)
     ///5、匹配页面的图片地址
     /// 5.1匹配页面的图片地址 GetImgSrc(string HtmlCode, string imgHttp)
@@ -28,7 +28,7 @@ namespace Core.Html
     ///7、压缩HTML输出
     ///7.1压缩HTML输出 ZipHtml(string Html)
     ///8、过滤HTML标签
-    /// 8.1过滤指定HTML标签 DelHtml(string s_TextStr, string html_Str)  
+    /// 8.1过滤指定HTML标签 DelHtml(string s_TextStr, string html_Str)
     /// 8.2过滤HTML中的不安全标签 RemoveUnsafeHtml(string content)
     /// HTML转行成TEXT HtmlToTxt(string strHtml)
     /// 字符串转换为 HtmlStringToHtml(string str)
@@ -40,26 +40,32 @@ namespace Core.Html
     public class HtmlHelper
     {
         #region 私有字段
+
         private static CookieContainer cc = new CookieContainer();
         private static string contentType = "application/x-www-form-urlencoded";
+
         private static string accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg," +
                                        " application/x-shockwave-flash, application/x-silverlight, " +
                                        "application/vnd.ms-excel, application/vnd.ms-powerpoint, " +
                                        "application/msword, application/x-ms-application," +
                                        " application/x-ms-xbap," +
                                        " application/vnd.ms-xpsdocument, application/xaml+xml, application/x-silverlight-2-b1, */*";
+
         private static string userAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1;" +
                                           " .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)";
+
         private static Encoding encoding = Encoding.GetEncoding("utf-8");
         private static int delay = 1000;
         private static int maxTry = 300;
         private static int currentTry = 0;
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
-        /// <summary> 
+
+        /// <summary>
         /// Cookie容器
-        /// </summary> 
+        /// </summary>
         public static CookieContainer CookieContainer
         {
             get
@@ -68,9 +74,9 @@ namespace Core.Html
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// 获取网页源码时使用的编码
-        /// </summary> 
+        /// </summary>
         public static Encoding Encoding
         {
             get
@@ -108,9 +114,11 @@ namespace Core.Html
                 maxTry = value;
             }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 1、获取HTML
+
         /// <summary>
         /// 1.1获取指定页面的HTML代码
         /// </summary>
@@ -182,7 +190,6 @@ namespace Core.Html
             }
         }
 
-
         /// <summary>
         /// 1.2获取HTML
         /// </summary>
@@ -224,15 +231,17 @@ namespace Core.Html
                 return string.Empty;
             }
         }
-        #endregion
+
+        #endregion 1、获取HTML
 
         #region 2、获取字符流
+
         /// <summary>
         /// 2.1获取字符流
         /// </summary>
         //---------------------------------------------------------------------------------------------------------------
         // 示例:
-        // System.Net.CookieContainer cookie = new System.Net.CookieContainer(); 
+        // System.Net.CookieContainer cookie = new System.Net.CookieContainer();
         // Stream s = HttpHelper.GetStream("http://ptlogin2.qq.com/getimage?aid=15000102&0.43878429697395826", cookie);
         // picVerify.Image = Image.FromStream(s);
         //---------------------------------------------------------------------------------------------------------------
@@ -273,27 +282,30 @@ namespace Core.Html
                 if (httpWebRequest != null)
                 {
                     httpWebRequest.Abort();
-                } if (httpWebResponse != null)
+                }
+                if (httpWebResponse != null)
                 {
                     httpWebResponse.Close();
                 }
                 return null;
             }
         }
-        #endregion
+
+        #endregion 2、获取字符流
 
         #region 3、清除HTML标记
-        ///<summary>   
-        ///3.1清除HTML标记   
-        ///</summary>   
-        ///<param name="NoHTML">包括HTML的源码</param>   
-        ///<returns>已经去除后的文字</returns>   
+
+        ///<summary>
+        ///3.1清除HTML标记
+        ///</summary>
+        ///<param name="NoHTML">包括HTML的源码</param>
+        ///<returns>已经去除后的文字</returns>
         public static string RemoveHTML(string Htmlstring)
         {
-            //删除脚本   
+            //删除脚本
             Htmlstring = Regex.Replace(Htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
 
-            //删除HTML   
+            //删除HTML
             Regex regex = new Regex("<.+?>", RegexOptions.IgnoreCase);
             Htmlstring = regex.Replace(Htmlstring, "");
             Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
@@ -319,11 +331,12 @@ namespace Core.Html
             return Htmlstring;
         }
 
-
-        #endregion
+        #endregion 3、清除HTML标记
 
         #region 4、匹配页面的链接
+
         #region 4.1获取页面的链接正则
+
         /// <summary>
         /// 4.1获取页面的链接正则
         /// </summary>
@@ -337,9 +350,11 @@ namespace Core.Html
             }
             return MatchVale;
         }
-        #endregion
 
-        #region  4.2取得所有链接URL
+        #endregion 4.1获取页面的链接正则
+
+        #region 4.2取得所有链接URL
+
         /// <summary>
         /// 4.2取得所有链接URL
         /// </summary>
@@ -358,9 +373,11 @@ namespace Core.Html
 
             return sb.ToString();
         }
-        #endregion
+
+        #endregion 4.2取得所有链接URL
 
         #region 4.3获取所有连接文本
+
         /// <summary>
         /// 4.3获取所有连接文本
         /// </summary>
@@ -379,10 +396,13 @@ namespace Core.Html
 
             return sb.ToString();
         }
-        #endregion
-        #endregion
 
-        #region  5、匹配页面的图片地址
+        #endregion 4.3获取所有连接文本
+
+        #endregion 4、匹配页面的链接
+
+        #region 5、匹配页面的图片地址
+
         /// <summary>
         /// 5.1匹配页面的图片地址
         /// </summary>
@@ -398,7 +418,6 @@ namespace Core.Html
 
             return MatchVale;
         }
-
 
         /// <summary>
         /// 5.2匹配<img src="" />中的图片路径实际链接
@@ -417,9 +436,11 @@ namespace Core.Html
             else
                 return (imgHttp + MatchVale);
         }
-        #endregion
+
+        #endregion 5、匹配页面的图片地址
 
         #region 6、抓取远程页面内容
+
         /// <summary>
         /// 6.1以GET方式抓取远程页面内容
         /// </summary>
@@ -476,9 +497,11 @@ namespace Core.Html
             }
             return strResult;
         }
-        #endregion
+
+        #endregion 6、抓取远程页面内容
 
         #region 7、压缩HTML输出
+
         /// <summary>
         /// 7.1压缩HTML输出
         /// </summary>
@@ -489,9 +512,11 @@ namespace Core.Html
             Html = Regex.Replace(Html, @"<body([\s|\S]*?)>([\s|\S]*?)</body>", @"<body$1>$2</body>", RegexOptions.IgnoreCase);
             return Html;
         }
-        #endregion
+
+        #endregion 7、压缩HTML输出
 
         #region 8、过滤HTML标签
+
         #region 8.1过滤指定HTML标签
 
         /// <summary>
@@ -509,7 +534,9 @@ namespace Core.Html
             }
             return rStr;
         }
-        #endregion
+
+        #endregion 8.1过滤指定HTML标签
+
         #region 8.2过滤HTML中的不安全标签
 
         /// <summary>
@@ -523,12 +550,15 @@ namespace Core.Html
             content = Regex.Replace(content, @"(script|frame|form|meta|behavior|style)([\s|:|>])+", "$1.$2", RegexOptions.IgnoreCase);
             return content;
         }
-        #endregion
-        #endregion
+
+        #endregion 8.2过滤HTML中的不安全标签
+
+        #endregion 8、过滤HTML标签
 
         #region 转换HTML操作
 
         #region HTML转行成TEXT
+
         /// <summary>
         /// HTML转行成TEXT HtmlToTxt(string strHtml)
         /// </summary>
@@ -543,8 +573,8 @@ namespace Core.Html
             @"&(quot|#34);",
             @"&(amp|#38);",
             @"&(lt|#60);",
-            @"&(gt|#62);", 
-            @"&(nbsp|#160);", 
+            @"&(gt|#62);",
+            @"&(nbsp|#160);",
             @"&(iexcl|#161);",
             @"&(cent|#162);",
             @"&(pound|#163);",
@@ -566,12 +596,13 @@ namespace Core.Html
             strOutput.Replace(">", "");
             strOutput.Replace("\r\n", "");
 
-
             return strOutput;
         }
-        #endregion
+
+        #endregion HTML转行成TEXT
 
         #region 字符串转换为 Html
+
         /// <summary>
         /// 字符串转换为 HtmlStringToHtml(string str)
         /// </summary>
@@ -579,7 +610,6 @@ namespace Core.Html
         /// <returns></returns>
         public static string StringToHtml(string str)
         {
-
             str = str.Replace("&", "&amp;");
             str = str.Replace(" ", "&nbsp;");
             str = str.Replace("'", "''");
@@ -588,13 +618,14 @@ namespace Core.Html
             str = str.Replace(">", "&gt;");
             str = str.Replace("\n", "<br />");
             str = str.Replace("\r", "<br />");
-            str = str.Replace("\r\n", "<br />"); 
+            str = str.Replace("\r\n", "<br />");
             return str;
-
         }
-        #endregion
+
+        #endregion 字符串转换为 Html
 
         #region Html转换成字符串
+
         /// <summary>
         /// html转换成字符串
         /// </summary>
@@ -602,7 +633,6 @@ namespace Core.Html
         /// <returns></returns>
         public static string HtmlToString(string strHtml)
         {
-
             strHtml = strHtml.Replace("<br>", "\r\n");
             strHtml = strHtml.Replace(@"<br />", "\r\n");
             strHtml = strHtml.Replace(@"<br/>", "\r\n");
@@ -613,12 +643,14 @@ namespace Core.Html
             strHtml = Regex.Replace(strHtml, @"<\/?[^>]+>", "", RegexOptions.IgnoreCase);
 
             return strHtml;
-
         }
-        #endregion
-        #endregion
+
+        #endregion Html转换成字符串
+
+        #endregion 转换HTML操作
 
         #region 获取URL编码
+
         /// <summary>
         /// 获取URL编码
         /// </summary>
@@ -679,10 +711,10 @@ namespace Core.Html
             }
             return Encoding.Default.BodyName;
         }
-        #endregion
+
+        #endregion 获取URL编码
 
         #region 判断URL是否有效
-
 
         /// <summary>
         /// 判断URL是否有效
@@ -723,9 +755,11 @@ namespace Core.Html
             }
             return num;
         }
-        #endregion
+
+        #endregion 判断URL是否有效
 
         #region 返回 HTML 字符串的编码解码结果
+
         /// <summary>
         /// 返回 HTML 字符串的编码结果
         /// </summary>
@@ -745,9 +779,11 @@ namespace Core.Html
         {
             return HttpUtility.HtmlDecode(str);
         }
-        #endregion
+
+        #endregion 返回 HTML 字符串的编码解码结果
 
         #region 加载文件块
+
         /// <summary>
         /// 加载文件块
         /// </summary>
@@ -755,9 +791,11 @@ namespace Core.Html
         {
             return @p.ResolveUrl(Path);
         }
-        #endregion
+
+        #endregion 加载文件块
 
         #region 加载CSS样式文件
+
         /// <summary>
         /// 加载CSS样式文件
         /// </summary>
@@ -765,9 +803,11 @@ namespace Core.Html
         {
             return @"<link href=""" + p.ResolveUrl(cssPath) + @""" rel=""stylesheet"" type=""text/css"" />" + "\r\n";
         }
-        #endregion
+
+        #endregion 加载CSS样式文件
 
         #region 加载JavaScript脚本文件
+
         /// <summary>
         /// 加载javascript脚本文件
         /// </summary>
@@ -775,7 +815,8 @@ namespace Core.Html
         {
             return @"<script type=""text/javascript"" src=""" + p.ResolveUrl(jsPath) + @"""></script>" + "\r\n";
         }
-        #endregion
+
+        #endregion 加载JavaScript脚本文件
 
         public CookieCollection GetCookieCollection(string cookieString)
         {
@@ -784,7 +825,7 @@ namespace Core.Html
             Regex re = new Regex("([^;,]+)=([^;,]+);Domain=([^;,]+);Path=([^;,]+)", RegexOptions.IgnoreCase);
             foreach (Match m in re.Matches(cookieString))
             {
-                //name,   value,   path,   domain   
+                //name,   value,   path,   domain
                 Cookie c = new Cookie(m.Groups[1].Value, m.Groups[2].Value, m.Groups[3].Value, m.Groups[3].Value);
                 ccc.Add(c);
             }
@@ -792,7 +833,7 @@ namespace Core.Html
         }
 
         #region 从HTML中获取文本,保留br,p,img
-      
+
         /// <summary>
         /// 从HTML中获取文本,保留br,p,img
         /// </summary>
@@ -804,7 +845,8 @@ namespace Core.Html
 
             return regEx.Replace(HTML, "");
         }
-        #endregion
+
+        #endregion 从HTML中获取文本,保留br,p,img
 
         #region 获取HTML页面内制定Key的Value内容
 
@@ -826,8 +868,8 @@ namespace Core.Html
             }
             return result;
         }
-        #endregion
 
+        #endregion 获取HTML页面内制定Key的Value内容
 
         /// <summary>
         /// 替换回车换行符为html换行符
@@ -848,6 +890,7 @@ namespace Core.Html
             }
             return str2;
         }
+
         /// <summary>
         /// 替换html字符
         /// </summary>
@@ -862,7 +905,6 @@ namespace Core.Html
             }
             return "";
         }
-
 
         /// <summary>
         /// 为脚本替换特殊字符串

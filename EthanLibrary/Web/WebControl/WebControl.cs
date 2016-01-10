@@ -26,6 +26,7 @@ namespace EthanLibrary.Web
             //chkbit.DataValueField = valueField;
             //chkbit.DataBind();
         }
+
         /// <summary>
         /// 使CheckBoxList中指定项选中
         /// </summary>
@@ -43,6 +44,7 @@ namespace EthanLibrary.Web
                 }
             }
         }
+
         /// <summary>
         /// 使CheckBoxList中指定项选中
         /// </summary>
@@ -64,6 +66,7 @@ namespace EthanLibrary.Web
                 }
             }
         }
+
         /// <summary>
         /// 使CheckBoxList中指定集合的项选中
         /// </summary>
@@ -109,9 +112,11 @@ namespace EthanLibrary.Web
             items = items.Substring(1);
             return items;
         }
-        #endregion
+
+        #endregion CheckBoxList
 
         #region DropDownList
+
         /// <summary>
         /// 绑顶数据源到指定的DropDownList
         /// </summary>
@@ -127,6 +132,7 @@ namespace EthanLibrary.Web
                 drp.Items.Add(new ListItem(dr[textField].ToString(), dr[valueField].ToString()));
             }
         }
+
         /// <summary>
         /// 自定义绑定DropDownList
         /// </summary>
@@ -143,6 +149,7 @@ namespace EthanLibrary.Web
                 drp.Items.Add(new ListItem(dr[textField].ToString(), dr[valueField1].ToString() + "," + dr[valueField2].ToString()));
             }
         }
+
         /// <summary>
         /// 使DropDownList中指定项选中
         /// </summary>
@@ -161,6 +168,7 @@ namespace EthanLibrary.Web
                 }
             }
         }
+
         /// <summary>
         /// 自定义方式使DropDownList中指定项选中
         /// </summary>
@@ -181,6 +189,7 @@ namespace EthanLibrary.Web
                 }
             }
         }
+
         /// <summary>
         /// 通过Text 使DropDownList中指定项选中
         /// </summary>
@@ -196,6 +205,7 @@ namespace EthanLibrary.Web
                 }
             }
         }
+
         /// <summary>
         /// 返回选中DropDownList的string
         /// </summary>
@@ -214,7 +224,8 @@ namespace EthanLibrary.Web
             }
             return "";
         }
-        #endregion
+
+        #endregion DropDownList
 
         #region RadioButtonList
 
@@ -276,9 +287,11 @@ namespace EthanLibrary.Web
             }
             return "";
         }
-        #endregion
+
+        #endregion RadioButtonList
 
         #region JS让DropdownList、RadioButtonList某一项选中
+
         //<script type="text/javascript">
         //    $("select#ddl_Store option[value='<%=store %>']").attr('selected', 'true');
         //    $("#rbl_Flag input[value='<%=flag %>']").attr("checked", "checked");
@@ -290,9 +303,11 @@ namespace EthanLibrary.Web
         //    <asp:ListItem Text="入库" Value="10"></asp:ListItem>
         //    <asp:ListItem Text="出库" Value="20"></asp:ListItem>
         //</asp:RadioButtonList>
-        #endregion
+
+        #endregion JS让DropdownList、RadioButtonList某一项选中
 
         #region JS方法获取DropDownList下拉项
+
         // <script type="text/javascript">
         //    function check()
         //    {
@@ -311,9 +326,11 @@ namespace EthanLibrary.Web
         //        }
         //    }
         //</script>
-        #endregion
+
+        #endregion JS方法获取DropDownList下拉项
 
         #region JS方法获给DropDownList增加一项
+
         //<script type="text/javascript">
         //    function addOption(){
         //        //根据id查找对象，
@@ -327,9 +344,11 @@ namespace EthanLibrary.Web
         //    <asp:ListItem Text="——请选择——" Value="-1" />
         //</asp:DropDownList>
         //<input type="button" id="btn" value="添加" onclick="addOption();" />
-        #endregion
+
+        #endregion JS方法获给DropDownList增加一项
 
         #region JS方法判断CheckBoxList是否有被选中
+
         //var flag1=0;
         //var checkobj=document.getElementById("chkStoreName");
         //var checks=checkobj.getElementsByTagName("input");
@@ -344,11 +363,13 @@ namespace EthanLibrary.Web
         //}
 
         ////绑定的方法上面有的
-        //<asp:CheckBoxList runat="server" ID="chkStoreName" RepeatDirection="Horizontal"  Font-Size="Small">                            
-        //</asp:CheckBoxList> 
-        #endregion
+        //<asp:CheckBoxList runat="server" ID="chkStoreName" RepeatDirection="Horizontal"  Font-Size="Small">
+        //</asp:CheckBoxList>
+
+        #endregion JS方法判断CheckBoxList是否有被选中
 
         #region JS方法获取RadioButtonList的Value值
+
         //var flag1=0;
         //var objZG=document.getElementById("txtPrice").value;
         //var checkobj=document.getElementById("rbConsume");
@@ -375,9 +396,11 @@ namespace EthanLibrary.Web
         //    <asp:ListItem Value="10" Text="充值" Selected="True" />
         //    <asp:ListItem Value="20" Text="消费" />
         //</asp:RadioButtonList>
-        #endregion
+
+        #endregion JS方法获取RadioButtonList的Value值
 
         #region Repeater控件添加LinkButton按钮进行删除判断
+
         //后台方法
 
         // 页面
@@ -385,6 +408,7 @@ namespace EthanLibrary.Web
         //<asp:HiddenField ID="hfGetId" Value='<%#Eval("id") %>' runat="server" />
 
         #region 删除
+
         ///// <summary>
         ///// 删除
         ///// </summary>
@@ -415,7 +439,8 @@ namespace EthanLibrary.Web
         //        }
         //    }
         //}
-        #endregion
+
+        #endregion 删除
 
         //this.rpt_Act.DataSource = GetModelList();
         //this.rpt_Act.DataBind();
@@ -428,7 +453,7 @@ namespace EthanLibrary.Web
         //前台JS方法 OnClientClick="return confirm('确定要删除吗?')"
         //<asp:LinkButton runat="server" CssClass="LinkButton_sty" ID="lblDelete" CommandName="del"
         //OnClientClick="return confirm('确定要删除吗?')">删除</asp:LinkButton>
-        #endregion
 
+        #endregion Repeater控件添加LinkButton按钮进行删除判断
     }
 }

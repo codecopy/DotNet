@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
-namespace Core.Threads
+namespace EthanLibrary.Threads
 {
     /// <summary>
     /// 提供一个队列的线程处理
@@ -20,6 +19,7 @@ namespace Core.Threads
         }
 
         private bool disposed = false;
+
         protected override void Dispose(bool disposing)
         {
             try
@@ -35,7 +35,7 @@ namespace Core.Threads
             }
         }
 
-        #region  公共方法
+        #region 公共方法
 
         public void EnqueueItem(T item)
         {
@@ -58,7 +58,7 @@ namespace Core.Threads
             }
         }
 
-        #endregion
+        #endregion 公共方法
 
         #region 线程处理
 
@@ -104,9 +104,9 @@ namespace Core.Threads
 
         public event Action<T> ProcessItem;
 
-        #endregion
+        #endregion 线程处理
 
-        #region  属性
+        #region 属性
 
         public bool IsBackground
         {
@@ -146,6 +146,6 @@ namespace Core.Threads
             }
         }
 
-        #endregion
+        #endregion 属性
     }
 }

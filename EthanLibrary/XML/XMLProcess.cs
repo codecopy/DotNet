@@ -3,11 +3,12 @@ using System.Data;
 using System.IO;
 using System.Xml;
 
-namespace Core.XML
+namespace EthanLibrary.XML
 {
     public class XMLProcess
     {
         #region 构造函数
+
         public XMLProcess()
         { }
 
@@ -15,17 +16,22 @@ namespace Core.XML
         {
             this._XMLPath = strPath;
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 公有属性
+
         private string _XMLPath;
+
         public string XMLPath
         {
             get { return this._XMLPath; }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 私有方法
+
         /// <summary>
         /// 导入XML文件
         /// </summary>
@@ -76,9 +82,11 @@ namespace Core.XML
                 return System.Web.HttpContext.Current.Server.MapPath(strPath);
             }
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 读取数据
+
         /// <summary>
         /// 读取指定节点的数据
         /// </summary>
@@ -178,7 +186,7 @@ namespace Core.XML
             return nodelist;
         }
 
-        /// <summary> 
+        /// <summary>
         /// 读取XML返回经排序或筛选后的DataView
         /// </summary>
         /// <param name="strWhere">筛选条件，如:"name='kgdiwss'"</param>
@@ -191,7 +199,7 @@ namespace Core.XML
                 string filename = AppDomain.CurrentDomain.BaseDirectory.ToString() + XMLFile;
                 DataSet ds = new DataSet();
                 ds.ReadXml(filename);
-                DataView dv = new DataView(ds.Tables[0]); //创建DataView来完成排序或筛选操作	
+                DataView dv = new DataView(ds.Tables[0]); //创建DataView来完成排序或筛选操作
                 if (strSort != null)
                 {
                     dv.Sort = strSort; //对DataView中的记录进行排序
@@ -229,9 +237,11 @@ namespace Core.XML
                 return null;
             }
         }
-        #endregion
+
+        #endregion 读取数据
 
         #region 插入数据
+
         /// <summary>
         /// 插入数据
         /// </summary>
@@ -343,9 +353,11 @@ namespace Core.XML
                 return false;
             }
         }
-        #endregion
+
+        #endregion 插入数据
 
         #region 修改数据
+
         /// <summary>
         /// 修改指定节点的数据
         /// </summary>
@@ -445,7 +457,6 @@ namespace Core.XML
                             return true;
                         }
                     }
-
                 }
                 return false;
             }
@@ -454,9 +465,11 @@ namespace Core.XML
                 return false;
             }
         }
-        #endregion
+
+        #endregion 修改数据
 
         #region 删除数据
+
         /// <summary>
         /// 删除节点值
         /// </summary>
@@ -601,6 +614,7 @@ namespace Core.XML
                 return false;
             }
         }
-        #endregion
+
+        #endregion 删除数据
     }
 }

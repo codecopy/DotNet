@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 
-
 namespace EmailHelp
 {
     /// <summary>
@@ -14,7 +13,8 @@ namespace EmailHelp
         /// </summary>
         /// <param name="stream">The stream.</param>
         public StatCommand(Stream stream)
-            : base(stream, false, Pop3State.Transaction) { }
+            : base(stream, false, Pop3State.Transaction)
+        { }
 
         /// <summary>
         /// Creates the STAT request message.

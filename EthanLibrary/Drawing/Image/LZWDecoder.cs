@@ -6,14 +6,18 @@ using System.IO;
 public class LZWDecoder
 {
     #region 变量
+
     /// <summary>
     /// GIF规定编码最大为12bit，最大值即为4096
     /// </summary>
     protected static readonly int MaxStackSize = 4096;
+
     protected Stream stream;
-    #endregion
+
+    #endregion 变量
 
     #region 构造函数
+
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -21,13 +25,15 @@ public class LZWDecoder
     {
         this.stream = stream;
     }
-    #endregion
+
+    #endregion 构造函数
 
     #region 私有方法
+
     /// <summary>
     /// 读取数据段
     /// </summary>
-    byte[] ReadData()
+    private byte[] ReadData()
     {
         int blockSize = Read();
         return ReadByte(blockSize);
@@ -36,7 +42,7 @@ public class LZWDecoder
     /// <summary>
     /// 读取指定长度的字节字节
     /// </summary>
-    byte[] ReadByte(int len)
+    private byte[] ReadByte(int len)
     {
         byte[] buffer = new byte[len];
         stream.Read(buffer, 0, len);
@@ -46,13 +52,15 @@ public class LZWDecoder
     /// <summary>
     /// 读取一个字节
     /// </summary>
-    int Read()
+    private int Read()
     {
         return stream.ReadByte();
     }
-    #endregion
+
+    #endregion 私有方法
 
     #region 调用方法
+
     /// <summary>
     /// LZW压缩算法解码器
     /// </summary>
@@ -208,7 +216,8 @@ public class LZWDecoder
         }
         return pixels;
     }
-    #endregion
+
+    #endregion 调用方法
 }
 
 //LZW数据压缩算法的原理分析：http://www.cnblogs.com/jillzhang/archive/2006/11/06/551298.html

@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.IO;
-using System.Data;
-using System.Collections;
 
 namespace EthanLibrary.Common
 {
@@ -17,9 +12,6 @@ namespace EthanLibrary.Common
     /// </summary>
     public static class Tools
     {
-
-        
-
         #region 简单验证
 
         /// <summary>
@@ -34,7 +26,6 @@ namespace EthanLibrary.Common
             return m.Success;
         }
 
-  
         /// <summary>
         /// Url有效性
         /// </summary>
@@ -44,8 +35,6 @@ namespace EthanLibrary.Common
         {
             return Regex.IsMatch(url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$");
         }
-
-
 
         /// <summary>
         /// domain 有效性
@@ -62,8 +51,6 @@ namespace EthanLibrary.Common
             return r.IsMatch(host.Replace(".", string.Empty)) ? false : true;
         }
 
-       
-
         /// <summary>
         /// 验证字符串是否是GUID
         /// </summary>
@@ -77,13 +64,12 @@ namespace EthanLibrary.Common
             return Regex.IsMatch(guid, "[A-F0-9]{8}(-[A-F0-9]{4}){3}-[A-F0-9]{12}|[A-F0-9]{32}", RegexOptions.IgnoreCase);
         }
 
-        #endregion
- 
-        #region 其他功能验证
+        #endregion 简单验证
 
-        #endregion
-     
+
+
         #region 对于用户权限从数据库中读出的解密过程
+
         public static string switch_riddle(string s_ch)//解密
         {
             string s_out, s_temp, temp;
@@ -100,39 +86,72 @@ namespace EthanLibrary.Common
                 temp = s_ch.Substring(i, 1);
                 switch (temp)
                 {
-                    case "a": s_temp = "1010";
+                    case "a":
+                        s_temp = "1010";
                         break;
-                    case "b": s_temp = "1011";
+
+                    case "b":
+                        s_temp = "1011";
                         break;
-                    case "c": s_temp = "1100";
+
+                    case "c":
+                        s_temp = "1100";
                         break;
-                    case "d": s_temp = "1101";
+
+                    case "d":
+                        s_temp = "1101";
                         break;
-                    case "e": s_temp = "1110";
+
+                    case "e":
+                        s_temp = "1110";
                         break;
-                    case "f": s_temp = "1111";
+
+                    case "f":
+                        s_temp = "1111";
                         break;
-                    case "0": s_temp = "0000";
+
+                    case "0":
+                        s_temp = "0000";
                         break;
-                    case "1": s_temp = "0001";
+
+                    case "1":
+                        s_temp = "0001";
                         break;
-                    case "2": s_temp = "0010";
+
+                    case "2":
+                        s_temp = "0010";
                         break;
-                    case "3": s_temp = "0011";
+
+                    case "3":
+                        s_temp = "0011";
                         break;
-                    case "4": s_temp = "0100";
+
+                    case "4":
+                        s_temp = "0100";
                         break;
-                    case "5": s_temp = "0101";
+
+                    case "5":
+                        s_temp = "0101";
                         break;
-                    case "6": s_temp = "0110";
+
+                    case "6":
+                        s_temp = "0110";
                         break;
-                    case "7": s_temp = "0111";
+
+                    case "7":
+                        s_temp = "0111";
                         break;
-                    case "8": s_temp = "1000";
+
+                    case "8":
+                        s_temp = "1000";
                         break;
-                    case "9": s_temp = "1001";
+
+                    case "9":
+                        s_temp = "1001";
                         break;
-                    default: s_temp = "0000";
+
+                    default:
+                        s_temp = "0000";
                         break;
                 }
                 s_out = s_out + s_temp;
@@ -140,9 +159,11 @@ namespace EthanLibrary.Common
             }
             return s_out;
         }
-        #endregion
-    
+
+        #endregion 对于用户权限从数据库中读出的解密过程
+
         #region 用户权限的加密过程
+
         public static string switch_encrypt(string s_ch)
         {
             string s_out, s_temp, temp;
@@ -159,39 +180,72 @@ namespace EthanLibrary.Common
                 temp = s_ch.Substring(i, 4);
                 switch (temp)
                 {
-                    case "1010": s_temp = "a";
+                    case "1010":
+                        s_temp = "a";
                         break;
-                    case "1011": s_temp = "b";
+
+                    case "1011":
+                        s_temp = "b";
                         break;
-                    case "1100": s_temp = "c";
+
+                    case "1100":
+                        s_temp = "c";
                         break;
-                    case "1101": s_temp = "d";
+
+                    case "1101":
+                        s_temp = "d";
                         break;
-                    case "1110": s_temp = "e";
+
+                    case "1110":
+                        s_temp = "e";
                         break;
-                    case "1111": s_temp = "f";
+
+                    case "1111":
+                        s_temp = "f";
                         break;
-                    case "0000": s_temp = "0";
+
+                    case "0000":
+                        s_temp = "0";
                         break;
-                    case "0001": s_temp = "1";
+
+                    case "0001":
+                        s_temp = "1";
                         break;
-                    case "0010": s_temp = "2";
+
+                    case "0010":
+                        s_temp = "2";
                         break;
-                    case "0011": s_temp = "3";
+
+                    case "0011":
+                        s_temp = "3";
                         break;
-                    case "0100": s_temp = "4";
+
+                    case "0100":
+                        s_temp = "4";
                         break;
-                    case "0101": s_temp = "5";
+
+                    case "0101":
+                        s_temp = "5";
                         break;
-                    case "0110": s_temp = "6";
+
+                    case "0110":
+                        s_temp = "6";
                         break;
-                    case "0111": s_temp = "7";
+
+                    case "0111":
+                        s_temp = "7";
                         break;
-                    case "1000": s_temp = "8";
+
+                    case "1000":
+                        s_temp = "8";
                         break;
-                    case "1001": s_temp = "9";
+
+                    case "1001":
+                        s_temp = "9";
                         break;
-                    default: s_temp = "0";
+
+                    default:
+                        s_temp = "0";
                         break;
                 }
                 s_out = s_out + s_temp;
@@ -199,9 +253,11 @@ namespace EthanLibrary.Common
             }
             return s_out;
         }//加密
-        #endregion
 
-        #region   访问权限
+        #endregion 用户权限的加密过程
+
+        #region 访问权限
+
         public static bool CheckTrue(string s_admin, int a)
         {
             string s_temp = "";
@@ -214,9 +270,9 @@ namespace EthanLibrary.Common
             {
                 return false;
             }
-
         }
-        #endregion
+
+        #endregion 访问权限
 
         #region 用户名密码格式
 
@@ -256,10 +312,11 @@ namespace EthanLibrary.Common
         {
             return Regex.IsMatch(password, @"^[A-Za-z_0-9]{6,16}$");
         }
-        #endregion
 
+        #endregion 用户名密码格式
 
         #region 是否由特定字符组成
+
         public static bool isContainSameChar(string strInput)
         {
             string charInput = string.Empty;
@@ -284,9 +341,8 @@ namespace EthanLibrary.Common
                 return m.Success;
             }
         }
-        #endregion
 
-       
+        #endregion 是否由特定字符组成
 
         /// <summary>
         /// 错误消息输出
@@ -320,10 +376,7 @@ namespace EthanLibrary.Common
             }
         }
 
-
-
         #region 字符文本类
-
 
         /// <summary>
         /// HTML代码生成
@@ -376,8 +429,6 @@ namespace EthanLibrary.Common
             return sb.ToString();
         }
 
-
-
         /// <summary>
         /// 判断输入对象是否为数字类型
         /// </summary>
@@ -388,7 +439,6 @@ namespace EthanLibrary.Common
             if (strInput == null)
             {
                 return false;
-
             }
             bool bValue = true;
             string strCheck = strInput.ToString();
@@ -403,7 +453,7 @@ namespace EthanLibrary.Common
             }
             return bValue;
         }
-    
+
         /// <summary>
         /// 获取定长像素的网页片段，多余部分用省略号代替。(ellipsis)
         /// </summary>
@@ -451,17 +501,13 @@ namespace EthanLibrary.Common
 
         #endregion 字符文本类
 
-        
- 
-    
-
-
         #region 文本框格式化(value=?使用)
-        ///   <summary>   
-        ///   过滤输出字符串   
-        ///   </summary>   
-        ///   <param   name="inputString">要过滤的字符串</param>   
-        ///   <returns>过滤后的字符串</returns>   
+
+        ///   <summary>
+        ///   过滤输出字符串
+        ///   </summary>
+        ///   <param   name="inputString">要过滤的字符串</param>
+        ///   <returns>过滤后的字符串</returns>
         public static string Output(object inputString)
         {
             if (inputString == null)
@@ -474,17 +520,18 @@ namespace EthanLibrary.Common
             str1 = str1.Replace("&quot;", ((char)34).ToString());
             return str1.ToString();
 
-            //前台显示DataBinder.Eval(Container.DataItem,   "Content").ToString().Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("   ","&nbsp;")   
+            //前台显示DataBinder.Eval(Container.DataItem,   "Content").ToString().Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("   ","&nbsp;")
         }
-        #endregion
 
+        #endregion 文本框格式化(value=?使用)
 
         #region 文本框格式化(前台显示=?使用)
-        ///   <summary>   
-        ///   过滤输出字符串   
-        ///   </summary>   
-        ///   <param   name="inputString">要过滤的字符串</param>   
-        ///   <returns>过滤后的字符串</returns>   
+
+        ///   <summary>
+        ///   过滤输出字符串
+        ///   </summary>
+        ///   <param   name="inputString">要过滤的字符串</param>
+        ///   <returns>过滤后的字符串</returns>
         public static string Outhtml(object htmlString)
         {
             if (htmlString == null)
@@ -498,17 +545,18 @@ namespace EthanLibrary.Common
             str2 = str2.Replace("\r\n", "<br>");
             return str2.ToString();
 
-            //前台显示DataBinder.Eval(Container.DataItem,   "Content").ToString().Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("   ","&nbsp;")   
+            //前台显示DataBinder.Eval(Container.DataItem,   "Content").ToString().Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("   ","&nbsp;")
         }
-        #endregion
 
+        #endregion 文本框格式化(前台显示=?使用)
 
         #region 使用正则表达式删除用户输入中的html内容
-        /// <summary> 
-        /// 使用正则表达式删除用户输入中的html内容 
-        /// </summary> 
-        /// <param name="text">输入内容</param> 
-        /// <returns>清理后的文本</returns> 
+
+        /// <summary>
+        /// 使用正则表达式删除用户输入中的html内容
+        /// </summary>
+        /// <param name="text">输入内容</param>
+        /// <returns>清理后的文本</returns>
         public static string clearHtml(string text)
         {
             string pattern;
@@ -523,6 +571,7 @@ namespace EthanLibrary.Common
 
             return text;
         }
+
         public static string ClearHtml(string Html)
         {
             if (Html == string.Empty || string.IsNullOrEmpty(Html))
@@ -530,16 +579,16 @@ namespace EthanLibrary.Common
             Regex RegexFrame = new Regex(@"<\/*[^<>]*>", RegexOptions.IgnoreCase);
             return RegexFrame.Replace(Html, string.Empty).Replace("&nbsp;", string.Empty);
         }
-       
-        #endregion
 
+        #endregion 使用正则表达式删除用户输入中的html内容
 
         #region 使用正则表达式删除用户输入中的JS脚本内容
-        /// <summary> 
-        /// 使用正则表达式删除用户输入中的JS脚本内容 
-        /// </summary> 
-        /// <param name="text">输入内容</param> 
-        /// <returns>清理后的文本</returns> 
+
+        /// <summary>
+        /// 使用正则表达式删除用户输入中的JS脚本内容
+        /// </summary>
+        /// <param name="text">输入内容</param>
+        /// <returns>清理后的文本</returns>
         public static string clearScript(string text)
         {
             string pattern;
@@ -558,15 +607,16 @@ namespace EthanLibrary.Common
 
             return text;
         }
-        #endregion
 
+        #endregion 使用正则表达式删除用户输入中的JS脚本内容
 
         #region 过滤SQL,所有涉及到输入的用户直接输入的地方都要使用
-        /// <summary> 
-        /// 过滤SQL,所有涉及到输入的用户直接输入的地方都要使用。 
-        /// </summary> 
-        /// <param name="text">输入内容</param> 
-        /// <returns>过滤后的文本</returns> 
+
+        /// <summary>
+        /// 过滤SQL,所有涉及到输入的用户直接输入的地方都要使用。
+        /// </summary>
+        /// <param name="text">输入内容</param>
+        /// <returns>过滤后的文本</returns>
         public static string filterSQL(string text)
         {
             text = text.Replace("'", "''");
@@ -575,24 +625,27 @@ namespace EthanLibrary.Common
 
             return text;
         }
-        #endregion
 
+        #endregion 过滤SQL,所有涉及到输入的用户直接输入的地方都要使用
 
         #region 过滤SQL,将SQL字符串里面的(')转换成('')，再在字符串的两边加上(')
-        /// <summary> 
-        /// 将SQL字符串里面的(')转换成('')，再在字符串的两边加上(')。 
-        /// </summary> 
-        /// <param name="text">输入内容</param> 
-        /// <returns>过滤后的文本</returns> 
+
+        /// <summary>
+        /// 将SQL字符串里面的(')转换成('')，再在字符串的两边加上(')。
+        /// </summary>
+        /// <param name="text">输入内容</param>
+        /// <returns>过滤后的文本</returns>
         public static String GetQuotedString(String text)
         {
             return ("'" + filterSQL(text) + "'");
         }
-        #endregion
-       
+
+        #endregion 过滤SQL,将SQL字符串里面的(')转换成('')，再在字符串的两边加上(')
 
         #region 提取中文首字母
+
         #region 获取中文字首字拼写
+
         /// <summary>
         /// 获取中文字首字拼写
         /// </summary>
@@ -608,9 +661,11 @@ namespace EthanLibrary.Common
             }
             return myStr;
         }
-        #endregion
+
+        #endregion 获取中文字首字拼写
 
         #region 获取单个字首字母 (GB2312)
+
         /// <summary>
         /// 获取单个字首字母 (GB2312)
         /// </summary>
@@ -638,19 +693,21 @@ namespace EthanLibrary.Common
             }
             else return cnChar;
         }
-        #endregion
-        #endregion
 
+        #endregion 获取单个字首字母 (GB2312)
+
+        #endregion 提取中文首字母
 
         #region AjaxPro使用的分页方法
-        /// <summary> 
+
+        /// <summary>
         /// 使用AjaxPro时候使用的方法
-        /// </summary> 
-        /// <param name="pageIndex">第几页</param> 
-        /// <param name="pageIndex">总共多少页</param> 
-        /// <param name="pageIndex">当前页条数</param> 
-        /// <param name="pageIndex">总条数</param> 
-        /// <returns>分页导航</returns> 
+        /// </summary>
+        /// <param name="pageIndex">第几页</param>
+        /// <param name="pageIndex">总共多少页</param>
+        /// <param name="pageIndex">当前页条数</param>
+        /// <param name="pageIndex">总条数</param>
+        /// <returns>分页导航</returns>
         public static string AjaxPages(int pageIndex, int pageCount, int roscount, int counts)
         {
             StringBuilder text = new StringBuilder();
@@ -697,7 +754,6 @@ namespace EthanLibrary.Common
                 {
                     text.Append("<td align='left' width='20px'><a href='javascript:JumpPage(" + PageNumber + ")'>" + PageNumber + "</a></td>");
                 }
-
             }
             if (pageCount - 1 > BasePage)
             {
@@ -707,19 +763,21 @@ namespace EthanLibrary.Common
 
             return text.ToString();
         }
-        #endregion
+
+        #endregion AjaxPro使用的分页方法
 
         #region 替换XML文档不接受的字符
-        /// <summary> 
-        /// 替换XML文档不接受的字符 
-        /// </summary> 
-        /// <param name="input">传入值</param> 
-        /// <returns>替换后的字符</returns> 
+
+        /// <summary>
+        /// 替换XML文档不接受的字符
+        /// </summary>
+        /// <param name="input">传入值</param>
+        /// <returns>替换后的字符</returns>
         public static string formatForXML(object input)
         {
             string str = input.ToString();
 
-            //替换XML文档不接受的字符 
+            //替换XML文档不接受的字符
             str = str.Replace(" ", " ");
             str = str.Replace("&", "&");
             str = str.Replace("\"", "''");
@@ -727,6 +785,7 @@ namespace EthanLibrary.Common
 
             return str;
         }
-        #endregion
+
+        #endregion 替换XML文档不接受的字符
     }
 }

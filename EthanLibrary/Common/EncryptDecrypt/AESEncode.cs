@@ -1,22 +1,22 @@
+//加密字符串,注意strEncrKey的长度为8位(如果要增加或者减少key长度,调整IV的长度就是了)
+//public string DesEncrypt(string strText, string strEncrKey)
+
+//解密字符串,注意strEncrKey的长度为8位(如果要增加或者减少key长度,调整IV的长度就是了)
+//public string DesDecrypt(string strText,string sDecrKey)
+
+//加密数据文件,注意strEncrKey的长度为8位(如果要增加或者减少key长度,调整IV的长度就是了)
+//public void DesEncrypt(string m_InFilePath,string m_OutFilePath,string strEncrKey)
+
+//解密数据文件,注意strEncrKey的长度为8位(如果要增加或者减少key长度,调整IV的长度就是了)
+//public void DesDecrypt(string m_InFilePath,string m_OutFilePath,string sDecrKey)
+
+//MD5加密
+//public string MD5Encrypt(string strText)
+using Common;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-//加密字符串,注意strEncrKey的长度为8位(如果要增加或者减少key长度,调整IV的长度就是了) 
-//public string DesEncrypt(string strText, string strEncrKey) 
-
-//解密字符串,注意strEncrKey的长度为8位(如果要增加或者减少key长度,调整IV的长度就是了) 
-//public string DesDecrypt(string strText,string sDecrKey) 
-
-//加密数据文件,注意strEncrKey的长度为8位(如果要增加或者减少key长度,调整IV的长度就是了) 
-//public void DesEncrypt(string m_InFilePath,string m_OutFilePath,string strEncrKey) 
-
-//解密数据文件,注意strEncrKey的长度为8位(如果要增加或者减少key长度,调整IV的长度就是了) 
-//public void DesDecrypt(string m_InFilePath,string m_OutFilePath,string sDecrKey) 
-
-//MD5加密 
-//public string MD5Encrypt(string strText) 
-using Common;
 
 namespace Commons
 {
@@ -26,6 +26,7 @@ namespace Commons
     public sealed class EncodeHelper
     {
         #region DES对称加密解密
+
         public const string DEFAULT_ENCRYPT_KEY = "12345678";
 
         /// <summary>
@@ -62,13 +63,13 @@ namespace Commons
             }
         }
 
-        /// <summary> 
-        /// Encrypt the string 
-        /// Attention:key must be 8 bits 
-        /// </summary> 
-        /// <param name="strText">string</param> 
-        /// <param name="strEncrKey">key</param> 
-        /// <returns></returns> 
+        /// <summary>
+        /// Encrypt the string
+        /// Attention:key must be 8 bits
+        /// </summary>
+        /// <param name="strText">string</param>
+        /// <param name="strEncrKey">key</param>
+        /// <returns></returns>
         public static string DesEncrypt(string strText, string strEncrKey)
         {
             byte[] byKey = null;
@@ -84,13 +85,13 @@ namespace Commons
             return Convert.ToBase64String(ms.ToArray());
         }
 
-        /// <summary> 
-        /// Decrypt string 
-        /// Attention:key must be 8 bits 
-        /// </summary> 
-        /// <param name="strText">Decrypt string</param> 
-        /// <param name="sDecrKey">key</param> 
-        /// <returns>output string</returns> 
+        /// <summary>
+        /// Decrypt string
+        /// Attention:key must be 8 bits
+        /// </summary>
+        /// <param name="strText">Decrypt string</param>
+        /// <param name="sDecrKey">key</param>
+        /// <returns>output string</returns>
         public static string DesDecrypt(string strText, string sDecrKey)
         {
             byte[] byKey = null;
@@ -108,13 +109,13 @@ namespace Commons
             return encoding.GetString(ms.ToArray());
         }
 
-        /// <summary> 
-        /// Encrypt files 
-        /// Attention:key must be 8 bits 
-        /// </summary> 
-        /// <param name="m_InFilePath">Encrypt file path</param> 
-        /// <param name="m_OutFilePath">output file</param> 
-        /// <param name="strEncrKey">key</param> 
+        /// <summary>
+        /// Encrypt files
+        /// Attention:key must be 8 bits
+        /// </summary>
+        /// <param name="m_InFilePath">Encrypt file path</param>
+        /// <param name="m_OutFilePath">output file</param>
+        /// <param name="strEncrKey">key</param>
         public static void DesEncrypt(string m_InFilePath, string m_OutFilePath, string strEncrKey)
         {
             byte[] byKey = null;
@@ -124,16 +125,16 @@ namespace Commons
             FileStream fin = new FileStream(m_InFilePath, FileMode.Open, FileAccess.Read);
             FileStream fout = new FileStream(m_OutFilePath, FileMode.OpenOrCreate, FileAccess.Write);
             fout.SetLength(0);
-            //Create variables to help with read and write. 
-            byte[] bin = new byte[100]; //This is intermediate storage for the encryption. 
-            long rdlen = 0; //This is the total number of bytes written. 
-            long totlen = fin.Length; //This is the total length of the input file. 
-            int len; //This is the number of bytes to be written at a time. 
+            //Create variables to help with read and write.
+            byte[] bin = new byte[100]; //This is intermediate storage for the encryption.
+            long rdlen = 0; //This is the total number of bytes written.
+            long totlen = fin.Length; //This is the total length of the input file.
+            int len; //This is the number of bytes to be written at a time.
 
             DES des = new DESCryptoServiceProvider();
             CryptoStream encStream = new CryptoStream(fout, des.CreateEncryptor(byKey, IV), CryptoStreamMode.Write);
 
-            //Read from the input file, then encrypt and write to the output file. 
+            //Read from the input file, then encrypt and write to the output file.
             while (rdlen < totlen)
             {
                 len = fin.Read(bin, 0, 100);
@@ -145,13 +146,13 @@ namespace Commons
             fin.Close();
         }
 
-        /// <summary> 
-        /// Decrypt files 
-        /// Attention:key must be 8 bits 
-        /// </summary> 
-        /// <param name="m_InFilePath">Decrypt filepath</param> 
-        /// <param name="m_OutFilePath">output filepath</param> 
-        /// <param name="sDecrKey">key</param> 
+        /// <summary>
+        /// Decrypt files
+        /// Attention:key must be 8 bits
+        /// </summary>
+        /// <param name="m_InFilePath">Decrypt filepath</param>
+        /// <param name="m_OutFilePath">output filepath</param>
+        /// <param name="sDecrKey">key</param>
         public static void DesDecrypt(string m_InFilePath, string m_OutFilePath, string sDecrKey)
         {
             byte[] byKey = null;
@@ -161,16 +162,16 @@ namespace Commons
             FileStream fin = new FileStream(m_InFilePath, FileMode.Open, FileAccess.Read);
             FileStream fout = new FileStream(m_OutFilePath, FileMode.OpenOrCreate, FileAccess.Write);
             fout.SetLength(0);
-            //Create variables to help with read and write. 
-            byte[] bin = new byte[100]; //This is intermediate storage for the encryption. 
-            long rdlen = 0; //This is the total number of bytes written. 
-            long totlen = fin.Length; //This is the total length of the input file. 
-            int len; //This is the number of bytes to be written at a time. 
+            //Create variables to help with read and write.
+            byte[] bin = new byte[100]; //This is intermediate storage for the encryption.
+            long rdlen = 0; //This is the total number of bytes written.
+            long totlen = fin.Length; //This is the total length of the input file.
+            int len; //This is the number of bytes to be written at a time.
 
             DES des = new DESCryptoServiceProvider();
             CryptoStream encStream = new CryptoStream(fout, des.CreateDecryptor(byKey, IV), CryptoStreamMode.Write);
 
-            //Read from the input file, then encrypt and write to the output file. 
+            //Read from the input file, then encrypt and write to the output file.
             while (rdlen < totlen)
             {
                 len = fin.Read(bin, 0, 100);
@@ -180,11 +181,14 @@ namespace Commons
             encStream.Close();
             fout.Close();
             fin.Close();
-        } 
-        #endregion
+        }
+
+        #endregion DES对称加密解密
 
         #region 对称加密算法AES RijndaelManaged加密解密
+
         private static readonly string Default_AES_Key = "@#kim123";
+
         private static byte[] Keys = { 0x41, 0x72, 0x65, 0x79, 0x6F, 0x75, 0x6D, 0x79,
                                              0x53,0x6E, 0x6F, 0x77, 0x6D, 0x61, 0x6E, 0x3F };
 
@@ -356,7 +360,6 @@ namespace Commons
             }
 
             return string.Empty;
-
         }
 
         /// <summary>
@@ -462,10 +465,11 @@ namespace Commons
             }
             return true;
         }
-        
-        #endregion
+
+        #endregion 对称加密算法AES RijndaelManaged加密解密
 
         #region Base64加密解密
+
         /// <summary>
         /// Base64是一種使用64基的位置計數法。它使用2的最大次方來代表僅可列印的ASCII 字元。
         /// 這使它可用來作為電子郵件的傳輸編碼。在Base64中的變數使用字元A-Z、a-z和0-9 ，
@@ -490,15 +494,17 @@ namespace Commons
         {
             byte[] decbuff = Convert.FromBase64String(str);
             return System.Text.Encoding.UTF8.GetString(decbuff);
-        } 
-        #endregion
+        }
+
+        #endregion Base64加密解密
 
         #region MD5加密
-        /// <summary> 
-        /// MD5 Encrypt 
-        /// </summary> 
-        /// <param name="strText">text</param> 
-        /// <returns>md5 Encrypt string</returns> 
+
+        /// <summary>
+        /// MD5 Encrypt
+        /// </summary>
+        /// <param name="strText">text</param>
+        /// <returns>md5 Encrypt string</returns>
         public static string MD5Encrypt(string strText)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
@@ -559,7 +565,8 @@ namespace Commons
             }
             return sb.ToString().ToUpper();
         }
-        #endregion
+
+        #endregion MD5加密
 
         /// <summary>
         /// SHA256函数
@@ -573,7 +580,6 @@ namespace Commons
             byte[] Result = Sha256.ComputeHash(SHA256Data);
             return Convert.ToBase64String(Result);  //返回长度为44字节的字符串
         }
-
 
         /// <summary>
         /// 加密字符串

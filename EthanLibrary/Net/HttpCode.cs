@@ -2,23 +2,24 @@
  * 玄机网C# 基类库 Http请求类
  * 基础功能1:基于HttpWebRequest封装的 同步/异步 (Get/Post)
  * 基础功能2:基于Wininet系统API封装的 同步(Get/Post)
- * 基于以上功能实现的一键请求类,让你摆脱Cookie的困扰,让你解除对多线程的恐惧,. 
+ * 基于以上功能实现的一键请求类,让你摆脱Cookie的困扰,让你解除对多线程的恐惧,.
  * Coding by 君临
  * 09-27/2014
 */
+
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
 using System.Collections;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Security;
-using System.IO.Compression;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Text.RegularExpressions;
-using System.Runtime.InteropServices;
+using System.IO;
+using System.IO.Compression;
+using System.Net;
+using System.Net.Security;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace HttpCodeLib
 {
@@ -26,31 +27,41 @@ namespace HttpCodeLib
     {
         public const int DefaultTimeOutSpan = 30 * 1000;
         public HttpResults result = new HttpResults();
+
         //HttpWebRequest对象用来发起请求
         public HttpWebRequest request = null;
+
         //获取影响流的数据对象
         public HttpWebResponse response = null;
+
         //响应流对象
         public Stream streamResponse;
+
         public Action<HttpResults> callBack;
         public HttpItems objHttpCodeItem;
         public MemoryStream MemoryStream = new MemoryStream();
         public int m_semaphore = 0;
+
         //默认的编码
         public Encoding encoding;
     }
+
     /// <summary>
-    /// Http连接操作帮助类 
+    /// Http连接操作帮助类
     /// </summary>
     public class HttpHelpers
     {
         #region 预定义方法或者变更
+
         //默认的编码
         private Encoding encoding = Encoding.Default;
+
         //HttpWebRequest对象用来发起请求
         private HttpWebRequest request = null;
+
         //获取影响流的数据对象
         private HttpWebResponse response = null;
+
         /// <summary>
         /// 根据相传入的数据，得到相应页面数据
         /// </summary>
@@ -63,6 +74,7 @@ namespace HttpCodeLib
             try
             {
                 #region 得到请求的response
+
                 result.CookieCollection = new CookieCollection();
                 response = (HttpWebResponse)request.GetResponse();
 
@@ -86,7 +98,6 @@ namespace HttpCodeLib
                 else
                 {
                     _stream = GetMemoryStream(response.GetResponseStream());
-
                 }
                 //获取Byte
                 byte[] RawResponse = _stream.ToArray();
@@ -111,7 +122,6 @@ namespace HttpCodeLib
                     }
                     else
                     {
-
                         if (response.CharacterSet != null)
                         {
                             if (response.CharacterSet.ToLower().Trim() == "iso-8859-1")
@@ -152,10 +162,7 @@ namespace HttpCodeLib
                 }
                 //最后释放流
 
-
-                #endregion
-
-
+                #endregion 得到请求的response
             }
             catch (WebException ex)
             {
@@ -170,6 +177,7 @@ namespace HttpCodeLib
             }
             return result;
         }
+
         private void AsyncResponseData(IAsyncResult result)
         {
             HttpRequest hrt = result.AsyncState as HttpRequest;
@@ -195,13 +203,14 @@ namespace HttpCodeLib
                 AsyncCallBackData(hrt);
             }
         }
+
         /// <summary>
         /// 无视编码
         /// </summary>
         /// <param name="hrt">请求参数</param>
         /// <param name="RawResponse">响应值</param>
         /// <returns></returns>
-        HttpRequest GetEncoding(HttpRequest hrt, ref byte[] RawResponse)
+        private HttpRequest GetEncoding(HttpRequest hrt, ref byte[] RawResponse)
         {
             if (hrt.encoding == null)
             {
@@ -216,7 +225,6 @@ namespace HttpCodeLib
                 }
                 else
                 {
-
                     if (hrt.response.CharacterSet != null)
                     {
                         if (hrt.response.CharacterSet.ToLower().Trim() == "iso-8859-1")
@@ -239,11 +247,12 @@ namespace HttpCodeLib
             }
             return hrt;
         }
+
         /// <summary>
         /// 处理/解析数据方法
         /// </summary>
         /// <param name="hrt"></param>
-        void AsyncCallBackData(HttpRequest hrt)
+        private void AsyncCallBackData(HttpRequest hrt)
         {
             try
             {
@@ -251,7 +260,7 @@ namespace HttpCodeLib
                 hrt.result.CookieCollection = hrt.response.Cookies;
                 //无视编码
                 hrt = GetEncoding(hrt, ref RawResponse);
-                //是否返回Byte类型数据  
+                //是否返回Byte类型数据
                 if (hrt.objHttpCodeItem.ResultType == ResultType.Byte)
                 {
                     hrt.result.ResultByte = RawResponse;
@@ -273,6 +282,7 @@ namespace HttpCodeLib
                 hrt.callBack.Invoke(hrt.result);
             }
         }
+
         /// <summary>
         /// 根据相传入的数据，得到相应页面数据
         /// </summary>
@@ -287,7 +297,6 @@ namespace HttpCodeLib
             hrt.callBack = callBack;
             try
             {
-
                 IAsyncResult m_ar = hrt.request.BeginGetResponse(AsyncResponseData, hrt);
                 System.Threading.ThreadPool.RegisterWaitForSingleObject(m_ar.AsyncWaitHandle,
                     TimeoutCallback, hrt, HttpRequest.DefaultTimeOutSpan, true);
@@ -297,18 +306,20 @@ namespace HttpCodeLib
                 hrt.result.Html = "TimeOut";
             }
         }
+
         /// <summary>
         /// 超时回调
         /// </summary>
         /// <param name="state"></param>
         /// <param name="timedOut"></param>
-        void TimeoutCallback(object state, bool timedOut)
+        private void TimeoutCallback(object state, bool timedOut)
         {
             HttpRequest pa = state as HttpRequest;
             if (timedOut)
                 if (System.Threading.Interlocked.Increment(ref pa.m_semaphore) == 1)
                     pa.result.Html = "TimeOut";
         }
+
         /// <summary>
         /// 4.0以下.net版本取数据使用
         /// </summary>
@@ -319,7 +330,7 @@ namespace HttpCodeLib
             int Length = 256;
             Byte[] buffer = new Byte[Length];
             int bytesRead = streamResponse.Read(buffer, 0, Length);
-            // write the required bytes  
+            // write the required bytes
             while (bytesRead > 0)
             {
                 _stream.Write(buffer, 0, bytesRead);
@@ -335,7 +346,6 @@ namespace HttpCodeLib
         /// <param name="_Encoding">读取数据时的编码方式</param>
         private void SetRequest(HttpItems objHttpItems)
         {
-
             // 验证证书
             SetCer(objHttpItems);
             //设置Header参数
@@ -382,6 +392,7 @@ namespace HttpCodeLib
                 request.ServicePoint.ConnectionLimit = objHttpItems.Connectionlimit;
             }
         }
+
         /// <summary>
         /// 设置证书
         /// </summary>
@@ -412,6 +423,7 @@ namespace HttpCodeLib
                 }
             }
         }
+
         /// <summary>
         /// 设置编码
         /// </summary>
@@ -429,6 +441,7 @@ namespace HttpCodeLib
                 encoding = System.Text.Encoding.GetEncoding(objHttpItems.Encoding);
             }
         }
+
         /// <summary>
         /// 设置Cookie
         /// </summary>
@@ -494,6 +507,7 @@ namespace HttpCodeLib
                 }
             }
         }
+
         /// <summary>
         /// 设置代理
         /// </summary>
@@ -516,6 +530,7 @@ namespace HttpCodeLib
                 request.Credentials = CredentialCache.DefaultNetworkCredentials;
             }
         }
+
         /// <summary>
         /// 回调验证证书问题
         /// </summary>
@@ -526,15 +541,18 @@ namespace HttpCodeLib
         /// <returns>bool</returns>
         public bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
-            // 总是接受    
+            // 总是接受
             return true;
         }
-        #endregion
+
+        #endregion 预定义方法或者变更
+
         #region 普通类型
-        /// <summary>    
+
+        /// <summary>
         /// 传入一个正确或不正确的URl，返回正确的URL
-        /// </summary>    
-        /// <param name="URL">url</param>   
+        /// </summary>
+        /// <param name="URL">url</param>
         /// <returns>
         /// </returns>
         public string GetUrl(string URL)
@@ -545,6 +563,7 @@ namespace HttpCodeLib
             }
             return URL;
         }
+
         ///<summary>
         ///采用https协议访问网络,根据传入的URl地址，得到响应的数据字符串。
         ///</summary>
@@ -557,6 +576,7 @@ namespace HttpCodeLib
             //调用专门读取数据的类
             return GetHttpRequestData(objHttpItems);
         }
+
         ///<summary>
         ///采用异步方式访问网络,根据传入的URl地址，得到响应的数据字符串。
         ///</summary>
@@ -567,6 +587,7 @@ namespace HttpCodeLib
             //调用专门读取数据的类
             AsyncGetHttpRequestData(objHttpItems, callBack);
         }
+
         /// <summary>
         /// 获取验证码
         /// </summary>
@@ -574,10 +595,9 @@ namespace HttpCodeLib
         /// <returns>Img</returns>
         public Image GetImg(HttpResults hr)
         {
-
             return byteArrayToImage(hr.ResultByte);
-
         }
+
         /// <summary>
         /// 字节数组生成图片
         /// </summary>
@@ -591,14 +611,17 @@ namespace HttpCodeLib
                 return outputImg;
             }
         }
-        #endregion
+
+        #endregion 普通类型
     }
+
     /// <summary>
-    /// Http请求参考类 
+    /// Http请求参考类
     /// </summary>
     public class HttpItems
     {
-        string _URL;
+        private string _URL;
+
         /// <summary>
         /// 请求URL必须填写
         /// </summary>
@@ -607,7 +630,9 @@ namespace HttpCodeLib
             get { return _URL; }
             set { _URL = value; }
         }
-        string _Method = "GET";
+
+        private string _Method = "GET";
+
         /// <summary>
         /// 请求方式默认为GET方式
         /// </summary>
@@ -616,7 +641,9 @@ namespace HttpCodeLib
             get { return _Method; }
             set { _Method = value; }
         }
-        int _Timeout = 3000;
+
+        private int _Timeout = 3000;
+
         /// <summary>
         /// 默认请求超时时间
         /// </summary>
@@ -625,7 +652,9 @@ namespace HttpCodeLib
             get { return _Timeout; }
             set { _Timeout = value; }
         }
-        int _ReadWriteTimeout = 30000;
+
+        private int _ReadWriteTimeout = 30000;
+
         /// <summary>
         /// 默认写入Post数据超时间
         /// </summary>
@@ -634,7 +663,9 @@ namespace HttpCodeLib
             get { return _ReadWriteTimeout; }
             set { _ReadWriteTimeout = value; }
         }
-        string _Accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*";
+
+        private string _Accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*";
+
         /// <summary>
         /// 请求标头值 默认为image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*
         /// </summary>
@@ -643,7 +674,9 @@ namespace HttpCodeLib
             get { return _Accept; }
             set { _Accept = value; }
         }
-        string _ContentType = "application/x-www-form-urlencoded";
+
+        private string _ContentType = "application/x-www-form-urlencoded";
+
         /// <summary>
         /// 请求返回类型默认 application/x-www-form-urlencoded
         /// </summary>
@@ -652,7 +685,9 @@ namespace HttpCodeLib
             get { return _ContentType; }
             set { _ContentType = value; }
         }
-        string _UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0";
+
+        private string _UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0";
+
         /// <summary>
         /// 客户端访问信息默认Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0
         /// </summary>
@@ -661,7 +696,9 @@ namespace HttpCodeLib
             get { return _UserAgent; }
             set { _UserAgent = value; }
         }
-        string _Encoding = string.Empty;
+
+        private string _Encoding = string.Empty;
+
         /// <summary>
         /// 返回数据编码默认为NUll,可以自动识别
         /// </summary>
@@ -670,7 +707,9 @@ namespace HttpCodeLib
             get { return _Encoding; }
             set { _Encoding = value; }
         }
+
         private PostDataType _PostDataType = PostDataType.String;
+
         /// <summary>
         /// Post的数据类型
         /// </summary>
@@ -679,7 +718,9 @@ namespace HttpCodeLib
             get { return _PostDataType; }
             set { _PostDataType = value; }
         }
-        string _Postdata;
+
+        private string _Postdata;
+
         /// <summary>
         /// Post请求时要发送的字符串Post数据
         /// </summary>
@@ -688,7 +729,9 @@ namespace HttpCodeLib
             get { return _Postdata; }
             set { _Postdata = value; }
         }
+
         private byte[] _PostdataByte = null;
+
         /// <summary>
         /// Post请求时要发送的Byte类型的Post数据
         /// </summary>
@@ -697,7 +740,9 @@ namespace HttpCodeLib
             get { return _PostdataByte; }
             set { _PostdataByte = value; }
         }
-        CookieCollection cookiecollection = null;
+
+        private CookieCollection cookiecollection = null;
+
         /// <summary>
         /// Cookie对象集合
         /// </summary>
@@ -706,7 +751,9 @@ namespace HttpCodeLib
             get { return cookiecollection; }
             set { cookiecollection = value; }
         }
+
         private CookieContainer _Container = null;
+
         /// <summary>
         /// 自动处理cookie
         /// </summary>
@@ -716,9 +763,8 @@ namespace HttpCodeLib
             set { _Container = value; }
         }
 
+        private string _Cookie = string.Empty;
 
-
-        string _Cookie = string.Empty;
         /// <summary>
         /// 请求时的Cookie
         /// </summary>
@@ -727,7 +773,9 @@ namespace HttpCodeLib
             get { return _Cookie; }
             set { _Cookie = value; }
         }
-        string _Referer = string.Empty;
+
+        private string _Referer = string.Empty;
+
         /// <summary>
         /// 来源地址，上次访问地址
         /// </summary>
@@ -736,7 +784,9 @@ namespace HttpCodeLib
             get { return _Referer; }
             set { _Referer = value; }
         }
-        string _CerPath = string.Empty;
+
+        private string _CerPath = string.Empty;
+
         /// <summary>
         /// 证书绝对路径
         /// </summary>
@@ -745,7 +795,9 @@ namespace HttpCodeLib
             get { return _CerPath; }
             set { _CerPath = value; }
         }
+
         private Boolean isToLower = false;
+
         /// <summary>
         /// 是否设置为全文小写
         /// </summary>
@@ -754,7 +806,9 @@ namespace HttpCodeLib
             get { return isToLower; }
             set { isToLower = value; }
         }
+
         private Boolean isAjax = false;
+
         /// <summary>
         /// 是否增加异步请求头
         /// </summary>
@@ -765,6 +819,7 @@ namespace HttpCodeLib
         }
 
         private Boolean allowautoredirect = true;
+
         /// <summary>
         /// 支持跳转页面，查询结果将是跳转后的页面
         /// </summary>
@@ -773,7 +828,9 @@ namespace HttpCodeLib
             get { return allowautoredirect; }
             set { allowautoredirect = value; }
         }
+
         private int connectionlimit = 1024;
+
         /// <summary>
         /// 最大连接数
         /// </summary>
@@ -782,7 +839,9 @@ namespace HttpCodeLib
             get { return connectionlimit; }
             set { connectionlimit = value; }
         }
+
         private string proxyusername = string.Empty;
+
         /// <summary>
         /// 代理Proxy 服务器用户名
         /// </summary>
@@ -791,7 +850,9 @@ namespace HttpCodeLib
             get { return proxyusername; }
             set { proxyusername = value; }
         }
+
         private string proxypwd = string.Empty;
+
         /// <summary>
         /// 代理 服务器密码
         /// </summary>
@@ -800,7 +861,9 @@ namespace HttpCodeLib
             get { return proxypwd; }
             set { proxypwd = value; }
         }
+
         private string proxyip = string.Empty;
+
         /// <summary>
         /// 代理 服务IP
         /// </summary>
@@ -809,7 +872,9 @@ namespace HttpCodeLib
             get { return proxyip; }
             set { proxyip = value; }
         }
+
         private ResultType resulttype = ResultType.String;
+
         /// <summary>
         /// 设置返回类型String和Byte
         /// </summary>
@@ -818,7 +883,9 @@ namespace HttpCodeLib
             get { return resulttype; }
             set { resulttype = value; }
         }
+
         private WebHeaderCollection header = new WebHeaderCollection();
+
         //header对象
         public WebHeaderCollection Header
         {
@@ -826,12 +893,14 @@ namespace HttpCodeLib
             set { header = value; }
         }
     }
+
     /// <summary>
     /// Http返回参数类
     /// </summary>
     public class HttpResults
     {
-        CookieContainer _Container;
+        private CookieContainer _Container;
+
         /// <summary>
         /// 自动处理Cookie集合对象
         /// </summary>
@@ -840,7 +909,9 @@ namespace HttpCodeLib
             get { return _Container; }
             set { _Container = value; }
         }
-        string _Cookie = string.Empty;
+
+        private string _Cookie = string.Empty;
+
         /// <summary>
         /// Http请求返回的Cookie
         /// </summary>
@@ -849,7 +920,9 @@ namespace HttpCodeLib
             get { return _Cookie; }
             set { _Cookie = value; }
         }
-        CookieCollection cookiecollection = null;
+
+        private CookieCollection cookiecollection = null;
+
         /// <summary>
         /// Cookie对象集合
         /// </summary>
@@ -858,7 +931,9 @@ namespace HttpCodeLib
             get { return cookiecollection; }
             set { cookiecollection = value; }
         }
+
         private string html = string.Empty;
+
         /// <summary>
         /// 返回的String类型数据 只有ResultType.String时才返回数据，其它情况为空
         /// </summary>
@@ -867,7 +942,9 @@ namespace HttpCodeLib
             get { return html; }
             set { html = value; }
         }
+
         private byte[] resultbyte = null;
+
         /// <summary>
         /// 返回的Byte数组 只有ResultType.Byte时才返回数据，其它情况为空
         /// </summary>
@@ -876,7 +953,9 @@ namespace HttpCodeLib
             get { return resultbyte; }
             set { resultbyte = value; }
         }
+
         private WebHeaderCollection header = new WebHeaderCollection();
+
         //header对象
         public WebHeaderCollection Header
         {
@@ -910,25 +989,35 @@ namespace HttpCodeLib
     public class Wininet
     {
         #region WininetAPI
+
         [DllImport("wininet.dll", CharSet = CharSet.Auto)]
         private static extern int InternetOpen(string strAppName, int ulAccessType, string strProxy, string strProxyBypass, int ulFlags);
+
         [DllImport("wininet.dll", CharSet = CharSet.Auto)]
         private static extern int InternetConnect(int ulSession, string strServer, int ulPort, string strUser, string strPassword, int ulService, int ulFlags, int ulContext);
+
         [DllImport("wininet.dll", CharSet = CharSet.Auto)]
         private static extern bool InternetCloseHandle(int ulSession);
+
         [DllImport("wininet.dll", CharSet = CharSet.Auto)]
         private static extern bool HttpAddRequestHeaders(int hRequest, string szHeasers, uint headersLen, uint modifiers);
+
         [DllImport("wininet.dll", CharSet = CharSet.Auto)]
         private static extern int HttpOpenRequest(int hConnect, string szVerb, string szURI, string szHttpVersion, string szReferer, string accetpType, long dwflags, int dwcontext);
+
         [DllImport("wininet.dll")]
         private static extern bool HttpSendRequestA(int hRequest, string szHeaders, int headersLen, string options, int optionsLen);
+
         [DllImport("wininet.dll", CharSet = CharSet.Auto)]
         private static extern bool InternetReadFile(int hRequest, byte[] pByte, int size, out int revSize);
+
         [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool InternetGetCookieEx(string pchURL, string pchCookieName, StringBuilder pchCookieData, ref System.UInt32 pcchCookieData, int dwFlags, IntPtr lpReserved);
-        #endregion
+
+        #endregion WininetAPI
 
         #region 重载方法
+
         /// <summary>
         /// WinInet 方式GET
         /// </summary>
@@ -958,6 +1047,7 @@ namespace HttpCodeLib
                 }
             }
         }
+
         /// <summary>
         /// POST
         /// </summary>
@@ -981,6 +1071,7 @@ namespace HttpCodeLib
                 return Encoding.GetEncoding("GBK").GetString(ms.ToArray());
             }
         }
+
         /// <summary>
         /// GET（UTF-8）模式
         /// </summary>
@@ -993,6 +1084,7 @@ namespace HttpCodeLib
                 return Encoding.GetEncoding("UTF-8").GetString(ms.ToArray());
             }
         }
+
         /// <summary>
         /// POST（UTF-8）
         /// </summary>
@@ -1006,6 +1098,7 @@ namespace HttpCodeLib
                 return Encoding.GetEncoding("UTF-8").GetString(ms.ToArray());
             }
         }
+
         /// <summary>
         /// 获取网页图片(Image)
         /// </summary>
@@ -1019,9 +1112,11 @@ namespace HttpCodeLib
                 return img;
             }
         }
-        #endregion
+
+        #endregion 重载方法
 
         #region 方法
+
         /// <summary>
         /// 请求数据
         /// </summary>
@@ -1121,9 +1216,11 @@ namespace HttpCodeLib
                 return null;
             }
         }
-        #endregion
+
+        #endregion 方法
 
         #region 获取webbrowser的cookies
+
         /// <summary>
         /// 取出cookies
         /// </summary>
@@ -1144,9 +1241,11 @@ namespace HttpCodeLib
             }
             return cookieData.ToString() + ";";
         }
-        #endregion
+
+        #endregion 获取webbrowser的cookies
 
         #region String与CookieContainer互转
+
         /// <summary>
         /// 遍历CookieContainer
         /// </summary>
@@ -1168,8 +1267,8 @@ namespace HttpCodeLib
                     foreach (Cookie c in colCookies) lstCookies.Add(c);
             }
             return lstCookies;
-
         }
+
         /// <summary>
         /// 将String转CookieContainer
         /// </summary>
@@ -1188,6 +1287,7 @@ namespace HttpCodeLib
             }
             return cookie_container;
         }
+
         /// <summary>
         /// 将CookieContainer转换为string类型
         /// </summary>
@@ -1213,7 +1313,8 @@ namespace HttpCodeLib
             }
             return sb.ToString();
         }
-        #endregion
+
+        #endregion String与CookieContainer互转
     }
 
     /// <summary>
@@ -1221,10 +1322,11 @@ namespace HttpCodeLib
     /// </summary>
     public class XJHTTP
     {
-        HttpItems item = new HttpItems();
-        HttpHelpers http = new HttpHelpers();
-        Wininet wnet = new Wininet();
-        HttpResults hr;
+        private HttpItems item = new HttpItems();
+        private HttpHelpers http = new HttpHelpers();
+        private Wininet wnet = new Wininet();
+        private HttpResults hr;
+
         /// <summary>
         /// 普通请求.直接返回标准结果
         /// </summary>
@@ -1235,6 +1337,7 @@ namespace HttpCodeLib
             item.URL = url;
             return http.GetHtml(item);
         }
+
         /// <summary>
         /// 普通请求.直接返回标准结果
         /// </summary>
@@ -1247,6 +1350,7 @@ namespace HttpCodeLib
             item.Container = cc;
             return http.GetHtml(item);
         }
+
         /// <summary>
         ///  普通请求.直接返回标准结果
         /// </summary>
@@ -1262,6 +1366,7 @@ namespace HttpCodeLib
             item.ResultType = ResultType.Byte;
             return http.GetHtml(item);
         }
+
         /// <summary>
         /// 普通请求.直接返回Image格式图像
         /// </summary>
@@ -1277,6 +1382,7 @@ namespace HttpCodeLib
             item.ResultType = ResultType.Byte;
             return http.GetImg(http.GetHtml(item));
         }
+
         /// <summary>
         /// 普通请求.直接返回标准结果
         /// </summary>
@@ -1297,6 +1403,7 @@ namespace HttpCodeLib
             item.Container = cc;
             return http.GetHtml(item);
         }
+
         /// <summary>
         /// 获取当前请求所有Cookie
         /// </summary>
@@ -1306,6 +1413,7 @@ namespace HttpCodeLib
         {
             return wnet.GetAllCookies(items.Container);
         }
+
         /// <summary>
         /// 获取CookieContainer 中的所有对象
         /// </summary>
@@ -1315,6 +1423,7 @@ namespace HttpCodeLib
         {
             return wnet.GetAllCookies(cc);
         }
+
         /// <summary>
         /// 将 CookieContainer 对象转换为字符串类型
         /// </summary>
@@ -1324,6 +1433,7 @@ namespace HttpCodeLib
         {
             return wnet.CookieToString(cc);
         }
+
         /// <summary>
         /// 将文字Cookie转换为CookieContainer 对象
         /// </summary>
@@ -1334,6 +1444,7 @@ namespace HttpCodeLib
         {
             return wnet.StringToCookie(url, cookie);
         }
+
         /// <summary>
         /// 从Wininet中获取Cookie对象
         /// </summary>
@@ -1353,6 +1464,7 @@ namespace HttpCodeLib
         {
             http.AsyncGetHtml(objHttpItems, callBack);
         }
+
         /// <summary>
         /// 异步GET请求 通过回调返回结果
         /// </summary>
@@ -1362,6 +1474,7 @@ namespace HttpCodeLib
         {
             http.AsyncGetHtml(objHttpItems, callBack);
         }
+
         /// <summary>
         /// WinInet方式GET请求  直接返回网页内容
         /// </summary>
@@ -1371,6 +1484,7 @@ namespace HttpCodeLib
         {
             return wnet.GetData(url);
         }
+
         /// <summary>
         /// WinInet方式GET请求(UTF8)  直接返回网页内容
         /// </summary>
@@ -1380,6 +1494,7 @@ namespace HttpCodeLib
         {
             return wnet.GetUtf8(url);
         }
+
         /// <summary>
         /// WinInet方式POST请求  直接返回网页内容
         /// </summary>
@@ -1390,6 +1505,7 @@ namespace HttpCodeLib
         {
             return wnet.PostData(url, postdata);
         }
+
         /// <summary>
         /// WinInet方式POST请求  直接返回网页内容
         /// </summary>
@@ -1400,6 +1516,7 @@ namespace HttpCodeLib
         {
             return wnet.GetUtf8(url);
         }
+
         /// <summary>
         /// WinInet方式请求 图片  直接返回Image
         /// </summary>
@@ -1424,15 +1541,15 @@ namespace HttpCodeLib
             obj.InvokeMember("AddCode", BindingFlags.InvokeMethod, null, ScriptControl, new object[] { js });
             return obj.InvokeMember("Eval", BindingFlags.InvokeMethod, null, ScriptControl, new object[] { "time()" }).ToString();
         }
-        /// <summary>  
-        /// 获取时间戳 C# 10位 
-        /// </summary>  
-        /// <returns></returns>  
+
+        /// <summary>
+        /// 获取时间戳 C# 10位
+        /// </summary>
+        /// <returns></returns>
         public string GetTimeStamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalSeconds).ToString();
         }
     }
-
 }

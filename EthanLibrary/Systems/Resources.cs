@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------
-// All Rights Reserved , Copyright (C) 2010 , Jirisoft , Ltd. 
+// All Rights Reserved , Copyright (C) 2010 , Jirisoft , Ltd.
 //------------------------------------------------------------
 
 using System;
@@ -7,37 +7,42 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Core.Systems
+namespace EthanLibrary.Systems
 {
     /// <summary>
     /// BUResourceManager
     /// 资源管理器
-    /// 
+    ///
     ///	修改纪录
     ///		2007.05.16 版本：1.0 JiRiGaLa	重新调整代码的规范化。
-    /// 
+    ///
     /// 版本：1.0
-    /// 
+    ///
     /// <author>
     ///		<name>JiRiGaLa</name>
     ///		<date>2007.05.16</date>
-    /// </author> 
+    /// </author>
     /// </summary>
     [XmlRoot("resources")]
     public class Resources
     {
         private SortedList<String, String> indexs = new SortedList<String, String>();
-        
+
         [XmlElement("language")]
         public string language = string.Empty;
+
         [XmlElement("displayName")]
         public string displayName = string.Empty;
+
         [XmlElement("version")]
         public string version = string.Empty;
+
         [XmlElement("author")]
         public string author = string.Empty;
+
         [XmlElement("description")]
         public string description = string.Empty;
+
         [XmlElement("items", typeof(Items))]
         public Items items;
 
@@ -51,18 +56,18 @@ namespace Core.Systems
             indexs = new SortedList<String, String>(items.items.Length);
             for (int i = 0; i < items.items.Length; i++)
             {
-                #if DEBUG
-                    try
-                    {
-                        indexs.Add(items.items[i].key, items.items[i].value);
-                    }
-                    catch
-                    {
-                        throw (new Exception(items.items[i].key + items.items[i].value));
-                    }
-                #else
+#if DEBUG
+                try
+                {
                     indexs.Add(items.items[i].key, items.items[i].value);
-                #endif
+                }
+                catch
+                {
+                    throw (new Exception(items.items[i].key + items.items[i].value));
+                }
+#else
+                    indexs.Add(items.items[i].key, items.items[i].value);
+#endif
             }
         }
 
@@ -106,15 +111,14 @@ namespace Core.Systems
         public Item[] items;
     }
 
-
     public class Item
     {
         [XmlAttribute("key")]
         public string key = string.Empty;
+
         [XmlText]
         public string value = string.Empty;
     }
-
 
     internal class ResourcesSerializer
     {

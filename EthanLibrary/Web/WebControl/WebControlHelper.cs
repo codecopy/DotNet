@@ -11,9 +11,10 @@ namespace EthanLibrary.Web
     /// <summary>
     ///     控件类
     /// </summary>
-     public static class WebControlHelper
+    public static class WebControlHelper
     {
         #region 控件类
+
         /// <summary>
         /// 绑定数据表格到服务器下拉列表控件
         /// </summary>
@@ -288,9 +289,10 @@ namespace EthanLibrary.Web
             return String.Format(strFmt, paramValue);
         }
 
-        #endregion  控件类
+        #endregion 控件类
 
         #region 获取控件文本
+
         /// <summary>
         /// 获取下拉列表的选项HTML
         /// </summary>
@@ -320,7 +322,6 @@ namespace EthanLibrary.Web
             }
         }
 
-
         public static string GetCheckedValue(CheckBoxList cbxList, string Separator)
         {
             ArrayList objList = new ArrayList();
@@ -339,6 +340,7 @@ namespace EthanLibrary.Web
                 if (strSearchSource.IndexOf(Separator + item.Value + Separator) != -1) item.Selected = true;
             }
         }
-        #endregion
+
+        #endregion 获取控件文本
     }
 }

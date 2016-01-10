@@ -1,17 +1,18 @@
 using System;
-using System.Net;
 using System.IO;
-using System.Text;
+using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
     public class FTPClient
     {
         public static object obj = new object();
 
         #region 构造函数
+
         /// <summary>
         /// 缺省构造函数
         /// </summary>
@@ -37,9 +38,11 @@ namespace Core.Net
             strRemotePort = remotePort;
             Connect();
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 字段
+
         private int strRemotePort;
         private Boolean bConnected;
         private string strRemoteHost;
@@ -51,37 +54,46 @@ namespace Core.Net
         /// 服务器返回的应答信息(包含应答码)
         /// </summary>
         private string strMsg;
+
         /// <summary>
         /// 服务器返回的应答信息(包含应答码)
         /// </summary>
         private string strReply;
+
         /// <summary>
         /// 服务器返回的应答码
         /// </summary>
         private int iReplyCode;
+
         /// <summary>
         /// 进行控制连接的socket
         /// </summary>
         private Socket socketControl;
+
         /// <summary>
         /// 传输模式
         /// </summary>
         private TransferType trType;
+
         /// <summary>
         /// 接收和发送数据的缓冲区
         /// </summary>
         private static int BLOCK_SIZE = 512;
+
         /// <summary>
         /// 编码方式
         /// </summary>
-        Encoding ASCII = Encoding.ASCII;
+        private Encoding ASCII = Encoding.ASCII;
+
         /// <summary>
         /// 字节数组
         /// </summary>
-        Byte[] buffer = new Byte[BLOCK_SIZE];
-        #endregion
+        private Byte[] buffer = new Byte[BLOCK_SIZE];
+
+        #endregion 字段
 
         #region 属性
+
         /// <summary>
         /// FTP服务器IP地址
         /// </summary>
@@ -159,11 +171,13 @@ namespace Core.Net
                 return bConnected;
             }
         }
-        #endregion
+
+        #endregion 属性
 
         #region 链接
+
         /// <summary>
-        /// 建立连接 
+        /// 建立连接
         /// </summary>
         public void Connect()
         {
@@ -216,9 +230,11 @@ namespace Core.Net
             }
             CloseSocketConnect();
         }
-        #endregion
+
+        #endregion 链接
 
         #region 传输模式
+
         /// <summary>
         /// 传输模式:二进制类型、ASCII类型
         /// </summary>
@@ -256,9 +272,11 @@ namespace Core.Net
         {
             return trType;
         }
-        #endregion
+
+        #endregion 传输模式
 
         #region 文件操作
+
         /// <summary>
         /// 获得文件列表
         /// </summary>
@@ -294,7 +312,6 @@ namespace Core.Net
                 ReadReply();
                 if (iReplyCode != 226)
                 {
-
                     throw new IOException(strReply.Substring(4));
                 }
             }
@@ -362,7 +379,6 @@ namespace Core.Net
             return lSize;
         }
 
-
         /// <summary>
         /// 获取文件信息
         /// </summary>
@@ -391,7 +407,6 @@ namespace Core.Net
                 ms.Write(b, 0, iBytes);
                 if (iBytes <= 0)
                 {
-
                     break;
                 }
             }
@@ -441,9 +456,11 @@ namespace Core.Net
                 throw new IOException(strReply.Substring(4));
             }
         }
-        #endregion
+
+        #endregion 文件操作
 
         #region 上传和下载
+
         /// <summary>
         /// 下载一批文件
         /// </summary>
@@ -628,7 +645,6 @@ namespace Core.Net
             }
         }
 
-
         /// <summary>
         /// 上传一个文件
         /// </summary>
@@ -671,9 +687,11 @@ namespace Core.Net
                 }
             }
         }
-        #endregion
+
+        #endregion 上传和下载
 
         #region 目录操作
+
         /// <summary>
         /// 创建目录
         /// </summary>
@@ -729,9 +747,11 @@ namespace Core.Net
             }
             this.strRemotePath = strDirName;
         }
-        #endregion
+
+        #endregion 目录操作
 
         #region 内部函数
+
         /// <summary>
         /// 将一行应答字符串记录在strReply和strMsg,应答码记录在iReplyCode
         /// </summary>
@@ -862,6 +882,7 @@ namespace Core.Net
                 ReadReply();
             }
         }
-        #endregion
+
+        #endregion 内部函数
     }
 }

@@ -1,8 +1,6 @@
 using System;
 using System.Web;
 
-
-
 public class RequestHelp
 {
     /// <summary>
@@ -13,6 +11,7 @@ public class RequestHelp
     {
         return HttpContext.Current.Request.HttpMethod.Equals("POST");
     }
+
     /// <summary>
     /// 判断当前页面是否接收到了Get请求
     /// </summary>
@@ -55,7 +54,6 @@ public class RequestHelp
             return "";
 
         return retVal;
-
     }
 
     /// <summary>
@@ -80,7 +78,6 @@ public class RequestHelp
     {
         return HttpContext.Current.Request.Url.Host;
     }
-
 
     /// <summary>
     /// 获取当前请求的原始 URL(URL 中域信息之后的部分,包括查询字符串(如果存在))
@@ -115,7 +112,6 @@ public class RequestHelp
     /// <returns>当前页面是否是跨站提交</returns>
     public static bool IsCrossSitePost()
     {
-
         // 如果不是提交则为true
         if (!RequestHelp.IsPost())
         {
@@ -171,7 +167,6 @@ public class RequestHelp
         return HttpContext.Current.Request.Url.ToString();
     }
 
-
     /// <summary>
     /// 获得指定Url参数的值
     /// </summary>
@@ -179,14 +174,13 @@ public class RequestHelp
     /// <returns>Url参数的值</returns>
     public static string GetQueryString(string strName)
     {
-
         if (HttpContext.Current.Request.QueryString[strName] == null)
         {
             return String.Empty;
         }
         return HttpContext.Current.Request.QueryString[strName];
-
     }
+
     /// <summary>
     /// 获得当前页面的名称
     /// </summary>
@@ -205,7 +199,6 @@ public class RequestHelp
     {
         return HttpContext.Current.Request.Form.Count + HttpContext.Current.Request.QueryString.Count;
     }
-
 
     /// <summary>
     /// 获得指定表单参数的值
@@ -237,8 +230,4 @@ public class RequestHelp
             return GetQueryString(strName);
         }
     }
-
-
-
 }
-

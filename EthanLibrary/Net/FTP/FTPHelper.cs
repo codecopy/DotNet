@@ -1,30 +1,32 @@
-﻿using System;  
-using System.Collections.Generic;  
-using System.Text;  
-using System.IO;  
-using System.Net;
-using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
 
-namespace Core.Net
+namespace EthanLibrary.Net
 {
     public class FTPHelper
     {
         #region 字段
-        string ftpURI;
-        string ftpUserID;
-        string ftpServerIP;
-        string ftpPassword;
-        string ftpRemotePath;
-        #endregion
 
-        /// <summary>  
+        private string ftpURI;
+        private string ftpUserID;
+        private string ftpServerIP;
+        private string ftpPassword;
+        private string ftpRemotePath;
+
+        #endregion 字段
+
+        /// <summary>
         /// 连接FTP服务器
-        /// </summary>  
-        /// <param name="FtpServerIP">FTP连接地址</param>  
-        /// <param name="FtpRemotePath">指定FTP连接成功后的当前目录, 如果不指定即默认为根目录</param>  
-        /// <param name="FtpUserID">用户名</param>  
-        /// <param name="FtpPassword">密码</param>  
+        /// </summary>
+        /// <param name="FtpServerIP">FTP连接地址</param>
+        /// <param name="FtpRemotePath">指定FTP连接成功后的当前目录, 如果不指定即默认为根目录</param>
+        /// <param name="FtpUserID">用户名</param>
+        /// <param name="FtpPassword">密码</param>
         public FTPHelper(string FtpServerIP, string FtpRemotePath, string FtpUserID, string FtpPassword)
         {
             ftpServerIP = FtpServerIP;
@@ -34,9 +36,9 @@ namespace Core.Net
             ftpURI = "ftp://" + ftpServerIP + "/" + ftpRemotePath + "/";
         }
 
-        /// <summary>  
-        /// 上传  
-        /// </summary>   
+        /// <summary>
+        /// 上传
+        /// </summary>
         public void Upload(string filename)
         {
             FileInfo fileInf = new FileInfo(filename);
@@ -69,9 +71,9 @@ namespace Core.Net
             }
         }
 
-        /// <summary>  
-        /// 下载  
-        /// </summary>   
+        /// <summary>
+        /// 下载
+        /// </summary>
         public void Download(string filePath, string fileName)
         {
             try
@@ -104,9 +106,9 @@ namespace Core.Net
             }
         }
 
-        /// <summary>  
-        /// 删除文件  
-        /// </summary>  
+        /// <summary>
+        /// 删除文件
+        /// </summary>
         public void Delete(string fileName)
         {
             try
@@ -132,9 +134,9 @@ namespace Core.Net
             }
         }
 
-        /// <summary>  
-        /// 获取当前目录下明细(包含文件和文件夹)  
-        /// </summary>  
+        /// <summary>
+        /// 获取当前目录下明细(包含文件和文件夹)
+        /// </summary>
         public string[] GetFilesDetailList()
         {
             try
@@ -166,9 +168,9 @@ namespace Core.Net
             }
         }
 
-        /// <summary>  
+        /// <summary>
         /// 获取FTP文件列表(包括文件夹)
-        /// </summary>   
+        /// </summary>
         private string[] GetAllList(string url)
         {
             List<string> list = new List<string>();
@@ -198,9 +200,9 @@ namespace Core.Net
             return list.ToArray();
         }
 
-        /// <summary>  
-        /// 获取当前目录下文件列表(不包括文件夹)  
-        /// </summary>  
+        /// <summary>
+        /// 获取当前目录下文件列表(不包括文件夹)
+        /// </summary>
         public string[] GetFileList(string url)
         {
             StringBuilder result = new StringBuilder();
@@ -216,7 +218,6 @@ namespace Core.Net
                 string line = reader.ReadLine();
                 while (line != null)
                 {
-
                     if (line.IndexOf("<DIR>") == -1)
                     {
                         result.Append(Regex.Match(line, @"[\S]+ [\S]+", RegexOptions.IgnoreCase).Value.Split(' ')[1]);
@@ -235,10 +236,10 @@ namespace Core.Net
             return result.ToString().Split('\n');
         }
 
-        /// <summary>  
-        /// 判断当前目录下指定的文件是否存在  
-        /// </summary>  
-        /// <param name="RemoteFileName">远程文件名</param>  
+        /// <summary>
+        /// 判断当前目录下指定的文件是否存在
+        /// </summary>
+        /// <param name="RemoteFileName">远程文件名</param>
         public bool FileExist(string RemoteFileName)
         {
             string[] fileList = GetFileList("*.*");
@@ -252,9 +253,9 @@ namespace Core.Net
             return false;
         }
 
-        /// <summary>  
-        /// 创建文件夹  
-        /// </summary>   
+        /// <summary>
+        /// 创建文件夹
+        /// </summary>
         public void MakeDir(string dirName)
         {
             FtpWebRequest reqFTP;
@@ -273,9 +274,9 @@ namespace Core.Net
             { }
         }
 
-        /// <summary>  
-        /// 获取指定文件大小  
-        /// </summary>  
+        /// <summary>
+        /// 获取指定文件大小
+        /// </summary>
         public long GetFileSize(string filename)
         {
             FtpWebRequest reqFTP;
@@ -297,9 +298,9 @@ namespace Core.Net
             return fileSize;
         }
 
-        /// <summary>  
-        /// 更改文件名  
-        /// </summary> 
+        /// <summary>
+        /// 更改文件名
+        /// </summary>
         public void ReName(string currentFilename, string newFilename)
         {
             FtpWebRequest reqFTP;
@@ -319,18 +320,18 @@ namespace Core.Net
             { }
         }
 
-        /// <summary>  
-        /// 移动文件  
-        /// </summary>  
+        /// <summary>
+        /// 移动文件
+        /// </summary>
         public void MovieFile(string currentFilename, string newDirectory)
         {
             ReName(currentFilename, newDirectory);
         }
 
-        /// <summary>  
-        /// 切换当前目录  
-        /// </summary>  
-        /// <param name="IsRoot">true:绝对路径 false:相对路径</param>   
+        /// <summary>
+        /// 切换当前目录
+        /// </summary>
+        /// <param name="IsRoot">true:绝对路径 false:相对路径</param>
         public void GotoDirectory(string DirectoryName, bool IsRoot)
         {
             if (IsRoot)
@@ -343,6 +344,7 @@ namespace Core.Net
             }
             ftpURI = "ftp://" + ftpServerIP + "/" + ftpRemotePath + "/";
         }
+
         /// <summary>
         /// 获取上一层目录
         /// </summary>
@@ -370,9 +372,7 @@ namespace Core.Net
                     return (ConfigurationManager.AppSettings["rootPath"]);	// default to root;
                 }
             }
-
         }
-
 
         /// <summary>
         /// 错误报告

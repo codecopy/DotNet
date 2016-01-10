@@ -36,7 +36,7 @@ namespace EthanLibrary.Common
     /// 6.字符串样式
     /// 7.快速验证一个字符串是否符合指定的正则表达式
     /// 8.判断对象是否为空
-    
+
     /// 10.其他操作
     ///    获得唯一的字符串
     ///    统计char出现在string中的次数
@@ -48,6 +48,7 @@ namespace EthanLibrary.Common
         #region 1.1字符串截取替换
 
         #region 1.1.1 截取过长字符串,指定长度其他用...代替
+
         /// <summary>
         /// 截取过长字符串,指定长度其他用...代替
         /// </summary>
@@ -55,6 +56,7 @@ namespace EthanLibrary.Common
         {
             return Cut(Content, length, "...");
         }
+
         /// <summary>
         /// 截取字符串
         /// </summary>
@@ -97,7 +99,9 @@ namespace EthanLibrary.Common
             }
             return strString;
         }
+
         #region 截取字符串优化版
+
         //  /// <summary>
         //  /// 截取字符串优化版
         //  /// </summary>
@@ -106,7 +110,6 @@ namespace EthanLibrary.Common
         //  /// <returns></returns>
         //  public static string CutString(string str, int length, bool appendText)
         //  {
-
         //      Regex regex = new Regex("[\u4e00-\u9fa5]+", RegexOptions.Compiled);
         //      char[] stringChar = str.ToCharArray();
         //      StringBuilder sb = new StringBuilder();
@@ -145,7 +148,7 @@ namespace EthanLibrary.Common
 
         //  }
 
-///// <summary>
+        ///// <summary>
         ///// 字符串如果操过指定长度则将超出的部分用指定字符串代替
         ///// </summary>
         ///// <param name="p_SrcString">要检查的字符串</param>
@@ -185,7 +188,6 @@ namespace EthanLibrary.Common
         //        }
         //    }
 
-
         //    if (p_Length >= 0)
         //    {
         //        byte[] bsSrcString = Encoding.Default.GetBytes(p_SrcString);
@@ -202,12 +204,9 @@ namespace EthanLibrary.Common
         //            }
         //            else
         //            {   //当不在有效范围内时,只取到字符串的结尾
-
         //                p_Length = bsSrcString.Length - p_StartIndex;
         //                p_TailString = "";
         //            }
-
-
 
         //            int nRealLength = p_Length;
         //            int[] anResultFlag = new int[p_Length];
@@ -216,7 +215,6 @@ namespace EthanLibrary.Common
         //            int nFlag = 0;
         //            for (int i = p_StartIndex; i < p_EndIndex; i++)
         //            {
-
         //                if (bsSrcString[i] > 127)
         //                {
         //                    nFlag++;
@@ -250,11 +248,13 @@ namespace EthanLibrary.Common
 
         //    return myResult;
         //}
-        #endregion
 
-        #endregion   
-    
+        #endregion 截取字符串优化版
+
+        #endregion 1.1.1 截取过长字符串,指定长度其他用...代替
+
         #region 1.1.2 自定义的替换字符串函数
+
         /// <summary>
         /// 自定义的替换字符串函数
         /// </summary>
@@ -267,11 +267,10 @@ namespace EthanLibrary.Common
         {
             return Regex.Replace(SourceString, Regex.Escape(SearchString), ReplaceString, IsCaseInsensetive ? RegexOptions.IgnoreCase : RegexOptions.None);
         }
-        
 
-        #endregion
+        #endregion 1.1.2 自定义的替换字符串函数
 
-        #endregion 1.字符串截取替换
+        #endregion 1.1字符串截取替换
 
         #region 1.2 字符串分割
 
@@ -299,7 +298,9 @@ namespace EthanLibrary.Common
                 strArray = new Regex(strSplit).Split(strContent);
             }
             return strArray;
+
             #region 分割字符串第2种
+
             ////第2种
             //if (strContent.IndexOf(strSplit) < 0)
             //{
@@ -307,8 +308,11 @@ namespace EthanLibrary.Common
             //    return tmp;
             //}
             //return strArray = Regex.Split(strContent, Regex.Escape(strSplit), RegexOptions.IgnoreCase);
-            #endregion
+
+            #endregion 分割字符串第2种
+
             #region 分割字符串第3种
+
             ////第3种
             //if (!Regex.IsMatch(strContent, strSplit))
             //{
@@ -316,7 +320,8 @@ namespace EthanLibrary.Common
             //    return tmp;
             //}
             //return strArray = Regex.Split(strContent, strSplit, RegexOptions.IgnoreCase);
-            #endregion
+
+            #endregion 分割字符串第3种
         }
 
         /// <summary>
@@ -343,11 +348,12 @@ namespace EthanLibrary.Common
             return result;
         }
 
-
-        #endregion 2.字符串分割
+        #endregion 1.2 字符串分割
 
         #region 1.3 字符串删除
+
         #region 1.3.1 删除最后结尾的一个逗号
+
         /// <summary>
         /// 删除最后结尾的一个逗号
         /// </summary>
@@ -359,8 +365,11 @@ namespace EthanLibrary.Common
             }
             return str.Substring(0, str.LastIndexOf(","));
         }
-        #endregion
+
+        #endregion 1.3.1 删除最后结尾的一个逗号
+
         #region 1.3.2 删除最后结尾的指定字符后的字符
+
         /// <summary>
         /// 删除最后结尾的指定字符后的字符
         /// </summary>
@@ -374,7 +383,8 @@ namespace EthanLibrary.Common
             return str.Substring(0, str.LastIndexOf(strchar));
         }
 
-        #endregion
+        #endregion 1.3.2 删除最后结尾的指定字符后的字符
+
         #region 1.3.3 删除指定的字符串结尾
 
         /// <summary>
@@ -389,6 +399,7 @@ namespace EthanLibrary.Common
                 sOrg = sOrg.Remove(sOrg.IndexOf(sEnd), sEnd.Length);
             return sOrg;
         }
+
         // public static string Remove(string sourceString, string removedString)
         //{
         //    try
@@ -411,12 +422,15 @@ namespace EthanLibrary.Common
         //        return sourceString;
         //    }
         //}
-        #endregion
 
-        #endregion 3.字符串删除
+        #endregion 1.3.3 删除指定的字符串结尾
+
+        #endregion 1.3 字符串删除
 
         #region 1.4 字符串长度
+
         #region 1.4.1 得到字符串长度，一个汉字长度为2
+
         /// <summary>
         /// 得到字符串长度，一个汉字长度为2
         /// </summary>
@@ -436,6 +450,7 @@ namespace EthanLibrary.Common
             }
             return tempLen;
         }
+
         /// <summary>
         /// 返回字符串真实长度, 1个汉字长度为2
         /// </summary>
@@ -444,7 +459,6 @@ namespace EthanLibrary.Common
         {
             return Encoding.Default.GetBytes(str).Length;
         }
-       
 
         /// <summary>
         /// 按字节数取出字符串的长度
@@ -499,8 +513,9 @@ namespace EthanLibrary.Common
             }
             return intReIns;
         }
-        
-        #endregion
+
+        #endregion 1.4.1 得到字符串长度，一个汉字长度为2
+
         /// <summary>
         /// 获取某一字符串在字符串中出现的次数
         /// </summary>
@@ -575,9 +590,13 @@ namespace EthanLibrary.Common
 
             return sContent;
         }
-        #endregion 
+
+        #endregion 1.4 字符串长度
+
+
 
         #region 1.5 字符串其他操作
+
         /// <summary>
         /// 清理字符串
         /// </summary>
@@ -597,6 +616,7 @@ namespace EthanLibrary.Common
 
             return str;
         }
+
         /// <summary>
         /// 获取拆分符右边的字符串
         /// </summary>
@@ -654,11 +674,13 @@ namespace EthanLibrary.Common
             strTemp = strTemp.Replace(",", "],[");
             return strTemp;
         }
-        #endregion
 
-        #endregion 字符串常用操作
+        #endregion 1.5 字符串其他操作
 
-        #region  2.全角半角
+        #endregion 1.字符串常用操作
+
+        #region 2.全角半角
+
         /// <summary>
         /// 转全角的函数(SBC case)半角转全角
         /// </summary>
@@ -697,6 +719,7 @@ namespace EthanLibrary.Common
             //}
             return new string(c);
         }
+
         /// <summary>
         ///  转半角的函数(SBC case)全角转半角
         /// </summary>
@@ -734,10 +757,13 @@ namespace EthanLibrary.Common
             //}
             return new string(c);
         }
-        #endregion  全角半角
+
+        #endregion 2.全角半角
 
         #region 3.字符串加密,编码
+
         #region 根据配置对指定字符串进行 MD5 加密
+
         /// <summary>
         /// 根据配置对指定字符串进行 MD5 加密
         /// </summary>
@@ -749,11 +775,15 @@ namespace EthanLibrary.Common
             s = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(s, "md5").ToString();
             return s;//.ToLower().Substring(8, 16);
         }
-        #endregion
 
-        #endregion 
+        #endregion 根据配置对指定字符串进行 MD5 加密
+
+        #endregion 3.字符串加密,编码
+
+
 
         #region 4.字符串数组
+
         #region 判断指定字符串在指定字符串数组中的位置
 
         /// <summary>
@@ -781,29 +811,29 @@ namespace EthanLibrary.Common
                         return i;
                     }
                 }
-
             }
             return -1;
         }
-
 
         /// <summary>
         /// 判断指定字符串在指定字符串数组中的位置
         /// </summary>
         /// <param name="strSearch">字符串</param>
         /// <param name="stringArray">字符串数组</param>
-        /// <returns>字符串在指定字符串数组中的位置, 如不存在则返回-1</returns>		
+        /// <returns>字符串在指定字符串数组中的位置, 如不存在则返回-1</returns>
         public static int GetInArrayID(string strSearch, string[] stringArray)
         {
             return GetInArrayID(strSearch, stringArray, true);
         }
-        #endregion
 
-        #endregion 字符串数组
+        #endregion 判断指定字符串在指定字符串数组中的位置
 
-        #region  5.字符串验证是否是纯数字
-        
+        #endregion 4.字符串数组
+
+        #region 5.字符串验证是否是纯数字
+
         #region 获取正确的Id，如果不是正整数，返回0
+
         /// <summary>
         /// 获取正确的Id，如果不是正整数，返回0
         /// </summary>
@@ -816,9 +846,11 @@ namespace EthanLibrary.Common
             else
                 return 0;
         }
-        #endregion
-   
+
+        #endregion 获取正确的Id，如果不是正整数，返回0
+
         #region 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
+
         /// <summary>
         /// 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。(0除外)
         /// </summary>
@@ -828,11 +860,15 @@ namespace EthanLibrary.Common
         {
             return QuickValidate("^[1-9]*[0-9]*$", _value);
         }
-        #endregion
-        #endregion
+
+        #endregion 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
+
+        #endregion 5.字符串验证是否是纯数字
 
         #region 6.字符串样式
+
         #region 将字符串样式转换为纯字符串
+
         /// <summary>
         ///  将字符串样式转换为纯字符串
         /// </summary>
@@ -856,9 +892,11 @@ namespace EthanLibrary.Common
             }
             return RetrunValue;
         }
-        #endregion
+
+        #endregion 将字符串样式转换为纯字符串
 
         #region 将字符串转换为新样式
+
         /// <summary>
         /// 将字符串转换为新样式
         /// </summary>
@@ -915,10 +953,13 @@ namespace EthanLibrary.Common
             }
             return ReturnValue;
         }
-        #endregion
-        #endregion
+
+        #endregion 将字符串转换为新样式
+
+        #endregion 6.字符串样式
 
         #region 7.快速验证一个字符串是否符合指定的正则表达式
+
         /// <summary>
         /// 快速验证一个字符串是否符合指定的正则表达式。
         /// </summary>
@@ -935,14 +976,16 @@ namespace EthanLibrary.Common
             }
             return myRegex.IsMatch(_value);
         }
-        #endregion
-    
+
+        #endregion 7.快速验证一个字符串是否符合指定的正则表达式
+
         #region 8.判断对象是否为空
+
         /// <summary>
         /// 判断对象是否为空，为空返回true
         /// </summary>
         /// <typeparam name="T">要验证的对象的类型</typeparam>
-        /// <param name="data">要验证的对象</param>        
+        /// <param name="data">要验证的对象</param>
         public static bool IsNullOrEmpty<T>(T data)
         {
             //如果为null
@@ -1000,13 +1043,10 @@ namespace EthanLibrary.Common
             //不为空
             return false;
         }
-        #endregion
-   
-        
 
-       
+        #endregion 8.判断对象是否为空
+
         #region 其他操作
-
 
         /// <summary>
         /// 简介：获得唯一的字符串
@@ -1038,11 +1078,6 @@ namespace EthanLibrary.Common
             return i;
         }
 
-
-        #endregion 其他字符串操作
-
-
-      
-  
+        #endregion 其他操作
     }
 }
