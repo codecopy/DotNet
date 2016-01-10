@@ -13,6 +13,39 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBUtility", "DBUtility\DBUt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drawing", "Drawing\Drawing.csproj", "{3CF6EA6D-E9BF-4395-B92D-43E287013916}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email", "Email\Email.csproj", "{FBBF181F-490C-45CD-80D3-6636DB0A4163}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "File", "File\File.csproj", "{B1BE7718-CE1D-4C6A-9AC3-2A4CD599D89B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Html", "Html\Html.csproj", "{27D7ACF8-7C7E-4B34-B3D0-8CDCA48463D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IO", "IO\IO.csproj", "{B2D64E3E-4B87-46A8-8B29-31BFB5716AF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json", "Json\Json.csproj", "{AB3C765D-B28F-4E6D-B367-DF3B1A8AC37C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net", "Net\Net.csproj", "{5D11DB29-B3B5-4C8E-A779-55BD1A5AA2FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office", "Office\Office.csproj", "{74480805-FEE6-4FF3-8104-9FFE4608CD97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Systems", "Systems\Systems.csproj", "{05738AFB-2D25-433E-A543-1AD8A6C160EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thread", "Thread\Thread.csproj", "{AA7FB629-8D77-41C0-8E3C-F802273F0027}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML", "XML\XML.csproj", "{CE5DA81B-F5DA-4CE4-9B0A-F5A97A08402F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zip", "Zip\Zip.csproj", "{EBE9BC81-573A-484B-8149-92E18286D9A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{3E007F8E-0836-41A2-8C18-05046EE6AC6F}"
+	ProjectSection(SolutionItems) = preProject
+		DLL\COM.Excel.dll = DLL\COM.Excel.dll
+		DLL\Excel.dll = DLL\Excel.dll
+		DLL\ICSharpCode.SharpZipLib.dll = DLL\ICSharpCode.SharpZipLib.dll
+		DLL\itextsharp.dll = DLL\itextsharp.dll
+		DLL\Microsoft.Office.Interop.Owc11.dll = DLL\Microsoft.Office.Interop.Owc11.dll
+		DLL\Microsoft.Web.UI.WebControls.dll = DLL\Microsoft.Web.UI.WebControls.dll
+		DLL\OWC10Chart.dll = DLL\OWC10Chart.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +72,50 @@ Global
 		{3CF6EA6D-E9BF-4395-B92D-43E287013916}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF6EA6D-E9BF-4395-B92D-43E287013916}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CF6EA6D-E9BF-4395-B92D-43E287013916}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBBF181F-490C-45CD-80D3-6636DB0A4163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBBF181F-490C-45CD-80D3-6636DB0A4163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBBF181F-490C-45CD-80D3-6636DB0A4163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBBF181F-490C-45CD-80D3-6636DB0A4163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BE7718-CE1D-4C6A-9AC3-2A4CD599D89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BE7718-CE1D-4C6A-9AC3-2A4CD599D89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BE7718-CE1D-4C6A-9AC3-2A4CD599D89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BE7718-CE1D-4C6A-9AC3-2A4CD599D89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D7ACF8-7C7E-4B34-B3D0-8CDCA48463D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D7ACF8-7C7E-4B34-B3D0-8CDCA48463D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D7ACF8-7C7E-4B34-B3D0-8CDCA48463D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D7ACF8-7C7E-4B34-B3D0-8CDCA48463D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D64E3E-4B87-46A8-8B29-31BFB5716AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D64E3E-4B87-46A8-8B29-31BFB5716AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D64E3E-4B87-46A8-8B29-31BFB5716AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D64E3E-4B87-46A8-8B29-31BFB5716AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB3C765D-B28F-4E6D-B367-DF3B1A8AC37C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB3C765D-B28F-4E6D-B367-DF3B1A8AC37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB3C765D-B28F-4E6D-B367-DF3B1A8AC37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB3C765D-B28F-4E6D-B367-DF3B1A8AC37C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D11DB29-B3B5-4C8E-A779-55BD1A5AA2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D11DB29-B3B5-4C8E-A779-55BD1A5AA2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D11DB29-B3B5-4C8E-A779-55BD1A5AA2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D11DB29-B3B5-4C8E-A779-55BD1A5AA2FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74480805-FEE6-4FF3-8104-9FFE4608CD97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74480805-FEE6-4FF3-8104-9FFE4608CD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74480805-FEE6-4FF3-8104-9FFE4608CD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74480805-FEE6-4FF3-8104-9FFE4608CD97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05738AFB-2D25-433E-A543-1AD8A6C160EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05738AFB-2D25-433E-A543-1AD8A6C160EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05738AFB-2D25-433E-A543-1AD8A6C160EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05738AFB-2D25-433E-A543-1AD8A6C160EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA7FB629-8D77-41C0-8E3C-F802273F0027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA7FB629-8D77-41C0-8E3C-F802273F0027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA7FB629-8D77-41C0-8E3C-F802273F0027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA7FB629-8D77-41C0-8E3C-F802273F0027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE5DA81B-F5DA-4CE4-9B0A-F5A97A08402F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE5DA81B-F5DA-4CE4-9B0A-F5A97A08402F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE5DA81B-F5DA-4CE4-9B0A-F5A97A08402F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE5DA81B-F5DA-4CE4-9B0A-F5A97A08402F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBE9BC81-573A-484B-8149-92E18286D9A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE9BC81-573A-484B-8149-92E18286D9A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE9BC81-573A-484B-8149-92E18286D9A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE9BC81-573A-484B-8149-92E18286D9A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
