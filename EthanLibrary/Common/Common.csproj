@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{41EB7DA6-2E4F-4A74-8B13-E2B8CD99D577}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EthanLibrary.Common</RootNamespace>
+    <AssemblyName>EthanLibrary.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BarCode\BarCodeToHTML.cs" />
+    <Compile Include="Calculate\FormulaCalculator.cs" />
+    <Compile Include="Calculate\FormulaExpress.cs" />
+    <Compile Include="Calendar\ChineseCalendar.cs" />
+    <Compile Include="Calendar\CNCalendar.cs" />
+    <Compile Include="Calendar\CNDateHelper.cs" />
+    <Compile Include="ConfigHelper.cs" />
+    <Compile Include="CRCUtils.cs" />
+    <Compile Include="DateTime\DateTimeHelper.cs" />
+    <Compile Include="DateTime\DateUtil.cs" />
+    <Compile Include="DateTime\MyDateTime.cs" />
+    <Compile Include="DateTime\TimeHelper.cs" />
+    <Compile Include="EmailHelper.cs" />
+    <Compile Include="EncryptDecrypt\AESEncode.cs" />
+    <Compile Include="EncryptDecrypt\Base64Util.cs" />
+    <Compile Include="EncryptDecrypt\DEncrypt.cs" />
+    <Compile Include="EncryptDecrypt\DESEncrypt.cs" />
+    <Compile Include="EncryptDecrypt\Encrypt.cs" />
+    <Compile Include="EncryptDecrypt\HashEncode.cs" />
+    <Compile Include="EncryptDecrypt\MD5Util.cs" />
+    <Compile Include="EncryptDecrypt\MySecurity.cs" />
+    <Compile Include="EncryptDecrypt\RSACryption.cs" />
+    <Compile Include="EncryptDecrypt\RSASecurityHelper.cs" />
+    <Compile Include="EnumHelper.cs" />
+    <Compile Include="EnumUtils.cs" />
+    <Compile Include="IDCardHelper.cs" />
+    <Compile Include="IdentifyEncoding.cs" />
+    <Compile Include="LogHelper.cs" />
+    <Compile Include="Media\MediaHandler.cs" />
+    <Compile Include="Media\VideoConvert.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PinYin\PinYin.cs" />
+    <Compile Include="PinYin\PinYinUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Random\RandomChinese.cs" />
+    <Compile Include="Random\RandomHelper.cs" />
+    <Compile Include="Reflect\Reflect.cs" />
+    <Compile Include="Reflect\ReflectHelper.cs" />
+    <Compile Include="Reflect\ReflectionUtil.cs" />
+    <Compile Include="Regex\RegexHelper.cs" />
+    <Compile Include="RMB.cs" />
+    <Compile Include="Segment\SegList.cs" />
+    <Compile Include="Serialize\Serialize.cs" />
+    <Compile Include="Serialize\SerializeHelper.cs" />
+    <Compile Include="Serialize\Serializer.cs" />
+    <Compile Include="SQLInjectionHelper.cs" />
+    <Compile Include="String\BytesTools.cs" />
+    <Compile Include="String\ConvertHelper.cs" />
+    <Compile Include="String\StringConstants.cs" />
+    <Compile Include="String\StringHelper.cs" />
+    <Compile Include="String\StringListHelp.cs" />
+    <Compile Include="String\UnicodeHelper.cs" />
+    <Compile Include="SysHelper.cs" />
+    <Compile Include="Tools.cs" />
+    <Compile Include="TypeTools.cs" />
+    <Compile Include="UIConstants.cs" />
+    <Compile Include="URLHelper.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="ValidateCode\Captcha.cs" />
+    <Compile Include="ValidateCode\UnCodebase.cs" />
+    <Compile Include="ValidateCode\ValidateImage.cs" />
+    <Compile Include="ValidateCode\ValidateImg.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ValidateCode\YZMHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Calendar\CCalendarData.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Web\Web.csproj">
+      <Project>{8770a142-1c1c-4ad2-ac94-88cf2bf97a0d}</Project>
+      <Name>Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

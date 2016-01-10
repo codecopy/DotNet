@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DB27351F-D884-41ED-92C1-46701D493398}</ProjectGuid>
+    <ProjectGuid>{8770A142-1C1C-4AD2-AC94-88CF2BF97A0D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EthanLibrary.Collections</RootNamespace>
-    <AssemblyName>EthanLibrary.Collections</AssemblyName>
+    <RootNamespace>EthanLibrary.Web</RootNamespace>
+    <AssemblyName>EthanLibrary.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,18 +43,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dictionary.cs" />
-    <Compile Include="ICloneable.cs" />
-    <Compile Include="List.cs" />
-    <Compile Include="OrderedDictionary.cs" />
-    <Compile Include="OrderedDictionaryEnumerator.cs" />
+    <Compile Include="CacheManage\CacheProvider.cs" />
+    <Compile Include="CacheManage\CacheUtil.cs" />
+    <Compile Include="CacheManage\ICache.cs" />
+    <Compile Include="CacheManage\MemCached.cs" />
+    <Compile Include="CacheManage\MemCached\HashAlgorithms.cs" />
+    <Compile Include="CacheManage\MemCached\LogAdapter.cs" />
+    <Compile Include="CacheManage\MemCached\MemcachedClient.cs" />
+    <Compile Include="CacheManage\MemCached\MemcachedClientException.cs" />
+    <Compile Include="CacheManage\MemCached\PooledSocket.cs" />
+    <Compile Include="CacheManage\MemCached\Serializer.cs" />
+    <Compile Include="CacheManage\MemCached\ServerPool.cs" />
+    <Compile Include="CacheManage\MemCached\SocketPool.cs" />
+    <Compile Include="CacheManage\WebCache.cs" />
+    <Compile Include="ControlHelp.cs" />
+    <Compile Include="Cookie&amp;Session&amp;Cache\CacheHelper.cs" />
+    <Compile Include="Cookie&amp;Session&amp;Cache\CookieHelper.cs" />
+    <Compile Include="Cookie&amp;Session&amp;Cache\SessionAdapter.cs" />
+    <Compile Include="Cookie&amp;Session&amp;Cache\SessionHelper.cs" />
+    <Compile Include="JavaScript\JavaScriptHelper.cs" />
+    <Compile Include="JavaScript\JavaScriptMinifier.cs" />
+    <Compile Include="PageControlHelper.cs" />
+    <Compile Include="PageListUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SortHelper.cs" />
-    <Compile Include="SyncDictionary.cs" />
-    <Compile Include="SyncList.cs" />
-    <Compile Include="SyncOrderedDictionary.cs" />
-    <Compile Include="ThreadSafeDictionary.cs" />
-    <Compile Include="ThreadSafeSortedList.cs" />
+    <Compile Include="QueryString.cs" />
+    <Compile Include="UBB.cs" />
+    <Compile Include="WebControl\BindDataControl.cs" />
+    <Compile Include="WebControl\GridViewHelper.cs" />
+    <Compile Include="WebControl\WebControl.cs" />
+    <Compile Include="WebControl\WebControlHelper.cs" />
+    <Compile Include="WebSitePathHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
