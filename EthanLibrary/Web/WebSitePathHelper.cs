@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace Common
+namespace EthanLibrary.Common
 {
     /// <summary>
     /// 网站路径操作类

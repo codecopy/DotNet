@@ -5,6 +5,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Core;
+//using Excel;
 
 namespace EthanLibrary.Office
 {
@@ -455,12 +458,12 @@ namespace EthanLibrary.Office
 
                     //Manipulate the object settings
                     myShapes[i].Rotation = 45F;
-                    myShapes[i].Fill.Visible = Microsoft.Office.EthanLibrary.MsoTriState.msoFalse;
+                    myShapes[i].Fill.Visible = Microsoft.Office.Core.MsoTriState.msoFalse;
                     myShapes[i].Fill.Transparency = 0F;
                     myShapes[i].Line.Weight = 1.75F;
                     myShapes[i].Line.DashStyle = MsoLineDashStyle.msoLineSolid;
                     myShapes[i].Line.Transparency = 0F;
-                    myShapes[i].Line.Visible = Microsoft.Office.EthanLibrary.MsoTriState.msoTrue;
+                    myShapes[i].Line.Visible = Microsoft.Office.Core.MsoTriState.msoTrue;
                     myShapes[i].Line.ForeColor.RGB = (0 << 16) | (0 << 8) | 0;
                     myShapes[i].Line.BackColor.RGB = (255 << 16) | (255 << 8) | 255;
                 }

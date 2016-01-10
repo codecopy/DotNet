@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Media;
 
-namespace Common
+namespace EthanLibrary.Common
 {
     /// <summary>
     /// 处理多媒体的公共类

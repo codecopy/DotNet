@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Common
+namespace EthanLibrary.Common
 {
     /// <summary>
     /// MySecurity(安全类) 的摘要说明。

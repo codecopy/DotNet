@@ -605,8 +605,7 @@ namespace EthanLibrary.Common
         private string GetChineseHour(DateTime dt)
         {
             int _hour, _minute, offset, i;
-            int indexGan;
-            string ganHour, zhiHour;
+            int indexGan;          
             string tmpGan;
 
             //计算时辰的地支

@@ -12,13 +12,12 @@
 
 //MD5加密
 //public string MD5Encrypt(string strText)
-using Common;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Commons
+namespace EthanLibrary.Common
 {
     /// <summary>
     /// DES对称加解密、AES RijndaelManaged加解密、Base64加密解密、MD5加密等操作辅助类

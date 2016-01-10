@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Common
+namespace EthanLibrary.Common
 {
     /// <summary>
     /// RSA加密解密及RSA签名和验证

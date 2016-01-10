@@ -1,4 +1,4 @@
-﻿namespace Commons
+﻿namespace EthanLibrary.Common
 {
     #region Class IdentifyEncoding.....
 

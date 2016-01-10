@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Text;
+using COM.Excel;
 
 namespace EthanLibrary.Office
 {

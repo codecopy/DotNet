@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Commons
+namespace EthanLibrary.Common
 {
     /// <summary>
     /// MD5各种长度加密字符、验证MD5等操作辅助类

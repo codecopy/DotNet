@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Common
+namespace EthanLibrary.Common
 {
     public class Encrypt
     {

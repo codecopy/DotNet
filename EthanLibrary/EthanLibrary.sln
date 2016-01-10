@@ -38,12 +38,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{CAF046DA-C2EF-4AFD-985D-4A1EB5567F68}"
 	ProjectSection(SolutionItems) = preProject
 		Lib\COM.Excel.dll = Lib\COM.Excel.dll
-		Lib\Excel.dll = Lib\Excel.dll
 		Lib\ICSharpCode.SharpZipLib.dll = Lib\ICSharpCode.SharpZipLib.dll
 		Lib\itextsharp.dll = Lib\itextsharp.dll
 		Lib\log4net.dll = Lib\log4net.dll
 		Lib\Microsoft.Office.Interop.Owc11.dll = Lib\Microsoft.Office.Interop.Owc11.dll
-		Lib\Microsoft.Web.UI.WebControls.dll = Lib\Microsoft.Web.UI.WebControls.dll
 		Lib\OWC10Chart.dll = Lib\OWC10Chart.dll
 	EndProjectSection
 EndProject

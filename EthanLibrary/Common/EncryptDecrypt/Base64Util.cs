@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Common
+namespace EthanLibrary.Common
 {
     /// <summary>
     /// 基于Base64的加密编码，

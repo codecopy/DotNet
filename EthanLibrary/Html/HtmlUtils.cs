@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
 
-namespace Common
+namespace EthanLibrary.Common
 {
     public class HtmlUtils
     {
