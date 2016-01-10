@@ -539,16 +539,17 @@ namespace EthanLibrary.Web
             HttpContext.Current.Response.Write(js);
         }
 
+
         /// <summary>
         /// 向客户端发送函数KendoPostBack(eventTarget, eventArgument)
         /// 服务器端可接收__EVENTTARGET,__EVENTARGUMENT的值
         /// </summary>
         /// <param name="page">System.Web.UI.Page 一般为this</param>
-        public static void JscriptSender(System.Web.UI.Page page)
+        public static void JscriptSender(System.Web.UI.ClientScriptManager clientScript)
         {
 
-            page.RegisterHiddenField("__EVENTTARGET", "");
-            page.RegisterHiddenField("__EVENTARGUMENT", "");
+            clientScript.RegisterHiddenField("__EVENTTARGET", "");
+            clientScript.RegisterHiddenField("__EVENTARGUMENT", "");
             string s = @"		
 <script language=Javascript>
       function KendoPostBack(eventTarget, eventArgument) 
@@ -560,13 +561,11 @@ namespace EthanLibrary.Web
 			}
 </script>";
 
-            page.RegisterStartupScript("sds", s);
+            clientScript.RegisterStartupScript(typeof(String), "sds", s);
         }
 
-      
-     
 
-    
+
 
     }
 }
