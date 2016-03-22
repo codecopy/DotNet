@@ -318,6 +318,8 @@ namespace EthanLibrary.DBUtility
         /// <summary>
         /// 转换为可空DateTime类型数据
         /// </summary>
+        /// <param name="column"></param>
+        /// <returns></returns>
         public DateTime? GetDateTimeNullable(string column)
         {
             DateTime? data = (reader.IsDBNull(reader.GetOrdinal(column))) ? (DateTime?)null : Convert.ToDateTime(reader[column].ToString());
